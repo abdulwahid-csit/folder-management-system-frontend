@@ -1,0 +1,41 @@
+<div class="data_table_wrapper">
+    <div class="d-flex align-items-center justify-content-between dataTable_header">
+        <h4 class="primary_color mb-0">Organizations</h4>
+        <div class="d-flex">
+            <div class="position-relative display-flex ms-3">
+                <input type="text" class="form-control dataTableSearch" [(ngModel)]="searchTerm" placeholder="Search by name or domain">
+                <span class="search_icon" [inlineSVG]="'./assets/icons/search.svg'"></span>
+            </div>
+            <button type="button" class="btn filter_btn ms-3"><span class="me-1" [inlineSVG]="'./assets/icons/filter.svg'"></span> Filter</button>
+            <button type="button" class="primary_button ms-3" (click)="createOrganization()">Create Organization</button>
+        </div>
+    </div>
+    <table class="table ">
+        <thead>
+            <tr>
+                <th *ngFor="let column of columns">{{column.name}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of filteredData()">
+                <td>{{data.name ? data.name : '-'}}</td>
+                <td>{{data.domain ? data.domain : '-'}}</td>
+                <td>{{data.total_no_of_application ? data.total_no_of_application : '-'}}</td>
+                <td>{{data.users ? data.users : '-'}}</td>
+                <td><span class="{{data.status == 'active' ? 'badge badge-light-success text-capitalize' : 'badge badge-light-warning text-capitalize'}}">{{data.status}}</span></td>
+                <td>{{data.creationDate ? data.creationDate : '-'}}</td>
+            </tr>
+            <tr *ngIf="dataSet.length <= 0">
+                <td colspan="12">No Search Found</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="dataTable_pagination d-flex align-items-center justify-content-between">
+        <div>
+            <p class="mb-0">Showing <strong>1</strong> to <strong>10</strong> of <strong>20</strong> results</p>
+        </div>
+        <div>
+            <app-pagination [totalPages]="config.paginationParams.total_pages" [(currentPage)]="config.paginationParams.current_page"></app-pagination>
+        </div>
+    </div>
+</div>

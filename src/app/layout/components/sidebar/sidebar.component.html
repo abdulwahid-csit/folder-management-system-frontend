@@ -1,0 +1,23 @@
+<div class="sidebar-main">
+    <div class="logo">
+        <img src="../../../../assets/logos/main_logo.png" alt="">
+    </div>
+    <div class="navigations">
+        <ul>
+            <li class="d-flex align-items-center" (click)="setActive('Dashboard')" [ngClass]="{'active': activeMenu === 'Dashboard'}"><span class="d-flex align-items-center sidebar_svg" [inlineSVG]="'./assets/icons/home-03.svg'"></span><a>Dashboard</a></li>
+
+            <li class="d-flex align-items-center" (click)="setActive('Organizations')" [ngClass]="{'active': activeMenu === 'Organizations'}"><span class="d-flex align-items-center sidebar_svg" [inlineSVG]="'./assets/icons/Icon.svg'"></span><a>Organizations</a></li>
+
+            <li class="d-flex align-items-center sidebar_svg" (click)="setActive('Permissions')" [ngClass]="{'active': activeMenu === 'Permissions'}"><span class="d-flex align-items-center sidebar_svg" [inlineSVG]="'./assets/icons/check-verified-02.svg'"></span><a>Roles & Permissions</a></li>
+
+            <li class="d-flex align-items-center sidebar_svg" (click)="setActive('Applications')" [ngClass]="{'active': activeMenu === 'Applications'}"><span class="d-flex align-items-center sidebar_svg" [inlineSVG]="'./assets/icons/monitor-02.svg'"></span><a>Applications</a></li>
+
+            <li class="d-flex align-items-center sidebar_svg" (click)="setActive('Users')" [ngClass]="{'active': activeMenu === 'Users'}"><span class="d-flex align-items-center sidebar_svg" [inlineSVG]="'./assets/icons/Icon1.svg'"></span><a>Users</a></li>
+
+            <li class="d-flex align-items-center sidebar_svg" (click)="setActive('Secrets')" [ngClass]="{'active': activeMenu === 'Secrets'}"><span class="d-flex align-items-center sidebar_svg" [inlineSVG]="'./assets/icons/lock-keyhole-square.svg'"></span><a>Secrets</a></li>
+
+            <li class="d-flex align-items-center sidebar_svg" (click)="setActive('teamMembers')" [ngClass]="{'active': activeMenu === 'teamMembers'}"><span class="d-flex align-items-center sidebar_svg" [inlineSVG]="'./assets/icons/users-03.svg'"></span><a>Team Members</a></li>
+
+        </ul>
+    </div>
+</div>

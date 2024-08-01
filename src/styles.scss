@@ -1,0 +1,69 @@
+/* You can add global styles to this file, and also import other style files */
+body{
+    background-color:#F1F5F9 !important;
+}
+.cursor-pointer{
+    cursor: pointer;
+}
+.primary_color{
+    color: #1F2D3D;
+}
+.primary_color_bg{
+    background-color: #1F2D3D;
+}
+.font_weight_500{
+    font-weight: 500;
+}
+.primary_button{
+    background-color: #6F61CF;
+    color: white;
+    padding: 10px 16px 10px 16px;
+    border: none;
+    border-radius: 6px;
+    height: 48px;
+}
+.cancel_btn {
+    border: 1px solid rgb(208, 219, 229) !important;
+    color: rgb(132, 146, 166);
+    padding: 10px 16px 10px 16px;
+    border-radius: 6px;
+    height: 48px;
+    background: white;
+}
+.sso_card{
+    box-shadow: 0px 0px 1px 0px rgba(12, 26, 75, 0.24);
+    background-color: white;
+    border-radius: 16px;
+}
+.badge-light-success {
+    color: rgba(34, 197, 94, 1) !important;
+    background-color: rgba(221, 255, 234, 1);
+    border-radius: 15px !important;
+    padding: 6px 14px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+}
+.badge-light-warning {
+    color: rgba(245, 158, 11, 1) !important;
+    background-color: rgba(255, 243, 223, 1) !important;
+    border-radius: 15px !important;
+    padding: 6px 14px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+}
+.create_organization{
+    max-width: 600px !important;
+    .modal-content{
+        box-shadow: 0px 2px 12px 4px rgba(0, 0, 0, 0.06);
+        background: white;
+        border-radius: 16px;
+    }
+}
+.required:after {
+    content: "*";
+    position: relative;
+    font-size: inherit;
+    color: #ee6352;
+    padding-left: .25rem;
+    font-weight: 700;
+}

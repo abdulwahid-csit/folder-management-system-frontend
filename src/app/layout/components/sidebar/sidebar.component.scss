@@ -47,8 +47,8 @@ li.active{
         height: 20px;
         background-color: #6F61CF;             
     }
-    svg.sidebar_svg{
-        fill: #6F61CF;
+    .sidebar_svg{
+        filter: invert(45%) sepia(80%) saturate(5000%) hue-rotate(225deg) brightness(95%) contrast(85%);
     }
     a{
         color: #6F61CF !important;

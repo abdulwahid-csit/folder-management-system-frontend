@@ -11,16 +11,17 @@ export class DataTableComponent implements OnInit {
  @Input() columns:any
  @Input() config:any
  @Input() dataSet:any
+ @Input() searchTerm: string = '';
  totalPages = 100;
  currentPage = 1;
  modalRef?: BsModalRef;
- searchTerm: string = '';
  searchResults: any[] = [];
  searchFilter:boolean = false
  maintainStationList:any = []
 
  constructor(private modalService: BsModalService){ }
- ngOnInit(): void { console.log('pagination data:-', this.config.paginationParams.total_pages) }
+
+ ngOnInit(): void { }
 
  createOrganization() {
   // const initialState = { data, type: 'asset' };
@@ -35,13 +36,11 @@ export class DataTableComponent implements OnInit {
   // });
 }
 
-  filteredData() {
-    if (!this.searchTerm) {
+  filteredData(searchValue:any) {
+    if (!searchValue) {
       return this.dataSet;
     }
-
-    const lowercasedSearchTerm = this.searchTerm.toLowerCase();
-    
+    const lowercasedSearchTerm = searchValue.toLowerCase();
     return this.dataSet.filter((item:any) =>
       Object.values(item).some(value => {
         if (value === null || value === undefined) {

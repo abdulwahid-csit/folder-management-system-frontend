@@ -12,7 +12,7 @@ export class DataTableComponent implements OnInit {
  @Input() config:any
  @Input() dataSet: any[] = [];
  @Input() searchTerm: string = '';
- totalPages = 100;
+ totalPages = 50;
  currentPage = 1;
  modalRef?: BsModalRef;
  searchResults: any[] = [];

@@ -1,22 +1,28 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SsoAdminRoutingModule } from './sso-admin-routing.module';
+import { OrganizationRoutingModule } from './organization-routing.module';
 import { CreateOrganizationComponent } from './components/create-organization/create-organization.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
+import { OrganizationComponent } from './components/organization/organization.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { InlineSVGModule } from 'ng-inline-svg';
 
 
 @NgModule({
   declarations: [
-    CreateOrganizationComponent
+    CreateOrganizationComponent,
+    OrganizationComponent
   ],
   imports: [
     CommonModule,
-    SsoAdminRoutingModule,
+    OrganizationRoutingModule,
     ModalModule.forRoot(),
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    SharedModule,
+    InlineSVGModule
   ]
 })
 export class SsoAdminModule { }

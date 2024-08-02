@@ -1,4 +1,47 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: 'regular';
+    src: url('../src/assets/fonts/Urbanist-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+@font-face {
+    font-family: 'medium';
+    src: url('../src/assets/fonts/Urbanist-Medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+@font-face {
+    font-family: 'bold';
+    src: url('../src/assets/fonts/Urbanist-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+@font-face {
+    font-family: 'semi-bold';
+    src: url('../src/assets/fonts/Urbanist-SemiBold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+
+.semi-bold-fonts{
+    font-family: 'semi-bold',sans-serif;
+}
+.bold-fonts{
+    font-family: 'bold',  sans-serif;
+}
+.medium-fonts{
+    font-family: 'medium', sans-serif;
+}
+.regular-fonts{
+    font-family: 'regular', sans-serif;
+}
+
+
+
+
+
 body{
     background-color:#F1F5F9 !important;
 }

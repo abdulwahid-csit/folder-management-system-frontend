@@ -1,5 +1,5 @@
-import {  Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators,  } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators, } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 
 
@@ -9,34 +9,27 @@ import { BsModalService } from 'ngx-bootstrap/modal';
   styleUrls: ['./create-user.component.scss']
 })
 export class CreateUserComponent {
-  
-  
-
-  constructor(private bsModalService: BsModalService, private fb: FormBuilder,)
-  { 
-    
-
- }
-  userForm!:FormGroup
-isPasswordVisible = false;
+    constructor(private bsModalService: BsModalService, private fb: FormBuilder,) { }
+  userForm!: FormGroup
+  isPasswordVisible = false;
   ngOnInit(): void {
     this.userForm = this.fb.group({
       firstName: [null, Validators.compose([Validators.required])],
       lastName: [null, Validators.compose([Validators.required])],
-       userName: [null, Validators.compose([Validators.required])],
+      userName: [null, Validators.compose([Validators.required])],
       domainName: [null, Validators.compose([Validators.required])],
-       phoneName: [null, Validators.compose([Validators.required])],
+      phoneName: [null, Validators.compose([Validators.required])],
       email: [null, Validators.compose([Validators.required])],
-       password: [null, Validators.compose([Validators.required])],
+      password: [null, Validators.compose([Validators.required])],
       role: [null, Validators.compose([Validators.required])],
     })
   }
 
   ngAfterViewInit(): void {
-    
+
   }
 
-   isControlHasError(controlName: string, validationType: string): boolean {
+  isControlHasError(controlName: string, validationType: string): boolean {
     const control = this.userForm.controls[controlName];
     if (!control) {
       return false;
@@ -46,7 +39,7 @@ isPasswordVisible = false;
     );
   }
 
-  closeModal(){
+  closeModal() {
     this.bsModalService.hide()
   }
   onSubmit(): void {
@@ -63,7 +56,7 @@ isPasswordVisible = false;
     // Close modal
     this.bsModalService.hide();
   }
-    togglePasswordVisibility(): void {
+  togglePasswordVisibility(): void {
     this.isPasswordVisible = !this.isPasswordVisible;
   }
 }

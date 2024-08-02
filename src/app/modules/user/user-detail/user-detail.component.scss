@@ -174,3 +174,30 @@
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
+/* Table styling */
+table {
+    width: 100%;
+    /* Adjust as needed */
+    border-collapse: collapse;
+    /* Merges borders */
+    margin: 0 auto;
+    /* Optional: centers the table within its container */
+}
+
+th,
+td {
+    padding: 5px;
+    /* Space inside cells */
+    text-align: left;
+    /* Aligns text to the left */
+    border-bottom: 1px solid rgb(238, 227, 227);
+    /* Border for rows */
+}
+
+/* Optional: styling for table headers */
+th {
+    border-top: 1px solid rgb(238, 227, 227);
+    /* Border on top of headers */
+}
+
+/* Optional: remove border from the first row if desired */

@@ -1,9 +1,9 @@
-<div class="organization_modal">
+<div class="common_modal">
     <div class="modal-header border-bottom-0">
         <h2 class="primary_color mb-0">Create Organization</h2>
     </div>
     <div class="modal-body">
-        <form>
+        <form [formGroup]="organizationForm">
             <div class="mb-4">
                 <label for="" class="mb-1 primary_color required font_weight_500">Name</label>
                 <input type="text" class="form-control form-control-lg" formControlName="organizationName" placeholder="Enter organization name">

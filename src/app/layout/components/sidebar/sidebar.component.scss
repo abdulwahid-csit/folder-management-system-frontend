@@ -57,3 +57,11 @@ li.active{
 .no-underline {
   text-decoration: none;
 }
+.sidebar-main.close_sidebar{
+    transform: translate(-100%);
+    transition: .5s ease;
+}
+.sidebar-main {
+    transform: translate(0%);
+    transition: .5s ease;
+}

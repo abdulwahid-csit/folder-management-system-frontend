@@ -11,7 +11,7 @@ export class LayoutComponent implements OnInit {
   constructor(private commonService:CommonService) { }
 
   ngOnInit(): void {
-    this.commonService.sidebarVisible$.subscribe(visible => {
+    this.commonService.sidebarVisible$.subscribe((visible:boolean) => {
       this.isSidebarVisible = visible;
     });
   }

@@ -1,16 +1,18 @@
-import { Component } from '@angular/core';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { CreateOrganizationComponent } from '../create-organization/create-organization.component';
-import { OrganizationDetailsComponent } from '../organization-details/organization-details.component';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
-  selector: 'app-organization',
-  templateUrl: './organization.component.html',
-  styleUrls: ['./organization.component.scss']
+  selector: 'app-organization-details',
+  templateUrl: './organization-details.component.html',
+  styleUrls: ['./organization-details.component.scss']
 })
-export class OrganizationComponent {
+export class OrganizationDetailsComponent implements OnInit {
 
-  constructor(private modalService: BsModalService){}
+  selectedTab = 'features';
+  modalRef: any;
+  modalOpen: boolean = false;;
+  constructor(private modalService: BsModalService) { }
 
   columns:any = []
 
@@ -20,8 +22,7 @@ export class OrganizationComponent {
   has_next= false
   skipped_records = 0
   total_records = 7
-  modalRef?: BsModalRef;
-  searchTerm: string = '';
+  organizationForm!:FormGroup
   
   organizationList:any = []
     dataTable:any = [
@@ -29,23 +30,20 @@ export class OrganizationComponent {
         data: {
             columns:[
               {
-                name: 'Name',
+                name: 'user',
               },
               {
-                name: 'domain',
+                name: 'Full Name',
               },
               {
-                name: 'Total No. Of Applications',
+                name: 'Role',
               },
               {
-                name: 'users',
+                name: 'Status',
               },
               {
-                name: 'status',
+                name: 'Last Sign-in',
               },
-              {
-                name: 'Creation Date',
-              }
             ],
             payload: [
                 {
@@ -59,7 +57,7 @@ export class OrganizationComponent {
                     "total_no_of_application": 15,
                     "users": 199,
                     "status": 'active',
-                    "creationDate": '12-8-2024'
+                    
                 },
                 {
                     "id": 3,
@@ -85,7 +83,7 @@ export class OrganizationComponent {
                     "total_no_of_application": 1,
                     "users": 900,
                     "status": 'active',
-                    "creationDate": '15-8-2024'
+                    
                 },
                 {
                     "id": 9,
@@ -98,7 +96,7 @@ export class OrganizationComponent {
                     "total_no_of_application": 14,
                     "users": 189,
                     "status": 'inactive',
-                    "creationDate": '30-8-2024'
+                    
                 },
                 {
                     "id": 8,
@@ -111,7 +109,7 @@ export class OrganizationComponent {
                     "total_no_of_application": 7,
                     "users": 130,
                     "status": 'active',
-                    "creationDate": '12-10-2023'
+                   
                 },
                 {
                     "id": 11,
@@ -124,7 +122,7 @@ export class OrganizationComponent {
                     "total_no_of_application": 10,
                     "users": 150,
                     "status": 'inactive',
-                    "creationDate": '12-8-2024'
+                   
                 },
                 {
                     "id": 10,
@@ -137,7 +135,7 @@ export class OrganizationComponent {
                     "total_no_of_application": 1,
                     "users": 114,
                     "status": 'active',
-                    "creationDate": '12-12-2023'
+                   
                 }
             ],
             paginate_options: {
@@ -150,7 +148,22 @@ export class OrganizationComponent {
             }
         }
     }
-    ]
+    ];
+
+    applicationColumns: any =[
+      {
+        name: 'Name',
+      },
+      {
+        name: 'App id',
+      },
+      {
+        name: 'Url',
+      },
+      {
+        name: 'Creation Date',
+      },
+    ];
   
     // assign the data from api like total_pages, payload_size
     tableConfig = {
@@ -163,19 +176,55 @@ export class OrganizationComponent {
         "total_records": this.total_records
       }
     };
-  
-    ngOnInit(): void {
-      this.columns = this.dataTable[0]?.data?.columns;
-      this.organizationList = this.dataTable[0].data.payload
-    }
 
-    createOganization() {
-      // const initialState = { data, type: 'asset' };
-      this.modalRef = this.modalService.show(CreateOrganizationComponent, {
-        class: 'modal-dialog modal-dialog-centered modal-lg create_organization',
-        backdrop: 'static',
-        keyboard: false,
-        // initialState,
-      });
+
+
+
+
+  ngOnInit() {
+    this.columns = this.dataTable[0]?.data?.columns;
+    this.organizationList = this.dataTable[0].data.payload;
+
+    this.organizationForm = new FormGroup({
+      organizationName: new FormControl('', [Validators.required]),
+      domainName: new FormControl('', [Validators.required])
+    })
+  }
+
+  setSelectedTab(tab: string){
+    this.selectedTab = tab;
+    if(tab === 'applications'){
+      this.columns = this.applicationColumns;
+    }else{
+      this.columns = this.columns = this.dataTable[0]?.data?.columns;
     }
+  }
+
+  openModal(template: TemplateRef<any>): void {
+    this.modalRef = this.modalService.show(template, {
+    class: 'modal-dialog modal-dialog-centered invite-admin-modal',
+    backdrop: 'static',
+    keyboard: false,
+    
+    });
+    this.modalOpen = true;
+  }
+
+
+  closeModal(): void {
+    this.modalRef?.hide();
+    this.modalOpen = false;
+  }
+
+
+  isControlHasError(controlName: any, validationType: string): boolean {
+    const control = this.organizationForm.controls[controlName];
+    if (!control) {
+      return false;
+    }
+    return (
+      control.hasError(validationType) && (control.dirty || control.touched)
+    );
+  }
+
 }

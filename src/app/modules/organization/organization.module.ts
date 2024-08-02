@@ -8,12 +8,14 @@ import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { OrganizationComponent } from './components/organization/organization.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { InlineSVGModule } from 'ng-inline-svg';
+import { OrganizationDetailsComponent } from './components/organization-details/organization-details.component';
 
 
 @NgModule({
   declarations: [
     CreateOrganizationComponent,
-    OrganizationComponent
+    OrganizationComponent,
+    OrganizationDetailsComponent
   ],
   imports: [
     CommonModule,

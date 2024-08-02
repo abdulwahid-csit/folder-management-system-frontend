@@ -6,7 +6,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let data of filteredData(this.searchTerm)">
+            <tr *ngFor="let data of filterData">
                 <td>{{data.name ? data.name : '-'}}</td>
                 <td>{{data.domain ? data.domain : '-'}}</td>
                 <td>{{data.total_no_of_application ? data.total_no_of_application : '-'}}</td>
@@ -14,8 +14,8 @@
                 <td><span class="{{data.status == 'active' ? 'badge badge-light-success text-capitalize' : 'badge badge-light-warning text-capitalize'}}">{{data.status}}</span></td>
                 <td>{{data.creationDate ? data.creationDate : '-'}}</td>
             </tr>
-            <tr *ngIf="dataSet.length <= 0">
-                <td colspan="12">No Search Found</td>
+            <tr *ngIf="filterData.length == 0" class="text-center">
+                <td colspan="12" class="font_weight_600">No Search Found</td>
             </tr>
         </tbody>
     </table>

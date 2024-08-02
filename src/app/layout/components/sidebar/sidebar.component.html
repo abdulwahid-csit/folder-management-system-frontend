@@ -1,4 +1,4 @@
-<div class="sidebar-main">
+<div class="sidebar-main" [class.close_sidebar]="isSidebarVisible">
     <div class="logo">
         <img src="../../../../assets/logos/main_logo.png" alt="">
     </div>
@@ -12,7 +12,7 @@
 
             <li class="d-flex align-items-center sidebar_svg" (click)="setActive('Applications')" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><span class="d-flex align-items-center sidebar_svg" [inlineSVG]="'./assets/icons/monitor-02.svg'"></span><a>Applications</a></li>
 
-            <li class="d-flex align-items-center sidebar_svg" (click)="setActive('Users')" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><span class="d-flex align-items-center sidebar_svg" [inlineSVG]="'./assets/icons/Icon1.svg'"></span><a>Users</a></li>
+            <li class="d-flex align-items-center sidebar_svg" (click)="setActive('Users')" routerLink="user" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><span class="d-flex align-items-center sidebar_svg" [inlineSVG]="'./assets/icons/Icon1.svg'"></span><a>Users</a></li>
 
             <li class="d-flex align-items-center sidebar_svg" (click)="setActive('Secrets')" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><span class="d-flex align-items-center sidebar_svg" [inlineSVG]="'./assets/icons/lock-keyhole-square.svg'"></span><a>Secrets</a></li>
 

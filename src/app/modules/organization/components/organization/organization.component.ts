@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { CreateOrganizationComponent } from '../create-organization/create-organization.component';
 import { OrganizationDetailsComponent } from '../organization-details/organization-details.component';
 
 @Component({
@@ -8,6 +9,9 @@ import { OrganizationDetailsComponent } from '../organization-details/organizati
   styleUrls: ['./organization.component.scss']
 })
 export class OrganizationComponent {
+
+  constructor(private modalService: BsModalService){}
+
   columns:any = []
 
   total_pages = 10;
@@ -16,6 +20,8 @@ export class OrganizationComponent {
   has_next= false
   skipped_records = 0
   total_records = 7
+  modalRef?: BsModalRef;
+  searchTerm: string = '';
   
   organizationList:any = []
     dataTable:any = [
@@ -157,24 +163,19 @@ export class OrganizationComponent {
         "total_records": this.total_records
       }
     };
-  modalRef: any;
-
-
-    constructor(private modalService: BsModalService){}
   
     ngOnInit(): void {
       this.columns = this.dataTable[0]?.data?.columns;
       this.organizationList = this.dataTable[0].data.payload
     }
 
-
-    openMoal(){
-      this.modalRef = this.modalService.show(OrganizationDetailsComponent, {
+    createOganization() {
+      // const initialState = { data, type: 'asset' };
+      this.modalRef = this.modalService.show(CreateOrganizationComponent, {
         class: 'modal-dialog modal-dialog-centered modal-lg create_organization',
         backdrop: 'static',
         keyboard: false,
         // initialState,
       });
-
     }
 }

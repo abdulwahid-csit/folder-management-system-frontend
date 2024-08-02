@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AuthenticationModule } from './modules/authentication/authentication.module';
+import { InlineSVGModule } from 'ng-inline-svg';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,10 @@ import { AuthenticationModule } from './modules/authentication/authentication.mo
     ReactiveFormsModule,
     BrowserAnimationsModule,
     FormsModule,
-    AuthenticationModule
+    AuthenticationModule,
+    InlineSVGModule
+
+
   ],
   providers: [],
   bootstrap: [AppComponent]

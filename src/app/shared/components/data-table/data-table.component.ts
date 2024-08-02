@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { CreateOrganizationComponent } from 'src/app/modules/organization/components/create-organization/create-organization.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
@@ -10,7 +10,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 export class DataTableComponent implements OnInit {
  @Input() columns:any
  @Input() config:any
- @Input() dataSet:any
+ @Input() dataSet: any[] = [];
  @Input() searchTerm: string = '';
  totalPages = 100;
  currentPage = 1;
@@ -18,10 +18,17 @@ export class DataTableComponent implements OnInit {
  searchResults: any[] = [];
  searchFilter:boolean = false
  maintainStationList:any = []
+ filterData: any[] = [];
 
  constructor(private modalService: BsModalService){ }
 
  ngOnInit(): void { }
+
+ ngOnChanges(changes: SimpleChanges) {
+  if (changes['searchTerm'] || changes['dataSet']) {
+    this.filteredData();
+  }
+}
 
  createOrganization() {
   // const initialState = { data, type: 'asset' };
@@ -36,17 +43,16 @@ export class DataTableComponent implements OnInit {
   // });
 }
 
-  filteredData(searchValue:any) {
-    if (!searchValue) {
-      return this.dataSet;
+  filteredData() {
+    if (!this.searchTerm) {
+      this.filterData = this.dataSet;
     }
-    const lowercasedSearchTerm = searchValue.toLowerCase();
-    return this.dataSet.filter((item:any) =>
+    const lowercasedSearchTerm = this.searchTerm.toLowerCase();
+    this.filterData = this.dataSet.filter((item:any) =>
       Object.values(item).some(value => {
         if (value === null || value === undefined) {
           return false;
         }
-        // Convert to string and check if search term is included
         return value.toString().toLowerCase().includes(lowercasedSearchTerm);
       })
     );

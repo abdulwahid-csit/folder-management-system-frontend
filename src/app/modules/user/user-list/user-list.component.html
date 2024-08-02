@@ -1,5 +1,8 @@
 
 <button (click)="createUser()" ></button>
+    <li class="d-flex align-items-center sidebar_svg" (click)="setActive('Users')" routerLink="userDetail"
+        routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><span
+            class="d-flex align-items-center sidebar_svg" [inlineSVG]="'./assets/icons/Icon1.svg'"></span><a>Users</a></li>
 <div class="sso_card w-100 h-100">
     <app-data-table [columns]="columns" [config]="tableConfig" [dataSet]="organizationList"></app-data-table>
 </div>

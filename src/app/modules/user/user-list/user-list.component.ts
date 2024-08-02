@@ -15,7 +15,7 @@ export class UserListComponent {
  createUser() {
   // const initialState = { data, type: 'asset' };
   this.modalRef = this.modalService.show(CreateUserComponent, {
-    class: 'modal-dialog modal-dialog-centered modal-lg create_organization',
+    class: 'modal-dialog modal-dialog-centered modal-lg',
     backdrop: 'static',
     keyboard: false,
     // initialState,
@@ -177,6 +177,14 @@ organizationList:any = []
     this.columns = this.dataTable[0]?.data?.columns;
     this.organizationList = this.dataTable[0].data.payload
   }
+  router: any
+  activeMenu: string = 'Dashboard'; 
+    setActive(menu: string): void {
+    this.activeMenu = menu;
+  }
+ navigate() {
+  this.router.navigate(['/userDetail']);
+}
 }
 
 

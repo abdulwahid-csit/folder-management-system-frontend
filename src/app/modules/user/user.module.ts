@@ -5,7 +5,9 @@ import { UserListComponent } from './user-list/user-list.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { NgSelectModule } from '@ng-select/ng-select';
+import { ReactiveFormsModule } from '@angular/forms';
+import { UserDetailComponent } from './user-detail/user-detail.component'; 
+
 
 
 
@@ -14,7 +16,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 @NgModule({
   declarations: [
     UserListComponent,
-    CreateUserComponent
+    CreateUserComponent,
+    UserDetailComponent
    
 
   ],
@@ -23,7 +26,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     UserRoutingModule,
     InlineSVGModule,
     SharedModule,
-     NgSelectModule 
+    ReactiveFormsModule
+    
     
   ]
   

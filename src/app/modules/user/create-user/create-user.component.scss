@@ -1,0 +1,53 @@
+/* Ensure that the space for the error message is always present */
+.input-container {
+  position: relative;
+  .password_field_container{
+    display: flex;
+    top: 5px;
+    right: 21px;
+    align-items: center;
+    gap: 0.3rem;
+}
+  
+  }
+
+
+.input-container .text-danger {
+  position: absolute;
+  bottom: -20px; /* Adjust based on your design */
+  left: 0;
+  font-size: 0.875rem; /* Smaller font size */
+  color: #dc3545; /* Bootstrap's default danger color */
+}
+
+/* Ensure the input field has the correct border color */
+.is-invalid {
+  border-color: #dc3545; /* Bootstrap's default danger color */
+}
+
+/* Optional: Adjust margin for labels if needed */
+.form-label {
+  margin-bottom: 0.5rem; /* Adjust based on your design */
+}
+.vertical-line {
+    color: black;
+  height: 37px; // Adjust height as needed
+  border-left: 1px solid #151616; // Vertical line
+  margin: 0 0.5rem; // Space between the line and surrounding elements
+}
+.user_modal{
+    h2{
+        font-weight: 700;
+        font-size: 22px;
+    }
+    .modal-body{
+        padding: 22px 40px 40px;
+        input::placeholder {
+            font-size: 16px;
+            color: rgba(132, 146, 166, 1);
+          }
+    }
+    .modal-header{
+        padding: 40px 40px 0;
+    }
+}

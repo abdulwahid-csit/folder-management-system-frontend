@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { CreateOrganizationComponent } from '../create-organization/create-organization.component';
 
 @Component({
   selector: 'app-organization',
@@ -6,6 +8,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./organization.component.scss']
 })
 export class OrganizationComponent {
+
+  constructor(private modalService: BsModalService){}
+
   columns:any = []
 
   total_pages = 10;
@@ -14,6 +19,8 @@ export class OrganizationComponent {
   has_next= false
   skipped_records = 0
   total_records = 7
+  modalRef?: BsModalRef;
+  searchTerm: string = '';
   
   organizationList:any = []
     dataTable:any = [
@@ -159,5 +166,18 @@ export class OrganizationComponent {
     ngOnInit(): void {
       this.columns = this.dataTable[0]?.data?.columns;
       this.organizationList = this.dataTable[0].data.payload
+    }
+
+    createOganization() {
+      // const initialState = { data, type: 'asset' };
+      this.modalRef = this.modalService.show(CreateOrganizationComponent, {
+        class: 'modal-dialog modal-dialog-centered modal-lg create_organization',
+        backdrop: 'static',
+        keyboard: false,
+        // initialState,
+      });
+      // this.modalRef.content.event.subscribe((res) => {
+      //   this.getAssetList();
+      // });
     }
 }

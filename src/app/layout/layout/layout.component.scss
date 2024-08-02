@@ -1,3 +1,15 @@
 .layout{
     height: calc(100vh - 0px);
+    .layout_inner{
+        position: absolute;
+        left: 0;
+        margin-left: 250px;
+        width: calc(100% - 250px);
+        transition: .5s ease;
+    }
+}
+.layout_inner.expand {
+    width: calc(100% - 0px) !important;
+    margin-left: 0px !important;
+    transition: .5s ease;
 }

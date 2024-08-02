@@ -12,18 +12,18 @@ export class UserListComponent {
    constructor(private modalService: BsModalService){ }
   columns: any = []
    modalRef?: BsModalRef;
-//  createUser() {
-//   // const initialState = { data, type: 'asset' };
-//   this.modalRef = this.modalService.show(CreateUserComponent, {
-//     class: 'modal-dialog modal-dialog-centered modal-lg create_organization',
-//     backdrop: 'static',
-//     keyboard: false,
-//     // initialState,
-//   });
-//   // this.modalRef.content.event.subscribe((res) => {
-//   //   this.getAssetList();
-//   // });
-// }
+ createUser() {
+  // const initialState = { data, type: 'asset' };
+  this.modalRef = this.modalService.show(CreateUserComponent, {
+    class: 'modal-dialog modal-dialog-centered modal-lg create_organization',
+    backdrop: 'static',
+    keyboard: false,
+    // initialState,
+  });
+  // this.modalRef.content.event.subscribe((res) => {
+  //   this.getAssetList();
+  // });
+}
   
 total_pages = 10;
 payload_size = 10;

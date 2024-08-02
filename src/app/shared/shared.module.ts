@@ -4,6 +4,7 @@ import { DataTableComponent } from './components/data-table/data-table.component
 import { InlineSVGModule } from 'ng-inline-svg';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+// import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -14,10 +15,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
     CommonModule,
     InlineSVGModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    // NgSelectModule ,
   ],
   exports:[
-    DataTableComponent
+    DataTableComponent,
+    // NgSelectModule
   ]
 })
 export class SharedModule { }

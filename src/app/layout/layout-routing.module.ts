@@ -17,6 +17,10 @@ const routes: Routes = [
       path: 'organization',
       loadChildren: () => import('../modules/organization/organization.module').then(m => m.SsoAdminModule)
     },
+    {
+      path: 'user',
+      loadChildren: () => import('../modules/user/user.module').then(m => m.UserModule)
+    },
   ]}
 ];
 

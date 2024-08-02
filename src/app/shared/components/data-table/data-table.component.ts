@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CreateOrganizationComponent } from 'src/app/modules/sso-admin/components/create-organization/create-organization.component';
+import { CreateOrganizationComponent } from 'src/app/modules/organization/components/create-organization/create-organization.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({

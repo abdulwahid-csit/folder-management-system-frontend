@@ -19,4 +19,8 @@
             height: 100%;
         }
     }
+    .rotate_icon{
+        transform: rotate(180deg);
+        transition: transform 1s ease;
+    }
 }

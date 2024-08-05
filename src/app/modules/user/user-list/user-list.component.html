@@ -1,6 +1,4 @@
-<li class="d-flex align-items-center sidebar_svg" (click)="setActive('Users')" routerLink="userDetail"
-    routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><span
-        class="d-flex align-items-center sidebar_svg" [inlineSVG]="'./assets/icons/Icon1.svg'"></span><a>Users</a></li>
+
 <div class="p-4">
     <div class="sso_card w-100 h-100">
         <div class="d-flex align-items-center justify-content-between dataTable_header">
@@ -17,6 +15,6 @@
             </div>
         </div>
         <app-data-table [columns]="columns" [config]="tableConfig" [dataSet]="organizationList"
-            [searchTerm]="searchTerm"></app-data-table>
+            [searchTerm]="searchTerm" [module]="'user'"></app-data-table>
     </div>
 </div>

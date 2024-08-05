@@ -7,11 +7,14 @@ import { CommonService } from 'src/app/shared/services/common.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  isSidebarVisible = false;
 
   constructor(private commonService:CommonService){ }
 
   ngOnInit(): void {
-    
+    this.commonService.sidebarVisible$.subscribe((visible)=>{
+      this.isSidebarVisible = visible;
+    })
   }
 
   toggleSidebar(){

@@ -18,7 +18,7 @@
             list-style: none;
             padding: 0;
             li{
-                padding: 10px 15px;
+                padding: 12px 15px;
                 cursor: pointer;
                 span{
                     width: 18px;
@@ -53,6 +53,9 @@ li.active{
     a{
         color: #6F61CF !important;
     }
+}
+.no-underline {
+  text-decoration: none;
 }
 .sidebar-main.close_sidebar{
     transform: translate(-100%);

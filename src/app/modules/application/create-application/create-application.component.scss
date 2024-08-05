@@ -1,0 +1,24 @@
+.organization_modal {
+    h2 {
+        font-weight: 700;
+        font-size: 20px;
+    }
+
+    .modal-header {
+        padding: 40px 40px 0;
+    }
+}
+
+.organization_update_modal {
+    padding: 40px !important;
+}
+
+
+input::placeholder {
+    font-size: 14px;
+    color: rgba(132, 146, 166, 1);
+}
+
+.modal-content {
+    border-radius: 16px !important;
+}

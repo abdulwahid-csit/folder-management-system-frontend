@@ -1,17 +1,21 @@
 <!-- <button class="btn btn-primary" routerLink="details">Organization Details</button> -->
 <div class="main-div">
-<div class="sso_card w-100 h-100">
-    <div class="d-flex align-items-center justify-content-between dataTable_header">
-        <h4 class="primary_color mb-0">Organizations</h4>
-        <div class="d-flex">
-            <div class="position-relative display-flex ms-3">
-                <input type="text" class="form-control dataTableSearch" [(ngModel)]="searchTerm" placeholder="Search by name or domain">
-                <span class="search_icon" [inlineSVG]="'./assets/icons/search.svg'"></span>
+    <div class="sso_card w-100 h-100">
+        <div class="d-flex align-items-center justify-content-between dataTable_header">
+            <h4 class="primary_color mb-0">Organizations</h4>
+            <div class="d-flex">
+                <div class="position-relative display-flex ms-3">
+                    <input type="text" class="form-control dataTableSearch" [(ngModel)]="searchTerm"
+                        placeholder="Search by name or domain">
+                    <span class="search_icon" [inlineSVG]="'./assets/icons/search.svg'"></span>
+                </div>
+                <button type="button" class="btn filter_btn ms-3"><span class="me-1"
+                        [inlineSVG]="'./assets/icons/filter.svg'"></span> Filter</button>
+                <button type="button" class="primary_button ms-3" (click)="createOganization()">Create
+                    Oganization</button>
             </div>
-            <button type="button" class="btn filter_btn ms-3"><span class="me-1" [inlineSVG]="'./assets/icons/filter.svg'"></span> Filter</button>
-            <button type="button" class="primary_button ms-3" (click)="createOganization()">Create Oganization</button>
         </div>
+        <app-data-table [columns]="columns" [config]="tableConfig" [dataSet]="organizationList"
+            [searchTerm]="searchTerm"></app-data-table>
     </div>
-    <app-data-table [columns]="columns" [config]="tableConfig" [dataSet]="organizationList" [searchTerm]="searchTerm"></app-data-table>
-</div>
 </div>

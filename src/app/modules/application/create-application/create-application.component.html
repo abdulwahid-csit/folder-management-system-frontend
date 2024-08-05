@@ -8,8 +8,8 @@
         <form [formGroup]="applicationForm" (ngSubmit)="submitForm()">
             <div class="mb-3 custom-input">
                 <label for="applicationName" class="mb-1 primary_color required fw-700 semi-bold-fonts">Name</label>
-                <input type="text" class="form-control form-control-lg ps-3 ps-2 fs-14px" formControlName="applicationName"
-                    placeholder="Enter domain name">
+                <input type="text" class="form-control form-control-lg ps-3 ps-2 fs-14px"
+                    formControlName="applicationName" placeholder="Enter domain name">
                 <span *ngIf="isControlHasError('applicationName','required')" class="fs-14px text-danger">Domain name is
                     required</span>
             </div>
@@ -25,8 +25,8 @@
                     URI's</label>
                 <p class="fs-14px  color-8492A6 mb-0">Lorem Ipsum adalah contoh teks atau dummy dalam huruf</p>
                 <div class="d-flex">
-                    <input type="text" class="form-control  ps-3 fs-14px me-3"
-                        placeholder="Enter domain name" formControlName="redirectUrl">
+                    <input type="text" class="form-control  ps-3 fs-14px me-3" placeholder="Enter domain name"
+                        formControlName="redirectUrl">
                     <span class="primary_button cursor-pointer">+</span>
                 </div>
                 <!-- <span *ngIf="isControlHasError('domainName','required')" class="text-danger">Domain name is
@@ -36,8 +36,8 @@
                 <!-- <label for="url" class="mb-1 primary_color  fw-700 semi-bold-fonts">Url</label> -->
                 <p class="fs-14px color-8492A6 mb-0 ">Lorem Ipsum adalah contoh teks atau dummy dalam huruf</p>
                 <div class="d-flex">
-                    <input type="text" class="form-control  ps-3 fs-14px me-3"
-                        placeholder="Enter domain name" formControlName="url">
+                    <input type="text" class="form-control  ps-3 fs-14px me-3" placeholder="Enter domain name"
+                        formControlName="url">
                     <span class="primary_button cursor-pointer">+</span>
 
                 </div>

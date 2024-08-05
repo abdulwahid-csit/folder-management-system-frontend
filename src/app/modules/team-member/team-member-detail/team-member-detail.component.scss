@@ -1,0 +1,43 @@
+.wrapper {
+    padding: 15px 30px 30px 30px;
+}
+
+.link-text {
+    background-color: #F2F4F6;
+    border-radius: 10px;
+    padding: 4px 8px;
+}
+
+.organization-details-div {
+    border-radius: 16px !important;
+}
+
+.col-8 {
+    color: #8492A6;
+}
+
+.details-row {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.main-div {
+    border-radius: 16px !important;
+
+    hr {
+        color: #8492A6;
+    }
+}
+
+.delete-button button:hover {
+    background-color: #FFE8E8;
+    color: #EF4444;
+}
+
+.delete-button button {
+    color: #EF4444;
+}
+
+.disabled {
+    border: none !important;
+}

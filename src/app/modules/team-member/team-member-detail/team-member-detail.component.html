@@ -1,1 +1,143 @@
-<p>team-member-detail works!</p>
+<div class="path d-flex pt-1 bg-white ps-4">
+    <span class="color-8492A6 fs-12px">Team Members</span>
+    <span><i class="bi bi-chevron-right color-D0DBE5"></i></span>
+    <span class="color-6F61CF fs-12px">Member details </span>
+</div>
+<div class="wrapper">
+    <div class="main-div w-100 organization-details-div bg-white  p-3 mt-4 ps-4">
+        <div class="d-flex">
+            <div class="iis-logo">
+                <img src="../../../../../assets/images/iis.svg" alt="iis">
+            </div>
+            <div class="ms-3">
+                <div class="fs-20px fw-700 color-16192C bold-fonts">
+                    Degital Solutions
+                </div>
+                <div class="d-flex mt-1">
+                    <div class="link-text fs-12px semi-bold-fonts">
+                        org_01J3CGASS7GH6W79ECWECK2VYN
+                    </div>
+                    <div class="d-flex ms-4">
+                        <div>
+                            <img src="../../../../../assets/icons/Frame.svg" alt="">
+                        </div>
+                        <div class="ms-2">
+                            <span class="color-8492A6 fs-14px semi-bold-fonts">4ii Solutions</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-div w-100 settings-tab p-3 mt-4 ps-4 bg-white">
+        <div class="row fw-bold fs-5 mt-3">
+            <div class="col-2">
+                User Details
+            </div>
+            <div class="hr">
+                <hr>
+            </div>
+        </div>
+        <div class="row details-row" *ngFor="let item of user">
+
+            <div class="col-2">
+                First Name
+            </div>
+            <div class="col-8">
+                {{item.firstName}}
+            </div>
+            <div class="hr">
+                <hr>
+            </div>
+
+            <div class="col-2">
+                Last Name
+            </div>
+            <div class="col-8">
+                {{item.last}}
+            </div>
+            <div class="hr">
+                <hr>
+            </div>
+
+            <div class="col-2">
+                Username
+            </div>
+            <div class="col-8">
+                {{item.username}}
+            </div>
+            <div class="hr">
+                <hr>
+            </div>
+            <div class="col-2">
+                Role
+            </div>
+            <div class="col-8">
+                {{item.role}}
+            </div>
+            <div class="hr">
+                <hr>
+            </div>
+            <div class="col-2">
+                Phone
+            </div>
+            <div class="col-8">
+                {{item.phoneNumber}}
+            </div>
+            <div class="hr">
+                <hr>
+            </div>
+
+            <div class="col-2">
+                Email Address
+            </div>
+            <div class="col-8">
+                <div class="d-flex">
+                    <div>
+                        <img src="../../../../../assets/icons/Frame.svg" alt="">
+                    </div>
+                    <div class="ms-2">
+                        <span class="color-8492A6 fs-14px semi-bold-fonts">{{item.email}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hr">
+                <hr>
+            </div>
+
+            <div class="col-2">
+                Status
+            </div>
+            <div class="col-8">
+                <div class="ms-4"><span class="status-button status-inactive d-flex justify-content-center"><button
+                            class="btn p-0 fs-14px disabled">{{item.status}}</button></span></div>
+            </div>
+            <div class="hr">
+                <hr>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button class="cancel_btn me-2">Change Password</button>
+            <button class="primary_button" (click)="openModal()">Edit User</button>
+        </div>
+    </div>
+    <div class="main-div w-100 settings-tab p-3 mt-4 ps-4 bg-white">
+        <div class="pt-1">
+            <div>
+                <div class="fs-20px fw-700 color-16192C bold-fonts">
+                    Delete User Account
+                </div>
+                <div class="mt-1">
+                    <div class="fs-14px color-8492A6 medium-fonts">
+                        Deleting this user is permanent and canot be undone.
+                    </div>
+                </div>
+                <div class="mt-4 delete-button semi-bold-fonts">
+                    <button class="btn fw-600">Delete User</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

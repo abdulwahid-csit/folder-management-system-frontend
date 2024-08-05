@@ -1,1 +1,34 @@
-<p>invite-member works!</p>
+<div class="modal-body p-5 pt-4 pb-4">
+    <h4 class="fs-20px fw-700">Invite Admin</h4>
+    <form [formGroup]="inviteForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3 custom-input">
+            <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Email </label>
+            <input type="text" class="form-control ps-3 pe-3 form-control-lg fs-14px" id="exampleFormControlInput1"
+                placeholder="Enter email address" formControlName="email">
+            <span *ngIf="isControlHasError('email','required')" class="fs-14px text-danger">Email is
+                required</span>
+        </div>
+        <div class="mb-3 custom-input">
+            <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 fs-14px fw-700 required">Role
+            </label>
+            <select class="form-select custom-form-select ps-3 pe-3" aria-placeholder="slect"
+                aria-label="Default select example" formControlName="role">
+                <option selected>Open this select menu</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+            <!-- <ng-select #testselect 
+                   bindLabel="name"
+                   placeholder="Select city"
+                   [(ngModel)]="selectedRole">
+        </ng-select> -->
+            <span *ngIf="isControlHasError('role','required')" class="fs-14px text-danger">Domain name is
+                required</span>
+        </div>
+        <div class="d-flex justify-content-end mt-4">
+            <button type="button" class="cancel_btn me-2" (click)="closeModal()">Cancel</button>
+            <button type="button" type="submit" class="primary_button" (click)="closeModal()">Invite</button>
+        </div>
+    </form>
+</div>

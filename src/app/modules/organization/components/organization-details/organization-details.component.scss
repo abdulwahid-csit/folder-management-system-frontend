@@ -1,6 +1,7 @@
 .wrapper {
     padding: 15px 30px 30px 30px;
 }
+
 .features-tab,
 .settings-tab,
 .organization-details-div {
@@ -32,14 +33,30 @@ input::placeholder {
     font-size: 14px;
     color: rgba(132, 146, 166, 1);
 }
+
 .modal-body {
     input::placeholder {
         font-size: 16px;
         color: rgba(132, 146, 166, 1);
     }
 }
-select:focus{
+
+select:focus {
     border-color: #6f63bd !important;
     outline: 0;
     box-shadow: 0 0 0 0.25rem rgba(111, 97, 207, 0.20) !important;
+}
+
+.delete-button button {
+    color: #EF4444;
+    font-weight: 600;
+}
+
+.delete-button button:hover {
+    background-color:#FFE8E8;
+    font-weight: 600;
+}
+
+.disabled {
+    border: none !important;
 }

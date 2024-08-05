@@ -4,19 +4,19 @@
     </div>
     <div class="modal-body">
         <form [formGroup]="organizationForm">
-            <div class="mb-4">
+            <div class="mb-4 custom-input">
                 <label for="" class="mb-1 primary_color required font_weight_500">Name</label>
                 <input type="text" class="form-control form-control-lg" formControlName="organizationName" placeholder="Enter organization name">
                 <span *ngIf="isControlHasError('organizationName','required')" class="text-danger">Organization name is required</span>
             </div>
-            <div class="mb-3">
+            <div class="mb-3 custom-input">
                 <label for="" class="mb-1 primary_color required font_weight_500">Domain</label>
                 <input type="text" class="form-control form-control-lg" formControlName="domainName" placeholder="Enter domain name">
                 <span *ngIf="isControlHasError('domainName','required')" class="text-danger">Domain name is required</span>
             </div>
             <div class="modal-footer border-top-0 pb-0">
                 <button type="button" class="cancel_btn" (click)="closeModal()">Cancel</button>
-                <button type="button" class="btn">Create</button>
+                <button type="button" class="primary_button">Create</button>
             </div>
         </form>
     </div>

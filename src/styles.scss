@@ -1,50 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
 @font-face {
-    font-family: 'regular';
-    src: url('../src/assets/fonts/Urbanist-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-  }
-@font-face {
-    font-family: 'medium';
-    src: url('../src/assets/fonts/Urbanist-Medium.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-  }
-@font-face {
-    font-family: 'bold';
-    src: url('../src/assets/fonts/Urbanist-Bold.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-  }
-@font-face {
-    font-family: 'semi-bold';
-    src: url('../src/assets/fonts/Urbanist-SemiBold.ttf') format('truetype');
+    font-family: 'Urbanist';
+    src: url('/path/to/urbanist-regular.woff2') format('woff2'),
+         url('/path/to/urbanist-regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
   }
 
-
-.semi-bold-fonts{
-    font-family: 'semi-bold',sans-serif;
-}
-.bold-fonts{
-    font-family: 'bold',  sans-serif;
-}
-.medium-fonts{
-    font-family: 'medium', sans-serif;
-}
-.regular-fonts{
-    font-family: 'regular', sans-serif;
-}
-
-
-
+ body{
+      font-family: "Urbanist", sans-serif !important;
+  }
 
 
 body{
     background-color:#F1F5F9 !important;
-}
+} 
 .cursor-pointer{
     cursor: pointer;
 }
@@ -67,6 +36,10 @@ body{
     border: none;
     border-radius: 6px;
     height: 48px;
+}
+.focus-none:focus {
+    border-color: #dee2e6 !important;
+    box-shadow: none !important;
 }
 .cancel_btn {
     border: 1px solid rgb(208, 219, 229) !important;
@@ -157,4 +130,128 @@ body{
     .modal-header{
         padding: 40px 40px 0;
     }
+}
+.active-nav-tab {
+    border-bottom: 2px solid #6F61CF !important;
+    color: #6F61CF !important;
+    background-color: #f1f5f9 !important;
+}
+
+.color-8492A6 {
+    color: #8492A6;
+}
+
+.bg-F2F4F6 {
+    color: #F2F4F6;
+}
+
+.fs-12px {
+    font-size: 12px;
+}
+
+.link-text {
+    background-color: #F2F4F6;
+    border-radius: 10px;
+    padding: 4px 8px;
+}
+
+.fs-14px {
+    font-size: 14px;
+}
+
+.color-16192C {
+    color: #16192C;
+}
+
+.nav-tabs button {
+    color: #8492A6;
+}
+
+.nav-tabs button,
+.nav-tabs button:hover {
+    border: none;
+    border-radius: none;
+}
+
+.line {
+    margin-top: -17px !important;
+}
+
+.bg-6F61CF {
+    background-color: #6F61CF !important;
+}
+
+.invite-button button {
+    color: #fff;
+}
+
+.color-6F61CF {
+    color: #6F61CF;
+}
+
+.color-D0DBE5 {
+    color: #D0DBE5;
+}
+
+.color-7a7a7a {
+    color: #7a7a7a;
+}
+
+.status-button {
+    border-radius: 30px;
+    padding: 0px 15px 5px 15px !important;
+}
+
+.status-inactive {
+    background-color: #FFF3DF;
+    color: #F59E0B;
+}
+
+.status-inactive button {
+    color: #F59E0B;
+}
+
+.delete-button button {
+    border-color: #EF4444 !important;
+    background-color: #FFF3DF;
+}
+
+.delete-button button:active {
+    background-color: red;
+    color: #fff;
+}
+.bg-6F61CF {
+    background-color: #6F61CF;
+}
+.color-red {
+    color: red;
+}
+
+.close-modal {
+    border-color: #D0DBE5 !important;
+}
+
+.custom-input{
+    input {
+        padding: 8px 16px;
+        border: var(--bs-border-width) solid var(--bs-border-color);
+    }
+    input:focus,
+    input:active {
+        padding: 8px 16px;
+        border: var(--bs-border-width) solid var(--bs-border-color);
+        border-color: #6f63bd !important;
+        outline: 0;
+        box-shadow: 0 0 0 0.25rem rgba(111, 97, 207, 0.20) !important;
+
+    }
+
+        input::placeholder {
+            font-size: 14px;
+            color: rgba(132, 146, 166, 1);
+        }
+}
+
+.cursor-pointer{
+    cursor: pointer;
 }

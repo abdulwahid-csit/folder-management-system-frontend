@@ -1,6 +1,6 @@
 <div class="common_modal">
     <div class="modal-header border-bottom-0">
-        <h2 class="primary_color mb-0">Create User</h2>
+        <h2 class="primary_color mb-0">{{ mode === 'create' ? 'Create User' : 'Update User' }}</h2>
     </div>
     <div class="modal-body">
         <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
@@ -48,51 +48,65 @@
               'is-invalid': isControlHasError('email', 'required')
             }" type="email" class="form-control form-control-lg mt-2" formControlName="email"
                         placeholder="Enter email address">
-                    <span *ngIf="isControlHasError('email','required')" class="text-danger fs-8 ps-3">Email is
+                    <span *ngIf="isControlHasError('email','required')" class="text-danger fs-8">Email is
                         required</span>
                 </div>
-                <div class="col-xl-6">
+                <div class="col-xl-6" *ngIf="mode === 'create'">
                     <label class="mt-3 primary_color required font_weight_500">Password</label>
                     <div class="input-container">
-                        <!-- Input Field -->
                         <input [ngClass]="{
               'is-invalid': isControlHasError('password', 'required')
           }" [type]="isPasswordVisible ? 'text' : 'password'" class="form-control form-control-lg mt-2"
                             formControlName="password" id="password" placeholder="Enter password">
-                        <!-- SVG Icon -->
-
                         <div class="position-absolute password_field_container">
                             <hr class="vertical-line">
-                            <span class="" (click)="togglePasswordVisibility()">
+                            <span class="cursor-pointer" (click)="togglePasswordVisibility()">
                                 <span [inlineSVG]="'../../../../assets/icons/eye.svg'"></span>
                             </span>
-                            <!-- Generate Button -->
-                            <button class="btn btn-outline-primary input-group-btn" type="button"
+                            <button class="btn generate_button input-group-btn" type="button"
                                 id="generateButton">Generate</button>
                         </div>
-
                     </div>
-                    <span class="text-danger fs-8 ps-3" [ngClass]="{
+                    <span class="text-danger fs-8" [ngClass]="{
         invisible: !isControlHasError('password', 'required')
     }">Password is required</span>
                 </div>
-                <div class="col-xl-6 input-container">
+                <div class="col-xl-6 pt-4 " *ngIf="mode === 'update'">
                     <label class="primary_color required font_weight_500">Roles</label>
-                    <select [ngClass]="{
-              'is-invalid': isControlHasError('role', 'required')
-            }" class="form-select form-select-lg " aria-label=".form-select-lg example" placeholder="Select roles"
-                        formControlName="role">
-                        <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                    <span *ngIf="isControlHasError('role','required')" class="text-danger fs-8 ps-3">Role is
-                        required</span>
+                    <div class="input-container">
+                        <select [ngClass]="{
+                              'is-invalid': isControlHasError('role', 'required')
+                            }" class="form-select form-control  form-select-lg " aria-label=".form-select-lg example"
+                            placeholder="Select roles" formControlName="role">
+                            <option selected>Open this select menu</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        <span *ngIf="isControlHasError('role','required')" class="text-danger fs-8">Role is
+                            required</span>
+                    </div>
                 </div>
-                <div class="modal-footer border-top-0 pb-0">
+                <div class="col-xl-6 " *ngIf="mode === 'create'">
+                    <label class="primary_color required font_weight_500">Roles</label>
+                    <div class="input-container">
+                        <select [ngClass]="{
+              'is-invalid': isControlHasError('role', 'required')
+            }" class="form-select form-control  form-select-lg " aria-label=".form-select-lg example"
+                            placeholder="Select roles" formControlName="role">
+                            <option selected>Open this select menu</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        <span *ngIf="isControlHasError('role','required')" class="text-danger fs-8">Role is
+                            required</span>
+                    </div>
+                </div>
+                <div class="modal-footer border-top-0 pb-0 mt-2">
                     <button type="button" class="cancel_btn" (click)="closeModal()">Cancel</button>
-                    <button type="submit" class="primary_button">Create user</button>
+                    <button type="submit" class="primary_button">{{ mode === 'create' ? 'Create User' : 'Update User'
+                        }}</button>
                 </div>
             </div>
         </form>

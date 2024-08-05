@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 
@@ -8,11 +8,19 @@ import { BsModalService } from 'ngx-bootstrap/modal';
   templateUrl: './create-user.component.html',
   styleUrls: ['./create-user.component.scss']
 })
-export class CreateUserComponent {
-    constructor(private bsModalService: BsModalService, private fb: FormBuilder,) { }
+export class CreateUserComponent implements OnInit {
+  @Input() mode: 'create' | 'update' = 'create';
+  @Input() userData: any;
+  constructor(private bsModalService: BsModalService, private fb: FormBuilder,) {
+
+  }
   userForm!: FormGroup
-  isPasswordVisible = false;
+  isPasswordVisible: boolean = false;
   ngOnInit(): void {
+    if (this.mode === 'update' && this.userData) {
+      this.userForm.patchValue(this.userData);
+      this.userForm.removeControl('password'); // Remove password field for update
+    }
     this.userForm = this.fb.group({
       firstName: [null, Validators.compose([Validators.required])],
       lastName: [null, Validators.compose([Validators.required])],
@@ -43,17 +51,17 @@ export class CreateUserComponent {
     this.bsModalService.hide()
   }
   onSubmit(): void {
-    // Mark all controls as touched to show validation messages
+    if (this.userForm.valid) {
+      if (this.mode === 'create') {
+      } else if (this.mode === 'update') {
+      }
+    }
     this.userForm.markAllAsTouched();
     if (this.userForm.invalid) {
-      // Form is invalid, so do not proceed
+
       return;
     }
-
-    // Handle form submission
     console.log(this.userForm.value);
-
-    // Close modal
     this.bsModalService.hide();
   }
   togglePasswordVisibility(): void {

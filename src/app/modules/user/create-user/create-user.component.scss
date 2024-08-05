@@ -1,26 +1,10 @@
-.input-container {
-  position: relative;
-
-  .password_field_container {
-    display: flex;
-    top: 5px;
-    right: 21px;
-    align-items: center;
-    gap: 0.3rem;
-  }
-
-}
-
-.input-container .text-danger {
-  position: absolute;
-  bottom: -20px;
-  left: 0;
-  font-size: 0.875rem;
-  color: #dc3545;
-}
-
-.is-invalid {
-  border-color: #dc3545;
+.generate_button {
+  background-color: #6F61CF;
+  color: white;
+  padding: 8px 18px 10px 16px;
+  border: none;
+  border-radius: 6px;
+  height: 39px;
 }
 
 .form-label {

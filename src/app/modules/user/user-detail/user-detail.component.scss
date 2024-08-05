@@ -1,203 +1,66 @@
-.fw-700 {
-    font-weight: 700;
-}
- 
-.fs-20px {
-    font-size: 20px;
-}
- 
-.fw-600 {
-    font-weight: 600;
-}
- 
-.color-8492A6 {
-    color: #8492A6;
-}
- 
-.bg-F2F4F6 {
-    color: #F2F4F6;
-}
- 
-.fs-12px {
+.custom-button {
+    border-radius: 1.2rem;
+    width: auto;
+    height: auto;
     font-size: 12px;
+    font-weight: 600;
+    line-height: 23px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    border-color: #6F61CF;
+    background-color: #6F61CF;
+
 }
- 
-.link-text {
-       background-color: #F2F4F6;
-    border-radius: 10px;
-    padding: 7px 8px;
-    margin-right: 53px;
+
+.custom-button-danger {
+    color: #EF4444;
+    border-color: #EF4444;
+    background-color: #FFE8E8;
+    transition: all 0.3s ease;
+    padding: 10px 16px 10px 16px;
+    border-radius: 6px;
+    height: 43px;
 }
- 
-.fs-14px {
-    font-size: 14px;
+
+.custom-button-danger:hover {
+    color: #FFFFFF;
+    border-color: #EF4444;
+    background-color: #EF4444;
 }
- 
-.color-16192C {
-    color: #16192C;
+
+.custom-button-danger:active {
+    color: #FFFFFF;
+    border-color: #EF4444;
+    background-color: #EF4444;
 }
- 
-.nav-tabs button {
-    color: #8492A6;
+
+.bg-light-gray {
+    background-color: #F1F5F9;
+    padding: 10px;
+    border-radius: 4px;
 }
- 
-.nav-tabs button,
-.nav-tabs button:hover {
-    border: none;
-    border-radius: none;
-}
- 
-.active {
-    border-bottom: 1px solid #6F61CF !important;
-    color: #6F61CF !important;
-}
- 
-.line {
-    margin-top: -17px !important;
-}
- 
-.bg-6F61CF {
-    background-color: #6F61CF !important;
-}
- 
-.invite-button button {
-    color: #fff;
-}
- 
-.color-6F61CF {
-    color: #6F61CF;
-}
- 
-.color-D0DBE5 {
+
+.custom-checkbox-lg {
+    width: 24px;
+    height: 24px;
     color: #D0DBE5;
 }
- 
-// Settings CSS
-.color-7a7a7a {
-    color: #7a7a7a;
-}
- 
-.status-button {
-    border-radius: 30px;
-    padding: 0px 15px 5px 15px !important;
-}
- 
-.status-inactive {
-    background-color: #FFF3DF;
-    color: #F59E0B;
-}
-.status-inactive button{
-    color: #F59E0B;
-}
- 
-.delete-organization-button button{
-    border-color: #EF4444 !important;
-}
- 
-.bg-FFE8E8{
-    background-color: #FFF3DF;
-}
-.color-EF4444{
-    color: #EF4444;
-}
-.delete-organization-button button:active{
-    background-color: red;
-    color: #fff;
-}
- 
- 
-// ////////////////////////////////////////////////////
- 
-.invite-input input, .invite-input input:active, .invite-input input:focus, .invite-input input:visited{
-    border-color:  #D0DBE5;
-    box-shadow: none !important;
-   
-}
- 
-.bg-6F61CF{
-    background-color: #6F61CF;
-}
-.color-fff{
-    color: #fff;
-}
-.color-red{
-    color: red;
-}
-.close-modal{
-    border-color: #D0DBE5 !important;
-}
-.invite-admin-modal{
-    width: 50% !important;
-}
-.checkbox-container {
-  display: inline-block;
-  position: relative;
-  cursor: pointer;
-  line-height: 20px; // Adjust this as necessary
-}
 
-.checkbox {
-  opacity: 0;
-  position: absolute;
-  cursor: pointer;
-  height: 0;
-  width: 0;
+.form-label {
+    margin-bottom: 0.5rem;
 }
-
-.checkmark {
- position: absolute;
-    top: -10px;
-    left: -20px;
-    gap: 0.3rem;
-    height: 20px;
-    width: 20px;
-    background-color: #eee;
-    border-radius: 15px;}
-
-.checkbox:checked + .checkmark {
-  background-color: green; // Background color when checked
+.dark-light {
+    color: #8492A6;
 }
-
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-.checkbox:checked + .checkmark:after {
-  display: block;
-  left: 7px; // Adjust to center the checkmark
-  top: 3px;  // Adjust to center the checkmark
-  width: 5px; // Size of the checkmark
-  height: 10px; // Size of the checkmark
-  border: solid white;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-}
-/* Table styling */
-table {
-    width: 100%;
-    /* Adjust as needed */
-    border-collapse: collapse;
-    /* Merges borders */
-    margin: 0 auto;
-    /* Optional: centers the table within its container */
-}
-
+tbody,
+td,
+tfoot,
 th,
-td {
-    padding: 5px;
-    /* Space inside cells */
-    text-align: left;
-    /* Aligns text to the left */
-    border-bottom: 1px solid rgb(238, 227, 227);
-    /* Border for rows */
+thead,
+tr {
+    border-color: #EDF2F7
+    
 }
-
-/* Optional: styling for table headers */
-th {
-    border-top: 1px solid rgb(238, 227, 227);
-    /* Border on top of headers */
-}
-
-/* Optional: remove border from the first row if desired */

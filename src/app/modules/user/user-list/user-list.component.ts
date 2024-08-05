@@ -15,25 +15,21 @@ export class UserListComponent {
   modalRef?: BsModalRef;
   searchTerm: string = '';
   createUser() {
-    // const initialState = { data, type: 'asset' };
     this.modalRef = this.modalService.show(CreateUserComponent, {
       class: 'modal-dialog modal-dialog-centered modal-lg common_modal_shadow',
       backdrop: 'static',
       keyboard: false,
-      // initialState,
+      initialState: {
+        mode: 'create'
+      }
     });
-    // this.modalRef.content.event.subscribe((res) => {
-    //   this.getAssetList();
-    // });
   }
-
   total_pages = 10;
   payload_size = 10;
   current_page = 1
   has_next = false
   skipped_records = 0
   total_records = 7
-
   organizationList: any = []
   dataTable: any = [
     {

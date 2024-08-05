@@ -12,7 +12,6 @@ export class OrganizationDetailsComponent implements OnInit {
   selectedTab = 'features';
   modalRef: any;
   modalOpen: boolean = false;;
-  constructor(private modalService: BsModalService) { }
 
   columns:any = []
 
@@ -179,7 +178,7 @@ export class OrganizationDetailsComponent implements OnInit {
 
 
 
-
+    constructor(private modalService: BsModalService) { }
 
   ngOnInit() {
     this.columns = this.dataTable[0]?.data?.columns;
@@ -202,7 +201,7 @@ export class OrganizationDetailsComponent implements OnInit {
 
   openModal(template: TemplateRef<any>): void {
     this.modalRef = this.modalService.show(template, {
-    class: 'modal-dialog modal-dialog-centered invite-admin-modal',
+    class: 'modal-dialog modal-dialog-centered common_modal_shadow',
     backdrop: 'static',
     keyboard: false,
     

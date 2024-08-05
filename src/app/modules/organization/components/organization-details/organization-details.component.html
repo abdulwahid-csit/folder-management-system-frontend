@@ -34,24 +34,25 @@
     <div class="d-flex justify-content-start">
       <nav class="mb-3">
         <div class="nav nav-tabs fs-14px fw-600 semi-bold-fonts" id="nav-tab" role="tablist">
-          <button (click)="setSelectedTab('features')" class="nav-link" [ngClass]="'active'"
-            [ngClass]="{'active': selectedTab === 'features'}" id="nav-features-tab" data-bs-toggle="tab"
+          <button (click)="setSelectedTab('features')" class="nav-link border-top-0 border-start-0 border-end-0" [ngClass]="'active-nav-tab'"
+            [ngClass]="{'active-nav-tab': selectedTab === 'features'}" id="nav-features-tab" data-bs-toggle="tab"
             data-bs-target="#nav-features" type="button" role="tab" aria-controls="nav-features"
             [attr.aria-selected]="selectedTab === 'features'">
             Features
           </button>
-          <button (click)="setSelectedTab('users')" class="nav-link" id="nav-users-tab" data-bs-toggle="tab"
+          <button (click)="setSelectedTab('users')" class="nav-link border-top-0 border-start-0 border-end-0" id="nav-users-tab" data-bs-toggle="tab"
             data-bs-target="#nav-users" type="button" role="tab" aria-controls="nav-users"
+            [ngClass]="{'active-nav-tab': selectedTab === 'users'}"
             [attr.aria-selected]="selectedTab === 'users'">
             Users
           </button>
-          <button (click)="setSelectedTab('applications')" class="nav-link"
-            [ngClass]="{'active': selectedTab === 'applications'}" id="nav-applications-tab" data-bs-toggle="tab"
+          <button (click)="setSelectedTab('applications')" class="nav-link border-top-0 border-start-0 border-end-0"
+            [ngClass]="{'active-nav-tab': selectedTab === 'applications'}" id="nav-applications-tab" data-bs-toggle="tab"
             data-bs-target="#nav-applications" type="button" role="tab" aria-controls="nav-applications"
             [attr.aria-selected]="selectedTab === 'applications'">
             Applications
           </button>
-          <button (click)="setSelectedTab('setting')" class="nav-link" [ngClass]="{'active': selectedTab === 'setting'}"
+          <button (click)="setSelectedTab('setting')" class="nav-link border-top-0 border-start-0 border-end-0" [ngClass]="{'active-nav-tab': selectedTab === 'setting'}"
             id="nav-monthly-tab" data-bs-toggle="tab" data-bs-target="#nav-monthly" type="button" role="tab"
             aria-controls="nav-monthly" [attr.aria-selected]="selectedTab === 'setting'">
             Settings
@@ -78,7 +79,7 @@
             </div>
           </div>
           <div class="invite-button mt-4">
-            <button class="btn bg-6F61CF" (click)="openModal(inviteAdmin)">Invite Admin</button>
+            <button class="primary_button" (click)="openModal(inviteAdmin)">Invite Admin</button>
           </div>
         </div>
       </div>
@@ -128,7 +129,7 @@
               <hr class="mt-2 mb-2">
             </div>
             <div class="invite-button mt-4">
-              <button class="btn bg-6F61CF" (click)="openModal(updateOrganization)">Edit Details</button>
+              <button class="primary_button" (click)="openModal(updateOrganization)">Edit Details</button>
             </div>
           </div>
         </div>
@@ -149,8 +150,8 @@
               This action is permanent and cannot be undone.
             </div>
           </div>
-          <div class="mt-4 delete-organization-button semi-bold-fonts">
-            <button class="btn border color-EF4444 bg-FFE8E8">Delete Organization</button>
+          <div class="mt-4 delete-button semi-bold-fonts">
+            <button class="btn delete-button 8">Delete Organization</button>
           </div>
         </div>
       </div>
@@ -160,16 +161,16 @@
   <ng-template #inviteAdmin>
     <div class="modal-body p-5 pt-4 pb-4">
       <h4 class="fs-20px fw-700">Invite Admin</h4>
-      <div class="mb-3 invite-input">
+      <div class="mb-3 custom-input">
         <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700">Email <sup
             class="color-red">*</sup></label>
-        <input type="text" class="form-control fs-14px" id="exampleFormControlInput1" placeholder="Enter email address">
+        <input type="text" class="form-control ps-3 pe-3 form-control-lg fs-14px" id="exampleFormControlInput1" placeholder="Enter email address">
       </div>
       <div>
       </div>
       <div class="d-flex justify-content-end mt-4">
-        <button type="button" class="btn border me-3 close-modal" (click)="closeModal()">Cancel</button>
-        <button type="button" class="btn border bg-6F61CF color-fff border-0" (click)="closeModal()">Invite</button>
+        <button type="button" class="cancel_btn me-2" (click)="closeModal()">Cancel</button>
+        <button type="button" class="primary_button" (click)="closeModal()">Invite</button>
       </div>
     </div>
   </ng-template>
@@ -183,22 +184,29 @@
       </div>
       <div class="modal-body p-0">
         <form>
-          <div class="mb-4">
+          <div class="mb-4 custom-input">
             <label for="" class="mb-1 primary_color required fw-700 semi-bold-fonts">Name</label>
-            <input type="text" class="form-control form-control-lg p-0 ps-2" formControlName="organizationName"
+            <input type="text" class="form-control form-control-lg  ps-3 pe-3" formControlName="organizationName"
               placeholder="Enter organization name">
             <span *ngIf="isControlHasError('organizationName','required')" class="text-danger">Organization name is
               required</span>
           </div>
-          <div class="mb-3">
+          <div class="mb-3 custom-input">
             <label for="" class="mb-1 primary_color required fw-700 semi-bold-fonts">Domain</label>
-            <input type="text" class="form-control form-control-lg p-0 ps-2" formControlName="domainName"
+            <input type="text" class="form-control form-control-lg ps-3 pe-3" formControlName="domainName"
               placeholder="Enter domain name">
             <span *ngIf="isControlHasError('domainName','required')" class="text-danger">Domain name is required</span>
           </div>
+          <div class="input-select mt-3 mb-3">
+            <label for="" class="mb-1 primary_color required fw-700 semi-bold-fonts">Status</label>
+            <select class="form-select form-select-lg">
+              <option value="">Inactive</option>
+              <option value="">Active</option>
+            </select>
+          </div>
           <div class="modal-footer fs-14px border-top-0 pb-0 pe-0 semi-bold-fonts">
-            <button type="button" class="btn border" (click)="closeModal()">Cancel</button>
-            <button type="button" class="btn bg-6F61CF color-fff me-0">Update</button>
+            <button type="button" class="cancel_btn me-2" (click)="closeModal()">Cancel</button>
+            <button type="button" class="primary_button">Update</button>
           </div>
         </form>
       </div>

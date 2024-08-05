@@ -172,7 +172,7 @@ export class OrganizationComponent {
     createOganization() {
       // const initialState = { data, type: 'asset' };
       this.modalRef = this.modalService.show(CreateOrganizationComponent, {
-        class: 'modal-dialog modal-dialog-centered modal-lg create_organization',
+        class: 'modal-dialog modal-dialog-centered modal-md common_modal_shadow',
         backdrop: 'static',
         keyboard: false,
         // initialState,

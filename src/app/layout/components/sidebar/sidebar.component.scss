@@ -54,6 +54,9 @@ li.active{
         color: #6F61CF !important;
     }
 }
+.no-underline {
+  text-decoration: none;
+}
 .sidebar-main.close_sidebar{
     transform: translate(-100%);
     transition: .5s ease;

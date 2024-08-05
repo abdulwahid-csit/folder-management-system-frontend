@@ -68,6 +68,7 @@ body{
     border-radius: 6px;
     height: 48px;
 }
+
 .cancel_btn {
     border: 1px solid rgb(208, 219, 229) !important;
     color: rgb(132, 146, 166);
@@ -142,19 +143,111 @@ body{
 }
 
 // common modal styling
-.common_modal{
-    h2{
-        font-weight: 700;
-        font-size: 22px;
+
+.common_modal_shadow{
+    .modal-content{
+        box-shadow: 0px 2px 12px 4px rgba(0, 0, 0, 0.06);
+        background: white;
+        border-radius: 16px;
     }
-    .modal-body{
-        padding: 22px 40px 40px;
-        input::placeholder {
-            font-size: 16px;
-            color: rgba(132, 146, 166, 1);
-          }
-    }
-    .modal-header{
-        padding: 40px 40px 0;
-    }
+        h2{
+            font-weight: 700;
+            font-size: 22px;
+        }
+        .modal-body{
+            padding: 22px 40px 40px;
+            input::placeholder {
+                font-size: 16px;
+                color: rgba(132, 146, 166, 1);
+            }
+        }
+        .modal-header{
+            padding: 40px 40px 0;
+        }
 }
+.form-control.is-invalid {
+    background-image: none !important;
+}
+
+.input-container {
+    position: relative;
+
+    .password_field_container {
+        display: flex;
+        top: 5px;
+        right: 6px;
+        align-items: center;
+        gap: 0.3rem;
+    }
+
+}
+
+.input-container .text-danger {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    font-size: 0.875rem;
+    color: #dc3545;
+}
+
+.custom-badge-warning {
+    background-color: #FFF3DF;
+    color: #F59E0B;
+    border-radius: 1.2rem;
+    width: auto;
+    height: auto;
+    font-family: 'Urbanist', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 23px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.custom-badge-primary {
+    background-color: #EAE7FF;
+    color: #6F61CF;
+    border-radius: 1.2rem;
+    width: auto;
+    height: auto;
+    font-family: 'Urbanist', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 23px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+
+}
+.custom-hr {
+    border: 0;
+    border-top: 1px solid #EDF2F7;
+    opacity: 2.25;
+}
+.fw-700 {
+    font-weight: 700;
+}
+
+.fs-20px {
+    font-size: 20px;
+}
+
+.fw-600 {
+    font-weight: 600;
+}
+
+
+
+.fs-14 {
+    font-size: 14px;
+}
+
+.text-primary-custom {
+    color: #6F61CF
+}
+

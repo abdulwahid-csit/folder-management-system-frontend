@@ -28,6 +28,10 @@ const routes: Routes = [
     {
       path:'roles',
       loadChildren: ()=> import('../modules/roles-permission/roles-permission.module').then(m=> m.RolesPermissionModule)
+    },
+    {
+      path:'team-member',
+      loadChildren: ()=> import('../modules/team-member/team-member.module').then(m=> m.TeamMemberModule)
     }
   ]}
 ];

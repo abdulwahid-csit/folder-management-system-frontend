@@ -23,8 +23,8 @@ import { InlineSVGModule } from 'ng-inline-svg';
     BrowserAnimationsModule,
     FormsModule,
     AuthenticationModule,
-    InlineSVGModule
-
+    
+    InlineSVGModule,
 
   ],
   providers: [],

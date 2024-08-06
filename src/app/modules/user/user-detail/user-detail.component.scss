@@ -44,8 +44,8 @@
 }
 
 .custom-checkbox-lg {
-    width: 24px;
-    height: 24px;
+    width: 33px;
+    height: 14px;
     color: #D0DBE5;
 }
 
@@ -63,4 +63,10 @@ thead,
 tr {
     border-color: #EDF2F7
     
+}
+.custom-control-label{
+    color: #425466;
+}
+.w-200px{
+    width: 200px !important;
 }

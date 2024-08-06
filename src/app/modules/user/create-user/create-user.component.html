@@ -59,8 +59,8 @@
           }" [type]="isPasswordVisible ? 'text' : 'password'" class="form-control form-control-lg mt-2"
                             formControlName="password" id="password" placeholder="Enter password">
                         <div class="position-absolute password_field_container">
-                            <hr class="vertical-line">
-                            <span class="cursor-pointer" (click)="togglePasswordVisibility()">
+                            <hr class="vertical-line ms-0">
+                            <span class="cursor-pointer me-2" (click)="togglePasswordVisibility()">
                                 <span [inlineSVG]="'../../../../assets/icons/eye.svg'"></span>
                             </span>
                             <button class="btn generate_button input-group-btn" type="button"

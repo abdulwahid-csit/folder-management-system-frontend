@@ -6,14 +6,36 @@
     font-style: normal;
   }
 
- body{
+    body{
       font-family: "Urbanist", sans-serif !important;
+      background-color:#F1F5F9 !important;
+    }
+    html, body {
+        overflow-y: hidden;
+    }
+
+// scroll bar styling css
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #0F172A;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #0F172A;
   }
 
-
-body{
-    background-color:#F1F5F9 !important;
-} 
 .cursor-pointer{
     cursor: pointer;
 }
@@ -35,7 +57,6 @@ body{
     padding: 10px 16px 10px 16px;
     border: none;
     border-radius: 6px;
-    height: 48px;
 }
 .focus-none:focus {
     border-color: #dee2e6 !important;

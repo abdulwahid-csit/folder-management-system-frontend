@@ -6,7 +6,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let data of filterData">
+            <tr *ngFor="let data of filterData" class="cursor-pointer" (click)="onRowClick(data)">
                 <td>{{data.name ? data.name : '-'}}</td>
                 <td>{{data.domain ? data.domain : '-'}}</td>
                 <td>{{data.total_no_of_application ? data.total_no_of_application : '-'}}</td>

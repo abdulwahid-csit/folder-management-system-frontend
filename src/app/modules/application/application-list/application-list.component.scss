@@ -1,0 +1,34 @@
+.dataTable_header {
+    padding: 18px;
+
+    h4 {
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .filter_btn {
+        border: 1px solid rgba(208, 219, 229, 1);
+        color: rgba(132, 146, 166, 1);
+    }
+
+    .dataTableSearch {
+        width: 270px;
+        height: 48px;
+        padding-left: 40px;
+        border-radius: 6px;
+    }
+
+    .search_icon {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+    }
+}
+
+.main-div {
+    padding: 30px;
+}
+
+.modal-content {
+    border-radius: 16px !important;
+}

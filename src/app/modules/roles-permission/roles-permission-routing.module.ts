@@ -10,7 +10,8 @@ const routes: Routes = [
     path: 'permissionUserDetail',
     component: CreateRoleComponent
   },
- {path: 'UserDetail',
+  {
+    path: 'role-detail/:id',
   component: RoleDetailComponent
   }
    

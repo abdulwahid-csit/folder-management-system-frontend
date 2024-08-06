@@ -16,7 +16,7 @@
 
             <li class="d-flex align-items-center sidebar_svg" (click)="setActive('Secrets')" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><span class="d-flex align-items-center sidebar_svg" [inlineSVG]="'./assets/icons/lock-keyhole-square.svg'"></span><a>Secrets</a></li>
 
-            <li class="d-flex align-items-center sidebar_svg" (click)="setActive('teamMembers')" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><span class="d-flex align-items-center sidebar_svg" [inlineSVG]="'./assets/icons/users-03.svg'"></span><a>Team Members</a></li>
+            <li class="d-flex align-items-center sidebar_svg" (click)="setActive('teamMembers')" routerLink="team-member" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><span class="d-flex align-items-center sidebar_svg" [inlineSVG]="'./assets/icons/users-03.svg'"></span><a>Team Members</a></li>
         </ul>
     </div>
 </div>

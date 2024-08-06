@@ -5,7 +5,7 @@ import { OrganizationDetailsComponent } from './components/organization-details/
 
 const routes: Routes = [
   {path:'', component:OrganizationComponent},
-  {path:'details', component:OrganizationDetailsComponent}
+  {path:'organization-details/:id', component:OrganizationDetailsComponent}
 ];
 
 @NgModule({

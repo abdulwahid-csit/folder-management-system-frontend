@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { CreateOrganizationComponent } from 'src/app/modules/organization/components/create-organization/create-organization.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-data-table',
@@ -11,6 +12,7 @@ export class DataTableComponent implements OnInit {
  @Input() columns:any
  @Input() config:any
  @Input() dataSet: any[] = [];
+ @Input() module!:string;
  @Input() searchTerm: string = '';
  totalPages = 50;
  currentPage = 1;
@@ -20,7 +22,7 @@ export class DataTableComponent implements OnInit {
  maintainStationList:any = []
  filterData: any[] = [];
 
- constructor(private modalService: BsModalService){ }
+ constructor(private modalService: BsModalService, private router:Router){ }
 
  ngOnInit(): void { }
 
@@ -56,5 +58,38 @@ export class DataTableComponent implements OnInit {
         return value.toString().toLowerCase().includes(lowercasedSearchTerm);
       })
     );
+  }
+
+  onRowClick(rowData: any) {
+    let detailRoute: string;
+    switch (this.module) {
+      // case 'dashboard':
+      //   detailRoute = `/layout/${this.module}/organization-details/${rowData.id}`;
+      //   break;
+      case 'organization':
+        detailRoute = `/layout/${this.module}/organization-details/${rowData.id}`;
+        break;
+      case 'roles':
+        detailRoute = `/layout/${this.module}/role-detail/${rowData.id}`;
+        break;
+      case 'application':
+        detailRoute = `/layout/${this.module}/application-detail/${rowData.id}`;
+        break;
+      case 'user':
+        detailRoute = `/layout/${this.module}/userDetail/${rowData.id}`;
+        break;
+      case 'secret':
+        detailRoute = `/layout/${this.module}/secret-detail/${rowData.id}`;
+        break;
+      case 'team-member':
+        detailRoute = `/layout/${this.module}/team-member-detail/${rowData.id}`;
+        break;
+
+      default:
+        detailRoute = '/';
+        break;
+    }
+
+    this.router.navigate([detailRoute]);
   }
 }

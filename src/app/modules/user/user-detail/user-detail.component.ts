@@ -32,7 +32,7 @@ export class UserDetailComponent {
       }
     });
   }
-  delateModal(template: TemplateRef<any>): void {
+  deleteModal(template: TemplateRef<any>): void {
     this.modalRef = this.modalService.show(template, {
       class: 'modal-dialog modal-dialog-centered modal-md common_modal_shadow',
       backdrop: 'static',

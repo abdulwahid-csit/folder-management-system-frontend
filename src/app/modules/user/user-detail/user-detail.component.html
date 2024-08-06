@@ -128,9 +128,9 @@
         <div class="main-div sso_card bg-white p-3 mt-4 ps-4">
             <div>
                 <h5 class="fs-20px fw-700">Delete User Account</h5>
-                <p class="fs-14px dark-light">Deleting this user is permanent and cannot be undone.</p>
+                <p class="fs-14px dark-light mt-4">Deleting this user is permanent and cannot be undone.</p>
                 <div class="mt-4">
-                    <button class="btn custom-button-danger fs-14 fw-600" (click)="delateModal(deleteUser)">
+                    <button class="btn custom-button-danger fs-14 fw-600" (click)="deleteModal(deleteUser)">
                         Delete User
                     </button>
                 </div>
@@ -255,13 +255,13 @@
     <div class="common_modal">
         <div class="modal-body d-flex border-0 py-0 pt-8 align-items-center flex-column pt-5">
             <span [inlineSVG]="''" class="svg-icon svg-icon-4x mb-10 svg-icon-primary"></span>
-            <p class="fs-5 fw-bolder text-center">Do you want to archive this User?</p>
+            <p class="fs-5 fw-bolder text-center">Do you want to Delete this User?</p>
         </div>
         <div class="border-0 align-items-center text-center mx-auto pb-5 pt-3 ">
-            <button (click)="onCancel()" type="button" class="cancel_btn me-3 fs-14 fw-600">
+            <button (click)="closeModal()" type="button" class="cancel_btn me-3 fs-14 fw-600">
                 Cancel
             </button>
-            <button type="button" class="primary_button fs-14 fw-600">Archive
+            <button type="button" class="primary_button fs-14 fw-600">Confirm
                 <i class="bi bi-arrow-right arrow1 ps-2"></i>
             </button>
         </div>

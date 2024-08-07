@@ -1,3 +1,5 @@
+@import url('./assets/icon-styles.scss');
+
 @font-face {
     font-family: 'Urbanist';
     src: url('/path/to/urbanist-regular.woff2') format('woff2'),
@@ -13,7 +15,7 @@
 
 body{
     background-color:#F1F5F9 !important;
-} 
+}
 .cursor-pointer{
     cursor: pointer;
 }

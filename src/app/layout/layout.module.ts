@@ -6,7 +6,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { ContentComponent } from './components/content/content.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { LayoutComponent } from './layout/layout.component';
-import { InlineSVGModule } from 'ng-inline-svg';
+// import { InlineSVGModule } from 'ng-inline-svg';
 import { SharedModule } from '../shared/shared.module'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
@@ -21,7 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
   imports: [
     CommonModule,
     LayoutRoutingModule,
-    InlineSVGModule,
+    // InlineSVGModule,
     SharedModule,
     FormsModule,
     ReactiveFormsModule

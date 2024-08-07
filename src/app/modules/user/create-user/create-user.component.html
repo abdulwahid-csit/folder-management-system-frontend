@@ -1,62 +1,62 @@
 <div class="common_modal">
-    <div class="modal-header border-bottom-0">
-        <h2 class="primary_color mb-0">{{ mode === 'create' ? 'Create User' : 'Update User' }}</h2>
+    <div class="modal-header border-bottom-0 ">
+        <h2 class="mb-0">{{ mode === 'create' ? 'Create User' : 'Update User' }}</h2>
     </div>
     <div class="modal-body">
         <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
             <div class="row">
                 <div class="col-xl-6 input-container">
-                    <label for="" class="mt-3 primary_color required font_weight_500">First Name</label>
+                    <label for="" class="mt-3 required label-font">First Name</label>
                     <input [ngClass]="{
               'is-invalid': isControlHasError('firstName', 'required')
-            }" type="text" class="form-control form-control-lg mt-2" formControlName="firstName"
+            }" type="text" class="form-control form-control-lg" formControlName="firstName"
                         placeholder="Enter first name">
                     <span *ngIf="isControlHasError('firstName','required')" class="text-danger fs-8 ps-3">First name is
                         required</span>
                 </div>
                 <div class="col-xl-6 input-container">
-                    <label for="" class="mt-3 primary_color required font_weight_500">Last name</label>
+                    <label for="" class="mt-3 primary_color required label-font">Last name</label>
                     <input [ngClass]="{
               'is-invalid': isControlHasError('lastName', 'required')
-            }" type="text" class="form-control form-control-lg mt-2" formControlName="lastName"
+            }" type="text" class="form-control form-control-lg " formControlName="lastName"
                         placeholder="Enter last name">
                     <span *ngIf="isControlHasError('lastName','required')" class="text-danger fs-8 ps-3">Last name is
                         required</span>
                 </div>
                 <div class="col-xl-6 input-container">
-                    <label for="" class="mt-3 primary_color required font_weight_500">User name</label>
+                    <label for="" class="mt-3 primary_color required label-font">User name</label>
                     <input [ngClass]="{
               'is-invalid': isControlHasError('userName', 'required')
-            }" type="text" class="form-control form-control-lg mt-2" formControlName="userName"
+            }" type="text" class="form-control form-control-lg " formControlName="userName"
                         placeholder="Enter user name">
                     <span *ngIf="isControlHasError('userName','required')" class="text-danger fs-8 ps-3">User name is
                         required</span>
                 </div>
-                <div class="col-xl-6 input-container">
-                    <label for="" class="mt-3 primary_color required  ">Phone Number</label>
+                <div class="col-xl-6 input-container ">
+                    <label for="" class="mt-3 primary_color required label-font  ">Phone Number</label>
                     <input [ngClass]="{
               'is-invalid': isControlHasError('phoneName', 'required')
-            }" type="text" class="form-control form-control-lg mt-2" formControlName="phoneName"
+            }" type="text" class="form-control form-control-lg " formControlName="phoneName"
                         placeholder="Enter phone name">
                     <span *ngIf="isControlHasError('phoneName','required')" class="text-danger fs-8 ps-3">Phone number
                         is
                         required</span>
                 </div>
-                <div class="col-xl-6">
-                    <label for="" class="mt-3 primary_color required font_weight_500 ">Email address</label>
+                <div class="col-xl-6 input-container">
+                    <label for="" class="mt-3 primary_color required label-font ">Email address</label>
                     <input [ngClass]="{
               'is-invalid': isControlHasError('email', 'required')
-            }" type="email" class="form-control form-control-lg mt-2" formControlName="email"
+            }" type="email" class="form-control form-control-lg  " formControlName="email"
                         placeholder="Enter email address">
-                    <span *ngIf="isControlHasError('email','required')" class="text-danger fs-8">Email is
+                    <span *ngIf="isControlHasError('email','required')" class="text-danger ps-3 fs-8">Email is
                         required</span>
                 </div>
-                <div class="col-xl-6" *ngIf="mode === 'create'">
-                    <label class="mt-3 primary_color required font_weight_500">Password</label>
-                    <div class="input-container">
+                <div class="col-xl-6 input-container" *ngIf="mode === 'create'">
+                    <label class="mt-3 primary_color required label-font">Password</label>
+                    <div class="">
                         <input [ngClass]="{
               'is-invalid': isControlHasError('password', 'required')
-          }" [type]="isPasswordVisible ? 'text' : 'password'" class="form-control form-control-lg mt-2"
+          }" [type]="isPasswordVisible ? 'text' : 'password'" class="form-control form-control-lg"
                             formControlName="password" id="password" placeholder="Enter password">
                         <div class="position-absolute password_field_container">
                             <hr class="vertical-line">
@@ -67,13 +67,13 @@
                                 id="generateButton">Generate</button>
                         </div>
                     </div>
-                    <span class="text-danger fs-8" [ngClass]="{
+                    <span class="text-danger ps-3 fs-8" [ngClass]="{
         invisible: !isControlHasError('password', 'required')
     }">Password is required</span>
                 </div>
-                <div class="col-xl-6 pt-4 " *ngIf="mode === 'update'">
-                    <label class="primary_color required font_weight_500">Roles</label>
-                    <div class="input-container">
+                <div class="col-xl-6 pt-1 mt-2  input-container" *ngIf="mode === 'update'">
+                    <label class="primary_color required label-font">Roles</label>
+                    <div class="">
                         <select [ngClass]="{
                               'is-invalid': isControlHasError('role', 'required')
                             }" class="form-select form-control  form-select-lg " aria-label=".form-select-lg example"
@@ -83,13 +83,13 @@
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
-                        <span *ngIf="isControlHasError('role','required')" class="text-danger fs-8">Role is
+                        <span *ngIf="isControlHasError('role','required')" class="text-danger ps-3 fs-8">Role is
                             required</span>
                     </div>
                 </div>
-                <div class="col-xl-6 " *ngIf="mode === 'create'">
-                    <label class="primary_color required font_weight_500">Roles</label>
-                    <div class="input-container">
+                <div class="col-xl-6 mt-2 input-container " *ngIf="mode === 'create'">
+                    <label class="primary_color required label-font">Roles</label>
+                    <div class="">
                         <select [ngClass]="{
               'is-invalid': isControlHasError('role', 'required')
             }" class="form-select form-control  form-select-lg " aria-label=".form-select-lg example"
@@ -99,7 +99,7 @@
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
-                        <span *ngIf="isControlHasError('role','required')" class="text-danger fs-8">Role is
+                        <span *ngIf="isControlHasError('role','required')" class="text-danger ps-3 fs-8">Role is
                             required</span>
                     </div>
                 </div>

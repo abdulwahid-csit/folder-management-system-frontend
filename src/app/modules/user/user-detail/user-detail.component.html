@@ -111,7 +111,7 @@
                     </tbody>
                 </table>
                 <div class="modal-footer border-0 d-flex justify-content-start mt-2">
-                    <button type="button" class="primary_button fs-14 fw-600 me-2"
+                    <button type="button" class="cancel_btn fs-14 fw-600 me-2"
                         (click)="passwordModal(changepassword)">
                         Change Password
                     </button>
@@ -130,7 +130,7 @@
                 <h5 class="header-content">Delete User Account</h5>
                 <p class="fs-14px dark-light mt-4">Deleting this user is permanent and cannot be undone.</p>
                 <div class="mt-4">
-                    <button class="btn custom-button-danger fs-14 fw-600" (click)="deleteModal(deleteUser)">
+                    <button class="danger_btn fs-14 fw-600" (click)="deleteModal(deleteUser)">
                         Delete User
                     </button>
                 </div>
@@ -223,7 +223,7 @@
               'is-invalid': isControlHasError('password', 'required')
             }" type="password" class="form-control form-control-lg" formControlName="password"
                             placeholder="Enter password">
-                        <span *ngIf="isControlHasError('password','required')" class="text-danger fs-8 ps-3">password is
+                        <span *ngIf="isControlHasError('password','required')" class="text-danger fs-8 ps-3">Password is
                             required</span>
                     </div>
                 </div>
@@ -235,12 +235,12 @@
             }" type="password" class="form-control form-control-lg" formControlName="confirmPassword"
                             placeholder="Enter confirm Password">
                         <span *ngIf="isControlHasError('confirmPassword','required')"
-                            class="text-danger fs-8 ps-3">confirm Password is
+                            class="text-danger fs-8 ps-3">Confirm password is
                             required</span>
                     </div>
 
                     <div class="modal-footer border-top-0 pb-0 mt-2">
-                        <button type="button" class="cancel_btn fs-14 fw-600 me-2" (click)="onCancel()">Cancel</button>
+                        <button type="button" class="cancel_btn fs-12 fw-600 me-2" (click)="onCancel()">Cancel</button>
                         <button type="submit" class="primary_button fs-14 fw-600">Save</button>
                     </div>
                 </div>
@@ -254,17 +254,16 @@
 <ng-template #deleteUser>
     <div class="common_modal">
         <div class="modal-body d-flex border-0 py-0 pt-8 align-items-center flex-column pt-5">
-            <span [inlineSVG]="''" class="svg-icon svg-icon-4x mb-10 svg-icon-primary"></span>
-            <p class="fs-5 fw-bolder text-center">Do you want to Delete this User?</p>
+            <span [inlineSVG]="'../../../../assets/icons/delete-icon.svg'" class="svg-icon svg-icon-4x mb-10 svg-icon-primary mb-3 pt-3"></span>
+            <p class="fs-5 text-center dark-light fw-600 pt-2 ">Please confirm you really want to delete the user. After clicking yes, the user will be deleted permanently</p>
         </div>
-        <div class="border-0 align-items-center text-center mx-auto pb-5 pt-3 ">
-            <button (click)="closeModal()" type="button" class="cancel_btn me-3 fs-14 fw-600">
-                Cancel
-            </button>
-            <button type="button" class="primary_button fs-14 fw-600">Confirm
-               
-            </button>
-        </div>
+        <div class="border-0 align-items-center text-center mx-auto pb-5 pt-3 pe-2">
+            
+            <button type="button" class="cancel_btn fs-12 fw-600 me-3"(click)="onCancel()"
+                       > No, Cancel </button>
+             <button class="danger_btn fs-12 fw-600">
+                       Yes, I’m Sure
+                    </button> </div>
     </div>
 
 </ng-template>

@@ -1,6 +1,7 @@
 import { Component, TemplateRef } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { CreateRoleComponent } from '../create-role/create-role.component';
+
 @Component({
   selector: 'app-role-detail',
   templateUrl: './role-detail.component.html',
@@ -28,7 +29,7 @@ export class RoleDetailComponent {
   }
   deleteModal(template: TemplateRef<any>): void {
     this.modalRef = this.modalService.show(template, {
-      class: 'modal-dialog modal-dialog-centered modal-md common_modal_shadow',
+      class: 'modal-dialog modal-dialog-centered modal-lg common_modal_shadow',
       backdrop: 'static',
       keyboard: false,
 

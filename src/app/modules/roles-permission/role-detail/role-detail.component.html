@@ -89,7 +89,7 @@
                 <h5 class="fs-20px fw-700">Delete role</h5>
                 <p class="fs-14px dark-light mt-4">To proceed with deleting this role, you must first reassign all users currently assign to it. The delete operation will remain disabled all users have been reassigned, ensuring they do not lose access or permissions unexpectely..</p>
                 <div class="mt-4">
-                    <button class="btn custom-button-danger fs-14 fw-600" (click)="deleteModal(deleteUser)" >
+                    <button class="danger_btn fs-14 fw-600" (click)="deleteModal(deleteUser)" >
                         Delete User
                     </button>
                 </div>
@@ -101,17 +101,17 @@
 <ng-template #deleteUser>
     <div class="common_modal">
         <div class="modal-body d-flex border-0 py-0 pt-8 align-items-center flex-column pt-5">
-            <!-- <span [inlineSVG]="''" class="svg-icon svg-icon-4x mb-10 svg-icon-primary"></span> -->
-            <p class="fs-5 fw-bolder text-center">Do you want to Delete this role?</p>
+            <span [inlineSVG]="'../../../../assets/icons/delete-icon.svg'" class="svg-icon svg-icon-4x mb-10 svg-icon-primary mb-3 pt-3"></span>
+            <p class="fs-5 text-center dark-light fw-600 pt-2 ">Please confirm you really want to delete the permission. After clicking yes, the permission will be deleted permanently</p>
         </div>
-        <div class="border-0 align-items-center text-center mx-auto pb-5 pt-3 ">
-            <button (click)="closeModal()" type="button" class="cancel_btn me-3 fs-14 fw-600">
-                Cancel
-            </button>
-            <button type="button" class="primary_button fs-14 fw-600">Confirm
-               
-            </button>
-        </div>
+        <div class="border-0 align-items-center text-center mx-auto pb-5 pt-3 pe-2">
+            
+            <button type="button" class="cancel_btn fs-12 fw-600 me-3"(click)="closeModal()"
+                       > No, Cancel </button>
+             <button class="danger_btn fs-12 fw-600">
+                       Yes, I’m Sure
+                    </button> </div>
     </div>
+
 </ng-template>
 <!--delete modal-->

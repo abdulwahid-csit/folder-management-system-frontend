@@ -14,16 +14,16 @@
                     <img src="../../../../assets/images/userimage.svg" alt="User Image" class="img-fluid">
                 </div>
                 <div class="ms-3">
-                    <div class="fs-20px mt-1 fw-700 ms-2 bold-fonts">
+                    <div class="mt-1 header-content ms-2 ">
                         Abdul Basit
                     </div>
                     <div class="d-flex mt-2 align-items-center flex-wrap">
-                        <div class="custom-badge-primary ps-2 pe-2 dark-light ms-2 semi-bold-fonts">
+                        <div class="custom-badge-dark ps-2 pe-2 dark-light ms-2 semi-bold-fonts">
                             org_01J3CGASS7GH6W79ECWECK2VYN
                         </div>
                         <div class="d-flex ms-4 mt-1 align-items-center">
                             <img src="../../../../../assets/icons/Frame.svg" alt="Email Icon">
-                            <span class="dark-light fs-14px semi-bold-fonts ms-2">abdulbasir@gmail.com</span>
+                            <span class="dark-light fw-600  ms-2">abdulbasir@gmail.com</span>
                         </div>
                     </div>
                 </div>
@@ -35,47 +35,47 @@
     <div class="section">
         <div class="sso_card bg-white p-3 mt-4 ps-4">
             <div class="pt-1">
-                <h5 class="fs-20px fw-700 mb-2 bold-fonts">User Details</h5>
-                <hr class="mt-4 mb-2 me-2 custom-hr">
+                <h5 class="header-content mb-2 ">User Details</h5>
+                <hr class="mt-4 mb-1 me-2 custom-hr">
                 <table class="table">
                     <tbody>
                         <tr>
-                            <td class="fs-14 fw-600">First Name</td>
-                            <td class="dark-light fs-14 fw-600">Abubakar</td>
+                            <td class="fw-600 w-200px">First Name</td>
+                            <td class="dark-light fs-12">Abubakar</td>
                         </tr>
                         <tr>
 
                         </tr>
                         <tr>
-                            <td class="fs-14 fw-600">Last Name</td>
-                            <td class="dark-light fs-14 fw-600">Sidique</td>
+                            <td class="fw-600 w-200px">Last Name</td>
+                            <td class="dark-light fs-12">Sidique</td>
                         </tr>
                         <tr>
 
                         </tr>
                         <tr>
-                            <td class="fs-14 fw-600">User Name</td>
-                            <td class="dark-light fs-14 fw-600">Abubakar</td>
+                            <td class="fw-600 w-200px">User Name</td>
+                            <td class="dark-light  fs-12">Abubakar</td>
                         </tr>
                         <tr>
 
                         </tr>
                         <tr>
-                            <td class="fs-14 fw-600">Role</td>
-                            <td class="dark-light fs-14 fw-600">Abubakar</td>
+                            <td class="fw-600 w-200px">Role</td>
+                            <td class="dark-light fs-12">Abubakar</td>
                         </tr>
                         <tr>
 
                         </tr>
                         <tr>
-                            <td class="fs-14 fw-600">Permission</td>
+                            <td class="fw-600">Permission</td>
                             <td>
                                 <div class="d-flex flex-wrap align-items-center">
-                                    <span class="custom-badge-primary ps-2 pe-2 me-2 fs-14 fw-600">super admin</span>
-                                    <span class="custom-badge-primary ps-2 pe-2 me-2 fs-14 fw-600">Techbar</span>
-                                    <span class="custom-badge-primary ps-2 pe-2 me-2 fs-14 fw-600">mobile sentrix</span>
-                                    <span class="custom-badge-primary ps-2 pe-2 me-2 fs-14 fw-600">knowledge base</span>
-                                    <button class="primary_button custom-button ps-2 pe-2 me-2 fs-14 fw-600"
+                                    <span class="custom-badge-primary ps-3 pe-3 me-2 fs-12 ">super admin</span>
+                                    <span class="custom-badge-primary ps-3 pe-3 me-2 fs-12 ">Techbar</span>
+                                    <span class="custom-badge-primary ps-3 pe-3 me-2 fs-12 ">mobile sentrix</span>
+                                    <span class="custom-badge-primary ps-3 pe-3 me-2 fs-12 ">knowledge base</span>
+                                    <button class="primary_button custom-button ps-2 pe-3 me-4  "
                                         (click)="openModal(permission)">
                                         <i class="bi bi-plus"></i> Add
                                     </button>
@@ -89,7 +89,7 @@
                             <td class="fs-14 fw-600">Status</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <span class="custom-badge-warning ps-2 pe-2">Inactive</span>
+                                    <span class="custom-badge-warning ps-3 pe-3">Inactive</span>
                                 </div>
                             </td>
                         </tr>
@@ -111,7 +111,7 @@
                     </tbody>
                 </table>
                 <div class="modal-footer border-0 d-flex justify-content-start mt-2">
-                    <button type="button" class="primary_button fs-14 fw-600 me-2"
+                    <button type="button" class="cancel_btn fs-14 fw-600 me-2"
                         (click)="passwordModal(changepassword)">
                         Change Password
                     </button>
@@ -127,10 +127,10 @@
     <div class="section">
         <div class="main-div sso_card bg-white p-3 mt-4 ps-4">
             <div>
-                <h5 class="fs-20px fw-700">Delete User Account</h5>
-                <p class="fs-14px dark-light">Deleting this user is permanent and cannot be undone.</p>
+                <h5 class="header-content">Delete User Account</h5>
+                <p class="fs-14px dark-light mt-4">Deleting this user is permanent and cannot be undone.</p>
                 <div class="mt-4">
-                    <button class="btn custom-button-danger fs-14 fw-600" (click)="delateModal(deleteUser)">
+                    <button class="danger_btn fs-14 fw-600" (click)="deleteModal(deleteUser)">
                         Delete User
                     </button>
                 </div>
@@ -146,60 +146,60 @@
             <h2 class="mb-0 ps-3 ms-2">Permission</h2>
         </div>
         <div class="modal-body p-3 pt-4 pb-4">
-            <div class="custom-control  d-flex justify-content-between align-items-center bg-light-gray ms-5 me-5">
-                <label class="custom-control-label fs-14 fw-600 dark-light ps-4 fs-5">APPLICATION</label>
-                <label class="custom-control-label dark-light pe-4 fs-14 fw-600 fs-5">GRANT ACCESS</label>
+            <div class="custom-control   d-flex justify-content-between align-items-center bg-light-gray ms-5 me-5 p-4">
+                <label class="fs-14 label-font fw-600 dark-light ps-2 fs-5">APPLICATION</label>
+                <label class="dark-light label-font pe-2 fs-14 fw-600 fs-5">GRANT ACCESS</label>
             </div>
 
-            <div class="custom-control  d-flex justify-content-between align-items-center mt-3 ms-5 me-5 pe-5">
-                <label class="custom-control-label  ps-4 ms-2 fs-5 fs-14 fw-600" for="customCheck1">Super Admin</label>
+            <div class="custom-control  d-flex justify-content-between align-items-center mt-3 ms-5 me-5 pe-5 ps-3">
+                <label class="custom-control-label label-font  ps-3 fs-5 fs-14 fw-600" for="customCheck1">Super Admin</label>
                 <input type="checkbox" class="custom-control-input custom-checkbox-lg me-5  " id="customCheck1">
             </div>
 
             <hr class="mt-3 mb-2 ms-5 me-5 custom-hr">
-            <div class="custom-control  d-flex justify-content-between align-items-center mt-3 ms-5 me-5 pe-5">
-                <label class="custom-control-label  ps-4 ms-2 fs-5 fs-14 fw-600" for="customCheck1">Knowledge
+            <div class="custom-control  d-flex justify-content-between align-items-center mt-3 ms-5 me-5 pe-5 ps-3">
+                <label class="custom-control-label label-font   ps-3 fs-5 fs-14 fw-600" for="customCheck1">Knowledge
                     Base</label>
+                <input type="checkbox" class="custom-control-input label-font custom-checkbox-lg me-5" id="customCheck1">
+            </div>
+            <hr class="mt-3 mb-2 ms-5 me-5 custom-hr">
+            <div class="custom-control d-flex justify-content-between align-items-center mt-3 ms-5 me-5 pe-5 ps-3">
+                <label class="custom-control-label label-font ps-3 fs-5 fs-14 fw-600" for="customCheck1">Khaam</label>
                 <input type="checkbox" class="custom-control-input custom-checkbox-lg me-5" id="customCheck1">
             </div>
             <hr class="mt-3 mb-2 ms-5 me-5 custom-hr">
-            <div class="custom-control d-flex justify-content-between align-items-center mt-3 ms-5 me-5 pe-5">
-                <label class="custom-control-label  ps-4 ms-2 fs-5 fs-14 fw-600" for="customCheck1">Khaam</label>
-                <input type="checkbox" class="custom-control-input custom-checkbox-lg me-5" id="customCheck1">
-            </div>
-            <hr class="mt-3 mb-2 ms-5 me-5 custom-hr">
-            <div class="custom-control d-flex justify-content-between align-items-center mt-3 ms-5 me-5 pe-5">
-                <label class="custom-control-label  ps-4 ms-2 fs-5 fs-14 fw-600" for="customCheck1">Mobile
+            <div class="custom-control d-flex justify-content-between align-items-center mt-3 ms-5 me-5 pe-5 ps-3">
+                <label class="custom-control-label label-font   ps-3 fs-5 fs-14 fw-600" for="customCheck1">Mobile
                     Sentrix</label>
                 <input type="checkbox" class="custom-control-input custom-checkbox-lg me-5" id="customCheck1">
             </div>
             <hr class="mt-3 mb-2 ms-5 me-5 custom-hr">
-            <div class="custom-control d-flex justify-content-between align-items-center mt-3 ms-5 me-5 pe-5">
-                <label class="custom-control-label  ps-4 ms-2 fs-5 fs-14 fw-600" for="customCheck1">Techbar</label>
+            <div class="custom-control d-flex justify-content-between align-items-center mt-3 ms-5 me-5 pe-5 ps-3">
+                <label class="custom-control-label  label-font  ps-3 fs-5 fs-14 fw-600" for="customCheck1">Techbar</label>
                 <input type="checkbox" class="custom-control-input custom-checkbox-lg me-5" id="customCheck1">
             </div>
             <hr class="mt-3 mb-2 ms-5 me-5 custom-hr">
-            <div class="custom-control  d-flex justify-content-between align-items-center mt-3 ms-5 me-5 pe-5">
-                <label class="custom-control-label  ps-4 ms-2 fs-5 fs-14 fw-600" for="customCheck1">Vista Vally</label>
+            <div class="custom-control  d-flex justify-content-between align-items-center mt-3 ms-5 me-5 pe-5 ps-3">
+                <label class="custom-control-label  label-font  ps-3 fs-5 fs-14 fw-600" for="customCheck1">Vista Vally</label>
                 <input type="checkbox" class="custom-control-input custom-checkbox-lg me-5" id="customCheck1">
             </div>
             <hr class="mt-3 mb-2 ms-5 me-5 custom-hr">
-            <div class="custom-control  d-flex justify-content-between align-items-center mt-3 ms-5 me-5 pe-5">
-                <label class="custom-control-label  ps-4 ms-2 fs-5 fs-14 fw-600" for="customCheck1">Online Document
+            <div class="custom-control  d-flex justify-content-between align-items-center mt-3 ms-5 me-5 pe-5 ps-3">
+                <label class="custom-control-label label-font   ps-3 fs-5 fs-14 fw-600" for="customCheck1">Online Document
                     Editor</label>
                 <input type="checkbox" class="custom-control-input custom-checkbox-lg me-5" id="customCheck1">
             </div>
             <hr class="mt-3 mb-2 ms-5 me-5 custom-hr">
             <div>
             </div>
-            <div class="d-flex justify-content-end mt-4">
+            <div class="d-flex justify-content-end mt-4 pe-5">
                 <button (click)="closeModal()" type="button" class="cancel_btn  me-3 fs-14 fw-600">
                     Cancel
                 </button>
 
                 <button class="primary_button fs-14 fw-600" href="JavaScript:void(0)">
                     Save Change
-                    <i class="bi bi-arrow-right arrow1 ps-2"></i>
+
                 </button>
             </div>
         </div>
@@ -212,35 +212,35 @@
 <ng-template #changepassword>
     <div class="common_modal">
         <div class="modal-header border-bottom-0">
-            <h2 class="primary_color mb-0">Change Password</h2>
+            <h2 class="mb-0">Change Password</h2>
         </div>
         <div class="modal-body">
             <form [formGroup]="passwordForm" (ngSubmit)="onSubmit()">
                 <div class="row">
                     <div class="input-container">
-                        <label for="" class="mt-3  required font_weight_500">Password</label>
+                        <label for="" class="label-font required ">Password</label>
                         <input [ngClass]="{
               'is-invalid': isControlHasError('password', 'required')
-            }" type="password" class="form-control form-control-lg mt-2" formControlName="password"
+            }" type="password" class="form-control form-control-lg" formControlName="password"
                             placeholder="Enter password">
-                        <span *ngIf="isControlHasError('password','required')" class="text-danger fs-8 ps-3">password is
+                        <span *ngIf="isControlHasError('password','required')" class="text-danger fs-8 ps-3">Password is
                             required</span>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mt-3">
                     <div class="input-container">
-                        <label for="" class="mt-3 required font_weight_500">Confirm password</label>
+                        <label for="" class=" label-font required">Confirm password</label>
                         <input [ngClass]="{
               'is-invalid': isControlHasError('confirmPassword', 'required')
-            }" type="password" class="form-control form-control-lg mt-2" formControlName="confirmPassword"
+            }" type="password" class="form-control form-control-lg" formControlName="confirmPassword"
                             placeholder="Enter confirm Password">
                         <span *ngIf="isControlHasError('confirmPassword','required')"
-                            class="text-danger fs-8 ps-3">confirm Password is
+                            class="text-danger fs-8 ps-3">Confirm password is
                             required</span>
                     </div>
 
                     <div class="modal-footer border-top-0 pb-0 mt-2">
-                        <button type="button" class="cancel_btn fs-14 fw-600 me-2" (click)="onCancel()">Cancel</button>
+                        <button type="button" class="cancel_btn fs-12 fw-600 me-2" (click)="onCancel()">Cancel</button>
                         <button type="submit" class="primary_button fs-14 fw-600">Save</button>
                     </div>
                 </div>
@@ -254,17 +254,16 @@
 <ng-template #deleteUser>
     <div class="common_modal">
         <div class="modal-body d-flex border-0 py-0 pt-8 align-items-center flex-column pt-5">
-            <span  class="svg-icon svg-icon-4x mb-10 svg-icon-primary"></span>
-            <p class="fs-5 fw-bolder text-center">Do you want to archive this User?</p>
+            <span  class="svg-icon svg-icon-4x mb-10 svg-icon-primary mb-3 pt-3 delete-icon"></span>
+            <p class="fs-5 text-center dark-light fw-600 pt-2 ">Please confirm you really want to delete the user. After clicking yes, the user will be deleted permanently</p>
         </div>
-        <div class="border-0 align-items-center text-center mx-auto pb-5 pt-3 ">
-            <button (click)="onCancel()" type="button" class="cancel_btn me-3 fs-14 fw-600">
-                Cancel
-            </button>
-            <button type="button" class="primary_button fs-14 fw-600">Archive
-                <i class="bi bi-arrow-right arrow1 ps-2"></i>
-            </button>
-        </div>
+        <div class="border-0 align-items-center text-center mx-auto pb-5 pt-3 pe-2">
+
+            <button type="button" class="cancel_btn fs-12 fw-600 me-3"(click)="onCancel()"
+                       > No, Cancel </button>
+             <button class="danger_btn fs-12 fw-600">
+                       Yes, I’m Sure
+                    </button> </div>
     </div>
 
 </ng-template>

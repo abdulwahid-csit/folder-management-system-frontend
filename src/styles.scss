@@ -15,6 +15,18 @@
 
 body{
     background-color:#F1F5F9 !important;
+<<<<<<< HEAD
+=======
+} 
+.danger_btn {
+    color: #FFFFFF;
+    border-color: #EF4444;
+    border: none;
+    background-color: #EF4444;
+    padding: 8px 16px 10px 16px;
+    border-radius: 6px;
+    height: 40px;
+>>>>>>> 1134815a30fddcd790ecf9c44b47c5919ff1e346
 }
 .cursor-pointer{
     cursor: pointer;
@@ -37,7 +49,7 @@ body{
     padding: 10px 16px 10px 16px;
     border: none;
     border-radius: 6px;
-    height: 48px;
+    height: 40px;
 }
 .focus-none:focus {
     border-color: #dee2e6 !important;
@@ -48,9 +60,10 @@ body{
     color: rgb(132, 146, 166);
     padding: 10px 16px 10px 16px;
     border-radius: 6px;
-    height: 48px;
+    height: 40px;
     background: white;
 }
+
 .sso_card{
     box-shadow: 0px 0px 1px 0px rgba(12, 26, 75, 0.24);
     background-color: white;
@@ -126,13 +139,23 @@ body{
     }
         h2{
             font-weight: 700;
-            font-size: 22px;
+            font-size: 20px;
         }
         .modal-body{
-            padding: 22px 40px 40px;
+            padding: 10px 40px 40px;
             input::placeholder {
-                font-size: 16px;
+                font-size: 14px;
+                    font-weight: 500;
+                    line-height: 16.8px;
+                    letter-spacing: -0.01em;
                 color: rgba(132, 146, 166, 1);
+            }
+            textarea::placeholder{
+                font-size: 14px;
+                    font-weight: 500;
+                    line-height: 16.8px;
+                    letter-spacing: -0.01em;
+                    color: rgba(132, 146, 166, 1);
             }
         }
         .modal-header{
@@ -141,17 +164,22 @@ body{
 }
 .form-control.is-invalid {
     background-image: none !important;
-}
+    border-color: #EF4444 !important;
+    box-shadow: 0 0 0 .20rem rgba(var(--bs-danger-rgb), .25) !important;
+    }
+
 
 .input-container {
     position: relative;
 
     .password_field_container {
-        display: flex;
-        top: 5px;
-        right: 6px;
-        align-items: center;
-        gap: 0.3rem;
+       
+    display: flex;
+    top: 40px;
+    right: 15px;
+    align-items: center;
+    gap: 0.3rem;
+
     }
     .modal-header{
         padding: 40px 40px 0;
@@ -183,6 +211,7 @@ body{
 
 .fs-14px {
     font-size: 14px;
+    font-weight: 600px;
 }
 
 .color-16192C {
@@ -285,11 +314,11 @@ body{
 
 
 .input-container .text-danger {
-    position: absolute;
-    bottom: -20px;
-    left: 0;
-    font-size: 0.875rem;
-    color: #dc3545;
+   position: absolute;
+    bottom: -16px;
+    left: -3px;
+    font-size: 0.6rem;
+    color: #EF4444 !important;
 }
 
 .custom-badge-warning {
@@ -326,6 +355,23 @@ body{
     box-sizing: border-box;
 
 }
+.custom-badge-dark {
+    background-color: #F2F4F6;
+    color: #8492A6;
+    border-radius: 1.2rem;
+    width: auto;
+    height: auto;
+    font-family: 'Urbanist', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 23px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+
+}
 .custom-hr {
     border: 0;
     border-top: 1px solid #EDF2F7;
@@ -341,9 +387,13 @@ body{
 
 .fw-600 {
     font-weight: 600;
+    font-size: 14px;
 }
-
-
+.fs-12{
+font-weight: 600;
+    font-size: 14px;
+line-height: 20px; 
+}
 
 .fs-14 {
     font-size: 14px;
@@ -352,4 +402,23 @@ body{
 .text-primary-custom {
     color: #6F61CF
 }
+h1,
+h2,
+h3 {
+    font-family: 'Urbanist', sans-serif;
+    font-weight: bold;
+}
+.label-font {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16.8px;
+    letter-spacing: -0.01em;
+}
+.header-content{
+    font-family: 'Urbanist', sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 27.3px;
+        letter-spacing: -0.01em;}
 

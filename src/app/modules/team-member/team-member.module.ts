@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+// import { NgSelectModule } from '@ng-select/ng-select';
 
 import { TeamMemberRoutingModule } from './team-member-routing.module';
 import { InviteMemberComponent } from './invite-member/invite-member.component';
@@ -10,6 +11,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { UpdateTeamMemberComponent } from './update-team-member/update-team-member.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -27,6 +29,7 @@ import { UpdateTeamMemberComponent } from './update-team-member/update-team-memb
     FormsModule,
     ReactiveFormsModule,
     InlineSVGModule,
+    NgSelectModule
   ]
 })
 export class TeamMemberModule { }

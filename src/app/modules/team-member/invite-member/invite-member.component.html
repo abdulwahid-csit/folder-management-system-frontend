@@ -8,21 +8,19 @@
             <span *ngIf="isControlHasError('email','required')" class="fs-14px text-danger">Email is
                 required</span>
         </div>
-        <div class="mb-3 custom-input">
+        <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 fs-14px fw-700 required">Role
             </label>
-            <select class="form-select custom-form-select ps-3 pe-3" aria-placeholder="slect"
+            <!-- <select class="form-select custom-form-select ps-3 pe-3" aria-placeholder="slect"
                 aria-label="Default select example" formControlName="role">
                 <option selected>Open this select menu</option>
                 <option value="1">One</option>
                 <option value="2">Two</option>
                 <option value="3">Three</option>
-            </select>
-            <!-- <ng-select #testselect 
-                   bindLabel="name"
-                   placeholder="Select city"
-                   [(ngModel)]="selectedRole">
-        </ng-select> -->
+            </select> -->
+            <ng-select [(ngModel)]="selectedCar" class="">
+                <ng-option  class="custom-ng-select" *ngFor="let car of cars" [value]="car.id">{{car.name}}</ng-option>
+             </ng-select>
             <span *ngIf="isControlHasError('role','required')" class="fs-14px text-danger">Domain name is
                 required</span>
         </div>
@@ -31,4 +29,7 @@
             <button type="button" type="submit" class="primary_button" (click)="closeModal()">Invite</button>
         </div>
     </form>
+
+
+  
 </div>

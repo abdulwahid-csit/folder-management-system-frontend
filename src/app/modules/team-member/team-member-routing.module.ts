@@ -6,7 +6,7 @@ import { RegisterMemberComponent } from './register-member/register-member.compo
 
 const routes: Routes = [
   {path:'',component:TeamMemberListComponent},
-  {path:'details',component:TeamMemberDetailComponent},
+  {path:'member-details/:id',component:TeamMemberDetailComponent},
   {path:'register',component:RegisterMemberComponent},
 ];
 

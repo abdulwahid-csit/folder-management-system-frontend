@@ -1,0 +1,12 @@
+small{
+    position: absolute;
+    font-size: 12px;
+}
+
+
+.custom-input-error{
+    input, input:focus{
+        box-shadow: none !important;
+        border-color: red !important;
+    }
+}

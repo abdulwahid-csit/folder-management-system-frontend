@@ -1,13 +1,77 @@
 @font-face {
     font-family: 'Urbanist';
-    src: url('/path/to/urbanist-regular.woff2') format('woff2'),
-         url('/path/to/urbanist-regular.woff') format('woff');
-    font-weight: normal;
+    src: url('../src/assets/fonts/Urbanist-Regular.ttf') format('truetype'),
+         url('../src/assets/fonts/Urbanist-Regular.ttf') format('truetype');
+    font-weight: 400;
     font-style: normal;
   }
 
  body{
-      font-family: "Urbanist", sans-serif !important;
+      font-family: 'Urbanist', sans-serif !important;
+  }
+
+/* src/styles.scss */
+
+/* Regular (400) */
+@font-face {
+    font-family: 'Urbanist';
+    src: url('../src/assets/fonts/Urbanist-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  /* Medium (500) */
+  @font-face {
+    font-family: 'Urbanist';
+    src: url('../src/assets/fonts/Urbanist-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+  }
+  
+  /* SemiBold (600) */
+  @font-face {
+    font-family: 'Urbanist';
+    src: url('../src/assets/fonts/Urbanist-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+  }
+  
+  /* Bold (700) */
+  @font-face {
+    font-family: 'Urbanist';
+    src: url('../src/assets/fonts/Urbanist-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  @import "~@ng-select/ng-select/themes/default.theme.css";
+  
+h1, h2, h3{
+    font-family: 'Urbanist', sans-serif;
+    font-weight: bold;
+}
+
+.medium-font {
+    font-family: 'Urbanist', sans-serif;
+    font-weight: 500;
+  }
+  
+  .semi-bold-font {
+    font-family: 'Urbanist', sans-serif;
+    font-weight: 600;
+  }
+  
+  .bold-font {
+    font-family: 'Urbanist', sans-serif;
+    font-weight: 700;
+  }
+
+  .custom-shadow{
+    --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / .1), 0 1px 2px -1px rgb(0 0 0 / .1) !important;
+    --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color) !important;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+
+    // box-shadow: 0px 0px 1px 0px #0C1A4B3D
   }
 
 
@@ -32,10 +96,32 @@ body{
 .primary_button{
     background-color: #6F61CF;
     color: white;
-    padding: 10px 16px 10px 16px;
+    padding: 0px 16px;
     border: none;
     border-radius: 6px;
-    height: 48px;
+    height: 40px;
+    font-size: 14px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+// .cancel_btn:hover,
+// .cancel_btn:focus {
+//   box-shadow: inset 15em 0 0 0 #aaaaaa;
+// }
+// .cancel_btn {  
+//     color: #ccc;
+  
+    
+//     &:hover,
+//     &:focus { 
+//       border-color: #000;
+//       color: #111;
+//     }
+//   }
+
+
+.primary_button:hover{
+    background-color: #5c4eb9;
 }
 .focus-none:focus {
     border-color: #dee2e6 !important;
@@ -44,10 +130,13 @@ body{
 .cancel_btn {
     border: 1px solid rgb(208, 219, 229) !important;
     color: rgb(132, 146, 166);
-    padding: 10px 16px 10px 16px;
+    padding: 0px 16px;
     border-radius: 6px;
-    height: 48px;
+    height: 40px;
     background: white;
+    font-size: 14px;
+
+    transition: 1.25s;
 }
 .sso_card{
     box-shadow: 0px 0px 1px 0px rgba(12, 26, 75, 0.24);
@@ -224,7 +313,8 @@ body{
 .status-button {
     border-radius: 30px;
     padding: 0px 15px 0px 15px !important;
-    width: 120px;
+    width: 60px;
+    
 }
 
 .status-inactive {
@@ -234,6 +324,7 @@ body{
 
 .status-inactive button {
     color: #F59E0B;
+    font-size: 12px;
 }
 
 .delete-button button {

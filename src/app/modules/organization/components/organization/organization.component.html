@@ -4,7 +4,7 @@
         <div class="d-flex align-items-center justify-content-between dataTable_header">
             <h4 class="primary_color mb-0">Organizations</h4>
             <div class="d-flex">
-                <div class="position-relative display-flex ms-3">
+                <div class="position-relative display-flex ms-3 custom-input">
                     <input type="text" class="form-control dataTableSearch" [(ngModel)]="searchTerm"
                         placeholder="Search by name or domain">
                     <span class="search_icon" [inlineSVG]="'./assets/icons/search.svg'"></span>
@@ -15,8 +15,7 @@
                     Oganization</button>
             </div>
         </div>
-        <app-data-table [columns]="columns" [config]="tableConfig" [dataSet]="organizationList"
-            [searchTerm]="searchTerm"></app-data-table>
+        <app-data-table [columns]="columns" [config]="tableConfig" [dataSet]="organizationList" [searchTerm]="searchTerm" [module]="'organization'"></app-data-table>
     </div>
-    <app-data-table [columns]="columns" [config]="tableConfig" [dataSet]="organizationList" [searchTerm]="searchTerm" [module]="'organization'"></app-data-table>
+    
 </div>

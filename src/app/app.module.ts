@@ -9,6 +9,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AuthenticationModule } from './modules/authentication/authentication.module';
 import { InlineSVGModule } from 'ng-inline-svg';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { InlineSVGModule } from 'ng-inline-svg';
     AuthenticationModule,
     
     InlineSVGModule,
+    NgSelectModule
 
   ],
   providers: [],

@@ -12,7 +12,7 @@ export class DataTableComponent implements OnInit {
  @Input() columns:any
  @Input() config:any
  @Input() dataSet: any[] = [];
- @Input() module!:string;
+//  @Input() module!:string;
  @Input() searchTerm: string = '';
  totalPages = 50;
  currentPage = 1;
@@ -21,15 +21,24 @@ export class DataTableComponent implements OnInit {
  searchFilter:boolean = false
  maintainStationList:any = []
  filterData: any[] = [];
+ private _moduleName!: string;
+ @Input() set module(value: string) {
+  this._moduleName = value;
+}
+
+get module(): string {
+  return this._moduleName;
+}
 
  constructor(private modalService: BsModalService, private router:Router){ }
 
- ngOnInit(): void { }
+ ngOnInit(): void { console.log('module name in ngoninit', this.module) }
 
  ngOnChanges(changes: SimpleChanges) {
   if (changes['searchTerm'] || changes['dataSet']) {
     this.filteredData();
   }
+  console.log('module name in onchanges', this.module)
 }
 
  createOrganization() {
@@ -82,13 +91,13 @@ export class DataTableComponent implements OnInit {
         detailRoute = `/layout/${this.module}/secret-detail/${rowData.id}`;
         break;
       case 'team-member':
-        detailRoute = `/layout/${this.module}/team-member-detail/${rowData.id}`;
+        detailRoute = `/layout/${this.module}/member-details/${rowData.id}`;
         break;
 
       default:
         detailRoute = '/';
         break;
-    }
+  }
 
     this.router.navigate([detailRoute]);
   }

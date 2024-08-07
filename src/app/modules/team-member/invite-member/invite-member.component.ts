@@ -10,8 +10,22 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 export class InviteMemberComponent implements OnInit {
   inviteForm: any;
   modalRef: any;
-  roles = ['Admin', 'Moderator', 'Visitor', 'New Role'];
-  selectedRole: any;
+  options = [
+    { id: 1, name: 'Option 1' },
+    { id: 2, name: 'Option 2' },
+    { id: 3, name: 'Option 3' }
+  ];
+
+  selectedCar: number = 1;
+
+    cars = [
+        { id: 1, name: 'Volvo' },
+        { id: 2, name: 'Saab' },
+        { id: 3, name: 'Opel' },
+        { id: 4, name: 'Audi' },
+    ];
+
+  selectedOption: any;
 
 
   constructor(private bsModalService: BsModalService) { }

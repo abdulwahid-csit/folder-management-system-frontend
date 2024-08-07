@@ -30,7 +30,7 @@ export class UserListComponent {
   has_next = false
   skipped_records = 0
   total_records = 7
-  organizationList: any = []
+  userlist: any = []
   dataTable: any = [
     {
       data: {
@@ -182,7 +182,7 @@ export class UserListComponent {
 
   ngOnInit(): void {
     this.columns = this.dataTable[0]?.data?.columns;
-    this.organizationList = this.dataTable[0].data.payload
+    this.userlist = this.dataTable[0].data.payload
   }
 }
 

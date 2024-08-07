@@ -4,7 +4,7 @@
     height: auto;
     font-size: 12px;
     font-weight: 600;
-    line-height: 23px;
+    line-height: 21px;
     padding: 0;
     display: flex;
     align-items: center;
@@ -15,28 +15,6 @@
 
 }
 
-.custom-button-danger {
-    color: #EF4444;
-    border-color: #EF4444;
-    background-color: #FFE8E8;
-    transition: all 0.3s ease;
-    padding: 10px 16px 10px 16px;
-    border-radius: 6px;
-    height: 43px;
-}
-
-.custom-button-danger:hover {
-    color: #FFFFFF;
-    border-color: #EF4444;
-    background-color: #EF4444;
-}
-
-.custom-button-danger:active {
-    color: #FFFFFF;
-    border-color: #EF4444;
-    background-color: #EF4444;
-}
-
 .bg-light-gray {
     background-color: #F1F5F9;
     padding: 10px;
@@ -44,8 +22,8 @@
 }
 
 .custom-checkbox-lg {
-    width: 24px;
-    height: 24px;
+    width: 33px;
+    height: 14px;
     color: #D0DBE5;
 }
 
@@ -63,4 +41,10 @@ thead,
 tr {
     border-color: #EDF2F7
     
+}
+.custom-control-label{
+    color: #425466;
+}
+.w-200px{
+    width: 200px !important;
 }

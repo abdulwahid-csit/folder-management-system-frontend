@@ -41,9 +41,12 @@ export class CreateApplicationComponent implements OnInit {
   }
 
   submitForm() {
-    if (this.applicationForm.valid) {
-      console.log('Form Submitted');
+    this.applicationForm.markAllAsTouched();
+    if (!this.applicationForm.valid) {
+      return;
     }
+    console.log("Form Submitted.")
+    this.closeModal();
   }
 
 

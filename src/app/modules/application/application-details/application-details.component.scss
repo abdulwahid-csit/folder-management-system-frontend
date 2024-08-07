@@ -38,10 +38,19 @@
 }
 .delete-button button {
     color: #EF4444;
-    font-weight: 600;
+    font-weight: 500;
+    font-size: 14px;
 }
 
+.primary_button{
+    font-weight: 500
+}
 .delete-button button:hover {
-    background-color:#FFE8E8;
-    font-weight: 600;
+    background-color:#EF4444;
+    color: #fff;
+    font-weight: 500;
+}
+.btn-delete{
+    background-color: #EF4444;
+    font-size: 14px;
 }

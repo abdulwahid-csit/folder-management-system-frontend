@@ -1,12 +1,12 @@
 <div class="modal-body p-5 pt-4 pb-4">
     <h4 class="fs-20px fw-700">Invite Admin</h4>
     <form [formGroup]="inviteForm" (ngSubmit)="onSubmit()">
-        <div class="mb-3 custom-input">
+        <div class="mb-3 custom-input" [ngClass]="isControlHasError('email', 'required') ? 'custom-input-error': 'custom-input'">
             <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Email </label>
             <input type="text" class="form-control ps-3 pe-3 form-control-lg fs-14px" id="exampleFormControlInput1"
                 placeholder="Enter email address" formControlName="email">
-            <span *ngIf="isControlHasError('email','required')" class="fs-14px text-danger">Email is
-                required</span>
+            <small *ngIf="isControlHasError('email','required')" class="fs-14px text-danger">Email is
+                required</small>
         </div>
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 fs-14px fw-700 required">Role
@@ -18,15 +18,15 @@
                 <option value="2">Two</option>
                 <option value="3">Three</option>
             </select> -->
-            <ng-select [(ngModel)]="selectedCar" class="">
-                <ng-option  class="custom-ng-select" *ngFor="let car of cars" [value]="car.id">{{car.name}}</ng-option>
+            <ng-select [ngClass]="!isControlHasError('role', 'required') ? 'custom-select': 'custom-select-error'" formControlName="role">
+                <ng-option class="custom-select-value" *ngFor="let car of cars" [value]="car.id">{{car.name}}</ng-option>
              </ng-select>
-            <span *ngIf="isControlHasError('role','required')" class="fs-14px text-danger">Domain name is
-                required</span>
+            <small *ngIf="isControlHasError('role','required')" class="fs-14px text-danger">Domain name is
+                required</small>
         </div>
         <div class="d-flex justify-content-end mt-4">
             <button type="button" class="cancel_btn me-2" (click)="closeModal()">Cancel</button>
-            <button type="button" type="submit" class="primary_button" (click)="closeModal()">Invite</button>
+            <button type="submit" type="submit" class="primary_button">Invite</button>
         </div>
     </form>
 

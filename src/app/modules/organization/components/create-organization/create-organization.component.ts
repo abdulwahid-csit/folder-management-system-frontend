@@ -35,4 +35,13 @@ export class CreateOrganizationComponent implements OnInit, AfterViewInit {
   closeModal() {
     this.bsModeService.hide()
   }
+
+  onSubmit(){
+    this.organizationForm.markAllAsTouched();
+    if(!this.organizationForm.valid){
+      return;
+    }
+    console.log("Organization created.")
+    this.closeModal();
+  }
 }

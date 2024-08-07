@@ -54,6 +54,10 @@ export class InviteMemberComponent implements OnInit {
 
 
   onSubmit() {
+    if(this.inviteForm.invalid){
+      this.inviteForm.markAllAsTouched();
+      return;
+    }
     console.log("Form Submitted.")
   }
 

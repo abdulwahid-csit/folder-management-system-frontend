@@ -1,14 +1,14 @@
 <div class="path d-flex pt-1 bg-white ps-4">
-    <nav aria-label="breadcrumb fs-14px">
+    <!-- <nav aria-label="breadcrumb fs-14px">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a class="text-decoration-none" routerLink="/layout/team-member">Team
                     Members</a></li>
             <li class="breadcrumb-item active" aria-current="page">Member details</li>
         </ol>
-    </nav>
-    <!-- <span class="color-8492A6 fs-12px">Team Members</span>
+    </nav> -->
+    <span class="color-8492A6 fs-12px">Team Members</span>
     <span><i class="bi bi-chevron-right color-D0DBE5 fs-14px"></i></span>
-    <span class="color-6F61CF fs-12px">Member details </span> -->
+    <span class="color-6F61CF fs-12px">Member details </span>
 </div>
 <div class="wrapper">
     <div class="main-div w-100 organization-details-div bg-white  mt-4 custom-shadow">
@@ -70,7 +70,7 @@
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <img src="../../../../../assets/icons/Frame.svg" alt="Email Icon">
-                                        <span class="dark-light  ms-2">Abubakar@example.com</span>
+                                        <span class="dark-light  ms-2">johny-smith@domain.com</span>
                                     </div>
                                 </td>
                             </tr>
@@ -109,18 +109,14 @@
                 </div>
                 <div class="mt-4 delete-button semi-bold-font">
                     <button class="btn fw-600"
-                        (click)="openModal('modal-dialog modal-dialog-centered modal-md common_modal_shadow modal-lg', deleteUser)">Delete
+                        (click)="openModal('modal-dialog modal-dialog-centered common_modal_shadow modal-lg', deleteUser)">Delete
                         User</button>
                 </div>
             </div>
         </div>
-        <!-- </div> -->
-
-
-
 
         <ng-template #deleteUser>
-            <div class="modal-dialog">
+            <div class="modal-dialog-box">
                 <div class="p-3">
                     <div class="modal-header border-bottom-0 d-flex justify-content-center align-items-baseline">
                         <div class="delete-icon"><img src="../../../../assets/icons/delete-icon.svg" alt=""></div>
@@ -133,8 +129,9 @@
                     </div>
                     <div class="modal-footer border-top-0 d-flex justify-content-center pb-5">
                         <div class="buttons">
-                            <button class="cancel_btn me-3" (click)="closeModal()">No, cancel</button>
-                            <button class="primary_button btn-delete btn text-white">Yes, i am sure</button>
+                            <button type="button" class="cancel_btn me-3" (click)="closeModal()">No, cancel</button>
+                            <button type="submit" (click)="closeModal()"
+                                class="primary_button btn-delete btn text-white">Yes, i am sure</button>
                         </div>
                     </div>
                 </div>
@@ -148,26 +145,26 @@
                     <h2 class="primary_color mb-0">Change Password</h2>
                 </div>
                 <div class="modal-body">
-                    <form [formGroup]="changePasswordForm">
-                        <div class="mb-4 custom-input">
+                    <form [formGroup]="changePasswordForm" (ngSubmit)="onSubmit()">
+                        <div class="mb-4 custom-input"
+                            [ngClass]="isControlHasError('password','required')? 'custom-input-error': 'custom-input'">
                             <label for="" class="mb-1 primary_color required font_weight_500">Password</label>
                             <input type="text" class="form-control form-control-lg" formControlName="password"
                                 placeholder="Enter password">
-                            <span *ngIf="isControlHasError('organizationName','required')"
-                                class="text-danger">Organization
-                                name is
-                                required</span>
+                            <small *ngIf="isControlHasError('password','required')" class="text-danger">Password is
+                                required</small>
                         </div>
-                        <div class="mb-3 custom-input">
+                        <div class="mb-3 custom-input"
+                            [ngClass]="isControlHasError('confirmPassword','required')? 'custom-input-error': 'custom-input'">
                             <label for="" class="mb-1 primary_color required font_weight_500">Confirm Password</label>
                             <input type="text" class="form-control form-control-lg" formControlName="confirmPassword"
                                 placeholder="Re-type pasword">
-                            <span *ngIf="isControlHasError('domainName','required')" class="text-danger">Domain name is
-                                required</span>
+                            <small *ngIf="isControlHasError('confirmPassword','required')" class="text-danger">Confirm
+                                password please.</small>
                         </div>
                         <div class="modal-footer border-top-0 pb-0 pe-0">
                             <button type="button" class="cancel_btn" (click)="closeModal()">Cancel</button>
-                            <button type="button" class="primary_button">Create</button>
+                            <button type="submit" class="primary_button">Create</button>
                         </div>
                     </form>
                 </div>

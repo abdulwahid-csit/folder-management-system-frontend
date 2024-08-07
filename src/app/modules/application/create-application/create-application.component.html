@@ -6,7 +6,7 @@
     </div>
     <div class="modal-body">
         <form [formGroup]="applicationForm" (ngSubmit)="submitForm()">
-            <div class="mb-3 custom-input">
+            <div class="mb-3 custom-input" [ngClass]="isControlHasError('applicationName','required')? 'custom-input-error': 'custom-input'">
                 <label for="applicationName" class="mb-1 primary_color required fw-700 semi-bold-fonts">Name</label>
                 <input type="text" class="form-control form-control-lg ps-3 ps-2 fs-14px"
                     formControlName="applicationName" placeholder="Enter domain name">
@@ -27,7 +27,7 @@
                 <div class="d-flex">
                     <input type="text" class="form-control  ps-3 fs-14px me-3" placeholder="Enter domain name"
                         formControlName="redirectUrl">
-                    <span class="primary_button cursor-pointer">+</span>
+                    <span class="primary_button cursor-pointer plus_button">+</span>
                 </div>
                 <!-- <span *ngIf="isControlHasError('domainName','required')" class="text-danger">Domain name is
                     required</span> -->
@@ -38,7 +38,7 @@
                 <div class="d-flex">
                     <input type="text" class="form-control  ps-3 fs-14px me-3" placeholder="Enter domain name"
                         formControlName="url">
-                    <span class="primary_button cursor-pointer">+</span>
+                    <span class="primary_button cursor-pointer plus_button">+</span>
 
                 </div>
                 <!-- <span *ngIf="isControlHasError('domainName','required')" class="text-danger">Domain name is
@@ -46,7 +46,7 @@
             </div>
             <div class="modal-footer border-top-0 pe-0 me-0">
                 <button class="cancel_btn me-2 " (click)="closeModal()">Close</button>
-                <button class="primary_button me-0" type="submit">Create</button>
+                <button  type="submit" class="primary_button me-0" type="submit">Create</button>
             </div>
         </form>
     </div>

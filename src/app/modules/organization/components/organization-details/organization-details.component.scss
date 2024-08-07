@@ -2,6 +2,21 @@
     padding: 15px 30px 30px 30px;
 }
 
+small {
+    position: absolute;
+    font-size: 12px;
+}
+
+
+.custom-input-error {
+
+    input,
+    input:focus {
+        box-shadow: 0 0 0 0.25rem rgba(243, 3, 3, 0.2) !important;
+        border-color: red !important;
+    }
+}
+
 .features-tab,
 .settings-tab,
 .organization-details-div {
@@ -53,10 +68,23 @@ select:focus {
 }
 
 .delete-button button:hover {
-    background-color:#FFE8E8;
+    background-color: #FFE8E8;
     font-weight: 600;
 }
 
 .disabled {
     border: none !important;
+}
+
+.primary_button{
+    font-weight: 500
+}
+.delete-button button:hover {
+    background-color:#EF4444;
+    color: #fff;
+    font-weight: 500;
+}
+.btn-delete{
+    background-color: #EF4444;
+    font-size: 14px;
 }

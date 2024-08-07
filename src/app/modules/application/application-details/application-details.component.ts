@@ -27,9 +27,9 @@ setSelectedTab(tab: string){
 }
 
 
-  openModal(template: TemplateRef<any>): void {
+  openModal(template: TemplateRef<any>, classes: string): void {
     this.modalRef = this.modalService.show(template, {
-    class: 'modal-dialog modal-dialog-centered common_modal_shadow',
+    class: classes,
     backdrop: 'static',
     keyboard: false,
     

@@ -79,5 +79,20 @@ table tr td:first-child{
 .table tr td:last-child{
     color: #8492A6;
 }
+small{
+    position: absolute;
+    font-size: 12px;
+}
+
+.custom-input-error{
+    input, input:focus{
+        box-shadow: 0 0 0 0.25rem rgba(243, 3, 3, 0.2) !important;
+        border-color: red !important;
+    }
+}
+
+// .delete-modal{
+//     width: 640px !important;
+// }
 
 

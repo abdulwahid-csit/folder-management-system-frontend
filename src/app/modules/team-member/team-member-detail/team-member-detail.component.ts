@@ -62,9 +62,16 @@ export class TeamMemberDetailComponent implements OnInit{
   }
 
   closeModal(){
-    this.modalRef.hide();
+    this.modalService.hide();
   }
 
+  onSubmit(){
+    this.changePasswordForm.markAllAsTouched();
+    if(this.changePasswordForm.invalid){
+      return;
+    }
+    console.log("Form Submitted.")
+  }
 
 
 

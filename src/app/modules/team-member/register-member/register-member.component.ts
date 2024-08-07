@@ -68,6 +68,11 @@ export class RegisterMemberComponent implements OnInit {
   }
 
   onSubmit(){
+
+    this.registerForm.markAllAsTouched();
+    if(this.registerForm.invalid){
+      return;
+    }
     console.log('Form Submitted');
   }
 

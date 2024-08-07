@@ -26,6 +26,10 @@ export class UpdateTeamMemberComponent implements OnInit {
 
 
   onSubmit() {
+    this.updateMemberForm.markAllAsTouched();
+    if(this.updateMemberForm.invalid){
+      return;
+    }
     console.log("Form submitted.")
   }
 

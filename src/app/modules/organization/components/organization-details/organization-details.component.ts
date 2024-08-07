@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 
@@ -22,6 +22,8 @@ export class OrganizationDetailsComponent implements OnInit {
   skipped_records = 0
   total_records = 7
   organizationForm!: FormGroup
+  inviteMemberForm!: FormGroup;
+  editOrganizationForm!: FormGroup;
 
   organizationList: any = []
   dataTable: any = [
@@ -178,7 +180,7 @@ export class OrganizationDetailsComponent implements OnInit {
 
 
 
-  constructor(private modalService: BsModalService) { }
+  constructor(private modalService: BsModalService, private cdr:ChangeDetectorRef) { }
 
   ngOnInit() {
     this.columns = this.dataTable[0]?.data?.columns;
@@ -188,6 +190,17 @@ export class OrganizationDetailsComponent implements OnInit {
       organizationName: new FormControl('', [Validators.required]),
       domainName: new FormControl('', [Validators.required])
     })
+
+    this.inviteMemberForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email])
+    })
+
+    this.editOrganizationForm = new FormGroup({
+      name: new FormControl('', [Validators.required]),
+      domain: new FormControl('', [Validators.required]),
+      status: new FormControl('', [Validators.required])
+    })
+  
   }
 
   setSelectedTab(tab: string) {
@@ -199,9 +212,9 @@ export class OrganizationDetailsComponent implements OnInit {
     }
   }
 
-  openModal(template: TemplateRef<any>): void {
+  openModal(template: TemplateRef<any>, classes: string): void {
     this.modalRef = this.modalService.show(template, {
-      class: 'modal-dialog modal-dialog-centered common_modal_shadow',
+      class: classes,
       backdrop: 'static',
       keyboard: false,
 
@@ -213,11 +226,12 @@ export class OrganizationDetailsComponent implements OnInit {
   closeModal(): void {
     this.modalRef?.hide();
     this.modalOpen = false;
+    this.editOrganizationForm.reset();
   }
 
 
-  isControlHasError(controlName: any, validationType: string): boolean {
-    const control = this.organizationForm.controls[controlName];
+  isControlHasError(controlName: any, validationType: string, form: any): boolean {
+    const control = form.controls[controlName];
     if (!control) {
       return false;
     }
@@ -225,5 +239,27 @@ export class OrganizationDetailsComponent implements OnInit {
       control.hasError(validationType) && (control.dirty || control.touched)
     );
   }
+
+
+  onInviteAdmin() {
+    this.inviteMemberForm.markAllAsTouched();
+    if (this.inviteMemberForm.invalid) {
+      return;
+    }
+    console.log("Person invited.");
+  }
+
+
+  onEditOrganization(){
+    
+    if(this.organizationForm.invalid){
+      this.editOrganizationForm.markAllAsTouched()
+      this.cdr.detectChanges()
+      return;
+    }
+    console.log("Form is submitted.")
+    this.cdr.detectChanges()
+  }
+
 
 }

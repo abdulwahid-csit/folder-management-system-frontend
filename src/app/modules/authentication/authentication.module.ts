@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { SharedModule } from 'src/app/shared/shared.module';
 import { AuthenticationRoutingModule } from './authentication-routing.module';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { RegisterComponent } from './register/register.component';
 import { CreatePasswordComponent } from './create-password/create-password.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { FormsModule } from '@angular/forms'
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -13,11 +16,16 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     SignInComponent,
     RegisterComponent,
     CreatePasswordComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    
   ],
   imports: [
+    RouterModule,
     CommonModule,
-    AuthenticationRoutingModule
+    SharedModule,
+    AuthenticationRoutingModule,
+    FormsModule,
+    ReactiveFormsModule 
   ],
   exports:[
     SignInComponent,

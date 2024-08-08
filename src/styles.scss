@@ -1,3 +1,5 @@
+@import url('./assets/icon-styles.scss');
+
 @font-face {
     font-family: 'Urbanist';
     src: url('/path/to/urbanist-regular.woff2') format('woff2'),
@@ -190,7 +192,7 @@
     position: relative;
 
     .password_field_container {
-       
+
     display: flex;
     top: 40px;
     right: 15px;
@@ -409,7 +411,7 @@
 .fs-12{
 font-weight: 600;
     font-size: 14px;
-line-height: 20px; 
+line-height: 20px;
 }
 
 .fs-14 {

@@ -7,10 +7,10 @@
                 <div class="position-relative display-flex ms-3">
                     <input type="text" class="form-control dataTableSearch" [(ngModel)]="searchTerm"
                         placeholder="Search by name or domain">
-                    <span class="search_icon" [inlineSVG]="'./assets/icons/search.svg'"></span>
+                    <span class="search_icon searchIcon" ></span>
                 </div>
-                <button type="button" class="btn filter_btn ms-3"><span class="me-1"
-                        [inlineSVG]="'./assets/icons/filter.svg'"></span> Filter</button>
+                <button type="button" class="btn filter_btn ms-3 filterIcon"><span class="me-1"
+                        ></span> Filter</button>
                 <button type="button" class="primary_button ms-3" (click)="permissionUser()">Create Roles</button>
             </div>
         </div>

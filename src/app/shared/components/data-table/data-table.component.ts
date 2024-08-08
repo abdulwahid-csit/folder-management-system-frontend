@@ -14,7 +14,7 @@ export class DataTableComponent implements OnInit {
  @Input() dataSet: any[] = [];
  @Input() module!:string;
  @Input() searchTerm: string = '';
- totalPages = 50;
+ totalPages = 2;
  currentPage = 1;
  modalRef?: BsModalRef;
  searchResults: any[] = [];
@@ -63,9 +63,6 @@ export class DataTableComponent implements OnInit {
   onRowClick(rowData: any) {
     let detailRoute: string;
     switch (this.module) {
-      // case 'dashboard':
-      //   detailRoute = `/layout/${this.module}/organization-details/${rowData.id}`;
-      //   break;
       case 'organization':
         detailRoute = `/layout/${this.module}/organization-details/${rowData.id}`;
         break;

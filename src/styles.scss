@@ -8,14 +8,36 @@
     font-style: normal;
   }
 
- body{
+    body{
       font-family: "Urbanist", sans-serif !important;
+      background-color:#F1F5F9 !important;
+    }
+    html, body {
+        overflow-y: hidden;
+    }
+
+// scroll bar styling css
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #0F172A;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #0F172A;
   }
 
-
-body{
-    background-color:#F1F5F9 !important;
-}
 .danger_btn {
     color: #FFFFFF;
     border-color: #EF4444;
@@ -387,9 +409,9 @@ body{
     font-size: 14px;
 }
 .fs-12{
-font-weight: 600;
+    font-weight: 600;
     font-size: 14px;
-line-height: 20px;
+    line-height: 20px; 
 }
 
 .fs-14 {
@@ -417,5 +439,6 @@ h3 {
         font-size: 20px;
         font-weight: 700;
         line-height: 27.3px;
-        letter-spacing: -0.01em;}
+        letter-spacing: -0.01em;
+}
 

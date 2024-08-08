@@ -9,7 +9,11 @@
     .filter_btn {
         border: 1px solid rgba(208, 219, 229, 1);
         color: rgba(132, 146, 166, 1);
+        .filter_icon{
+            width: 22px;
+        }
     }
+    
 
     .dataTableSearch {
         width: 270px;
@@ -22,6 +26,7 @@
         position: absolute;
         top: 10px;
         left: 12px;
+        width: 22px;
     }
 }
 

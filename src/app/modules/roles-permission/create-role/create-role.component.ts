@@ -10,7 +10,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 export class CreateRoleComponent {
   @Input() mode: 'create' | 'update' = 'create';
   @Input() userData: any;
-  rolesForm: FormGroup;
+  rolesForm!: FormGroup;
   constructor(private bsModalService: BsModalService, private fb: FormBuilder, private modalService: BsModalService) { }
   modalRef: any;
 

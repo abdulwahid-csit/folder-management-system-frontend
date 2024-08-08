@@ -1,56 +1,64 @@
 <div class="bg-login d-flex justify-content-center align-items-center">
-  <!-- <div class=""> -->
-    <!-- <div class="login-box"></div> -->
-    <!-- <div class="row ">
-      <div class="col-12 col-md-9 col-lg-7 col-xl-6 col-xxl-5"> -->
-        <div class="border-0 shadow-sm rounded-4 login-box">
-          <div class="p-3 p-md-4 p-xl-5 ">
-            <div class="row">
-              <div class="col-12">
-                <div class="mb-2">
-                  <div class="logo"></div>
-                </div>
-
-                <div class="mb-2">
-                  <h3>Create New Account</h3>
-                  <div>Lets Get Started with your new Account</div>
-                </div>
-              </div>
+  <div class="border-0 shadow-sm rounded-4 login-box">
+    <div class="p-3 p-md-4 p-xl-5 ">
+      <div class="row">
+        <div class="col-12">
+          <div class="mb-4">
+            <div class="logo"></div>
+          </div>
+          <div class="common_modal">
+            <div class="modal-header border-bottom-0 ">
+              <h2 class="mb-0 header-content">Create New Account</h2>
             </div>
-            <form action="#!">
-              <div class="row overflow-hidden">
-                <div class="col-12">
-                  <label for="email" class="form-label fw-bold">UserName</label>
-                  <input type="email" class="form-control" name="UserName" id="email" placeholder="Username" required>
-                </div>
-                <div class="col-12">
-                  <label for="email" class="form-label fw-bold">Email</label>
-                  <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" required>
-                </div>
-                <div class="col-12 mb-3">
-                  <label for="password" class="form-label fw-bold">Password</label>
-                    <input type="password" class="form-control" name="password" id="password" value="" placeholder="Password" required>
-                </div>
-
-                <div class="col-12">
-                  <div class="d-grid">
-                    <button class="btn bsb-btn-2xl btn-clr " type="submit">Create Account</button>
+            <div class="mt-2 d-flex dark-light ">Happy to see you again! Sign in via email or another trusted account.
+            </div>
+            <div class="modal-body mt-4">
+              <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                  <div class="input-container">
+                    <label for="" class="label-font required ">User Name</label>
+                    <input type="password" class="form-control " formControlName="name" [ngClass]="{
+                              'is-invalid': isControlHasError('name', 'required')
+                            }" placeholder="Enter user name">
+                    <span *ngIf="isControlHasError('name','required')" class="text-danger fs-8 ps-3">Name is
+                      required</span>
                   </div>
                 </div>
-              </div>
-            </form>
-            <div class="row">
-              <div class="col-12">
-                <div class="d-flex flex-column flex-md-row justify-content-center mt-2 mb-2">
-                  <div>Already have an Account?</div>
-                  <div class="text-clr">Sign in</div>
+                <div class="row mt-3">
+                  <div class="input-container">
+                    <label for="" class="label-font required ">Email</label>
+                    <input type="password" class="form-control " formControlName="email" [ngClass]="{
+                              'is-invalid': isControlHasError('email', 'required')
+                            }" placeholder="Enter user name or email">
+                    <span *ngIf="isControlHasError('email','required')" class="text-danger fs-8 ps-3">Password is
+                      required</span>
+                  </div>
                 </div>
-              </div>
+                <div class="row mt-3">
+                  <div class="input-container">
+                    <label for="" class=" label-font required">Password</label>
+                    <input type="password" class="form-control" formControlName="password" [ngClass]="{
+                              'is-invalid': isControlHasError('password', 'required')
+                            }" placeholder="Enter password">
+                    <span *ngIf="isControlHasError('password','required')" class="text-danger fs-8 ps-3">password is
+                      required</span>
+                  </div>
+                </div>
+                <div class="col-12 mt-5">
+                  <div class="d-grid">
+                    <button class="btn btn-clr " type="submit">Create Account</button>
+                  </div>
+                </div>
+              </form>
             </div>
-
+          </div>
+          <div class="col-12 mt-3">
+            <div class="d-flex flex-column flex-md-row justify-content-center mt-2 mb-2">
+              <div class="dark-light pe-1">Already have an account?</div>
+              <div class="text-clr cursor-pointer" [routerLink]="['/login']">Sign in</div>
+            </div>
           </div>
         </div>
-      <!-- </div> -->
-    <!-- </div> -->
-  <!-- </div> -->
-</div>
+      </div>
+    </div>
+  </div>

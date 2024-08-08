@@ -12,9 +12,12 @@
     cursor: pointer;
     border-radius: 4px;
   }
+  button:hover{
+    background-color: rgba(241, 245, 249, 1);
+  }
   
   button.active {
-    background-color: rgba(241, 245, 249, 1);
+    background-color:   #6F61CF !important;
   }
   
   button:disabled {

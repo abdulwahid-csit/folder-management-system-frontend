@@ -11,7 +11,7 @@
             </div>
             <div class="ms-3">
                 <div class="fs-20px fw-700 color-16192C bold-fonts">
-                   Degital Solutions
+                    Degital Solutions
                 </div>
                 <div class="d-flex mt-1">
                     <div class="link-text fs-12px semi-bold-fonts">
@@ -34,16 +34,18 @@
         <div class="d-flex justify-content-start">
             <nav class="mb-3 nav-tabs">
                 <div class="nav nav-tabs fs-14px fw-600 semi-bold-fonts" id="nav-tab" role="tablist">
-                    <button (click)="setSelectedTab('features')" class="nav-link border-top-0 border-start-0 border-end-0" [ngClass]="'active-nav-tab'"
-                        [ngClass]="{'active-nav-tab': selectedTab === 'features'}" id="nav-features-tab" data-bs-toggle="tab"
-                        data-bs-target="#nav-features" type="button" role="tab" aria-controls="nav-features"
-                        [attr.aria-selected]="selectedTab === 'features'">
+                    <button (click)="setSelectedTab('features')"
+                        class="nav-link border-top-0 border-start-0 border-end-0" [ngClass]="'active-nav-tab'"
+                        [ngClass]="{'active-nav-tab': selectedTab === 'features'}" id="nav-features-tab"
+                        data-bs-toggle="tab" data-bs-target="#nav-features" type="button" role="tab"
+                        aria-controls="nav-features" [attr.aria-selected]="selectedTab === 'features'">
                         Features
                     </button>
-                    <button (click)="setSelectedTab('setting')" class="nav-link border-top-0 border-start-0 border-end-0"
-                        [ngClass]="{'active-nav-tab': selectedTab === 'setting'}" id="nav-monthly-tab" data-bs-toggle="tab"
-                        data-bs-target="#nav-monthly" type="button" role="tab" aria-controls="nav-monthly"
-                        [attr.aria-selected]="selectedTab === 'setting'">
+                    <button (click)="setSelectedTab('setting')"
+                        class="nav-link border-top-0 border-start-0 border-end-0"
+                        [ngClass]="{'active-nav-tab': selectedTab === 'setting'}" id="nav-monthly-tab"
+                        data-bs-toggle="tab" data-bs-target="#nav-monthly" type="button" role="tab"
+                        aria-controls="nav-monthly" [attr.aria-selected]="selectedTab === 'setting'">
                         Settings
                     </button>
                 </div>
@@ -69,8 +71,8 @@
                     <div>
                         <div class="d-flex align-items-end d-flex app-secret align-items-baseline">
                             <div class="input-group mb-3 w-50 app-secret">
-                                <input #appSecret readonly type="text" class="form-control focus-none border-end-0" placeholder=""
-                                    aria-label="Recipient's username" aria-describedby="basic-addon1"
+                                <input #appSecret readonly type="text" class="form-control focus-none border-end-0"
+                                    placeholder="" aria-label="Recipient's username" aria-describedby="basic-addon1"
                                     value="EDFEFDFSFDSFSDFE#$#$783497234EWRWQE">
                                 <span #spanRef class="input-group-text bg-transparent cursor-pointer rounded-end-1"
                                     id="appsecret-copy" (click)="copyId(spanRef,copySvg, tickIcon, appSecret)">
@@ -87,7 +89,7 @@
                                 </span>
                             </div>
                             <div class="invite-button mt-4">
-                                <button class="btn bg-6F61CF ms-2 mb-1">Re-Generate</button>
+                                <button class="primary_button ms-2 mb-1">Re-Generate</button>
                             </div>
                         </div>
                     </div>
@@ -111,11 +113,11 @@
                     <div>
 
                         <div class="input-group mb-3 w-50 app-id mt-4">
-                            <input #appId readonly type="text" class="form-control focus-none border-end-0" placeholder=""
-                                aria-label="" aria-describedby="basic-addon2"
+                            <input #appId readonly type="text" class="form-control focus-none border-end-0"
+                                placeholder="" aria-label="" aria-describedby="basic-addon2"
                                 value="EDFEFDFSFDSFSDFE#$#$783497234EWRWQE">
-                            <span #spanRef1 class="input-group-text bg-transparent cursor-pointer rounded-end-1"  title="Copy"
-                                id="appid-copy" (click)="copyId(spanRef1,copySvg1, tickIcon1, appId)">
+                            <span #spanRef1 class="input-group-text bg-transparent cursor-pointer rounded-end-1"
+                                title="Copy" id="appid-copy" (click)="copyId(spanRef1,copySvg1, tickIcon1, appId)">
                                 <svg #copySvg1 class="me-3" fill="none" height="24" stroke-width="1.5"
                                     viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -134,8 +136,6 @@
             </div>
         </div>
     </div>
-
-
     <div id="setting-tab" *ngIf="selectedTab === 'setting'">
         <div class="main-div w-100 settings-tab p-3 mt-4 ps-4 bg-white">
             <div class="pt-1">
@@ -153,14 +153,17 @@
                         </div>
                         <div class="d-flex fw-600">
                             <div class="fs-14px mt-1 bold-fonts">App URL</div>
-                            <div><span class="color-8492A6 fs-14px ms-4 semi-bold-fonts ">https://4iisolutions.com</span></div>
+                            <div><span
+                                    class="color-8492A6 fs-14px ms-4 semi-bold-fonts ">https://4iisolutions.com</span>
+                            </div>
                         </div>
                         <div class="color-7a7a7a">
                             <hr class="mt-2 mb-2">
                         </div>
                         <div class="d-flex fw-600">
                             <div class="fs-14px mt-1 bold-fonts">Redirect URI's</div>
-                            <div><span class="color-8492A6 fs-14px ms-4 semi-bold-fonts">https://4iisolutions.com</span></div>
+                            <div><span class="color-8492A6 fs-14px ms-4 semi-bold-fonts">https://4iisolutions.com</span>
+                            </div>
                         </div>
                         <div class="color-7a7a7a">
                             <hr class="mt-2 mb-2">
@@ -185,10 +188,35 @@
                         </div>
                     </div>
                     <div class="mt-3 delete-button semi-bold-fonts">
-                        <button class="btn delete-button">Delete Application</button>
+                        <button class="btn delete-button" (click)="openModal(deleteApp, 'modal-dialog modal-dialog-centered common_modal_shadow modal-lg')">Delete Application</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div> 
+
+
+
+    <ng-template #deleteApp>
+        <div class="modal-dialog-box">
+            <div class="p-3">
+                <div class="modal-header border-bottom-0 d-flex justify-content-center align-items-baseline">
+                    <div class="delete-icon"><img src="../../../../assets/icons/delete-icon.svg" alt=""></div>
+                </div>
+                <div class="modal-body">
+                    <div class="text fw-600 text-center color-8492A6">Please confirm you really want to delete the
+                        member.
+                        After clicking yes, the member will
+                        be deleted permanently.</div>
+                </div>
+                <div class="modal-footer border-top-0 d-flex justify-content-center pb-5">
+                    <div class="buttons">
+                        <button type="buttn" class="cancel_btn me-3" (click)="closeModal()">No, cancel</button>
+                        <button type="submit" (click)="closeModal()" class="primary_button btn-delete btn text-white">Yes, i am sure</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
+</div>

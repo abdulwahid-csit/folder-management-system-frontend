@@ -13,14 +13,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
   ],
   imports: [
     CommonModule,
-    // InlineSVGModule,
     FormsModule,
     ReactiveFormsModule,
-    // NgSelectModule ,
+
   ],
   exports:[
     DataTableComponent,
-    // NgSelectModule
   ]
 })
 export class SharedModule { }

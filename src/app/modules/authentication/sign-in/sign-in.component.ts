@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { AuthService } from './../../../shared/services/auth.service';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -7,13 +9,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent {
-  constructor(private fb: FormBuilder,) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
 
   }
-
   signInForm!: FormGroup
   ngOnInit(): void {
-
     this.signInForm = this.fb.group({
       email: [null, Validators.compose([Validators.required])],
       password: [null, Validators.compose([Validators.required])],
@@ -31,6 +31,20 @@ export class SignInComponent {
   }
   onSubmit(): void {
     if (this.signInForm.valid) {
+      const { email, password } = this.signInForm.value;
+      this.authService.signIn(email, password).subscribe((response: any) => {
+        if (response.status_code === 200) {
+          console.log('Login successful:',);
+          const { access_token, refresh_token, access_token_expires } = response.data;
+          this.authService.storeTokens(access_token, refresh_token, access_token_expires);
+          this.router.navigate(['/layout']);
+        } else {
+          console.error('Login failed:', response.message);
+        }
+      }, error => {
+
+        console.error('HTTP error:', error);
+      });
 
     }
     this.signInForm.markAllAsTouched();

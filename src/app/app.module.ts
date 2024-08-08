@@ -7,11 +7,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AuthenticationModule } from './modules/authentication/authentication.module';
-import { InlineSVGModule } from 'ng-inline-svg';
 import { NgSelectModule } from '@ng-select/ng-select';
-// import { NgxsModule } from '@ngxs/store';
-// import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
-// import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsModule } from '@ngxs/store';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 
 
 @NgModule({
@@ -27,12 +26,10 @@ import { NgSelectModule } from '@ng-select/ng-select';
     BrowserAnimationsModule,
     FormsModule,
     AuthenticationModule,
-    
-    InlineSVGModule,
     NgSelectModule,
-    // NgxsModule.forRoot([]),
-    // NgxsLoggerPluginModule.forRoot(),
-    // NgxsReduxDevtoolsPluginModule.forRoot()
+    NgxsModule.forRoot([]),
+    NgxsLoggerPluginModule.forRoot(),
+    NgxsReduxDevtoolsPluginModule.forRoot()
 
 
 

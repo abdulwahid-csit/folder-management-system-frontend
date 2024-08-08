@@ -9,7 +9,6 @@ import { TeamMemberDetailComponent } from './team-member-detail/team-member-deta
 import { RegisterMemberComponent } from './register-member/register-member.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { InlineSVGModule } from 'ng-inline-svg';
 import { UpdateTeamMemberComponent } from './update-team-member/update-team-member.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 
@@ -28,7 +27,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    InlineSVGModule,
     NgSelectModule
   ]
 })

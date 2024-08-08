@@ -1,3 +1,5 @@
+@import url('./assets/icon-styles.scss');
+
 @font-face {
     font-family: 'Urbanist';
     src: url('/path/to/urbanist-regular.woff2') format('woff2'),
@@ -13,7 +15,7 @@
 
 body{
     background-color:#F1F5F9 !important;
-} 
+}
 .danger_btn {
     color: #FFFFFF;
     border-color: #EF4444;
@@ -168,7 +170,7 @@ body{
     position: relative;
 
     .password_field_container {
-       
+
     display: flex;
     top: 40px;
     right: 15px;
@@ -387,7 +389,7 @@ body{
 .fs-12{
 font-weight: 600;
     font-size: 14px;
-line-height: 20px; 
+line-height: 20px;
 }
 
 .fs-14 {

@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent {
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router ,
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router,
     private route: ActivatedRoute
   ) {
 
@@ -38,8 +38,6 @@ export class SignInComponent {
         if (response.status_code === 200) {
           console.log('Login successful:',);
           const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/layout';
-
-          // Navigate to the intended URL or default to '/layout'
           this.router.navigateByUrl(returnUrl);
           const { access_token, refresh_token, access_token_expires } = response.data;
           this.authService.storeTokens(access_token, refresh_token, access_token_expires);

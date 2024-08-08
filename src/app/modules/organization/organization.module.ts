@@ -24,7 +24,7 @@ import { OrganizationDetailsComponent } from './components/organization-details/
     ReactiveFormsModule,
     FormsModule,
     SharedModule,
-    // InlineSVGModule
+    // InlineSVGModule,
   ]
 })
 export class SsoAdminModule { }

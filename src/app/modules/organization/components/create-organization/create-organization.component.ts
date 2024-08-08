@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators,  } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
@@ -8,8 +8,8 @@ import { BsModalService } from 'ngx-bootstrap/modal';
   styleUrls: ['./create-organization.component.scss']
 })
 export class CreateOrganizationComponent implements OnInit, AfterViewInit {
-  constructor(private bsModeService: BsModalService,private fb:FormBuilder,){ }
-  organizationForm!:FormGroup
+  constructor(private bsModeService: BsModalService, private fb: FormBuilder,) { }
+  organizationForm!: FormGroup
 
   ngOnInit(): void {
     this.organizationForm = new FormGroup({
@@ -19,7 +19,7 @@ export class CreateOrganizationComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    
+
   }
 
   isControlHasError(controlName: any, validationType: string): boolean {
@@ -32,7 +32,16 @@ export class CreateOrganizationComponent implements OnInit, AfterViewInit {
     );
   }
 
-  closeModal(){
+  closeModal() {
     this.bsModeService.hide()
+  }
+
+  onSubmit(){
+    this.organizationForm.markAllAsTouched();
+    if(!this.organizationForm.valid){
+      return;
+    }
+    console.log("Organization created.")
+    this.closeModal();
   }
 }

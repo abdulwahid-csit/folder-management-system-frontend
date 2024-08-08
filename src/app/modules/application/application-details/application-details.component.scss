@@ -24,8 +24,9 @@
     padding: 40px !important;
 }
 
-.app-secret, .app-id {
-    input{
+.app-secret,
+.app-id {
+    input {
         color: #8492A6;
     }
 }
@@ -34,4 +35,22 @@
     background-color: #F2F4F6;
     border-radius: 10px;
     padding: 4px 8px;
+}
+.delete-button button {
+    color: #EF4444;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.primary_button{
+    font-weight: 500
+}
+.delete-button button:hover {
+    background-color:#EF4444;
+    color: #fff;
+    font-weight: 500;
+}
+.btn-delete{
+    background-color: #EF4444;
+    font-size: 14px;
 }

@@ -12,22 +12,25 @@ export class AuthService {
   }
 
   storeTokens(accessToken: string, refreshToken: string, expiresIn: string) {
-    // Convert expiresIn to a number of milliseconds
+
     const expiresInHours = parseInt(expiresIn, 10);
     const expiresInMillis = expiresInHours * 60 * 60 * 1000;
 
-    // Store tokens in local storage
+
     localStorage.setItem('access_token', accessToken);
     localStorage.setItem('refresh_token', refreshToken);
 
-    // Store the expiry timestamp in local storage
     const expiryTimestamp = new Date().getTime() + expiresInMillis;
     localStorage.setItem('token_expiry', expiryTimestamp.toString());
   }
 
+  getAccessToken () {
+   return localStorage.getItem('access_token');
 
-  // Remove tokens from cookies
-  clearTokens() {
+  }
+
+
+  logout() {
     localStorage.clear;
   }
 

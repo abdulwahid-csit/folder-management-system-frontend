@@ -4,13 +4,13 @@
   background-repeat: no-repeat;
   background-size: cover;
   width: 100vw;
-  height: auto;
   height: 100vh;
   position: relative;
   top: 0;
   left: 0;
   overflow: hidden;
 }
+
 
 @media (max-width: 768px) {
   .bg-login {

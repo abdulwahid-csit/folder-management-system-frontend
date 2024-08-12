@@ -79,9 +79,6 @@ h1, h2, h3{
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
   }
 
-    // box-shadow: 0px 0px 1px 0px #0C1A4B3D
-
-
 
 // scroll bar styling css
 
@@ -97,12 +94,12 @@ h1, h2, h3{
   
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: #0F172A;
+    background: #dbdbdb;
   }
   
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: #0F172A;
+    background: #c7c8c9;
   }
 
 .danger_btn {
@@ -223,6 +220,7 @@ h1, h2, h3{
     .filter_btn{
         border: 1px solid rgba(208, 219, 229, 1);
         color: rgba(132, 146, 166, 1);
+        width: 80px;
         &:hover{
             border: 1px solid rgba(208, 219, 229, 1);
         }
@@ -232,12 +230,21 @@ h1, h2, h3{
         height: 48px;
         padding-left: 40px;
         border-radius: 6px;
+        border-color: rgba(208, 219, 229, 1) !important;
     }
-    .search_icon{
-        position: absolute;
-        top: 12px;
-        left: 12px;
+    .filter_btn {
+        display: flex; 
+        align-items: center; 
     }
+
+    .filterIcon {
+        display: inline-block;
+        width: 15px;
+        height: 13px;
+        vertical-align: middle;
+        
+    }
+    
 }
 
 // common modal styling
@@ -296,6 +303,10 @@ h1, h2, h3{
         padding: 40px 40px 0;
     }
 }
+
+.nav-tabs{
+    border: none !important;
+}
 .active-nav-tab {
     border-bottom: 2px solid #6F61CF !important;
     color: #6F61CF !important;
@@ -330,6 +341,7 @@ h1, h2, h3{
 }
 
 .nav-tabs button {
+    border-color: #fff;
     color: #8492A6;
 }
 
@@ -344,7 +356,7 @@ h1, h2, h3{
 }
 
 .line {
-    margin-top: -17px !important;
+    margin-top: -16px !important;
 }
 
 .bg-6F61CF {
@@ -516,6 +528,10 @@ h1, h2, h3{
 
 .fs-14 {
     font-size: 14px;
+}
+
+.mt-1px{
+    margin-top: 2px;
 }
 
 .text-primary-custom {

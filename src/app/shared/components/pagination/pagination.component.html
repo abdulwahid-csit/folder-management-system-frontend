@@ -1,5 +1,5 @@
 <div class="pagination">
-    <button (click)="previousPage()" [ngClass]="{'active-button': previousClicked && currentPage > 1}" [disabled]="currentPage === 1">Previous</button>
+    <button (click)="previousPage()" [ngClass]="{'active-previus-button': previousClicked && currentPage > 1}" [disabled]="currentPage === 1">Previous</button>
 
     <ng-container *ngFor="let page of paginationArray">
       <button
@@ -12,5 +12,5 @@
       <span *ngIf="page === '...'">...</span>
     </ng-container>
 
-    <button (click)="nextPage()" [ngClass]="{'active-button': nextClicked && currentPage < totalPages}" [disabled]="currentPage === totalPages">Next</button>
+    <button (click)="nextPage()" [ngClass]="{'active-next-button': nextClicked && currentPage < totalPages}" [disabled]="currentPage === totalPages">Next</button>
   </div>

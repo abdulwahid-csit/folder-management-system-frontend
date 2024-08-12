@@ -7,8 +7,12 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
-
+  private userRole: string;
   constructor(private http: HttpClient) {
+    this.userRole = 'Developer';
+  }
+  getUserRole(): string {
+    return this.userRole;
   }
 
   storeTokens(accessToken: string, refreshToken: string, expiresIn: string) {

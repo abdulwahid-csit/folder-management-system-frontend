@@ -6,7 +6,6 @@ import { ApplicationListComponent } from './application-list/application-list.co
 import { CreateApplicationComponent } from './create-application/create-application.component';
 import { ApplicationDetailsComponent } from './application-details/application-details.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-// import { InlineSVGModule } from 'ng-inline-svg';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
@@ -22,7 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     ApplicationRoutingModule,
     SharedModule,
-    // InlineSVGModule
+
   ]
 
 })

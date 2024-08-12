@@ -3,11 +3,44 @@
         <span *ngIf="!isSidebarVisible" class="cursor-pointer sideBarToggle " ></span>
         <span *ngIf="isSidebarVisible" class="header_svg cursor-pointer rotate_icon closeArrow"></span>
     </div>
-    <div class="d-flex align-items-center">
-        <span (click)="toggleFullscreen()" class="header_svg cursor-pointer fullscreen" ></span>
-        <span class="header_svg mx-4 cursor-pointer setting" ></span>
-        <div class="profile_img">
-            <img src="" alt="">
-        </div>
+    <div class="d-flex align-items-center justify-content-between">
+    <span 
+      (click)="toggleFullscreen()" 
+      class="header_svg cursor-pointer fullscreen"
+      [ngClass]="{ 'me-4': isDashboard }">
+    </span>
+    <span  *ngIf="showSettingsIcon" class="header_svg mx-4 cursor-pointer setting rotate-animate"></span>
+    <div class="profile_img" (click)="toggleDropdown()">
+    <img src="../../../../assets/images/profile-img.png" alt="">
+    <!-- Dropdown menu -->
     </div>
 </div>
+ <div class="card" [class.hidden]="!isDropdownVisible">
+       <div class="d-flex col-12 pt-2 ps-3 align-items-center">
+    <div class="profile-image-container">
+        <img class="dropdown-profile-img" src="../../../../assets/images/profile-img.png" alt="">
+    </div>
+    <div class="text-container">
+        <div class="text-header">Kevin William</div>
+        <div class="text-dark">Owner</div>
+    </div>
+    
+</div>
+
+<hr class="mt-3  pe-2 ps-2 pt-0 pb-0">
+    <div class="d-flex col-12 pt-2 ps-3 align-items-center cursor-pointer">
+    <div class=" profile d-flex align-items-center">
+        <div class="profile-icon me-2 users-icon" > <img src="" alt=""></div>
+       
+         <span class="">  My Profile </span>
+         </div>
+   </div>
+ <hr class="mt-3  pe-2 ps-2">
+         <div class="pt-3 ps-3 pb-2">
+                    <button class="danger-btn fs-14 fw-600 cursor-pointer">
+                        Logout
+                       <span class="logout-icon"> <img src="" alt=""></span> 
+                    </button>
+                </div>
+       
+    </div>

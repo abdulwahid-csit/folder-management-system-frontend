@@ -18,6 +18,7 @@
   
   button.active {
     background-color:   #6F61CF !important;
+    color: #fff;
   }
   
   button:disabled {
@@ -32,3 +33,10 @@
     background-color: #6F61CF !important;
     color: white !important;
   }
+  .active-next-button{
+    background-color: rgba(241, 245, 249, 1);
+  }
+  .active-previus-button{
+      background-color: rgba(241, 245, 249, 1);
+  }
+

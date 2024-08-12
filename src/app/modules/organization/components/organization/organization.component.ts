@@ -50,11 +50,9 @@ export class OrganizationComponent {
         payload: [
           {
             "id": 1,
-            "name": "organizations 1",
-            "domain": null,
+            "name": "Digital solutions",
+            "domain": "4iisolutions.com",
             "domain_verified": false,
-            "created_at": {},
-            "updated_at": {},
             "is_archive": false,
             "total_no_of_application": 15,
             "users": 199,
@@ -114,7 +112,7 @@ export class OrganizationComponent {
             "creationDate": '12-10-2023'
           },
           {
-            "id": 11,
+            "id": 9,
             "name": "organization 01",
             "domain": "http://web.ai",
             "domain_verified": false,
@@ -138,7 +136,85 @@ export class OrganizationComponent {
             "users": 114,
             "status": 'active',
             "creationDate": '12-12-2023'
-          }
+          },
+          {
+            "id": 11,
+            "name": "backend development",
+            "domain": "http://backend.dev",
+            "domain_verified": false,
+            "created_at": {},
+            "updated_at": {},
+            "is_archive": true,
+            "total_no_of_application": 1,
+            "users": 114,
+            "status": 'active',
+            "creationDate": '12-12-2023'
+          },
+          {
+            "id": 12,
+            "name": "backend development",
+            "domain": "http://backend.dev",
+            "domain_verified": false,
+            "created_at": {},
+            "updated_at": {},
+            "is_archive": true,
+            "total_no_of_application": 1,
+            "users": 114,
+            "status": 'active',
+            "creationDate": '12-12-2023'
+          },
+          {
+            "id": 13,
+            "name": "backend development",
+            "domain": "http://backend.dev",
+            "domain_verified": false,
+            "created_at": {},
+            "updated_at": {},
+            "is_archive": true,
+            "total_no_of_application": 1,
+            "users": 114,
+            "status": 'active',
+            "creationDate": '12-12-2023'
+          },
+          {
+            "id": 14,
+            "name": "backend development",
+            "domain": "http://backend.dev",
+            "domain_verified": false,
+            "created_at": {},
+            "updated_at": {},
+            "is_archive": true,
+            "total_no_of_application": 1,
+            "users": 114,
+            "status": 'active',
+            "creationDate": '12-12-2023'
+          },
+          {
+            "id": 15,
+            "name": "backend development",
+            "domain": "http://backend.dev",
+            "domain_verified": false,
+            "created_at": {},
+            "updated_at": {},
+            "is_archive": true,
+            "total_no_of_application": 1,
+            "users": 114,
+            "status": 'active',
+            "creationDate": '12-12-2023'
+          },
+          {
+            "id": 16,
+            "name": "backend development",
+            "domain": "http://backend.dev",
+            "domain_verified": false,
+            "created_at": {},
+            "updated_at": {},
+            "is_archive": true,
+            "total_no_of_application": 1,
+            "users": 114,
+            "status": 'active',
+            "creationDate": '12-12-2023'
+          },
         ],
         paginate_options: {
           "total_pages": 1,

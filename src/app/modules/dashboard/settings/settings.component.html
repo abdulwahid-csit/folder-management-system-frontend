@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <div class="main-div w-100 organization-details-div bg-white  p-3 mt-4 ps-4">
+  <div class="main-div w-100 organization-details-div bg-white  p-3 ps-4">
     <div class="d-flex">
       <div class="iis-logo">
         <img src="../../../../../assets/images/iis.svg" alt="iis">
@@ -60,9 +60,10 @@
                   </label>
                   <input type="text" class="form-control fs-14px" id="exampleFormControlInput1"
                     placeholder="Enter first name" formControlName="firstName">
+                    <div class="error-message">
                   <small *ngIf="isControlHasError('firstName','required', accountDetailsForm)" class="text-danger">First
                     Name is
-                    required</small>
+                    required</small></div>
                 </div>
                 <div class="mb-3 custom-input w-50"
                   [ngClass]="isControlHasError('lastName', 'required', accountDetailsForm) ? 'custom-input-error': 'custom-input'">

@@ -1,6 +1,8 @@
 .wrapper {
     padding: 40px;
-
+    .main-div{
+        border-radius: 16px;
+    }
     .tabs-div {
         padding: 24px 24px 36px 24px;
         border-radius: 16px;
@@ -10,9 +12,13 @@
     }
 
     .tabs-div {
-        small {
-            position: absolute;
-            font-size: 12px
+        .error-message{
+            min-height: 12px !important;
+            small {
+                position: relative;
+                // margin-bottom: 12px !important;
+                font-size: 12px
+            }
         }
 
         ;

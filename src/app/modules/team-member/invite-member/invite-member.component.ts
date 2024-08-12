@@ -26,6 +26,7 @@ export class InviteMemberComponent implements OnInit {
     ];
 
   selectedOption: any;
+  isFocused!: boolean;
 
 
   constructor(private bsModalService: BsModalService) { }
@@ -52,7 +53,8 @@ export class InviteMemberComponent implements OnInit {
     );
   }
 
-
+  
+  
   onSubmit() {
     if(this.inviteForm.invalid){
       this.inviteForm.markAllAsTouched();
@@ -60,5 +62,19 @@ export class InviteMemberComponent implements OnInit {
     }
     console.log("Form Submitted.")
   }
+  
+  onFocus() {
+    this.isFocused = true;
+  }
 
+  onBlur() {
+    this.isFocused = false;
+  }
+
+  onValueChange() {
+    const control = this.inviteForm.get('role');
+    if (control?.value) {
+      this.isFocused = false; // Reset focus state if value is selected
+    }
+  }
 }

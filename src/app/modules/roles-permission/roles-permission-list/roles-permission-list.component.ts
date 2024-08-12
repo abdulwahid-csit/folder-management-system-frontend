@@ -35,19 +35,16 @@ export class RolesPermissionListComponent {
       data: {
         columns: [
           {
-            name: 'Name',
+            name: 'Role NAme',
           },
           {
-            name: 'domain',
+            name: 'Description',
           },
           {
-            name: 'Total No. Of Applications',
+            name: 'User Count',
           },
           {
-            name: 'users',
-          },
-          {
-            name: 'status',
+            name: 'Created by',
           },
           {
             name: 'Creation Date',
@@ -56,95 +53,89 @@ export class RolesPermissionListComponent {
         payload: [
           {
             "id": 1,
-            "name": "organizations 1",
-            "domain": null,
+            "name": "Owner",
+            "description": "Lorem ipsum adalah contoh teks atau dummy dalam .....",
             "domain_verified": false,
             "created_at": {},
             "updated_at": {},
             "is_archive": false,
-            "total_no_of_application": 15,
             "users": 199,
-            "status": 'active',
+            "createdBy": "Hassa-ali",
             "creationDate": '12-8-2024'
           },
           {
-            "id": 3,
-            "name": "organizations 1",
-            "domain": "https://adminv2-dev.techbar.com/auth/login",
+            "id": 1,
+            "name": "Owner",
+            "description": "Lorem ipsum adalah contoh teks atau dummy dalam .....",
             "domain_verified": false,
             "created_at": {},
             "updated_at": {},
             "is_archive": false,
-            "total_no_of_application": 10,
-            "users": 588,
-            "status": 'inactive',
-            "creationDate": '01-8-2024'
-          },
-          {
-            "id": 7,
-            "name": "organizations 67",
-            "domain": "http://kham.ai",
-            "domain_verified": false,
-            "created_at": {},
-            "updated_at": {},
-            "is_archive": false,
-            "total_no_of_application": 1,
-            "users": 900,
-            "status": 'active',
-            "creationDate": '15-8-2024'
-          },
-          {
-            "id": 9,
-            "name": "created",
-            "domain": "http://kham.ai",
-            "domain_verified": false,
-            "created_at": {},
-            "updated_at": {},
-            "is_archive": false,
-            "total_no_of_application": 14,
-            "users": 189,
-            "status": 'inactive',
-            "creationDate": '30-8-2024'
-          },
-          {
-            "id": 8,
-            "name": "created updated 8",
-            "domain": "http://kham.bi",
-            "domain_verified": false,
-            "created_at": {},
-            "updated_at": {},
-            "is_archive": false,
-            "total_no_of_application": 7,
-            "users": 130,
-            "status": 'active',
-            "creationDate": '12-10-2023'
-          },
-          {
-            "id": 11,
-            "name": "organization 01",
-            "domain": "http://web.ai",
-            "domain_verified": false,
-            "created_at": {},
-            "updated_at": {},
-            "is_archive": false,
-            "total_no_of_application": 10,
-            "users": 150,
-            "status": 'inactive',
+            "users": 199,
+            "createdBy": "Hassa-ali",
             "creationDate": '12-8-2024'
           },
           {
-            "id": 10,
-            "name": "backend development",
-            "domain": "http://backend.dev",
+            "id": 1,
+            "name": "Owner",
+            "description": "Lorem ipsum adalah contoh teks atau dummy dalam .....",
             "domain_verified": false,
             "created_at": {},
             "updated_at": {},
-            "is_archive": true,
-            "total_no_of_application": 1,
-            "users": 114,
-            "status": 'active',
-            "creationDate": '12-12-2023'
-          }
+            "is_archive": false,
+            "users": 199,
+            "createdBy": "Hassa-ali",
+            "creationDate": '12-8-2024'
+          },
+          {
+            "id": 1,
+            "name": "Owner",
+            "description": "Lorem ipsum adalah contoh teks atau dummy dalam .....",
+            "domain_verified": false,
+            "created_at": {},
+            "updated_at": {},
+            "is_archive": false,
+            "users": 199,
+            "createdBy": "Hassa-ali",
+            "creationDate": '12-8-2024'
+          },
+          {
+            "id": 1,
+            "name": "Owner",
+            "description": "Lorem ipsum adalah contoh teks atau dummy dalam .....",
+            "domain_verified": false,
+            "created_at": {},
+            "updated_at": {},
+            "is_archive": false,
+            "users": 199,
+            "createdBy": "Hassa-ali",
+            "creationDate": '12-8-2024'
+          },
+          {
+            "id": 1,
+            "name": "Owner",
+            "description": "Lorem ipsum adalah contoh teks atau dummy dalam .....",
+            "domain_verified": false,
+            "created_at": {},
+            "updated_at": {},
+            "is_archive": false,
+            "users": 199,
+            "createdBy": "Hassa-ali",
+            "creationDate": '12-8-2024'
+          },
+          {
+            "id": 1,
+            "name": "Owner",
+            "description": "Lorem ipsum adalah contoh teks atau dummy dalam .....",
+            "domain_verified": false,
+            "created_at": {},
+            "updated_at": {},
+            "is_archive": false,
+            "users": 199,
+            "createdBy": "Hassa-ali",
+            "creationDate": '12-8-2024'
+          },
+          
         ],
         paginate_options: {
           "total_pages": 1,

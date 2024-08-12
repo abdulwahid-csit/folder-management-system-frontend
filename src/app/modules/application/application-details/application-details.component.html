@@ -1,10 +1,10 @@
-<div class="path d-flex pt-1 bg-white ps-4">
-    <span class="color-8492A6 fs-12px mt-1px">Organization</span>
-    <span><i class="bi bi-chevron-right color-D0DBE5"></i></span>
+<div class="path d-flex pt-1 bg-white ps-4 custom-shadow">
+    <span class="color-8492A6 fs-12px mt-1px cursor-pointer" routerLink="/layout/application">Application</span>
+    <span class="mx-1"><img class="mb-1" src="../../../../assets/icons/chevron-right.svg" alt=""></span>
     <span class="color-6F61CF fs-12px mt-1px">Application details </span>
 </div>
 <div class="wrapper">
-    <div class="main-div w-100 organization-details-div bg-white  p-3 mt-4 ps-4">
+    <div class="main-div w-100 organization-details-div bg-white  p-3 mt-4 ps-4 custom-shadow">
         <div class="d-flex">
             <div class="iis-logo">
                 <img src="../../../../../assets/images/iis.svg" alt="iis">
@@ -21,7 +21,7 @@
                         <div>
                             <img src="../../../../../assets/icons/Frame.svg" alt="">
                         </div>
-                        <div class="ms-2">
+                        <div class="ms-1">
                             <span class="color-8492A6 fs-14px semi-bold-fonts">4ii Solutions</span>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
 
 
     <div id="features-tab" *ngIf="selectedTab === 'features'">
-        <div class="main-div w-100  features-tab p-3 mt-4 bg-white">
+        <div class="main-div w-100  features-tab p-3 mt-4 bg-white custom-shadow">
             <div class="pt-1">
                 <div>
                     <div class="fs-20px fw-700 color-16192C bold-fonts">
@@ -98,7 +98,7 @@
         </div>
 
 
-        <div class="main-div w-100  features-tab p-3 mt-4 bg-white">
+        <div class="main-div w-100  features-tab p-3 mt-4 bg-white custom-shadow">
             <div class="pt-1">
                 <div>
                     <div class="fs-20px fw-700 color-16192C bold-fonts">
@@ -137,7 +137,7 @@
         </div>
     </div>
     <div id="setting-tab" *ngIf="selectedTab === 'setting'">
-        <div class="main-div w-100 settings-tab p-3 mt-4 ps-4 bg-white">
+        <div class="main-div w-100 settings-tab p-3 mt-4 ps-4 bg-white custom-shadow">
             <div class="pt-1">
                 <div>
                     <div class="fs-20px fw-700 color-16192C mb-3 bold-fonts">
@@ -169,14 +169,14 @@
                             <hr class="mt-2 mb-2">
                         </div>
                         <div class="mt-4">
-                            <button class="primary_button">Edit Details</button>
+                            <button class="primary_button" (click)="editApplication()">Edit Details</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="main-div w-100 settings-tab p-3 mt-4 ps-4 bg-white">
+        <div class="main-div w-100 settings-tab p-3 mt-4 ps-4 bg-white custom-shadow">
             <div class="pt-1">
                 <div>
                     <div class="fs-20px fw-700 color-16192C bold-fonts">

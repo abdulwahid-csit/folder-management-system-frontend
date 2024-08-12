@@ -3,6 +3,8 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  width: 18px;
+  height: 18px;
 }
 
 .filterIcon{
@@ -10,6 +12,8 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  width: 18px !important;
+  height: 15px !important;
 }
 .sideBarToggle {
   background-image: url('./icons/toggle.svg');

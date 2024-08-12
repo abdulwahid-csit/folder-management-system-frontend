@@ -1,4 +1,4 @@
-<div class="header-wrapper d-flex align-items-center justify-content-between">
+<div class="header-wrapper d-flex align-items-center justify-content-between " [ngClass]="{'custom-shadow': !isDetailsPage }">
     <div (click)="toggleSidebar()">
         <span *ngIf="!isSidebarVisible" class="cursor-pointer sideBarToggle " ></span>
         <span *ngIf="isSidebarVisible" class="header_svg cursor-pointer rotate_icon closeArrow"></span>

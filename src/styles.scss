@@ -132,7 +132,7 @@ h1, h2, h3{
 .primary_button{
     background-color: #6F61CF;
     color: white;
-    padding: 0px 16px;
+    padding: 10px 16px;
     border: none;
     border-radius: 6px;
     height: 40px;
@@ -540,5 +540,18 @@ h3 {
         font-weight: 700;
         line-height: 27.3px;
         letter-spacing: -0.01em;
+}
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.rotate-animate {
+    animation: rotate 2s linear infinite;
 }
 

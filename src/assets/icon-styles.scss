@@ -94,3 +94,28 @@
   background-size: cover;
 
 }
+.logout-icon {
+  background-image: url('./icons/logout.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 6px;
+  padding: 7px;
+
+}
+.users-icon {
+  background-image: url('./icons/usericon.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-left: 15px;
+}
+.setting-icon {
+  background-image: url('./icons/setting-icon2.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+      padding: 2px;
+        height: 20px;
+        padding-left: 21px;
+}

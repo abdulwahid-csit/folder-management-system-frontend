@@ -36,10 +36,10 @@ export class AuthService {
 
   signIn(email:string, password:string): Observable<any>{
     const body= {email,password};
-    return this.http.post(`${environment.apiUrl}/signin`, body );
+    return this.http.post(`${environment.apiUrl}api/v1/auth/signin`, body );
   }
   // signUp(email:string, password:string, username:string): Observable<any>{
   //   const body = {email,password,username};
-  //   return this.http.post(`${environment.apiUrl}/signup`, body);
+  //   return this.http.post(`${environment.apiUrl}api/v1/auth/signup`, body);
   // }
 }

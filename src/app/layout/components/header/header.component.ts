@@ -11,9 +11,20 @@ import { CommonService } from 'src/app/shared/services/common.service';
 export class HeaderComponent implements OnInit {
   isSidebarVisible = false;
   isDetailsPage = false;
+  showSettingsIcon = true;
+  isDropdownVisible = false;
+  isDashboard = false;
   constructor(private commonService:CommonService, private router: Router){ }
 
+
   ngOnInit(): void {
+    // Listen for route changes to update visibility of settings icon and dashboard flag
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.updateVisibilityAndRouteFlags();
+    });
+
     this.commonService.sidebarVisible$.subscribe((visible)=>{
       this.isSidebarVisible = visible;
     })
@@ -24,7 +35,9 @@ export class HeaderComponent implements OnInit {
       // Check if the current URL is for the details page
       this.isDetailsPage = event.urlAfterRedirects.includes('/details'); // Adjust this path to your details route
       console.log("Current url incllude details page: ", this.isDetailsPage);
-    });
+  
+    })
+
   }
 
   toggleSidebar(){
@@ -52,5 +65,14 @@ export class HeaderComponent implements OnInit {
 
   ngOnDestroy() {
     
+  }
+  
+  toggleDropdown() {
+    this.isDropdownVisible = !this.isDropdownVisible;
+  }
+  private updateVisibilityAndRouteFlags() {
+    const currentRoute = this.router.url;
+    this.showSettingsIcon = !currentRoute.includes('dashboard');
+    this.isDashboard = currentRoute.includes('dashboard');
   }
 }

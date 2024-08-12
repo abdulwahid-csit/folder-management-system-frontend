@@ -9,7 +9,8 @@ import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 export class SettingsComponent implements OnInit {
 accountDetailsForm!: FormGroup
 selectedTab = 'account';
-changePasswordForm!: FormGroup;
+  changePasswordForm!: FormGroup;
+  organizationForm!: FormGroup;
 
 
 

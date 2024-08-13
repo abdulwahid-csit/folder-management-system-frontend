@@ -1,20 +1,20 @@
-
 <div class="main-div">
     <div class="sso_card w-100 h-100">
         <div class="d-flex align-items-center justify-content-between dataTable_header">
             <h4 class="primary_color mb-0 table-header-letter-spacing">Applications</h4>
             <div class="d-flex">
-                <div class="position-relative display-flex ms-3 custom-input">
+                <div class="position-relative display-flex ms-2 custom-input">
                     <input type="text" class="form-control dataTableSearch" [(ngModel)]="searchTerm"
                         placeholder="Search by name or domain">
                     <span class="search_icon searchIcon"></span>
                 </div>
-                <button type="button" class="btn filter_btn ms-3">
-                  <span class="me-2 filterIcon"></span> Filter</button>
-                <button type="button" class="primary_button ms-3" (click)="createApplication()">Create
+                <button type="button" class="btn filter_btn ms-2">
+                    <span class="me-2 filterIcon"></span> Filter</button>
+                <button type="button" class="primary_button ms-2" (click)="createApplication()">Create
                     Application</button>
             </div>
         </div>
-        <app-data-table [columns]="columns" [config]="tableConfig" [dataSet]="organizationList" [module]="'application'"></app-data-table>
+        <app-data-table [columns]="columns" [config]="tableConfig" [dataSet]="organizationList"
+            [module]="'application'"></app-data-table>
     </div>
 </div>

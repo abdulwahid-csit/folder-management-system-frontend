@@ -1,5 +1,6 @@
 import { Component, TemplateRef } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { UpdateApplicationComponent } from '../update-application/update-application.component';
 
 @Component({
   selector: 'app-application-details',
@@ -60,6 +61,16 @@ setSelectedTab(tab: string){
 
       tickIcon?.classList.add('d-none');
     }, 1500);
+  }
+
+
+
+  editApplication(){
+    this.modalRef = this.modalService.show(UpdateApplicationComponent, {
+      class: 'modal-dialog modal-dialog-centered modal-md common_modal_shadow',
+      backdrop: 'static',
+      keyboard: false,
+    })
   }
 
 }

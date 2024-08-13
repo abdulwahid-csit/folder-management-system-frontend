@@ -8,13 +8,15 @@ import { ApplicationDetailsComponent } from './application-details/application-d
 import { SharedModule } from 'src/app/shared/shared.module';
 // import { InlineSVGModule } from 'ng-inline-svg';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UpdateApplicationComponent } from './update-application/update-application.component';
 
 
 @NgModule({
   declarations: [
     ApplicationListComponent,
     CreateApplicationComponent,
-    ApplicationDetailsComponent
+    ApplicationDetailsComponent,
+    UpdateApplicationComponent
   ],
   imports: [
     FormsModule,

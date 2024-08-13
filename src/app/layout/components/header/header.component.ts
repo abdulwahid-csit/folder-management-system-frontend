@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { filter } from 'rxjs';
 import { CommonService } from 'src/app/shared/services/common.service';
 
 @Component({
@@ -10,11 +10,12 @@ import { CommonService } from 'src/app/shared/services/common.service';
 })
 export class HeaderComponent implements OnInit {
   isSidebarVisible = false;
+  isDetailsPage = false;
   showSettingsIcon = true;
   isDropdownVisible = false;
   isDashboard = false;
+  constructor(private commonService:CommonService, private router: Router){ }
 
-  constructor(private commonService: CommonService, private router: Router){ }
 
   ngOnInit(): void {
     // Listen for route changes to update visibility of settings icon and dashboard flag
@@ -23,6 +24,20 @@ export class HeaderComponent implements OnInit {
     ).subscribe(() => {
       this.updateVisibilityAndRouteFlags();
     });
+
+    this.commonService.sidebarVisible$.subscribe((visible)=>{
+      this.isSidebarVisible = visible;
+    })
+
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)  // Only pass NavigationEnd events
+    ).subscribe((event: any) => {
+      // Check if the current URL is for the details page
+      this.isDetailsPage = event.urlAfterRedirects.includes('/details'); // Adjust this path to your details route
+      console.log("Current url incllude details page: ", this.isDetailsPage);
+  
+    })
+
   }
 
   toggleSidebar(){
@@ -30,6 +45,7 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleFullscreen() {
+    console.log("Full scree button pressed.")
     if (!document.fullscreenElement) {
       this.openFullscreen();
     }

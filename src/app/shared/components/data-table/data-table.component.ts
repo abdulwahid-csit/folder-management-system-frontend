@@ -35,6 +35,18 @@ get module(): string {
  ngOnInit(): void { console.log('module name in ngoninit', this.module) }
 
  ngOnChanges(changes: SimpleChanges) {
+   // this.columns =[
+  //   {
+  //     title:"Created By",
+  //     name: "createdBy"
+  //   },
+  //   {
+  //     title: "Description",
+  //     name: "description"
+  //   }
+  // ]
+  // console.log('columns',this.columns);
+  // console.log('dataSet',this.dataSet);
   if (changes['searchTerm'] || changes['dataSet']) {
     this.filteredData();
   }
@@ -71,24 +83,27 @@ get module(): string {
 
   onRowClick(rowData: any) {
     let detailRoute: string;
+    if(this.module === 'dashboard'){
+      return;
+    }
     switch (this.module) {
       case 'organization':
-        detailRoute = `/layout/${this.module}/organization-details/${rowData.id}`;
+        detailRoute = `/layout/${this.module}/details/${rowData.id}`;
         break;
       case 'roles':
-        detailRoute = `/layout/${this.module}/role-detail/${rowData.id}`;
+        detailRoute = `/layout/${this.module}/details/${rowData.id}`;
         break;
       case 'application':
-        detailRoute = `/layout/${this.module}/application-detail/${rowData.id}`;
+        detailRoute = `/layout/${this.module}/details/${rowData.id}`;
         break;
       case 'user':
-        detailRoute = `/layout/${this.module}/userDetail/${rowData.id}`;
+        detailRoute = `/layout/${this.module}/details/${rowData.id}`;
         break;
       case 'secret':
-        detailRoute = `/layout/${this.module}/secret-detail/${rowData.id}`;
+        detailRoute = `/layout/${this.module}/details/${rowData.id}`;
         break;
       case 'team-member':
-        detailRoute = `/layout/${this.module}/member-details/${rowData.id}`;
+        detailRoute = `/layout/${this.module}/details/${rowData.id}`;
         break;
 
       default:

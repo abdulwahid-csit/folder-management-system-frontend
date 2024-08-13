@@ -11,7 +11,7 @@ const routes: Routes = [
     component: CreateRoleComponent
   },
   {
-    path: 'role-detail/:id',
+    path: 'details/:id',
   component: RoleDetailComponent
   }
    

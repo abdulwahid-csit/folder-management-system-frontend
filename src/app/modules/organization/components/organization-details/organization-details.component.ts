@@ -24,6 +24,7 @@ export class OrganizationDetailsComponent implements OnInit {
   organizationForm!: FormGroup
   inviteMemberForm!: FormGroup;
   editOrganizationForm!: FormGroup;
+  searchTerm: string = '';
 
   organizationList: any = []
   dataTable: any = [
@@ -390,7 +391,7 @@ export class OrganizationDetailsComponent implements OnInit {
     })
 
     this.inviteMemberForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email])
+      email: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$')])
     })
 
     this.editOrganizationForm = new FormGroup({

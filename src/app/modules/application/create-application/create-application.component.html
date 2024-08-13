@@ -10,8 +10,8 @@
                 <label for="applicationName" class="mb-1 primary_color required fw-700 semi-bold-fonts">Name</label>
                 <input type="text" class="form-control form-control-lg ps-3 ps-2 fs-14px"
                     formControlName="applicationName" placeholder="Enter domain name">
-                <span *ngIf="isControlHasError('applicationName','required')" class="fs-14px text-danger">Domain name is
-                    required</span>
+                <small *ngIf="isControlHasError('applicationName','required')" class="mt-1 fs-14px text-danger">Domain name is
+                    required</small>
             </div>
             <div class="mb-3 custom-input">
                 <label for="appUrl" class="mb-1 primary_color  fw-700 semi-bold-fonts">App URL</label>

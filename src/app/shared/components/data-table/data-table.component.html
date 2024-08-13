@@ -1,28 +1,38 @@
-<div class="data_table_wrapper">
-    <table class="table table-hover">
+<div class="data_table_wrapper pb-0">
+    <table class="table table-hover mb-0">
         <thead>
             <tr>
-                <th class="align-content-center" *ngFor="let column of columns">{{column.name}}</th>
+                <!-- <ng-container *ngFor="let column of columns">
+                <ng-container *ngIf="true">
+                    <th class="align-content-center"   >{{column.title}}</th>
+                </ng-container>
+                </ng-container> -->
+                <th class="align-content-center"  *ngFor="let column of columns" >{{column.name}}</th>
             </tr>
         </thead>
         <tbody>
+            <!-- <tr *ngFor="let data of filterData">
+                <td *ngFor="let item of columns">{{data[item?.name] ?? 'NA'}}</td>
+            </tr> -->
             <tr *ngFor="let data of filterData" class="cursor-pointer" (click)="onRowClick(data)">
-                <td class="fw-700 align-content-center" style="font-size: 12px;" *ngIf="data.name">{{data.name}}</td>
-                <td class="align-content-center" style="font-size: 12px;" *ngIf="data.domain">{{data.domain}}</td>
-                <td class="align-content-center"  *ngIf="data.description">{{data.description}}</td>
-                <td class="align-content-center"  *ngIf="data.fullName">{{data.fullName}}</td>
-                <td class="align-content-center"  *ngIf="data.organization">{{data.organization}}</td>
-                <td class="align-content-center"  *ngIf="data.appId">{{data.appId}}</td>
-                <td class="align-content-center"  *ngIf="data.appUrl">{{data.appUrl}}</td>
+                <td class="fw-700 align-content-center" *ngIf="data.name">{{data.name}}</td>
+                <td class="align-content-center" *ngIf="data.domain">{{data.domain}}</td>
+                <td class="align-content-center" *ngIf="data.description">{{data.description}}</td>
+                <td class="align-content-center" *ngIf="data.fullName">{{data.fullName}}</td>
+                <td class="align-content-center" *ngIf="data.organization">{{data.organization}}</td>
+                <td class="align-content-center" *ngIf="data.appId">{{data.appId}}</td>
+                <td class="align-content-center" *ngIf="data.appUrl">{{data.appUrl}}</td>
                 <td class="align-content-center" *ngIf="data.role">{{data.role}}</td>
                 <td class="align-content-center" *ngIf="data.activityDate">{{data.activityDate}}</td>
-                <td class="align-content-center"  *ngIf="data.lastSignedIn">{{data.domain}}</td>
+                <td class="align-content-center" *ngIf="data.lastSignedIn">{{data.domain}}</td>
                 <td class="align-content-center" *ngIf="data.time">{{data.time}}</td>
                 <td class="align-content-center" *ngIf="data.Activity">{{data.Activity}}</td>
                 <td class="align-content-center" *ngIf="data.total_no_of_application">{{data.total_no_of_application}}</td>
                 <td class="align-content-center" *ngIf="data.users">{{data.users}}</td>
-                <td class="align-content-center"  *ngIf="data.createdBy">{{data.createdBy}}</td>
-                <td class="align-content-center" *ngIf="data.status"><span class="{{data.status == 'active' ? 'badge badge-light-success text-capitalize' : 'badge badge-light-warning text-capitalize'}}">{{data.status}}</span></td>
+                <td class="align-content-center" *ngIf="data.createdBy">{{data.createdBy}}</td>
+                <td class="align-content-center" *ngIf="data.status"><span
+                        class="{{data.status == 'active' ? 'badge badge-light-success text-capitalize' : 'badge badge-light-warning text-capitalize'}}">{{data.status}}</span>
+                </td>
                 <td class="align-content-center" *ngIf="data.lastSignedIn">{{data.lastSignedIn}}</td>
                 <td class="align-content-center" *ngIf="data.creationDate">{{data.creationDate}}</td>
             </tr>
@@ -33,7 +43,7 @@
     </table>
     <div class="dataTable_pagination d-flex align-items-center justify-content-between">
         <div>
-            <p class="mb-0">Showing 1 to 10 of 40 results</p>
+            <p class="mb-0 fs-14px fw-500 color-8492A6 fw-600">Showing 1 to 10 of 40 results</p>
         </div>
         <div>
             <app-pagination [totalPages]="config.paginationParams.total_pages" [(currentPage)]="config.paginationParams.current_page"></app-pagination>

@@ -1,15 +1,14 @@
-
 <div class="wrapper">
     <div class="sso_card w-100 h-100">
         <div class="d-flex align-items-center justify-content-between dataTable_header">
-            <h4 class="primary_color mb-0">Users</h4>
+            <h4 class="primary_color mb-0 table-header-letter-spacing">Users</h4>
             <div class="d-flex">
                 <div class="position-relative display-flex ms-3 custom-input">
                     <input type="text" class="form-control dataTableSearch " [(ngModel)]="searchTerm"
                         placeholder="Search by name or domain">
-                    <span class="search_icon searchIcon" >&nbsp;</span>
+                    <span class="search_icon searchIcon"></span>
                 </div>
-                <button type="button" class="btn filter_btn ms-3"><span class="me-1 filterIcon"
+                <button type="button" class="btn filter_btn ms-3"><span class="me-2 filterIcon"
                         ></span> Filter</button>
                 <button type="button" class="primary_button ms-3" (click)="createUser()">Create User</button>
             </div>

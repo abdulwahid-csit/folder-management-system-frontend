@@ -22,7 +22,7 @@
               <img src="../../../../../assets/icons/Frame.svg" alt="">
             </div>
             <div class="ms-1">
-              <span class="color-8492A6 fs-14px semi-bold-font">4ii Solutions</span>
+              <span class="color-8492A6 fs-14px semi-bold-font">https://4iiSolutions.com</span>
             </div>
           </div>
         </div>
@@ -132,7 +132,7 @@
       <div class="pt-1">
         <div>
           <div class="fs-20px fw-700 color-16192C mb-2 bold-fonts">
-            Ideal Innovative Solutions
+            Organization Details
           </div>
           <div class="semi-bold-fonts">
             <div class="d-flex fw-600 mt-4 py-1">
@@ -140,27 +140,28 @@
               <div class="ms-4 color-8492A6">Ideal Innovative Solution</div>
             </div>
             <div class="color-7a7a7a">
-              <hr class="mt-2 mb-2">
+              <hr class="">
             </div>
-            <div class="d-flex fw-600 py-1">
+            <div class="d-flex fw-600 p-10">
               <div class="fs-14px ">Domain</div>
-              <div><span class="color-8492A6 fs-14px ms-4 ">4ii Solutions</span></div>
+              <div><span class="color-8492A6 fs-14px ms-4 ">https://4iiSolutions.com</span></div>
             </div>
             <div class="color-7a7a7a">
-              <hr class="mt-2 mb-2">
+              <hr class="">
             </div>
-            <div class="d-flex fw-600 py-1">
-              <div class="fs-14px ">Status</div>
+            <div class="d-flex align-items-center py-2">
+              <div class="fs-14px fw-600">Status</div>
               <div class="ms-4"><span class="status-button status-inactive d-flex justify-content-center"><button
-                    class="btn fs-14px badge-light-warning">Inactive</button></span></div>
+                    class="btn  badge-light-warning ">Inactive</button></span></div>
             </div>
             <div class="color-7a7a7a">
-              <hr class="mt-2 mb-2">
+              <hr class="">
             </div>
             <div class="edit-details-button mt-4">
               <button class="primary_button"
-                (click)="openModal(updateOrganization, 'modal-dialog modal-dialog-centered common_modal_shadow')"><span>Edit Details</span> 
-                </button>
+                (click)="openModal(updateOrganization, 'modal-dialog modal-dialog-centered common_modal_shadow')"><span>Edit
+                  Details</span>
+              </button>
             </div>
           </div>
         </div>
@@ -202,7 +203,8 @@
             placeholder="Enter email address" formControlName="email">
           <small *ngIf="isControlHasError('email','required', inviteMemberForm)" class="mt-1 text-danger">Email is
             required</small>
-          <small *ngIf="isControlHasError('email','pattern', inviteMemberForm)" class="mt-1 text-danger">Please enter a valid email address</small>
+          <small *ngIf="isControlHasError('email','pattern', inviteMemberForm)" class="mt-1 text-danger">Please enter a
+            valid email address</small>
         </div>
         <div>
         </div>
@@ -228,7 +230,8 @@
             <label for="name" class="mb-1 primary_color required fw-700 semi-bold-fonts">Name</label>
             <input type="text" class="form-control  ps-3 pe-3" formControlName="name" id="name"
               placeholder="Enter organization name">
-            <small *ngIf="isControlHasError('name','required', editOrganizationForm)" class="mt-1 text-danger">Organization
+            <small *ngIf="isControlHasError('name','required', editOrganizationForm)"
+              class="mt-1 text-danger">Organization
               name is
               required</small>
           </div>
@@ -237,7 +240,8 @@
             <label for="domain" class="mb-1 primary_color required fw-700 semi-bold-fonts">Domain</label>
             <input type="text" class="form-control ps-3 pe-3" formControlName="domain" id="domain"
               placeholder="Enter domain name">
-            <small *ngIf="isControlHasError('domain','required', editOrganizationForm)" class="mt-1 text-danger">Domain name
+            <small *ngIf="isControlHasError('domain','required', editOrganizationForm)" class="mt-1 text-danger">Domain
+              name
               is required</small>
           </div>
           <div class="input-select mt-3 mb-4"

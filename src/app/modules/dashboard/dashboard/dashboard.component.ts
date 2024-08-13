@@ -108,20 +108,6 @@ export class DashboardComponent {
             "time": '45 mins ago',
             "Activity": 'Log out'
           },
-          {
-            "id": 2,
-            "name": "Cameron Williamson",
-            "activityDate": 'Feb 12, 2023',
-            "time": '45 mins ago',
-            "Activity": 'Log out'
-          },
-          {
-            "id": 2,
-            "name": "Brooklyn Simmons",
-            "activityDate": 'Feb 12, 2023',
-            "time": '3 hours ago',
-            "Activity": 'Log out'
-          },
     
         ],
         paginate_options: {

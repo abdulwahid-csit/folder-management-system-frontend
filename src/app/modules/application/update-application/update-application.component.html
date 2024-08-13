@@ -1,0 +1,32 @@
+<div class="common_modal">
+  <div class="modal-header border-bottom-0">
+      <h2 class="primary_color mb-0">Edit Application</h2>
+  </div>
+  <div class="modal-body">
+      <form [formGroup]="organizationForm" (ngSubmit)="onSubmit()">
+          <div class="mb-4 custom-input" [ngClass]="isControlHasError('appName','required')? 'custom-input-error': 'custom-input'">
+              <label for="" class="mb-1 primary_color required font_weight_500 required">Name</label>
+              <input type="text" class="form-control form-control-lg" formControlName="appName"
+                  placeholder="Enter Application name">
+              <small *ngIf="isControlHasError('appName','required')" class="mt-1 text-danger">Application name is
+                  required</small>
+          </div>
+          <div class="mb-4 custom-input" [ngClass]="isControlHasError('appUrl','required')? 'custom-input-error': 'custom-input'">
+              <label for="" class="mb-1 primary_color required font_weight_500 required">App URL</label>
+              <input type="text" class="form-control form-control-lg" formControlName="appUrl"
+                  placeholder="Enter app url">
+              <small *ngIf="isControlHasError('appUrl','required')" class="mt-1 text-danger">App Url</small>
+          </div>
+          <div class="mb-4 custom-input" [ngClass]="isControlHasError('redirectUri','required')? 'custom-input-error': 'custom-input'">
+              <label for="" class="mb-1 primary_color required font_weight_500 required">Redirect URI's</label>
+              <input type="text" class="form-control form-control-lg" formControlName="redirectUri"
+                  placeholder="Enter redirect uri">
+              <small *ngIf="isControlHasError('redirectUri','required')" class="mt-1 text-danger">Redirect Uri's are required</small>
+          </div>
+          <div class="modal-footer border-top-0 pb-0 pe-0">
+              <button type="button" class="cancel_btn" (click)="closeModal()">Cancel</button>
+              <button type="submit" class="primary_button">Update</button>
+          </div>
+      </form>
+  </div>
+</div>

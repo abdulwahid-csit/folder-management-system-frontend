@@ -65,7 +65,8 @@
 }
 table tbody td{
     font-family: 'Urbanist' sans-serif;
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 14px;
     padding: 13px 0px !important;
 }
 
@@ -91,8 +92,11 @@ small{
     }
 }
 
-// .delete-modal{
-//     width: 640px !important;
-// }
-
-
+.input-wrapper{
+    position: relative;
+    .show-hide-password{
+        position: absolute;
+        top: 26%;
+        right: 30px;
+    }
+}

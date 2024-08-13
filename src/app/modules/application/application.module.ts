@@ -7,13 +7,15 @@ import { CreateApplicationComponent } from './create-application/create-applicat
 import { ApplicationDetailsComponent } from './application-details/application-details.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UpdateApplicationComponent } from './update-application/update-application.component';
 
 
 @NgModule({
   declarations: [
     ApplicationListComponent,
     CreateApplicationComponent,
-    ApplicationDetailsComponent
+    ApplicationDetailsComponent,
+    UpdateApplicationComponent
   ],
   imports: [
     FormsModule,

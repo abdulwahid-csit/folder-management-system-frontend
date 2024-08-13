@@ -45,6 +45,7 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleFullscreen() {
+    console.log("Full scree button pressed.")
     if (!document.fullscreenElement) {
       this.openFullscreen();
     }

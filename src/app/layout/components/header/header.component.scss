@@ -7,6 +7,15 @@
     align-items: center;
     justify-content: space-between;
     position: relative;
+
+    .sidebar-toggle-div, .fullscreen-icon, .settings-icon{
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+    }
+    .sidebar-toggle-div:hover, .fullscreen-icon:hover,  .settings-icon:hover{
+        background-color: #F2F4F6;
+    }
 }
 
 .profile_img {
@@ -21,8 +30,8 @@
 }
 
 .header_svg {
-    width: 20px;
-    height: 20px;
+    width: 20px !important;
+    height: 20px !important;
     display: flex;
     align-items: center;
 }
@@ -157,3 +166,8 @@
         padding: 6px 12px;
        }
 }
+
+// .sideBarToggle{
+//     position: absolute;
+//     top: 25px;
+// }

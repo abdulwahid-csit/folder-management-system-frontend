@@ -1,15 +1,20 @@
 <div class="header-wrapper d-flex align-items-center justify-content-between " [ngClass]="{'custom-shadow': !isDetailsPage }">
-    <div (click)="toggleSidebar()">
-        <span *ngIf="!isSidebarVisible" class="cursor-pointer sideBarToggle " ></span>
-        <span *ngIf="isSidebarVisible" class="header_svg cursor-pointer rotate_icon closeArrow"></span>
+    <div (click)="toggleSidebar()" class="sidebar-toggle-div d-flex align-items-center justify-content-center">
+        <span *ngIf="!isSidebarVisible" class="cursor-pointer sideBarToggle align-items-center justify-content-center " ></span>
+        <span *ngIf="isSidebarVisible" class="cursor-pointer rotate_icon closeArrow"></span>
     </div>
     <div class="d-flex align-items-center justify-content-between">
-    <span 
-      (click)="toggleFullscreen()" 
-      class="header_svg cursor-pointer fullscreen"
-      [ngClass]="{ 'me-4': isDashboard }">
-    </span>
-    <span  *ngIf="showSettingsIcon" class="header_svg mx-4 cursor-pointer setting rotate-animate"></span>
+        <div class="fullscreen-icon d-flex align-items-center justify-content-center">
+            <span 
+              (click)="toggleFullscreen()" 
+              class="header_svg cursor-pointer fullscreen"
+              [ngClass]="{ 'me-4': isDashboard }"
+              >
+            </span>
+        </div>
+        <div class="d-flex align-items-center justify-content-center settings-icon mx-4">
+            <span  *ngIf="showSettingsIcon" class="header_svg  cursor-pointer setting rotate-animate"></span>
+        </div>
     <div class="profile_img" (click)="toggleDropdown()">
     <img src="../../../../assets/images/profile-img.png" alt="">
     <!-- Dropdown menu -->

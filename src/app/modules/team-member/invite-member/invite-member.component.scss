@@ -31,39 +31,3 @@ small {
     }
 }
 
-:host ::ng-deep .ng-select.ng-select-single .ng-select-container {
-    height: 46px;
-    border: 1px solid #ccc;
-    border-radius: 7px !important;
-
-}
-
-:host ::ng-deep .ng-select.custom-select.ng-select-focused {
-    border-color: rgba(111, 97, 207, 1) !important;
-}
-
-:host ::ng-deep ng-select .ng-select-container {
-    height: 46px;
-    border: 1px solid rgba(208, 219, 229, 1) !important;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-:host ::ng-deep ng-select.custom-select-focused .ng-select-container {
-    border-color: rgba(111, 97, 207, 1) !important;
-    box-shadow: 0 0 0 0.25rem rgba(111, 97, 207, 0.20) !important;
-
-}
-
-:host ::ng-deep ng-select.custom-select-error .ng-select-container {
-    box-shadow: 0 0 0 0.25rem rgba(243, 3, 3, 0.2) !important;
-    border-color: red !important;
-}
-
-:host ::ng-deep ng-select.custom-select.has-value .ng-select-container {
-    box-shadow: none !important;
-}
-
-:host ::ng-deep ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container {
-    border-color: rgba(208, 219, 229, 1) !important;
-    box-shadow: none !important;
-}

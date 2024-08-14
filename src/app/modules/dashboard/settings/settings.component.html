@@ -60,54 +60,54 @@
             <h4 class="fs-20px fw-700 mb-3">Account Details</h4>
             <form [formGroup]="accountDetailsForm" (ngSubmit)="onAccountDetailsSubmit()" class="">
               <div class="d-flex justify-content-between">
-                <div class="mb-3 custom-input w-50 me-4"
+                <div class="mb-4 custom-input w-50 me-4 position-relative"
                   [ngClass]="isControlHasError('firstName', 'required', accountDetailsForm) ? 'custom-input-error': 'custom-input'">
                   <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">First Name
                   </label>
                   <input type="text" class="form-control fs-14px" id="exampleFormControlInput1"
                     placeholder="Enter first name" formControlName="firstName">
                     <div class="error-message">
-                  <small *ngIf="isControlHasError('firstName','required', accountDetailsForm)" class="text-danger">First
+                  <small *ngIf="isControlHasError('firstName','required', accountDetailsForm)" class="mt-1 text-danger">First
                     Name is
                     required</small></div>
                 </div>
-                <div class="mb-3 custom-input w-50"
+                <div class="mb-4 custom-input w-50 position-relative"
                   [ngClass]="isControlHasError('lastName', 'required', accountDetailsForm) ? 'custom-input-error': 'custom-input'">
                   <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required ">Last Name
                   </label>
                   <input type="text" class="form-control fs-14px" id="exampleFormControlInput1"
                     placeholder="Enter last name" formControlName="lastName">
-                  <small *ngIf="isControlHasError('lastName','required', accountDetailsForm)" class="text-danger">First
+                  <small *ngIf="isControlHasError('lastName','required', accountDetailsForm)" class="mt-1 text-danger">First
                     Name is
                     required</small>
                 </div>
 
               </div>
-              <div class="d-flex justify-content-between">
-                <div class="mb-3 custom-input w-50 me-4"
+              <div class="d-flex justify-content-between position-relative">
+                <div class="mb-4 custom-input w-50 me-4 position-relative"
                   [ngClass]="isControlHasError('username', 'required', accountDetailsForm) ? 'custom-input-error': 'custom-input'">
                   <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">User Name
                   </label>
                   <input type="text" class="form-control fs-14px" id="exampleFormControlInput1"
                     placeholder="Enter username" formControlName="username">
-                  <small *ngIf="isControlHasError('username','required', accountDetailsForm)" class="text-danger">First
+                  <small *ngIf="isControlHasError('username','required', accountDetailsForm)" class=" mt-1 text-danger">First
                     Name is
                     required</small>
                 </div>
-                <div class="mb-3 custom-input w-50"
+                <div class="mb-4 custom-input w-50 position-relative"
                   [ngClass]="isControlHasError('phoneNumber', 'required', accountDetailsForm) ? 'custom-input-error': 'custom-input'">
                   <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Phone Number
                   </label>
                   <input type="text" class="form-control fs-14px" id="exampleFormControlInput1"
                     placeholder="Enter phone number" formControlName="phoneNumber">
                   <small *ngIf="isControlHasError('phoneNumber','required', accountDetailsForm)"
-                    class="text-danger">First Name is
+                    class="mt-1 text-danger">First Name is
                     required</small>
                 </div>
 
               </div>
-              <div class="d-flex justify-content-between ">
-                <div class="mb-3 w-50 me-4 disabled-input"
+              <div class="d-flex justify-content-between">
+                <div class="mb-4 w-50 me-4 disabled-input"
                   >
                   <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Email </label>
                   <input type="text" class="form-control fs-14px pointer-none" id="exampleFormControlInput1"
@@ -116,7 +116,7 @@
                     Name is
                     required</small> -->
                 </div>
-                <div class="mb-3 w-50 disabled-input"
+                <div class="mb-4 w-50 disabled-input"
                   >
                   <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Role
                   </label>
@@ -147,29 +147,29 @@
           <h4 class="fs-20px fw-700 mb-3">Security</h4>
           <form [formGroup]="changePasswordForm" (ngSubmit)="onChangePasswordSubmit()" class="">
             <div class="d-flex justify-content-between">
-              <div class="mb-3 custom-input w-50 me-4"
+              <div class="mb-4 custom-input w-50 me-4 position-relative"
                 [ngClass]="isControlHasError('currentPassword', 'required', changePasswordForm) ? 'custom-input-error': 'custom-input'">
                 <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Current Password
                 </label>
                 <input type="text" class="form-control fs-14px" id="exampleFormControlInput1"
                   placeholder="Enter current password" formControlName="currentPassword">
                 <small *ngIf="isControlHasError('currentPassword','required', changePasswordForm)"
-                  class="text-danger">Current password is required</small>
+                  class="mt-1 text-danger">Current password is required</small>
               </div>
-              <div class="mb-3 custom-input w-50 me-4"></div>
+              <div class="mb-4 custom-input w-50 me-4 position-relative"></div>
             </div>
             <div class="d-flex justify-content-between">
-              <div class="mb-3 custom-input w-50"
+              <div class="mb-4 custom-input w-50 position-relative"
                 [ngClass]="isControlHasError('newPassword', 'required', changePasswordForm) ? 'custom-input-error': 'custom-input'">
                 <label for="exampleFormCont" class="form-label mb-1 fs-14px fw-700 required ">New Password
                 </label>
                 <input type="text" class="form-control fs-14px" id="exampleFormCont"
                   placeholder="Enter new password" formControlName="newPassword">
-                <small *ngIf="isControlHasError('newPassword','required', changePasswordForm)" class="text-danger">New
+                <small *ngIf="isControlHasError('newPassword','required', changePasswordForm)" class="mt-1 text-danger">New
                   password</small>
               </div>
-
-              <div class="mb-3 custom-input w-50 me-4 ms-4 pointer-none"
+              <div class="custom-input position-relative"></div>
+              <div class="mb-4 custom-input w-50 me-4 ms-4 pointer-none position-relative"
                 [ngClass]="isControlHasError('confirmPassword', 'required', changePasswordForm) ? 'custom-input-error': 'custom-input'">
                 <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Confirm New
                   Password
@@ -177,7 +177,7 @@
                 <input type="text" class="form-control fs-14px" id="exampleFormControlInput1"
                   placeholder="Retype new password" formControlName="confirmPassword">
                 <small *ngIf="isControlHasError('confirmPassword','required', changePasswordForm)"
-                  class="text-danger">Please confirm new password</small>
+                  class="mt-1 text-danger">Please confirm new password</small>
               </div>
             </div>
             <div class="d-flex justify-content-end mt-4">

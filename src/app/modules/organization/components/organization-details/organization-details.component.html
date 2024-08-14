@@ -74,12 +74,12 @@
           <div class="fs-20px fw-700 color-16192C bold-fonts">
             Ideal Innovative Solutions
           </div>
-          <div class="d-flex mt-2">
+          <div class="d-flex mt-3">
             <div class="fs-14px color-8492A6  semi-bold-font">
               Organization admins can be invited to the Admin Portal for self-serve set up of features.
             </div>
           </div>
-          <div class="invite-button mt-4">
+          <div class="invite-button mt-3">
             <button class="primary_button"
               (click)="openModal(inviteAdmin, 'modal-dialog modal-dialog-centered common_modal_shadow')">Invite
               Admin</button>
@@ -130,39 +130,46 @@
   <div id="setting-tab" *ngIf="selectedTab === 'setting'">
     <div class="main-div w-100 settings-tab p-3 mt-4 ps-4 bg-white custom-shadow">
       <div class="pt-1">
-        <div>
-          <div class="fs-20px fw-700 color-16192C mb-2 bold-fonts">
-            Organization Details
-          </div>
-          <div class="semi-bold-fonts">
-            <div class="d-flex fw-600 mt-4 py-1">
-              <div class="fs-14px fw-600">Name</div>
-              <div class="ms-4 color-8492A6">Ideal Innovative Solution</div>
-            </div>
-            <div class="color-7a7a7a">
-              <hr class="">
-            </div>
-            <div class="d-flex fw-600 p-10">
-              <div class="fs-14px ">Domain</div>
-              <div><span class="color-8492A6 fs-14px ms-4 ">https://4iiSolutions.com</span></div>
-            </div>
-            <div class="color-7a7a7a">
-              <hr class="">
-            </div>
-            <div class="d-flex align-items-center py-2">
-              <div class="fs-14px fw-600">Status</div>
-              <div class="ms-4"><span class="status-button status-inactive d-flex justify-content-center"><button
-                    class="btn  badge-light-warning ">Inactive</button></span></div>
-            </div>
-            <div class="color-7a7a7a">
-              <hr class="">
-            </div>
-            <div class="edit-details-button mt-4">
-              <button class="primary_button"
-                (click)="openModal(updateOrganization, 'modal-dialog modal-dialog-centered common_modal_shadow')"><span>Edit
-                  Details</span>
-              </button>
-            </div>
+        <div class="">
+          <h5 class="fs-20px fw-700 mb-2 bold-fonts">User Details</h5>
+          <hr class="mt-4 mb-2 me-2 custom-hr">
+          <table class="table fw-600 fs-14px">
+            <tbody>
+              <tr>
+                <td class="">Name</td>
+                <td class="dark-light ">Ideal Innovative Solutions</td>
+              </tr>
+              <tr>
+                <td class="">Doamin</td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <img src="../../../../../assets/icons/Frame.svg" alt="Email Icon">
+                    <span class="dark-light  ms-1">johny-smith@domain.com</span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="">Status</td>
+                <td>
+                  <div class="custom-dropdown w-25">
+                    <ng-select class="" #selectElement [ngClass]="{
+                                   'custom-select-focused': isFocused
+                                 }" formControlName="role" (focus)="isFocused = true" (blur)="isFocused = false"
+                      (change)="onValueChange()" [(ngModel)]="currentStatus">
+                      <ng-option>Avtive</ng-option>
+                      <ng-option>Inavtive</ng-option>
+                      <ng-option>Blocked</ng-option>
+                    </ng-select>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="buttons">
+            <button class="primary_button"
+              (click)="openModal(updateOrganization, 'modal-dialog modal-dialog-centered common_modal_shadow')"><span>Edit
+                Details</span>
+            </button>
           </div>
         </div>
       </div>
@@ -243,14 +250,6 @@
             <small *ngIf="isControlHasError('domain','required', editOrganizationForm)" class="mt-1 text-danger">Domain
               name
               is required</small>
-          </div>
-          <div class="input-select mt-3 mb-4"
-            [ngClass]="isControlHasError('status','required', editOrganizationForm)? 'custom-input-error': 'custom-input'">
-            <label for="status" class="mb-1 primary_color required fw-700 semi-bold-fonts">Status</label>
-            <select class="form-select form-select-lg" id="status">
-              <option value="">Inactive</option>
-              <option value="">Active</option>
-            </select>
           </div>
           <div class="modal-footer fs-14px border-top-0 pb-0 pe-0 semi-bold-fonts">
             <button type="button" class="cancel_btn me-2" (click)="closeModal()">Cancel</button>

@@ -25,6 +25,19 @@ export class OrganizationDetailsComponent implements OnInit {
   inviteMemberForm!: FormGroup;
   editOrganizationForm!: FormGroup;
   searchTerm: string = '';
+  selectedOption: any;
+  isFocused!: boolean;
+  currentStatus = 'active';
+
+
+  cars = [
+    { id: 1, name: 'Volvo' },
+    { id: 2, name: 'Saab' },
+    { id: 3, name: 'Opel' },
+    { id: 4, name: 'Audi' },
+];
+
+
 
   organizationList: any = []
   dataTable: any = [
@@ -458,6 +471,11 @@ export class OrganizationDetailsComponent implements OnInit {
     }
     console.log("Form is submitted.")
     this.cdr.detectChanges()
+  }
+
+
+  onValueChange() {
+   
   }
 
 

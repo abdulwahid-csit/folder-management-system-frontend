@@ -5,7 +5,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 @Component({
   selector: 'app-invite-member',
   templateUrl: './invite-member.component.html',
-  styleUrls: ['./invite-member.component.scss']
+  styleUrls: ['./invite-member.component.scss','../../../css/custpm-dropdown-style.scss']
 })
 export class InviteMemberComponent implements OnInit {
   inviteForm: any;
@@ -63,13 +63,6 @@ export class InviteMemberComponent implements OnInit {
     console.log("Form Submitted.")
   }
   
-  onFocus() {
-    this.isFocused = true;
-  }
-
-  onBlur() {
-    this.isFocused = false;
-  }
 
   onValueChange() {
     const control = this.inviteForm.get('role');

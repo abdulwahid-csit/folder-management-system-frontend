@@ -14,21 +14,21 @@
             </div>
             <div class="modal-body mt-4">
               <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
-                <div class="row custom-input">
-                  <div class="input-container">
+                <div class="row custom-input mb-4">
+                  <div class="input-container ">
                     <label for="email" class="label-font required">Email</label>
                     <input id="email" type="email" class="form-control" formControlName="email"
                       [ngClass]="{'is-invalid': isControlHasError('email', 'required') || isControlHasError('email', 'email')}"
                       placeholder="Enter user name or email" (blur)="onControlBlur('email')" />
-                    <span *ngIf="isControlHasError('email', 'required')" class="text-danger fs-8 ps-3 pt-1">
+                    <small *ngIf="isControlHasError('email', 'required')" class="text-danger fs-8 ps-3 pt-1">
                       Email is required
-                    </span>
+                    </small>
                     <span *ngIf="isControlHasError('email', 'email')" class="text-danger fs-8 ps-3 pt-1">
                       Enter a valid email address
                     </span>
                   </div>
                 </div>
-                <div class="row mt-3 custom-input">
+                <div class="row mt-3 custom-input mb-2">
                   <div class="input-container position-relative">
                     <label for="password" class="label-font required">Password</label>
                     <input id="password" [type]="hidePassword ? 'password' : 'text'" class="form-control"

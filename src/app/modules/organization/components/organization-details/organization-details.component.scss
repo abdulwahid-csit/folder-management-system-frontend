@@ -67,35 +67,47 @@ select:focus {
     color: #EF4444;
     font-weight: 600;
     padding: 8px 24px !important;
+    background-color: #FFE8E8;
 }
 
 .delete-button button:hover {
     background-color: #FFE8E8;
-    font-weight: 600;
+    // font-weight: 600;
 }
 
 .disabled {
     border: none !important;
 }
 
-.primary_button{
+.primary_button {
     font-weight: 500
 }
+
 .delete-button button:hover {
-    background-color:#EF4444;
+    background-color: #EF4444;
     color: #fff;
-    font-weight: 500;
+    // font-weight: 500;
 }
-.btn-delete{
+
+.btn-delete {
     background-color: #EF4444;
     font-size: 14px;
 }
-.edit-details-button{
+
+.edit-details-button {
     padding-top: 2px !important;
 }
-.color-7a7a7a{
-    hr{
-        color: #edf2f7;
+
+.color-7a7a7a {
+    hr {
+        color: #4a4d50;
+        margin: 0;
     }
 }
 
+.p-10 {
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+;

@@ -104,13 +104,18 @@ h3 {
 }
 
 .danger_btn {
-    color: #FFFFFF;
+    color: #EF4444;
     border-color: #EF4444;
-    border: none;
-    background-color: #EF4444;
+    border: 1px solid #EF4444;
+    background-color: #FFE8E8;
     padding: 8px 16px 10px 16px;
     border-radius: 6px;
     height: 40px;
+    transition: background-color 0.2s ease-in-out;
+}
+.danger_btn:hover{
+    background-color: #EF4444;
+    color: #ffffff;
 }
 
 .cursor-pointer {
@@ -422,12 +427,12 @@ h3 {
 
 .status-inactive button {
     color: #F59E0B;
-    font-size: 12px;
+    font-size: 12px !important;
 }
 
 .delete-button button {
     border-color: #EF4444 !important;
-    background-color: #FFF3DF;
+    background-color: #FFE8E8;
 }
 
 .delete-button button:active {
@@ -570,7 +575,9 @@ h3 {
     font-size: 14px;
     line-height: 20px;
 }
-
+.ms-8px{
+margin-left: 8px;
+}
 .fs-14 {
     font-size: 14px;
 }

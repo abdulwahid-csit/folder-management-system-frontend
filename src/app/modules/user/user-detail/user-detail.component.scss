@@ -30,9 +30,11 @@
 .form-label {
     margin-bottom: 0.5rem;
 }
+
 .dark-light {
     color: #8492A6;
 }
+
 tbody,
 td,
 tfoot,
@@ -40,11 +42,18 @@ th,
 thead,
 tr {
     border-color: #EDF2F7
-    
 }
-.custom-control-label{
+
+.custom-control-label {
     color: #425466;
 }
-.w-200px{
+
+.w-200px {
     width: 200px !important;
+}
+
+.sso_card {
+    table tbody tr td {
+        padding: 13px 0;
+    }
 }

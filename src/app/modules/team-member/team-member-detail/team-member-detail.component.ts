@@ -10,6 +10,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class TeamMemberDetailComponent implements OnInit{
 
+showPassword: boolean = false;
+showConfirmPassword: boolean = false;
+
+
+
   user = [
     {
       firstName: 'Abdul Basit',
@@ -39,14 +44,12 @@ export class TeamMemberDetailComponent implements OnInit{
         class: classes,
         backdrop: 'static',
         keyboard: false,
-        // initialState,
       });
     }else{
       this.modalRef = this.modalService.show(UpdateTeamMemberComponent, {
         class: classes,
         backdrop: 'static',
         keyboard: false,
-        // initialState,
       });
     }
   }
@@ -71,6 +74,17 @@ export class TeamMemberDetailComponent implements OnInit{
       return;
     }
     console.log("Form Submitted.")
+  }
+
+
+
+  toggleShowPassword(){
+    this.showPassword = !this.showPassword;
+  }
+
+
+  toggleConfirmPassword(){
+    this.showConfirmPassword = !this.showConfirmPassword;
   }
 
 

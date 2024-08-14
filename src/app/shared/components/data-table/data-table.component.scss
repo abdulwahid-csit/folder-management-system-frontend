@@ -28,7 +28,7 @@
         }
 
         tbody {
-            --bs-table-hover-bg: rgba(241, 245, 249, 0.3) !important;
+            --bs-table-hover-bg: rgba(244, 247, 251, 1) !important;
 
             tr {
                 background-color: #8492A6 !important;
@@ -51,9 +51,6 @@
 
 
 .dataTable_pagination {
-    padding: 0 18px;
+    padding: 20px 18px 20px 18px;
 
-    p {
-        color: rgba(66, 84, 102, 1);
-    }
 }

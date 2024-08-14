@@ -1,10 +1,10 @@
-<div class="path d-flex pt-1 bg-white ps-4">
-    <span class="color-8492A6 fs-12px mt-1px">Organization</span>
-    <span><i class="bi bi-chevron-right color-D0DBE5"></i></span>
+<div class="path d-flex pt-1 bg-white ps-4 custom-shadow semi-bold-font">
+    <span class="color-8492A6 fs-12px mt-1px cursor-pointer" routerLink="/layout/application">Application</span>
+    <span class="mx-1"><img class="mb-1" src="../../../../assets/icons/chevron-right.svg" alt=""></span>
     <span class="color-6F61CF fs-12px mt-1px">Application details </span>
 </div>
 <div class="wrapper">
-    <div class="main-div w-100 organization-details-div bg-white  p-3 mt-4 ps-4">
+    <div class="main-div w-100 organization-details-div bg-white  p-3 mt-4 ps-4 custom-shadow">
         <div class="d-flex">
             <div class="iis-logo">
                 <img src="../../../../../assets/images/iis.svg" alt="iis">
@@ -21,7 +21,7 @@
                         <div>
                             <img src="../../../../../assets/icons/Frame.svg" alt="">
                         </div>
-                        <div class="ms-2">
+                        <div class="ms-1">
                             <span class="color-8492A6 fs-14px semi-bold-fonts">4ii Solutions</span>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
 
 
     <div id="features-tab" *ngIf="selectedTab === 'features'">
-        <div class="main-div w-100  features-tab p-3 mt-4 bg-white">
+        <div class="main-div w-100  features-tab p-3 mt-4 bg-white custom-shadow">
             <div class="pt-1">
                 <div>
                     <div class="fs-20px fw-700 color-16192C bold-fonts">
@@ -98,7 +98,7 @@
         </div>
 
 
-        <div class="main-div w-100  features-tab p-3 mt-4 bg-white">
+        <div class="main-div w-100  features-tab p-3 mt-4 bg-white custom-shadow">
             <div class="pt-1">
                 <div>
                     <div class="fs-20px fw-700 color-16192C bold-fonts">
@@ -137,46 +137,45 @@
         </div>
     </div>
     <div id="setting-tab" *ngIf="selectedTab === 'setting'">
-        <div class="main-div w-100 settings-tab p-3 mt-4 ps-4 bg-white">
+        <div class="main-div w-100 settings-tab p-3 mt-4 ps-4 bg-white custom-shadow">
             <div class="pt-1">
                 <div>
-                    <div class="fs-20px fw-700 color-16192C mb-3 bold-fonts">
+                    <div class="fs-20px fw-700 color-16192C mb-4 ">
                         Application Details
                     </div>
                     <div class="">
-                        <div class="d-flex fs-14px">
-                            <div class="fs-14px fw-600 bold-fonts">Name</div>
-                            <span class="ms-4 color-8492A6 semi-bold-fonts">Ideal Innovative Solution</span>
+                        <div class="d-flex fs-14px semi-bold-font pb-3">
+                            <div class="fs-14px fw-600 ">Name</div>
+                            <span class="ms-4 color-8492A6 ">Ideal Innovative Solution</span>
                         </div>
                         <div class="color-7a7a7a">
-                            <hr class="mt-2 mb-2">
+                            <hr class="">
                         </div>
-                        <div class="d-flex fw-600">
-                            <div class="fs-14px mt-1 bold-fonts">App URL</div>
-                            <div><span
-                                    class="color-8492A6 fs-14px ms-4 semi-bold-fonts ">https://4iisolutions.com</span>
+                        <div class="d-flex fw-600 p-14">
+                            <div class="fs-14px  ">App URL</div>
+                            <div><span class="color-8492A6 fs-14px ms-4  ">https://4iisolutions.com</span>
                             </div>
                         </div>
                         <div class="color-7a7a7a">
-                            <hr class="mt-2 mb-2">
+                            <hr class="">
                         </div>
-                        <div class="d-flex fw-600">
-                            <div class="fs-14px mt-1 bold-fonts">Redirect URI's</div>
-                            <div><span class="color-8492A6 fs-14px ms-4 semi-bold-fonts">https://4iisolutions.com</span>
+                        <div class="d-flex fw-600 p-14">
+                            <div class="fs-14px  ">Redirect URI's</div>
+                            <div><span class="color-8492A6 fs-14px ms-4 ">https://4iisolutions.com</span>
                             </div>
                         </div>
                         <div class="color-7a7a7a">
-                            <hr class="mt-2 mb-2">
+                            <hr class="">
                         </div>
                         <div class="mt-4">
-                            <button class="primary_button">Edit Details</button>
+                            <button class="primary_button" (click)="editApplication()">Edit Details</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="main-div w-100 settings-tab p-3 mt-4 ps-4 bg-white">
+        <div class="main-div w-100 settings-tab p-3 mt-4 ps-4 bg-white custom-shadow">
             <div class="pt-1">
                 <div>
                     <div class="fs-20px fw-700 color-16192C bold-fonts">
@@ -188,7 +187,9 @@
                         </div>
                     </div>
                     <div class="mt-3 delete-button semi-bold-fonts">
-                        <button class="btn delete-button" (click)="openModal(deleteApp, 'modal-dialog modal-dialog-centered common_modal_shadow modal-lg')">Delete Application</button>
+                        <button class="btn delete-button"
+                            (click)="openModal(deleteApp, 'modal-dialog modal-dialog-centered common_modal_shadow modal-lg')">Delete
+                            Application</button>
                     </div>
                 </div>
             </div>
@@ -210,9 +211,13 @@
                         be deleted permanently.</div>
                 </div>
                 <div class="modal-footer border-top-0 d-flex justify-content-center pb-5">
-                    <div class="buttons">
+                    <div class="buttons d-flex">
                         <button type="buttn" class="cancel_btn me-3" (click)="closeModal()">No, cancel</button>
-                        <button type="submit" (click)="closeModal()" class="primary_button btn-delete btn text-white">Yes, i am sure</button>
+                        <div class="">
+                            <button type="submit" (click)="closeModal()"
+                                class="primary_button btn-delete delete-button-popup btn text-white">Yes, i am
+                                sure</button>
+                        </div>
                     </div>
                 </div>
             </div>

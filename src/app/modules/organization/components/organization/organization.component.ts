@@ -57,7 +57,7 @@ export class OrganizationComponent {
             "total_no_of_application": 15,
             "users": 199,
             "status": 'active',
-            "creationDate": '12-8-2024'
+            "creationDate": '2024-07-24T07:24:39.532Z'
           },
           {
             "id": 3,
@@ -70,7 +70,7 @@ export class OrganizationComponent {
             "total_no_of_application": 10,
             "users": 588,
             "status": 'inactive',
-            "creationDate": '01-8-2024'
+            "creationDate": '2024-07-24T07:24:39.532Z'
           },
           {
             "id": 7,
@@ -83,7 +83,7 @@ export class OrganizationComponent {
             "total_no_of_application": 1,
             "users": 900,
             "status": 'active',
-            "creationDate": '15-8-2024'
+            "creationDate": '2024-07-24T07:24:39.532Z'
           },
           {
             "id": 9,
@@ -96,7 +96,7 @@ export class OrganizationComponent {
             "total_no_of_application": 14,
             "users": 189,
             "status": 'inactive',
-            "creationDate": '30-8-2024'
+            "creationDate": '2024-07-24T07:24:39.532Z'
           },
           {
             "id": 8,
@@ -109,7 +109,7 @@ export class OrganizationComponent {
             "total_no_of_application": 7,
             "users": 130,
             "status": 'active',
-            "creationDate": '12-10-2023'
+            "creationDate": '2024-07-24T07:24:39.532Z'
           },
           {
             "id": 9,
@@ -122,7 +122,7 @@ export class OrganizationComponent {
             "total_no_of_application": 10,
             "users": 150,
             "status": 'inactive',
-            "creationDate": '12-8-2024'
+            "creationDate": '2024-07-24T07:24:39.532Z'
           },
           {
             "id": 10,
@@ -135,7 +135,7 @@ export class OrganizationComponent {
             "total_no_of_application": 1,
             "users": 114,
             "status": 'active',
-            "creationDate": '12-12-2023'
+            "creationDate": '2024-07-24T07:24:39.532Z'
           },
           {
             "id": 11,
@@ -148,7 +148,7 @@ export class OrganizationComponent {
             "total_no_of_application": 1,
             "users": 114,
             "status": 'active',
-            "creationDate": '12-12-2023'
+            "creationDate": '2024-07-24T07:24:39.532Z'
           },
           {
             "id": 12,
@@ -161,7 +161,7 @@ export class OrganizationComponent {
             "total_no_of_application": 1,
             "users": 114,
             "status": 'active',
-            "creationDate": '12-12-2023'
+            "creationDate": '2024-07-24T07:24:39.532Z'
           },
           {
             "id": 13,
@@ -174,7 +174,7 @@ export class OrganizationComponent {
             "total_no_of_application": 1,
             "users": 114,
             "status": 'active',
-            "creationDate": '12-12-2023'
+            "creationDate": '2024-07-24T07:24:39.532Z'
           },
           {
             "id": 14,
@@ -187,7 +187,7 @@ export class OrganizationComponent {
             "total_no_of_application": 1,
             "users": 114,
             "status": 'active',
-            "creationDate": '12-12-2023'
+            "creationDate": '2024-07-24T07:24:39.532Z'
           },
           {
             "id": 15,
@@ -200,7 +200,7 @@ export class OrganizationComponent {
             "total_no_of_application": 1,
             "users": 114,
             "status": 'active',
-            "creationDate": '12-12-2023'
+            "creationDate": '2024-07-24T07:24:39.532Z'
           },
           {
             "id": 16,
@@ -213,7 +213,7 @@ export class OrganizationComponent {
             "total_no_of_application": 1,
             "users": 114,
             "status": 'active',
-            "creationDate": '12-12-2023'
+            "creationDate": '2024-07-24T07:24:39.532Z'
           },
         ],
         paginate_options: {

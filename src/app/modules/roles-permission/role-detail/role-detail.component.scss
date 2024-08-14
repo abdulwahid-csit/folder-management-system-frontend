@@ -14,16 +14,38 @@ tr {
 .pe-10 {
     padding-right: 32rem !important;
 }
+
 .ps-10 {
     padding-left: 12rem !important;
 }
+
 .ps-11 {
     padding-left: 11.5rem !important;
 }
-.w-200px{
+
+.w-200px {
     width: 200px !important;
 }
+
 hr {
     margin: 0rem 0 !important;
-   
+
+}
+
+.sso_card {
+    table tbody tr td {
+        padding: 13px 0;
+    }
+}
+
+.danger_btn {
+    border: 1px solid #EF4444;
+    color: #EF4444;
+    background-color: #FFE8E8;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.danger_btn:hover {
+    background-color: #EF4444;
+    color: #ffffff;
 }

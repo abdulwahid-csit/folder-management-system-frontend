@@ -8,6 +8,13 @@
     border-radius: 16px !important;
 }
 
+.settings-tab {
+    hr {
+        margin: 0 !important;
+        color: #EDF2F7;
+    }
+}
+
 .organization_modal {
     h2 {
         font-weight: 700;
@@ -33,24 +40,37 @@
 
 .link-text {
     background-color: #F2F4F6;
-    border-radius: 10px;
+    border-radius: 16px;
     padding: 4px 8px;
 }
+
 .delete-button button {
     color: #EF4444;
     font-weight: 500;
     font-size: 14px;
 }
 
-.primary_button{
+.primary_button {
     font-weight: 500
 }
+
 .delete-button button:hover {
-    background-color:#EF4444;
+    background-color: #EF4444;
     color: #fff;
     font-weight: 500;
 }
-.btn-delete{
+
+.delete-button-popup:hover {
+    background-color: #b32c2c;
+
+}
+
+.btn-delete {
     background-color: #EF4444;
     font-size: 14px;
+}
+
+.p-14 {
+    padding-top: 14px;
+    padding-bottom: 14px;
 }

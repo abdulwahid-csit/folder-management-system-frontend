@@ -8,14 +8,14 @@
                 <label for="" class="mb-1 primary_color required font_weight_500 required">Name</label>
                 <input type="text" class="form-control form-control-lg" formControlName="organizationName"
                     placeholder="Enter organization name">
-                <small *ngIf="isControlHasError('organizationName','required')" class="text-danger">Organization name is
+                <small *ngIf="isControlHasError('organizationName','required')" class="mt-1 text-danger">Organization name is
                     required</small>
             </div>
             <div class="mb-3 custom-input" [ngClass]="isControlHasError('domainName','required')? 'custom-input-error': 'custom-input'">
                 <label for="" class="mb-1 primary_color required font_weight_500 required">Domain</label>
                 <input type="text" class="form-control form-control-lg" formControlName="domainName"
                     placeholder="Enter domain name">
-                <small *ngIf="isControlHasError('domainName','required')" class="text-danger">Domain name is
+                <small *ngIf="isControlHasError('domainName','required')" class="mt-1 text-danger">Domain name is
                     required</small>
             </div>
             <div class="modal-footer border-top-0 pb-0 pe-0">

@@ -1,39 +1,43 @@
-import { Router } from '@angular/router';
-import { Component, } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.scss']
 })
-export class ForgotPasswordComponent {
-  constructor(private fb: FormBuilder, private router: Router) {
+export class ForgotPasswordComponent implements OnInit {
+  forgotForm!: FormGroup;
 
-  }
-  forgotForm!: FormGroup
+  constructor(private fb: FormBuilder, private router: Router) { }
+
   ngOnInit(): void {
-
     this.forgotForm = this.fb.group({
-      email: ['', Validators.compose([Validators.required])],
-
-    })
+      email: ['', [Validators.required, Validators.email]]  // Added email validation
+    });
   }
+
   isControlHasError(controlName: string, validationType: string): boolean {
-    const control = this.forgotForm.controls[controlName];
+    const control = this.forgotForm.get(controlName);
     if (!control) {
       return false;
     }
-    return (
-      control.hasError(validationType) && (control.dirty || control.touched)
-    );
+    return control.hasError(validationType) && (control.dirty || control.touched);
   }
+
   onSubmit(): void {
     if (this.forgotForm.valid) {
       this.router.navigate(['/create/password']);
     } else {
       this.forgotForm.markAllAsTouched();
+    }
+  }
+
+  onControlBlur(controlName: string): void {
+    const control = this.forgotForm.get(controlName);
+    if (control) {
+      control.markAsTouched();
     }
   }
 }

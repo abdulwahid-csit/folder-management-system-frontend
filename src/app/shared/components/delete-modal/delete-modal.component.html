@@ -1,0 +1,20 @@
+<div class="modal-dialog-box">
+    <div class="pt-0">
+        <div class="p-0 modal-header border-bottom-0 d-flex justify-content-center align-items-baseline">
+            <div class="delete-icon"><img src="../../../../assets/icons/delete-icon.svg" alt=""></div>
+        </div>
+        <div class="modal-body">
+            <div class="p-0 text fw-600 text-center color-8492A6">Please confirm you really want to delete the
+                member.
+                After clicking yes, the member will
+                be deleted permanently.</div>
+        </div>
+        <div class="p-0 modal-footer border-top-0 d-flex justify-content-center">
+            <div class="buttons">
+                <button type="button" class="cancel_btn me-2" (click)="closeModal()">No, cancel</button>
+                <button type="submit" (click)="closeModal()" class="primary_button btn-delete btn text-white">Yes, i am
+                    sure</button>
+            </div>
+        </div>
+    </div>
+</div>

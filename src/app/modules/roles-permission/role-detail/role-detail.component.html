@@ -89,7 +89,7 @@
                     ensuring they do not lose access or permissions unexpectely..</p>
                 <div class="mt-4">
                     <button class="primary_button danger_btn fs-14 fw-600" (click)="deleteModal(deleteUser)">
-                        Delete User
+                        Delete Role
                     </button>
                 </div>
             </div>
@@ -98,24 +98,28 @@
 </div>
 <!--delete modal-->
 <ng-template #deleteUser>
-    <div class="common_modal">
-        <div class="modal-body d-flex border-0 py-0 pt-8 align-items-center flex-column pt-5">
-            <span class="svg-icon svg-icon-4x mb-10 svg-icon-primary mb-3 pt-3 delete-icon">
-                <div class="modal-header border-bottom-0 d-flex justify-content-center align-items-baseline">
-                    <div class="delete-icon"><img src="" alt=""></div>
+    <div class="modal-dialog-box">
+        <div class="p-0">
+            <div class="p-0 modal-header border-bottom-0 d-flex justify-content-center align-items-baseline">
+                <div class="delete-icon"><img src="../../../../assets/icons/delete-icon.svg" alt=""></div>
+            </div>
+            <div class="p-0 modal-body semi-bold-font">
+                <div class="text text-center color-8492A6">Please confirm you really want to delete the
+                    role.
+                    After clicking yes, the role will
+                    be deleted permanently.</div>
+            </div>
+            <div class="p-0 modal-footer border-top-0 d-flex justify-content-center">
+                <div class="buttons d-flex">
+                    <button type="buttn" class="cancel_btn me-3" (click)="closeModal()">No, cancel</button>
+                    <div class="">
+                        <button type="submit" (click)="closeModal()"
+                            class="primary_button btn-delete delete-button-popup btn text-white">Yes, i am
+                            sure</button>
+                    </div>
                 </div>
-            </span>
-            <p class="text-center dark-light fw-600 pt-2 ">Please confirm you really want to delete the permission.
-                After clicking yes, the permission will be deleted permanently</p>
-        </div>
-        <div class="border-0 align-items-center text-center mx-auto pb-5 pt-3 pe-2  d-flex justify-content-center">
-
-            <button type="button" class="cancel_btn fs-12 fw-600 me-3" (click)="closeModal()"> No, Cancel </button>
-            <button class="primary_button danger_btn fs-12 fw-600">
-                Yes, I’m Sure
-            </button>
+            </div>
         </div>
     </div>
-
 </ng-template>
 <!--delete modal-->

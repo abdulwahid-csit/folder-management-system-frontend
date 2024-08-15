@@ -34,7 +34,7 @@ export class UserDetailComponent {
   }
   deleteModal(template: TemplateRef<any>): void {
     this.modalRef = this.modalService.show(template, {
-      class: 'modal-dialog modal-dialog-centered modal-lg common_modal_shadow',
+      class: 'modal-dialog modal-dialog-centered modal-lg custom-delete-user-modal',
       backdrop: 'static',
       keyboard: false,
 

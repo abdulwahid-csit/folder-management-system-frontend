@@ -9,6 +9,8 @@ import { OrganizationComponent } from './components/organization/organization.co
 import { SharedModule } from 'src/app/shared/shared.module';
 // import { InlineSVGModule } from 'ng-inline-svg';
 import { OrganizationDetailsComponent } from './components/organization-details/organization-details.component';
+import { NgxsModule } from '@ngxs/store';
+import { OrganizationState } from './state/organization.state';
 
 
 @NgModule({
@@ -24,6 +26,7 @@ import { OrganizationDetailsComponent } from './components/organization-details/
     ReactiveFormsModule,
     FormsModule,
     SharedModule,
+    NgxsModule.forFeature([OrganizationState])
     // InlineSVGModule,
   ]
 })

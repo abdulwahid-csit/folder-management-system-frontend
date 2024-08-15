@@ -1,28 +1,28 @@
-<div class="path d-flex pt-1 bg-white ps-4 custom-shadow semi-bold-font">
-  <span class="color-8492A6 fs-12px mt-1px cursor-pointer" routerLink="/layout/organization">Organization</span>
-  <span class="mx-1"><img class="mb-1" src="../../../../assets/icons/chevron-right.svg" alt=""></span>
-  <span class="color-6F61CF fs-12px mt-1px">Organization details </span>
+<div class="path d-flex pt-1 bg-white ps-4">
+  <span class="color-8492A6 fs-12px mt-1px">Organization</span>
+  <span><i class="bi bi-chevron-right color-D0DBE5"></i></span>
+  <span class="color-6F61CF fs-12px mt-1px">Organization Details </span>
 </div>
 <div class="wrapper">
-  <div class="main-div w-100 organization-details-div bg-white  p-3 mt-4 ps-4 custom-shadow">
+  <div class="main-div w-100 organization-details-div bg-white  p-3 mt-4 ps-4">
     <div class="d-flex">
       <div class="iis-logo">
         <img src="../../../../../assets/images/iis.svg" alt="iis">
       </div>
       <div class="ms-3">
-        <div class="fs-20px fw-700 color-16192C bold-fonts">
-          Ideal Innovative Solutions
+        <div class="fs-20px fw-700 color-16192C bold-fonts text-capitalize">
+          {{organizationData.name}}
         </div>
         <div class="d-flex mt-1">
-          <div class="link-text fs-12px semi-bold-font color-8492A6">
-            org_01J3CGASS7GH6W79ECWECK2VYN
+          <div class="link-text fs-12px semi-bold-fonts">
+            {{organizationData.org_id}}
           </div>
           <div class="d-flex ms-4">
             <div>
               <img src="../../../../../assets/icons/Frame.svg" alt="">
             </div>
-            <div class="ms-1">
-              <span class="color-8492A6 fs-14px semi-bold-font">https://4iiSolutions.com</span>
+            <div class="ms-2">
+              <span class="color-8492A6 fs-14px semi-bold-fonts">{{organizationData.domain}}</span>
             </div>
           </div>
         </div>
@@ -68,21 +68,19 @@
 
 
   <div id="features-tab" *ngIf="selectedTab === 'features'">
-    <div class="main-div w-100  features-tab p-3 mt-4 bg-white custom-shadow">
+    <div class="main-div w-100  features-tab p-3 mt-4 bg-white">
       <div class="pt-1">
         <div>
           <div class="fs-20px fw-700 color-16192C bold-fonts">
             Ideal Innovative Solutions
           </div>
-          <div class="d-flex mt-2">
-            <div class="fs-14px color-8492A6  semi-bold-font">
+          <div class="d-flex mt-1">
+            <div class="fs-14px color-8492A6  medium-fonts ">
               Organization admins can be invited to the Admin Portal for self-serve set up of features.
             </div>
           </div>
           <div class="invite-button mt-4">
-            <button class="primary_button"
-              (click)="openModal(inviteAdmin, 'modal-dialog modal-dialog-centered common_modal_shadow')">Invite
-              Admin</button>
+            <button class="primary_button" (click)="openModal(inviteAdmin, 'modal-dialog modal-dialog-centered common_modal_shadow')">Invite Admin</button>
           </div>
         </div>
       </div>
@@ -91,101 +89,71 @@
 
   <div class="mt-4" id="users-tab" *ngIf="selectedTab === 'users'">
     <div class="sso_card w-100 h-100">
-      <div class="d-flex align-items-center justify-content-between dataTable_header">
-        <h4 class="primary_color mb-0 table-header-letter-spacing">Users List</h4>
-        <div class="d-flex">
-          <div class="position-relative display-flex ms-3 custom-input">
-            <input type="text" class="form-control dataTableSearch" [(ngModel)]="searchTerm"
-              placeholder="Search by name or domain">
-            <span class="search_icon searchIcon"></span>
-          </div>
-          <button type="button" class="btn filter_btn ms-3"><span class="filterIcon me-2"></span> Filter</button>
-        </div>
-      </div>
-      <app-data-table [columns]="usersColumns" [config]="tableConfig" [dataSet]="usersList"
-        [module]="'user'"></app-data-table>
-
+      <app-data-table [columns]="usersColumns" [config]="tableConfig" [dataSet]="usersList" [module]="'user'"></app-data-table>
     </div>
   </div>
 
   <div class="mt-4" id="application-tab" *ngIf="selectedTab === 'applications'">
     <div class="sso_card w-100 h-100">
-      <div class="d-flex align-items-center justify-content-between dataTable_header">
-        <h4 class="primary_color mb-0 table-header-letter-spacing">Applications List</h4>
-        <div class="d-flex">
-          <div class="position-relative display-flex ms-3 custom-input">
-            <input type="text" class="form-control dataTableSearch" [(ngModel)]="searchTerm"
-              placeholder="Search by name or domain">
-            <span class="search_icon searchIcon"></span>
-          </div>
-          <!-- <button type="button" class="btn filter_btn ms-3"><span class="filterIcon me-2"></span> Filter</button> -->
-        </div>
-      </div>
-      <app-data-table [columns]="applicationColumn" [config]="tableConfig" [dataSet]="applicationList"
-        [module]="'application'"></app-data-table>
-
+      <app-data-table [columns]="applicationColumn" [config]="tableConfig" [dataSet]="applicationList" [module]="'application'"></app-data-table>
     </div>
   </div>
 
   <div id="setting-tab" *ngIf="selectedTab === 'setting'">
-    <div class="main-div w-100 settings-tab p-3 mt-4 ps-4 bg-white custom-shadow">
+    <div class="main-div w-100 settings-tab p-3 mt-4 ps-4 bg-white">
       <div class="pt-1">
         <div>
-          <div class="fs-20px fw-700 color-16192C mb-2 bold-fonts">
-            Organization Details
-          </div>
           <div class="semi-bold-fonts">
-            <div class="d-flex fw-600 mt-4 py-1">
+            <div class="d-flex fw-600">
               <div class="fs-14px fw-600">Name</div>
-              <div class="ms-4 color-8492A6">Ideal Innovative Solution</div>
+              <div class="ms-4 color-8492A6">{{organizationData.name}}</div>
             </div>
             <div class="color-7a7a7a">
-              <hr class="">
+              <hr class="mt-2 mb-2">
             </div>
-            <div class="d-flex fw-600 p-10">
+            <div class="d-flex fw-600">
               <div class="fs-14px ">Domain</div>
-              <div><span class="color-8492A6 fs-14px ms-4 ">https://4iiSolutions.com</span></div>
+              <div><span class="color-8492A6 fs-14px ms-4 ">{{organizationData.domain}}</span></div>
             </div>
             <div class="color-7a7a7a">
-              <hr class="">
+              <hr class="mt-2 mb-2">
             </div>
-            <div class="d-flex align-items-center py-2">
-              <div class="fs-14px fw-600">Status</div>
-              <div class="ms-4"><span class="status-button status-inactive d-flex justify-content-center"><button
-                    class="btn  badge-light-warning ">Inactive</button></span></div>
+            <div class="d-flex fw-600">
+              <div class="fs-14px ">Status</div>
+              <div class="ms-4">
+                <span [ngClass]="{'badge-light-success': organizationData.status === 'active', 'badge-light-warning': organizationData.status === 'inactive' }" class=" d-flex justify-content-center">
+                  <!-- <button class="btn fs-14px pt-0 pb-0 disabled"></button> -->
+                   {{organizationData.status}}
+                </span>
+              </div>
             </div>
             <div class="color-7a7a7a">
-              <hr class="">
+              <hr class="mt-2 mb-2">
             </div>
-            <div class="edit-details-button mt-4">
-              <button class="primary_button"
-                (click)="openModal(updateOrganization, 'modal-dialog modal-dialog-centered common_modal_shadow')"><span>Edit
-                  Details</span>
-              </button>
+            <div class="invite-button mt-4">
+              <button class="primary_button" (click)="organizationModal()">Edit Details</button>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="main-div w-100 settings-tab p-3 mt-4 ps-4 bg-white custom-shadow">
+    <div class="main-div w-100 settings-tab p-3 mt-4 ps-4 bg-white">
       <div class="pt-1">
         <div>
           <div class="fs-20px fw-700 color-16192C bold-fonts">
             Danger Zone
           </div>
-          <div class="mt-3">
-            <div class="fs-14px color-8492A6 semi-bold-font">
+          <div class="mt-1">
+            <div class="fs-14px color-8492A6 medium-fonts">
               Delete this organization, users, and Applications..
             </div>
-            <div class="fs-14px color-8492A6 semi-bold-font">
+            <div class="fs-14px color-8492A6">
               This action is permanent and cannot be undone.
             </div>
           </div>
-          <div class="mt-3 delete-button semi-bold-fonts">
-            <button class="btn delete-button 8"
-              (click)="openModal(deleteOrganization, 'modal-dialog modal-dialog-centered common_modal_shadow modal-lg')">Delete
-              Organization</button>
+          <div class="mt-4 delete-button semi-bold-fonts">
+            <button class="btn delete-button 8" (click)="organizationDeleteModal()">Delete Organization</button>
           </div>
         </div>
       </div>
@@ -193,18 +161,15 @@
   </div>
 
   <ng-template #inviteAdmin>
-    <div class="modal-body p-5 pt-4 pb-4 ">
+    <div class="modal-body p-5 pt-4 pb-4">
       <h4 class="fs-20px fw-700">Invite Admin</h4>
       <form [formGroup]="inviteMemberForm" (ngSubmit)="onInviteAdmin()">
         <div class="mb-3 custom-input"
-          [ngClass]="(isControlHasError('email','required', inviteMemberForm) || isControlHasError('email','pattern', inviteMemberForm))? 'custom-input-error': 'custom-input'">
+          [ngClass]="isControlHasError('email','required', inviteMemberForm)? 'custom-input-error': 'custom-input'">
           <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Email</label>
           <input type="email" class="form-control ps-3 pe-3 form-control-lg fs-14px" id="exampleFormControlInput1"
             placeholder="Enter email address" formControlName="email">
-          <small *ngIf="isControlHasError('email','required', inviteMemberForm)" class="mt-1 text-danger">Email is
-            required</small>
-          <small *ngIf="isControlHasError('email','pattern', inviteMemberForm)" class="mt-1 text-danger">Please enter a
-            valid email address</small>
+          <small *ngIf="isControlHasError('email','required', inviteMemberForm)" class="text-danger">Email is required</small>
         </div>
         <div>
         </div>
@@ -225,26 +190,21 @@
       </div>
       <div class="modal-body p-0">
         <form *ngIf="editOrganizationForm" [formGroup]="editOrganizationForm" (ngSubmit)="onEditOrganization()">
-          <div class="mb-4"
-            [ngClass]="isControlHasError('name','required', editOrganizationForm) ? 'custom-input-error': 'custom-input'">
+          <div class="mb-4" [ngClass]="isControlHasError('name','required', editOrganizationForm) ? 'custom-input-error': 'custom-input'">
+            <span [innerHTML]="isControlHasError('name','required', editOrganizationForm)"></span>
             <label for="name" class="mb-1 primary_color required fw-700 semi-bold-fonts">Name</label>
-            <input type="text" class="form-control  ps-3 pe-3" formControlName="name" id="name"
+            <input type="text" class="form-control form-control-lg  ps-3 pe-3" formControlName="name" id="name"
               placeholder="Enter organization name">
-            <small *ngIf="isControlHasError('name','required', editOrganizationForm)"
-              class="mt-1 text-danger">Organization
-              name is
+            <small *ngIf="isControlHasError('name','required', editOrganizationForm)" class="text-danger">Organization name is
               required</small>
           </div>
-          <div class="mb-4 position-relative"
-            [ngClass]="isControlHasError('domain','required', editOrganizationForm)? 'custom-input-error': 'custom-input'">
+          <div class="mb-3" [ngClass]="isControlHasError('domain','required', editOrganizationForm)? 'custom-input-error': 'custom-input'">
             <label for="domain" class="mb-1 primary_color required fw-700 semi-bold-fonts">Domain</label>
-            <input type="text" class="form-control ps-3 pe-3" formControlName="domain" id="domain"
+            <input type="text" class="form-control form-control-lg ps-3 pe-3" formControlName="domain" id="domain"
               placeholder="Enter domain name">
-            <small *ngIf="isControlHasError('domain','required', editOrganizationForm)" class="mt-1 text-danger">Domain
-              name
-              is required</small>
+            <small *ngIf="isControlHasError('domain','required', editOrganizationForm)" class="text-danger">Domain name is required</small>
           </div>
-          <div class="input-select mt-3 mb-4"
+          <div class="input-select mt-3 mb-3"
             [ngClass]="isControlHasError('status','required', editOrganizationForm)? 'custom-input-error': 'custom-input'">
             <label for="status" class="mb-1 primary_color required fw-700 semi-bold-fonts">Status</label>
             <select class="form-select form-select-lg" id="status">

@@ -9,8 +9,8 @@
             <div class="border-bottom-0">
               <h2 class="mb-0 header-content">Welcome Back !!</h2>
             </div>
-            <div class="mt-2 d-flex dark-light">
-              Happy to see you again! Sign in via email or another trusted account.
+            <div class="d-flex dark-light">
+              Happy to see you again ! Sign in via email or another trusted account.
             </div>
             <div class="modal-body mt-4">
               <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
@@ -42,11 +42,11 @@
                   </div>
                 </div>
 
-                <div class="col-12 mt-2">
+                <div class="col-12 mt-2 ">
                   <div class="form-check">
-                    <div class="d-flex text-clr2 justify-content-end cursor-pointer"
-                      [routerLink]="['/forgot/password']">
-                      Forgot Password?
+                    <div class="d-flex text-clr2 justify-content-end"
+                      >
+                      <span class="forgot-password cursor-pointer" [routerLink]="['/forgot/password']">Forgot Password?</span>
                     </div>
                   </div>
                 </div>

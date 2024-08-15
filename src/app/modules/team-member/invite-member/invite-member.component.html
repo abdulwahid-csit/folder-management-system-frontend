@@ -1,37 +1,26 @@
 <div class="modal-body p-5 pt-4 pb-4">
     <h4 class="fs-20px fw-700">Invite Admin</h4>
     <form [formGroup]="inviteForm" (ngSubmit)="onSubmit()">
-        <div class="mb-3 custom-input"
+        <div class="mb-4 custom-input"
             [ngClass]="isControlHasError('email', 'required') ? 'custom-input-error': 'custom-input'">
             <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Email </label>
             <input type="text" class="form-control ps-3 pe-3 form-control-lg fs-14px" id="exampleFormControlInput1"
                 placeholder="Enter email address" formControlName="email">
-            <small *ngIf="isControlHasError('email','required')" class="fs-14px text-danger">Email is
+            <small *ngIf="isControlHasError('email','required')" class="mt-1 fs-14px text-danger">Email is
                 required</small>
         </div>
-        <div class="mb-3">
+        <div class="mb-3 custom-dropdown">
             <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 fs-14px fw-700 required">Role
             </label>
-            <!-- <select class="form-select custom-form-select ps-3 pe-3" aria-placeholder="slect"
-                aria-label="Default select example" formControlName="role">
-                <option selected>Open this select menu</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </select> -->
-            <!-- <ng-select class="role-select" [ngClass]="!isControlHasError('role', 'required') ? 'custom-select': 'custom-select-error'" formControlName="role">
-                <ng-option class="custom-select-value" *ngFor="let car of cars" [value]="car.id">{{car.name}}</ng-option>
-             </ng-select> -->
-            <ng-select #selectElement [ngClass]="{
-               'custom-select': !isControlHasError('role', 'required'),
+            <ng-select class="" #selectElement [ngClass]="{
                'custom-select-error': isControlHasError('role', 'required'),
                'custom-select-focused': isFocused
-             }" formControlName="role" (focus)="onFocus()" (blur)="onBlur()" (change)="onValueChange()">
-                <ng-option class="custom-select-value" *ngFor="let car of cars" [value]="car.id">{{ car.name
+             }" formControlName="role" (focus)="isFocused = true" (blur)="isFocused = false" (change)="onValueChange()">
+                <ng-option *ngFor="let car of cars" [value]="car.id">{{ car.name
                     }}</ng-option>
             </ng-select>
 
-            <small *ngIf="isControlHasError('role','required')" class="fs-14px text-danger">Domain name is
+            <small *ngIf="isControlHasError('role','required')" class="mt-1 fs-14px text-danger">Role is
                 required</small>
         </div>
         <div class="d-flex justify-content-end mt-4">

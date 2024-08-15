@@ -11,6 +11,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { OrganizationDetailsComponent } from './components/organization-details/organization-details.component';
 import { NgxsModule } from '@ngxs/store';
 import { OrganizationState } from './state/organization.state';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -26,8 +27,9 @@ import { OrganizationState } from './state/organization.state';
     ReactiveFormsModule,
     FormsModule,
     SharedModule,
-    NgxsModule.forFeature([OrganizationState])
+    NgxsModule.forFeature([OrganizationState]),
     // InlineSVGModule,
+    NgSelectModule
   ]
 })
 export class SsoAdminModule { }

@@ -68,6 +68,7 @@
 
 .table tbody tr td {
     padding: 13px 0px;
+    border-bottom-color: #EDF2F7;
 }
 
 .table tbody tr td:first-child {
@@ -108,4 +109,21 @@
 .p-14 {
     padding-top: 14px;
     padding-bottom: 14px;
+}
+
+::ng-deep .custom-delete-user-modal{
+
+    ::ng-deep .modal-content{
+        width: 620px !important;
+        border-radius: 16px !important;
+        margin-left: 60px !important;
+    }
+    .modal-dialog-box{
+   
+        padding: 40px;
+        .modal-body{
+            padding-top: 24px !important;
+            padding-bottom: 30px !important;
+        }
+    }
 }

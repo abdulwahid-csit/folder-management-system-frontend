@@ -1,5 +1,8 @@
 .wrapper {
     padding: 15px 30px 30px 30px;
+    button{
+        font-weight: 500;
+    }
 }
 
 .breadcrumb-item+.breadcrumb-item::before {
@@ -45,6 +48,7 @@
     background-color: #FFE8E8;
     font-size: 14px;
     transition: background-color 0.3s ease-in-out;
+    font-weight: 500;
 }
 
 .disabled {
@@ -65,12 +69,16 @@
     box-shadow: inset 0 0 0 9999px var(--bs-table-bg-state, var(--bs-table-bg-type, var(--bs-table-accent-bg)));
 }
 
-table tbody td {
-    font-family: 'Urbanist' sans-serif;
-    font-weight: 600;
-    font-size: 14px;
-    padding: 13px 0px !important;
-}
+table tbody tr{
+    border-bottom: 1px solid #EDF2F7 !important;
+    td {
+        font-family: 'Urbanist' sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+        padding: 13px 0px !important;
+        
+    }
+} 
 
 table tr td:first-child {
     width: 150px;
@@ -105,5 +113,22 @@ small {
         position: absolute;
         top: 26%;
         right: 30px;
+    }
+}
+
+::ng-deep .custom-delete-user-modal{
+
+    ::ng-deep .modal-content{
+        width: 620px !important;
+        border-radius: 16px !important;
+        margin-left: 60px !important;
+    }
+    .modal-dialog-box{
+   
+        padding: 40px;
+        .modal-body{
+            padding-top: 24px;
+            padding-bottom: 30px;
+        }
     }
 }

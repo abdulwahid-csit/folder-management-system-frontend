@@ -111,6 +111,7 @@ select:focus {
 }
 .table tbody tr td{
     padding: 13px 0px;
+    border-bottom-color: #EDF2F7;
 }
 .table tbody tr td:first-child{
     width: 100px !important;
@@ -202,7 +203,7 @@ select:focus {
     }
 
     ::ng-deep .ng-select .ng-arrow-wrapper {
-       margin-right: 15px !important;
+       margin-right: 6px !important;
     }
   ::ng-deep  input{
         border: 0 !important;
@@ -231,4 +232,22 @@ select:focus {
     }
 
     
+}
+::ng-deep .custom-delete-user-modal{
+
+    ::ng-deep .modal-content{
+        width: 620px !important;
+        border-radius: 16px !important;
+        margin-left: 60px !important;
+    }
+    .modal-dialog-box{
+   
+        padding: 40px;
+        .modal-body{
+            padding-top: 24px !important;
+            padding-bottom: 30px !important;
+            font-size: 14px !important;
+            font-weight: 600 !important;
+        }
+    }
 }

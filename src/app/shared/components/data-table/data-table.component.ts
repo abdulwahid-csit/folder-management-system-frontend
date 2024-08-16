@@ -26,7 +26,9 @@ export class DataTableComponent implements OnInit {
   columnNameMap: any = {
     user_count: 'Users',
     application_count: 'Total No of Applications',
-    created_at: 'Creation Date'
+    created_at: 'Creation Date',
+    app_name: 'Name',
+    app_id: 'App ID'
   };
  
  @Input() set module(value: string) {

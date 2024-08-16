@@ -18,14 +18,6 @@
                 <small *ngIf="isControlHasError('domain','required')" class="text-danger">Domain name is
                     required</small>
             </div>
-            <div class="input-select mt-3 mb-3"  *ngIf="title === 'Edit'"
-                [ngClass]="isControlHasError('status','required')? 'custom-input-error': 'custom-input'">
-                <label for="status" class="mb-1 primary_color required fw-700 semi-bold-fonts">Status</label>
-                <select class="form-select form-select-lg" id="status" formControlName="status">
-                    <option value="inactive">Inactive</option>
-                    <option value="active">Active</option>
-                </select>
-            </div>
             <div class="modal-footer border-top-0 pb-0 pe-0">
                 <button type="button" class="cancel_btn" (click)="closeModal()">Cancel</button>
                 <button type="submit" class="primary_button">

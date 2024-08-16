@@ -14,22 +14,28 @@ export class SignInComponent {
   ) {
 
   }
+  hidePassword = true;
+  isPasswordVisible: boolean = false;
   signInForm!: FormGroup
   ngOnInit(): void {
     this.signInForm = this.fb.group({
-      email: [null, Validators.compose([Validators.required])],
+      email: [null, Validators.compose([Validators.required, Validators.email])],
       password: [null, Validators.compose([Validators.required])],
 
     })
   }
   isControlHasError(controlName: string, validationType: string): boolean {
-    const control = this.signInForm.controls[controlName];
+    const control = this.signInForm.get(controlName);
     if (!control) {
       return false;
     }
-    return (
-      control.hasError(validationType) && (control.dirty || control.touched)
-    );
+    return control.hasError(validationType) && (control.dirty || control.touched);
+  }
+  onControlBlur(controlName: string): void {
+    const control = this.signInForm.get(controlName);
+    if (control) {
+      control.markAsTouched();
+    }
   }
   onSubmit(): void {
     if (this.signInForm.valid) {
@@ -59,4 +65,8 @@ export class SignInComponent {
     console.log(this.signInForm.value);
     ;
   }
+  togglePasswordVisibility(): void {
+    this.hidePassword = !this.hidePassword;
+  }
+  
 }

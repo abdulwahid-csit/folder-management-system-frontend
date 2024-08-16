@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -6,40 +6,44 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent {
-  constructor(private fb: FormBuilder,) {
+export class RegisterComponent implements OnInit {
+  registerForm!: FormGroup;
+  hidePassword = true;
+  isPasswordVisible: boolean = false;
+  constructor(private fb: FormBuilder) { }
 
-  }
-
-  registerForm!: FormGroup
   ngOnInit(): void {
-
     this.registerForm = this.fb.group({
-      name: [null, Validators.compose([Validators.required])],
+      name: [null, Validators.required],
+      email: [null, [Validators.required, Validators.email]],  
       password: [null, Validators.compose([Validators.required])],
-      email: [null, Validators.compose([Validators.required])],
-
-    })
+    });
   }
+
   isControlHasError(controlName: string, validationType: string): boolean {
-    const control = this.registerForm.controls[controlName];
+    const control = this.registerForm.get(controlName);
     if (!control) {
       return false;
     }
-    return (
-      control.hasError(validationType) && (control.dirty || control.touched)
-    );
+    return control.hasError(validationType) && (control.dirty || control.touched);
   }
+   
   onSubmit(): void {
     if (this.registerForm.valid) {
-
+      console.log(this.registerForm.value);
+      // Handle form submission here
+    } else {
+      this.registerForm.markAllAsTouched();
     }
-    this.registerForm.markAllAsTouched();
-    if (this.registerForm.invalid) {
+  }
 
-      return;
+  onControlBlur(controlName: string): void {
+    const control = this.registerForm.get(controlName);
+    if (control) {
+      control.markAsTouched();
     }
-    console.log(this.registerForm.value);
-    ;
+  }
+  togglePasswordVisibility(): void {
+    this.hidePassword = !this.hidePassword;
   }
 }

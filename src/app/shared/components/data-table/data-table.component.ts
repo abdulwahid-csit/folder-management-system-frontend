@@ -22,6 +22,13 @@ export class DataTableComponent implements OnInit {
  maintainStationList:any = []
  filterData: any[] = [];
  private _moduleName!: string;
+  
+  columnNameMap: any = {
+    user_count: 'Users',
+    application_count: 'Total No of Applications',
+    created_at: 'Creation Date'
+  };
+ 
  @Input() set module(value: string) {
   this._moduleName = value;
 }
@@ -32,38 +39,19 @@ get module(): string {
 
  constructor(private modalService: BsModalService, private router:Router){ }
 
- ngOnInit(): void { console.log('module name in ngoninit', this.module) }
+ ngOnInit(): void { 
+}
 
  ngOnChanges(changes: SimpleChanges) {
-   // this.columns =[
-  //   {
-  //     title:"Created By",
-  //     name: "createdBy"
-  //   },
-  //   {
-  //     title: "Description",
-  //     name: "description"
-  //   }
-  // ]
-  // console.log('columns',this.columns);
-  // console.log('dataSet',this.dataSet);
   if (changes['searchTerm'] || changes['dataSet']) {
     this.filteredData();
   }
-  console.log('module name in onchanges', this.module)
 }
 
- createOrganization() {
-  // const initialState = { data, type: 'asset' };
-  this.modalRef = this.modalService.show(CreateOrganizationComponent, {
-    class: 'modal-dialog modal-dialog-centered modal-lg create_organization',
-    backdrop: 'static',
-    keyboard: false,
-    // initialState,
+getUpdatedColumns() {
+  return this.columns.map((column: string | number) => {
+    return this.columnNameMap[column] || column;
   });
-  // this.modalRef.content.event.subscribe((res) => {
-  //   this.getAssetList();
-  // });
 }
 
   filteredData() {
@@ -113,4 +101,5 @@ get module(): string {
 
     this.router.navigate([detailRoute]);
   }
+  
 }

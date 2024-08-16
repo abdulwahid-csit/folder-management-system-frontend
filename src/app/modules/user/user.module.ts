@@ -8,6 +8,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { FormsModule } from '@angular/forms'
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 
@@ -24,7 +25,8 @@ import { FormsModule } from '@angular/forms'
     // InlineSVGModule,
     SharedModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgSelectModule
   ]
 
 })

@@ -38,8 +38,9 @@ export class UpdateApplicationComponent implements OnInit {
   }
 
   onSubmit(){
-    this.organizationForm.markAllAsTouched();
+   
     if(!this.organizationForm.valid){
+      this.organizationForm.markAllAsTouched();
       return;
     }
     console.log("Organization created.")

@@ -22,12 +22,6 @@ input::placeholder {
 .modal-content {
     border-radius: 16px !important;
 }
-
-.plus_button {
-    padding: 12px 16px;
-    height: 46px !important;
-}
-
 small {
     position: absolute;
     font-size: 12px;
@@ -40,4 +34,13 @@ small {
         box-shadow: 0 0 0 0.25rem rgba(243, 3, 3, 0.2) !important;
         border-color: red !important;
     }
+}
+.add_button{
+    color: #6f61cf;
+    font-weight: 600;
+    cursor: pointer;
+}
+.add_button:hover{
+text-decoration-line: underline;
+text-decoration-color: #6f61cf;
 }

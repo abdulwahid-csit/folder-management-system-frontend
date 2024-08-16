@@ -35,7 +35,7 @@ export class InviteMemberComponent implements OnInit {
 
     this.inviteForm = new FormGroup({
       email: new FormControl('', [Validators.required]),
-      role: new FormControl('', [Validators.required])
+      role: new FormControl(null, [Validators.required])
     })
   }
 

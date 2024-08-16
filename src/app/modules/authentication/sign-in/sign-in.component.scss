@@ -27,6 +27,10 @@ input[type="password"]{
 }
 }
 
+.sign-in-div{
+  margin-top: 2rem;
+}
+
 .forgot-password{
   margin-top: -5px !important;
 }
@@ -50,22 +54,24 @@ input[type="password"]{
   width: 480px;
   background-color: white !important;
   border-radius: 10px;
+  padding: 40px !important;
 }
 
 .btn-clr {
-  font-weight: 700;
+  font-weight: 600;
   font-size: 14px;
   line-height: 28px;
   background-color: #6F61CF;
   color: #FFFFFF;
+  height: 46px !important;
+  
 }
 
 .text-clr {
   color: #6F61CF;
   font-weight: 600;
   font-size: 14px;
-  line-height: 21.2px;
-  
+  line-height: 18px;
 }
 .text-clr:hover{
   text-decoration: underline;

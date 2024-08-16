@@ -2,35 +2,35 @@
     <div class="modal-header border-bottom-0">
         <h2 class="label-font mb-0 ">{{ mode === 'create' ? 'Create Role' : 'Update Role' }}</h2>
     </div>
-    <div class="modal-body" [formGroup]="rolesForm">
-
+    <div class="modal-body" >
+<form [formGroup]="rolesForm" (ngSubmit)="onSubmit()">
         <div class="row mt-1">
-            <div class="input-container">
+            <div class="input-container custom-input">
                 <label for="" class="required label-font">Role Name</label>
                 <input [ngClass]="{
               'is-invalid': isControlHasError('name', 'required')
             }" type="text" class="form-control form-control-lg" formControlName="name"
                     placeholder="Enter Unique role name">
-                <span *ngIf="isControlHasError('name','required')" class="text-danger fs-8 ps-3">Name is
+                <span *ngIf="isControlHasError('name','required')" class="mt-1 text-danger fs-8 ps-3">Name is
                     required</span>
             </div>
         </div>
-        <div class="row mt-3">
-            <div class="input-container">
+        <div class="row mt-4">
+            <div class="input-container custom-input">
                 <label for="" class="required label-font">Description</label>
                 <textarea [ngClass]="{
               'is-invalid': isControlHasError('description', 'required')
             }" type="" class="form-control form-control-lg" formControlName="description"
-                    placeholder="Enter description here"></textarea>
+                    placeholder="Enter description here" rows="3"></textarea>
                 <span *ngIf="isControlHasError('description','required')"
-                    class="text-danger fs-8 ps-3">Description is
+                    class="mt-1 text-danger fs-8 ps-3">Description is
                     required</span>
             </div>
         </div>
-        <div class="d-flex align-items-center justify-content-between mt-3">
+        <div class="d-flex align-items-center justify-content-between mt-4">
             <h4 class="label-font mb-0">Permissions</h4>
             <div>
-                <h4 class="mt-2 text-decoration-underline text-primary-custom ps-2 bold-fonts fs-14 fw-600 cursor-pointer"
+                <h4 class="mt-2 add_button text-primary-custom ps-2 bold-fonts fs-14 fw-600 cursor-pointer"
                     (click)="openModal(permission)">
                     <span class="ms-2 "> + Add</span>
                 </h4>
@@ -38,13 +38,13 @@
         
 
         </div>
-         <hr class="custom-hr mt-0">
+         <hr class="hr mt-0">
         <div class="modal-footer border-top-0 pb-0 mt-2 pe-0">
             <button type="button" class="cancel_btn fs-14 fw-600 me-2" (click)="onCancel()">Cancel</button>
-            <button type="submit" class="primary_button fs-14 fw-600">Create</button>
+            <button type="submit" class="primary_button fs-14 fw-600 me-0">Create</button>
         </div>
 
-       
+    </form>
     </div>
 </div>
 

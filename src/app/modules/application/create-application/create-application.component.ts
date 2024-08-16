@@ -11,6 +11,7 @@ export class CreateApplicationComponent implements OnInit {
   modalRef: any;
   applicationForm!: FormGroup
   modalOpen: boolean = false;
+  inputUris: Array<{value: string}> = [];
 
 
   constructor(private modalService: BsModalService) { }
@@ -41,13 +42,18 @@ export class CreateApplicationComponent implements OnInit {
   }
 
   submitForm() {
-    this.applicationForm.markAllAsTouched();
-    if (!this.applicationForm.valid) {
+    
+    if (this.applicationForm.invalid) {
+      this.applicationForm.markAllAsTouched();
       return;
     }
     console.log("Form Submitted.")
     this.closeModal();
   }
 
+
+  addInputUri(){
+    this.inputUris.push({value: ''});
+  }
 
 }

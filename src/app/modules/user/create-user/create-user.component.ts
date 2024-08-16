@@ -6,11 +6,25 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 @Component({
   selector: 'app-create-user',
   templateUrl: './create-user.component.html',
-  styleUrls: ['./create-user.component.scss']
+  styleUrls: ['./create-user.component.scss' ,'../../../css/custpm-dropdown-style.scss']
 })
 export class CreateUserComponent implements OnInit {
   @Input() mode: 'create' | 'update' = 'create';
   @Input() userData: any;
+
+  selectedCar: number = 1;
+
+  cars = [
+    { id: 1, name: 'Volvo' },
+    { id: 2, name: 'Saab' },
+    { id: 3, name: 'Opel' },
+    { id: 4, name: 'Audi' },
+  ];
+
+  selectedOption: any;
+  isFocused!: boolean;
+
+
   constructor(private bsModalService: BsModalService, private fb: FormBuilder,) {
 
   }
@@ -66,5 +80,12 @@ export class CreateUserComponent implements OnInit {
   }
   togglePasswordVisibility(): void {
     this.isPasswordVisible = !this.isPasswordVisible;
+  }
+
+  onValueChange() {
+    const control = this.userForm.get('role');
+    if (control?.value) {
+      this.isFocused = false; // Reset focus state if value is selected
+    }
   }
 }

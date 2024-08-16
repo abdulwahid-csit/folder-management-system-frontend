@@ -40,4 +40,13 @@ export class ForgotPasswordComponent implements OnInit {
       control.markAsTouched();
     }
   }
+
+
+  onSendResetLink(){
+    if(this.forgotForm.invalid){
+      this.forgotForm.markAllAsTouched();
+      return;
+    }
+    console.log("Form Submitted");
+  }
 }

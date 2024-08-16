@@ -6,7 +6,7 @@
     </div>
     <div class="modal-body">
         <form [formGroup]="applicationForm" (ngSubmit)="submitForm()">
-            <div class="mb-3 custom-input"
+            <div class="mb-4 custom-input"
                 [ngClass]="isControlHasError('applicationName','required')? 'custom-input-error': 'custom-input'">
                 <label for="applicationName" class="mb-1 primary_color required fw-700 semi-bold-fonts">Name</label>
                 <input type="text" class="form-control form-control-lg ps-3 ps-2 fs-14px"
@@ -15,39 +15,53 @@
                     name is
                     required</small>
             </div>
-            <div class="mb-3 custom-input">
-                <label for="appUrl" class="mb-1 primary_color  fw-700 semi-bold-fonts">App URL</label>
-                <input type="text" class="form-control form-control-lg ps-3 fs-14px" placeholder="Enter domain name"
+            <div class="mb-4 custom-input">
+                <label for="appUrl" class="mb-1 primary_color  fw-700 semi-bold-fonts">App URL</label> 
+                <input type="text" class="form-control form-control-lg ps-3 fs-14px" placeholder="Enter url"
                     formControlName="appUrl">
                 <!-- <span *ngIf="isControlHasError('domainName','required')" class="text-danger">Domain name is
                     required</span> -->
             </div>
-            <div class="mb-3 custom-input">
-                <label for="redirectUrl" class="mb-1 primary_color  fw-700 semi-bold-fonts">Redirect
-                    URI's</label>
-                <p class="fs-14px  color-8492A6 mb-0">Lorem Ipsum adalah contoh teks atau dummy dalam huruf</p>
+            <div class="mb-4 custom-input">
+                <span class="fs-14px d-flex justify-content-between"> <label for="redirectUrl" class="mb-1 primary_color  fw-700 semi-bold-fonts">Redirect
+                    URI's</label><span class="add_button" (click)="addInputUri()">+ Add</span> </span>
+                    <p class="color-8492A6 mb-0">Lorem Ipsum adalah contoh teks atau dummy dalam huruf</p>
+                
                 <div class="d-flex">
-                    <input type="text" class="form-control  ps-3 fs-14px me-3" placeholder="Enter domain name"
+                    <input type="text" class="form-control  ps-3 fs-14px" placeholder="Enter URI"
                         formControlName="redirectUrl">
-                    <span class="primary_button cursor-pointer plus_button">+</span>
+                    <!-- <span class="primary_button cursor-pointer plus_button">+</span> -->
                 </div>
                 <!-- <span *ngIf="isControlHasError('domainName','required')" class="text-danger">Domain name is
                     required</span> -->
             </div>
-            <div class="mb-3 custom-input">
+            <div class="mb-4 custom-input">
                 <!-- <label for="url" class="mb-1 primary_color  fw-700 semi-bold-fonts">Url</label> -->
                 <p class="fs-14px color-8492A6 mb-0 ">Lorem Ipsum adalah contoh teks atau dummy dalam huruf</p>
                 <div class="d-flex">
-                    <input type="text" class="form-control  ps-3 fs-14px me-3" placeholder="Enter domain name"
+                    <input type="text" class="form-control  ps-3 fs-14px" placeholder="Enter URI"
                         formControlName="url">
-                    <span class="primary_button cursor-pointer plus_button">+</span>
+                    <!-- <span class="primary_button cursor-pointer plus_button">+</span> -->
 
                 </div>
                 <!-- <span *ngIf="isControlHasError('domainName','required')" class="text-danger">Domain name is
                     required</span> -->
             </div>
+            <ng-container *ngIf="inputUris.length <= 5">
+            <ng-container *ngFor="let item of inputUris">
+                <div class="mb-4 custom-input">
+                    <!-- <label for="url" class="mb-1 primary_color  fw-700 semi-bold-fonts">Url</label> -->
+                    <p class="fs-14px color-8492A6 mb-0 ">Lorem Ipsum adalah contoh teks atau dummy dalam huruf</p>
+                    <div class="d-flex">
+                        <input [(ngModel)]="item.value" type="text" class="form-control  ps-3 fs-14px" placeholder="Enter URI"
+                            formControlName="url">
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
+
             <div class="modal-footer border-top-0 pe-0 me-0">
-                <button class="cancel_btn me-2 " (click)="closeModal()">Close</button>
+                <button type="button" class="cancel_btn me-2 " (click)="closeModal()">Cancel</button>
                 <button type="submit" class="primary_button me-0" type="submit">Create</button>
             </div>
         </form>

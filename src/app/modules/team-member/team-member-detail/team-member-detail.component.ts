@@ -86,7 +86,9 @@ export class TeamMemberDetailComponent implements OnInit {
       keyboard: false,
 
     });
+    
   }
+  
   
 
   isControlHasError(controlName: any, validationType: string): boolean {

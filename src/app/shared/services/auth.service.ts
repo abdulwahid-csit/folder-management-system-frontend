@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -24,8 +24,8 @@ export class AuthService {
     localStorage.setItem('token_expiry', expiryTimestamp.toString());
   }
 
-  getAccessToken () {
-   return localStorage.getItem('access_token');
+  getAccessToken() {
+    return localStorage.getItem('access_token');
 
   }
 
@@ -34,12 +34,24 @@ export class AuthService {
     localStorage.clear;
   }
 
-  signIn(email:string, password:string): Observable<any>{
-    const body= {email,password};
-    return this.http.post(`${environment.apiUrl}api/v1/auth/signin`, body );
+  signIn(email: string, password: string): Observable<any> {
+    const body = { email, password };
+    return this.http.post(`${environment.apiUrl}auth/signin`, body);
   }
   // signUp(email:string, password:string, username:string): Observable<any>{
   //   const body = {email,password,username};
   //   return this.http.post(`${environment.apiUrl}api/v1/auth/signup`, body);
   // }
+  getMember(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}member`,);
+  }
+
+
+  getMemberById(id: any): Observable<any> {
+    return this.http.get(`${environment.apiUrl}member/${id}`,);
+  }
+  getMemberUpdate(id: number | string, memberData: number): Observable<any> {
+    return this.http.put(`${environment.apiUrl}member/${id}`, memberData );
+  }
+  
 }

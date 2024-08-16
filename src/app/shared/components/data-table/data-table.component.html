@@ -2,48 +2,35 @@
     <table class="table table-hover mb-0">
         <thead>
             <tr>
-                <!-- <ng-container *ngFor="let column of columns">
-                <ng-container *ngIf="true">
-                    <th class="align-content-center"   >{{column.title}}</th>
-                </ng-container>
-                </ng-container> -->
-                <th class="align-content-center"  *ngFor="let column of columns" >{{column.name}}</th>
+                <!-- Render static headers based on the 'columns' input -->
+                <th class="align-content-center" *ngFor="let column of columns">{{ column.name }}</th>
             </tr>
         </thead>
         <tbody>
-            <!-- <tr *ngFor="let data of filterData">
-                <td *ngFor="let item of columns">{{data[item?.name] ?? 'NA'}}</td>
-            </tr> -->
+            <!-- Render rows based on 'filterData' -->
             <tr *ngFor="let data of filterData" class="cursor-pointer" (click)="onRowClick(data)">
-                <td class="fw-700 align-content-center" *ngIf="data.name">{{data.name}}</td>
-                <td class="align-content-center" *ngIf="data.domain">{{data.domain}}</td>
-                <td class="align-content-center" *ngIf="data.description">{{data.description}}</td>
-                <td class="align-content-center" *ngIf="data.fullName">{{data.fullName}}</td>
-                <td class="align-content-center" *ngIf="data.organization">{{data.organization}}</td>
-                <td class="align-content-center" *ngIf="data.appId">{{data.appId}}</td>
-                <td class="align-content-center" *ngIf="data.appUrl">{{data.appUrl}}</td>
-                <td class="align-content-center" *ngIf="data.role">{{data.role}}</td>
-                <td class="align-content-center" *ngIf="data.activityDate">{{data.activityDate}}</td>
-                <td class="align-content-center" *ngIf="data.lastSignedIn">{{data.domain}}</td>
-                <td class="align-content-center" *ngIf="data.time">{{data.time}}</td>
-                <td class="align-content-center" *ngIf="data.Activity">{{data.Activity}}</td>
-                <td class="align-content-center" *ngIf="data.total_no_of_application">{{data.total_no_of_application}}</td>
-                <td class="align-content-center" *ngIf="data.users">{{data.users}}</td>
-                <td class="align-content-center" *ngIf="data.createdBy">{{data.createdBy}}</td>
-                <td class="align-content-center" *ngIf="data.status"><span
-                        class="{{data.status == 'active' ? 'badge badge-light-success text-capitalize' : 'badge badge-light-warning text-capitalize'}}">{{data.status}}</span>
+                <!-- Map the data fields to the columns based on their names -->
+                <td class="align-content-center">{{ data.email ?? '' }}</td>
+                <td class="align-content-center">{{ (data?.first_name + ' ' + data?.last_name) || '' }}</td>
+                <td class="align-content-center">{{ data.organization.name ?? '' }}</td>
+                <td class="align-content-center">{{ data.role.name ?? '' }}</td>
+                <td class="align-content-center">
+                    <span class="{{data.status === 'active' ? 'badge badge-light-success' : 'badge badge-light-warning'}}">
+                        {{data.status || ''}}
+                    </span>
                 </td>
-                <td class="align-content-center" *ngIf="data.lastSignedIn">{{data.lastSignedIn}}</td>
-                <td class="align-content-center" *ngIf="data.creationDate">{{data.creationDate}}</td>
+                <td class="align-content-center">{{ data.creationDate || '' }}</td>
             </tr>
-            <tr *ngIf="filterData.length == 0" class="text-center">
-                <td colspan="12" class="font_weight_600">No Search Found</td>
+            <tr *ngIf="filterData.length === 0" class="text-center">
+                <td colspan="columns.length" class="font_weight_600">No Search Found</td>
             </tr>
         </tbody>
     </table>
     <div class="dataTable_pagination d-flex align-items-center justify-content-between">
         <div>
-            <p class="mb-0 fs-14px fw-500 color-8492A6 fw-600">Showing 1 to 10 of 40 results</p>
+            <p class="mb-0 fs-14px fw-500 color-8492A6 fw-600">
+                Showing 1 to {{filterData.length}} of {{config.paginationParams.total_records}} results
+            </p>
         </div>
         <div>
             <app-pagination [totalPages]="config.paginationParams.total_pages" [(currentPage)]="config.paginationParams.current_page"></app-pagination>

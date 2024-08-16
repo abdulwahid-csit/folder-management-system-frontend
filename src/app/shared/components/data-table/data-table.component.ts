@@ -9,41 +9,49 @@ import { Router } from '@angular/router';
   styleUrls: ['./data-table.component.scss']
 })
 export class DataTableComponent implements OnInit {
-  @Input() columns: any[] = [];
-  @Input() config: any = {};
-  @Input() dataSet: any[] = [];
-  @Input() searchTerm: string = '';
-  @Input() module: string = '';  // Ensure this line is present
+ @Input() columns:any
+ @Input() config:any
+ @Input() dataSet: any[] = [];
+//  @Input() module!:string;
+ @Input() searchTerm: string = '';
+ totalPages = 2;
+ currentPage = 1;
+ modalRef?: BsModalRef;
+ searchResults: any[] = [];
+ searchFilter:boolean = false
+ maintainStationList:any = []
+ filterData: any[] = [];
+ private _moduleName!: string;
   
-  totalPages = 2;
-  currentPage = 1;
-  modalRef?: BsModalRef;
-  searchResults: any[] = [];
-  searchFilter: boolean = false;
-  maintainStationList: any[] = [];
-  filterData: any[] = [];
+  columnNameMap: any = {
+    user_count: 'Users',
+    application_count: 'Total No of Applications',
+    created_at: 'Creation Date',
+    first_name: 'Full Name'
+  };
+ 
+ @Input() set module(value: string) {
+  this._moduleName = value;
+}
 
-  constructor(private modalService: BsModalService, private router: Router) { }
+  // constructor(private modalService: BsModalService, private router: Router) { }
 
-  ngOnInit(): void {
-    console.log('module name in ngoninit', this.module);
-    console.log("this.dataSet", this.dataSet);
+ constructor(private modalService: BsModalService, private router:Router){ }
+
+ ngOnInit(): void { 
+}
+
+ ngOnChanges(changes: SimpleChanges) {
+  if (changes['searchTerm'] || changes['dataSet']) {
+    this.filteredData();
   }
+}
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['searchTerm'] || changes['dataSet']) {
-      this.filteredData();
-    }
-    console.log('module name in onchanges', this.module);
-  }
-
-  createOrganization() {
-    this.modalRef = this.modalService.show(CreateOrganizationComponent, {
-      class: 'modal-dialog modal-dialog-centered modal-lg create_organization',
-      backdrop: 'static',
-      keyboard: false,
-    });
-  }
+getUpdatedColumns() {
+  return this.columns.map((column: string | number) => {
+    return this.columnNameMap[column] || column;
+  });
+}
 
   filteredData() {
     if (!this.searchTerm) {
@@ -80,5 +88,19 @@ export class DataTableComponent implements OnInit {
     
     this.router.navigate([detailRoute]);
   }
+
+  getOrganization(value: any) {
+    if (value && typeof value === 'object') {
+      return value.name;
+    }
+    return '';
+  }
   
+  getRole(value: any) {
+    if (value && typeof value === 'object') {
+      return value.name;
+    }
+    return '';
+  }
+
 }

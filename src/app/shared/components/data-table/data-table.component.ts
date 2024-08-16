@@ -9,57 +9,58 @@ import { Router } from '@angular/router';
   styleUrls: ['./data-table.component.scss']
 })
 export class DataTableComponent implements OnInit {
- @Input() columns:any
- @Input() config:any
- @Input() dataSet: any[] = [];
-//  @Input() module!:string;
- @Input() searchTerm: string = '';
- totalPages = 2;
- currentPage = 1;
- modalRef?: BsModalRef;
- searchResults: any[] = [];
- searchFilter:boolean = false
- maintainStationList:any = []
- filterData: any[] = [];
- private _moduleName!: string;
-  
+  @Input() columns: any
+  @Input() config: any
+  @Input() dataSet: any[] = [];
+  //  @Input() module!:string;
+  @Input() searchTerm: string = '';
+  totalPages = 2;
+  currentPage = 1;
+  modalRef?: BsModalRef;
+  searchResults: any[] = [];
+  searchFilter: boolean = false
+  maintainStationList: any = []
+  filterData: any[] = [];
+  private _moduleName!: string;
+
   columnNameMap: any = {
     user_count: 'Users',
     application_count: 'Total No of Applications',
-    created_at: 'Creation Date'
+    created_at: 'Creation Date',
+    first_name: 'Full Name'
   };
- 
- @Input() set module(value: string) {
-  this._moduleName = value;
-}
 
-get module(): string {
-  return this._moduleName;
-}
-
- constructor(private modalService: BsModalService, private router:Router){ }
-
- ngOnInit(): void { 
-}
-
- ngOnChanges(changes: SimpleChanges) {
-  if (changes['searchTerm'] || changes['dataSet']) {
-    this.filteredData();
+  @Input() set module(value: string) {
+    this._moduleName = value;
   }
-}
 
-getUpdatedColumns() {
-  return this.columns.map((column: string | number) => {
-    return this.columnNameMap[column] || column;
-  });
-}
+  get module(): string {
+    return this._moduleName;
+  }
+
+  constructor(private modalService: BsModalService, private router: Router) { }
+
+  ngOnInit(): void {
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['searchTerm'] || changes['dataSet']) {
+      this.filteredData();
+    }
+  }
+
+  getUpdatedColumns() {
+    return this.columns.map((column: string | number) => {
+      return this.columnNameMap[column] || column;
+    });
+  }
 
   filteredData() {
     if (!this.searchTerm) {
       this.filterData = this.dataSet;
     }
     const lowercasedSearchTerm = this.searchTerm.toLowerCase();
-    this.filterData = this.dataSet.filter((item:any) =>
+    this.filterData = this.dataSet.filter((item: any) =>
       Object.values(item).some(value => {
         if (value === null || value === undefined) {
           return false;
@@ -71,7 +72,7 @@ getUpdatedColumns() {
 
   onRowClick(rowData: any) {
     let detailRoute: string;
-    if(this.module === 'dashboard'){
+    if (this.module === 'dashboard') {
       return;
     }
     switch (this.module) {
@@ -97,9 +98,22 @@ getUpdatedColumns() {
       default:
         detailRoute = '/';
         break;
-  }
+    }
 
     this.router.navigate([detailRoute]);
   }
-  
+  getOrganization(value: any) {
+    if (value && typeof value === 'object') {
+      return value.name;
+    }
+    return '';
+  }
+
+  getRole(value: any) {
+    if (value && typeof value === 'object') {
+      return value.name;
+    }
+    return '';
+  }
+
 }

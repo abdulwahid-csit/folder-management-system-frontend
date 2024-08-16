@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class CrudService<T> {
+export class CrudService {
 
   private apiUrl: string = environment.apiUrl;
 
@@ -27,24 +27,24 @@ export class CrudService<T> {
     return localStorage.getItem('access_token');
   }
 
-  create(endpoint: string, data: T): Observable<T> {
-    return this.http.post<T>(`${this.apiUrl}/${endpoint}`, data, { headers: this.getHeaders() })
+  create(endpoint: string, data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}${endpoint}`, data, { headers: this.getHeaders() })
       .pipe(catchError(this.handleError));
   }
 
 
-  read(endpoint: string, id?: number): Observable<T | T[]> {
-    let url = `${this.apiUrl}/${endpoint}`;
+  read(endpoint: string, id?: number): Observable<any | any[]> {
+    let url = `${this.apiUrl}${endpoint}`;
     if (id) {
       url += `/${id}`;
     }
-    return this.http.get<T | T[]>(url, { headers: this.getHeaders() })
+    return this.http.get<any | any[]>(url, { headers: this.getHeaders() })
       .pipe(catchError(this.handleError));
   }
 
 
-  update(endpoint: string, id: number, data: T): Observable<T> {
-    return this.http.put<T>(`${this.apiUrl}/${endpoint}/${id}`, data, { headers: this.getHeaders() })
+  update(endpoint: string, id: number, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}${endpoint}/${id}`, data, { headers: this.getHeaders() })
       .pipe(catchError(this.handleError));
   }
 

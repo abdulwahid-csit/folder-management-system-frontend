@@ -8,12 +8,15 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AuthenticationModule } from './modules/authentication/authentication.module';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { NgxsModule } from '@ngxs/store';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { AuthInterceptor } from './interceptors/auth';
 import { ErrorInterceptor } from './interceptors/error';
 
+import { NgxsModule } from '@ngxs/store';
+import { NgxsStoragePluginModule, STORAGE_ENGINE } from '@ngxs/storage-plugin';
+import { CustomStorageEngine } from './shared/services/custom-storage.engine';
+import { OrganizationState } from './modules/organization/state/organization.state';
 
 @NgModule({
   declarations: [
@@ -29,16 +32,19 @@ import { ErrorInterceptor } from './interceptors/error';
     FormsModule,
     AuthenticationModule,
     NgSelectModule,
-    NgxsModule.forRoot([]),
-    NgxsLoggerPluginModule.forRoot(),
-    NgxsReduxDevtoolsPluginModule.forRoot()
-
+    // NgxsLoggerPluginModule.forRoot(),
+    // NgxsReduxDevtoolsPluginModule.forRoot()
+    NgxsModule.forRoot([OrganizationState]),
+    NgxsStoragePluginModule.forRoot({
+      keys: ['organizations']
+    })
 
 
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor,  multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor,  multi: true },
+    { provide: STORAGE_ENGINE, useClass: CustomStorageEngine }
   ],
   bootstrap: [AppComponent]
 })

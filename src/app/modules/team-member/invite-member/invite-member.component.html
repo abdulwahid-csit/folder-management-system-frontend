@@ -1,5 +1,5 @@
-<div class="modal-body p-5 pt-4 pb-4">
-    <h4 class="fs-20px fw-700">Invite Admin</h4>
+<div class="p-0 modal-body">
+    <h4 class="fs-20px fw-700 invite-header mb-0">Invite Admin</h4>
     <form [formGroup]="inviteForm" (ngSubmit)="onSubmit()">
         <div class="mb-4 custom-input"
             [ngClass]="isControlHasError('email', 'required') ? 'custom-input-error': 'custom-input'">
@@ -15,7 +15,7 @@
             <ng-select class="" #selectElement [ngClass]="{
                'custom-select-error': isControlHasError('role', 'required'),
                'custom-select-focused': isFocused
-             }" formControlName="role" (focus)="isFocused = true" (blur)="isFocused = false" (change)="onValueChange()">
+             }" formControlName="role" (focus)="isFocused = true" (blur)="isFocused = false" (change)="onValueChange()" placeholder="Select role">
                 <ng-option *ngFor="let car of cars" [value]="car.id">{{ car.name
                     }}</ng-option>
             </ng-select>
@@ -28,7 +28,5 @@
             <button type="submit" type="submit" class="primary_button">Invite</button>
         </div>
     </form>
-
-
 
 </div>

@@ -27,6 +27,8 @@ export class DataTableComponent implements OnInit {
     user_count: 'Users',
     application_count: 'Total No of Applications',
     created_at: 'Creation Date',
+    app_name: 'Name',
+    app_id: 'App ID',
     first_name: 'Full Name'
   };
 

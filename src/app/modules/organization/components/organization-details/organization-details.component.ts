@@ -68,7 +68,7 @@ export class OrganizationDetailsComponent implements OnInit {
         this.organizationId = +idParam;
       }
 
-      this.crudService.read('api/v1/organization/'+ this.organizationId).subscribe((response: any) => {
+      this.crudService.read('organization/'+ this.organizationId).subscribe((response: any) => {
         if (response.status_code === 200 || response.status_code === 201) {
           if (response.data && typeof response.data === 'object') {
             const column = Object.keys(response.data);
@@ -84,7 +84,7 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   getOrganizationUsers(){
-    this.crudService.read('api/v1/users?organization='+ this.organizationId).subscribe((response: any) => {
+    this.crudService.read('users?organization='+ this.organizationId).subscribe((response: any) => {
       if (response.status_code === 200 || response.status_code === 201) {
         if (response.data && typeof response.data === 'object') {
           const column = Object.keys(response.data.payload[0]);
@@ -110,7 +110,7 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   getOrganizationApplication(){
-    this.crudService.read('api/v1/applications?organization='+ this.organizationId).subscribe((response: any) => {
+    this.crudService.read('applications?organization='+ this.organizationId).subscribe((response: any) => {
       if (response.status_code === 200 || response.status_code === 201) {
         if (response.data && typeof response.data === 'object') {
           const column = Object.keys(response.data.payload[0]);
@@ -187,7 +187,7 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   deleteOrganization(){
-    this.crudService.delete('api/v1/organization', this.organizationId).subscribe((response: any) => {
+    this.crudService.delete('organization', this.organizationId).subscribe((response: any) => {
       if (response.status_code === 200 || response.status_code === 201) {
           console.log("Organization deleted.")
           this.modalService.hide();
@@ -228,7 +228,7 @@ export class OrganizationDetailsComponent implements OnInit {
       path: '/layout/team-member/register',
       organization: this.organizationId
     }
-    this.crudService.create('api/v1/auth/invite', data).subscribe((response: any) => {
+    this.crudService.create('auth/invite', data).subscribe((response: any) => {
       if (response.status_code === 200 || response.status_code === 201) {
           console.log("Admin invited successfully.")
           this.closeModal();
@@ -245,7 +245,7 @@ export class OrganizationDetailsComponent implements OnInit {
     status: this.organizationStatus
    }
 
-   this.crudService.update('api/v1/organization', this.organizationId, data).subscribe((response: any) => {
+   this.crudService.update('organization', this.organizationId, data).subscribe((response: any) => {
       if (response.status_code === 200 || response.status_code === 201) {
           console.log("Organization status updated.");
       } else {

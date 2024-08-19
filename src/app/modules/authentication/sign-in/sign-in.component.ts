@@ -37,34 +37,30 @@ export class SignInComponent {
       control.markAsTouched();
     }
   }
+  
   onSubmit(): void {
-    if (this.signInForm.valid) {
-      const { email, password } = this.signInForm.value;
-      this.authService.signIn(email, password).subscribe((response: any) => {
-        if (response.status_code === 200) {
-          console.log('Login successful:',);
-          const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/layout';
-          this.router.navigateByUrl(returnUrl);
-          const { access_token, refresh_token, access_token_expires } = response.data;
-          this.authService.storeTokens(access_token, refresh_token, access_token_expires);
-          this.router.navigate(['/layout']);
-        } else {
-          console.error('Login failed:', response.message);
-        }
-      }, error => {
-
-        console.error('HTTP error:', error);
-      });
-
-    }
-    this.signInForm.markAllAsTouched();
     if (this.signInForm.invalid) {
-
+      this.signInForm.markAllAsTouched();
       return;
     }
-    console.log(this.signInForm.value);
-    ;
+    const { email, password } = this.signInForm.value;
+    this.authService.signIn(email, password).subscribe((response: any) => {
+      if (response.status_code === 200) {
+        console.log('Login successful:',);
+        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/layout';
+        this.router.navigateByUrl(returnUrl);
+        const { access_token, refresh_token, access_token_expires, user } = response.data;
+        this.authService.storeTokens(access_token, refresh_token, access_token_expires, user);
+        this.router.navigate(['/layout']);
+      } else {
+        console.error('Login failed:', response.message);
+      }
+    }, error => {
+
+      console.error('HTTP error:', error);
+    });
   }
+
   togglePasswordVisibility(): void {
     this.hidePassword = !this.hidePassword;
   }

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./update-team-member.component.scss']
 })
 export class UpdateTeamMemberComponent implements OnInit {
-
+  @Output() successCall = new EventEmitter();
   updateMemberForm!: FormGroup;
   @Input() data!: number;
   membereDAta: any;
@@ -44,8 +44,7 @@ export class UpdateTeamMemberComponent implements OnInit {
         phoneNumber: data.phoneNumber,
         email: data.email
       });
-    // });
-  }
+    }
 
   updateMember(): void {
     if (this.updateMemberForm.invalid) {
@@ -57,6 +56,7 @@ export class UpdateTeamMemberComponent implements OnInit {
     if (this.data) { 
       this.authService.getMemberUpdate(this._id, memberData).subscribe(response => {
         console.log('Member updated successfully', response);
+        this.successCall.emit();
         this.closeModal();
       }, error => {
         console.error('Error updating member', error);

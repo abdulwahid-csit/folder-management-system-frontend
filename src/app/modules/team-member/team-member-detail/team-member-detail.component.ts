@@ -2,8 +2,10 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UpdateTeamMemberComponent } from '../update-team-member/update-team-member.component';
+import { CrudService } from '../../../shared/services/crud.service';
+
 
 @Component({
   selector: 'app-team-member-detail',
@@ -17,11 +19,14 @@ export class TeamMemberDetailComponent implements OnInit {
   changePasswordForm: any;
   id: number | null = null;
   user: any; 
+  userIdToDelete?: number;
 
   constructor(
     private modalService: BsModalService,
     private authService: AuthService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private crudService: CrudService,
+    private router: Router 
   ) { }
 
   ngOnInit(): void {
@@ -69,7 +74,7 @@ export class TeamMemberDetailComponent implements OnInit {
 
   openModal(classes: string) {
     const initialState =  {
-      data: this.user.data // Pass the memberId to the modal component
+      data: this.user.data
     }
     this.modalRef = this.modalService.show(UpdateTeamMemberComponent, {
       class: classes,
@@ -77,16 +82,35 @@ export class TeamMemberDetailComponent implements OnInit {
       keyboard: false,
       initialState
     });
+    this.modalRef.content.successCall.subscribe(() => {
+      this.memberGetById();
+    });
   
   }
-  deleteModal(template: TemplateRef<any>): void {
+  deleteModal(template: TemplateRef<any>, userId: number): void {
+    this.userIdToDelete = userId;
     this.modalRef = this.modalService.show(template, {
       class: 'modal-dialog modal-dialog-centered modal-lg common_modal_shadow',
       backdrop: 'static',
       keyboard: false,
-
     });
-    
+    this.modalRef.content.successCall.subscribe(() => {
+      this.confirmDelete();
+    });
+  }
+  confirmDelete(): void {
+    if (this.userIdToDelete != null) {
+      this.crudService.delete('member', this.userIdToDelete).subscribe(
+        () => {
+           this.closeModal();
+          this.router.navigate(['/layout/team-member']);
+        },
+        (error) => {
+          console.error('Error deleting user:', error);
+         
+        }
+      );
+    }
   }
   
   

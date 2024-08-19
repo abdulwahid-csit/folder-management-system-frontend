@@ -35,14 +35,12 @@ export class CreateOrganizationComponent implements OnInit, AfterViewInit {
     this.organizationForm = this.fb.group({
       name: ['', [Validators.required]],
       domain: ['', [Validators.required]],
-      status: [null]
     });
     
     if (this.itemList && typeof this.itemList === 'object') {
       this.organizationForm.patchValue({
         name: this.itemList.name,
         domain: this.itemList.domain,
-        status: this.itemList.status,
       });
     }
   }
@@ -67,12 +65,7 @@ export class CreateOrganizationComponent implements OnInit, AfterViewInit {
       return;
     }
     if(this.title === 'Create'){
-      const formValue = this.organizationForm.value;
-
-      const { status, ...payload } = formValue;
-
-      this.crudService.create('api/v1/organization', payload).subscribe((response: any) => {
-        console.log(response)
+      this.crudService.create('api/v1/organization', this.organizationForm.value).subscribe((response: any) => {
         if (response.status_code === 200 || response.status_code === 201) {
             console.log("Organization created.")
             this.successCall.emit();

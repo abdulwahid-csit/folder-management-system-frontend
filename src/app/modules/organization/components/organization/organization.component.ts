@@ -44,7 +44,7 @@ export class OrganizationComponent {
   }
 
   getOrganization(){
-    this.crudService.read('api/v1/organization').subscribe((response: any) => {
+    this.crudService.read('organization').subscribe((response: any) => {
       if (response.status_code === 200 || response.status_code === 201) {
         this.store.dispatch(new AddOrganization(response));
         if (response.data.payload.length > 0) {

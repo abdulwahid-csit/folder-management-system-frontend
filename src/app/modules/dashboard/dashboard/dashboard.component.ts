@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { LocalStoreService } from 'src/app/shared/services/local-store.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,6 +18,8 @@ export class DashboardComponent {
   total_records = 7
   modalRef?: BsModalRef;
   searchTerm: string = '';
+
+  userName: string = '';
 
   organizationList: any = []
   dataTable: any = [
@@ -134,10 +137,13 @@ export class DashboardComponent {
     }
   };
 
+  constructor(private localStoreService: LocalStoreService) {}
+
   ngOnInit(): void {
     this.columns = this.dataTable[0]?.data?.columns;
     this.organizationList = this.dataTable[0].data.payload;
-    console.log('list data', this.organizationList)
+
+    this.userName = this.localStoreService.getUserName();
   }
 
 }

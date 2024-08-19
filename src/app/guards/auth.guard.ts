@@ -1,18 +1,18 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { AuthService } from '../shared/services/auth.service';
+import { LocalStoreService } from '../shared/services/local-store.service';
 
 export const authGuard: CanActivateFn = (route, state) => {
-  const authService = inject(AuthService);
+  const localStoreService = inject(LocalStoreService);
   const router = inject(Router);
 
   const redirectUrl = state.url
 
-  if (authService.getAccessToken()) {
+  if (localStoreService.getItem('access_token')) {
     return true;
 
   } else {
-    authService.logout();
+    localStoreService.removeItem();
     router.navigate(['/login'], { queryParams: { returnUrl: redirectUrl } });
     return false;
   }

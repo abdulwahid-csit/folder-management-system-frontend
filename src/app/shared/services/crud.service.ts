@@ -49,7 +49,7 @@ export class CrudService {
   }
 
   delete(endpoint: string, id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${endpoint}/${id}`, { headers: this.getHeaders() })
+    return this.http.delete<void>(`${this.apiUrl}${endpoint}/${id}`, { headers: this.getHeaders() })
       .pipe(catchError(this.handleError));
   }
 

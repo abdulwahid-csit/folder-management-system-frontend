@@ -115,6 +115,16 @@ small {
         right: 30px;
     }
 }
+.iis-logo img {
+    width: 64px; 
+    height: 64px; 
+    object-fit: cover; 
+    border-radius: 10px; 
+}
+.verification-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: -1px;}
 
 ::ng-deep .custom-delete-user-modal{
 

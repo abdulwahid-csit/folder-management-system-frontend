@@ -38,10 +38,10 @@ export class AuthService {
     const body = { email, password };
     return this.http.post(`${environment.apiUrl}auth/signin`, body);
   }
-  // signUp(email:string, password:string, username:string): Observable<any>{
-  //   const body = {email,password,username};
-  //   return this.http.post(`${environment.apiUrl}api/v1/auth/signup`, body);
-  // }
+  signUp(email:string, password:string, username:string): Observable<any>{
+    const body = {email,password,username};
+    return this.http.post(`${environment.apiUrl}auth/signup`, body);
+  }
   getMember(): Observable<any> {
     return this.http.get(`${environment.apiUrl}member`,);
   }

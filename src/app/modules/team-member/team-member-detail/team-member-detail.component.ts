@@ -87,6 +87,7 @@ export class TeamMemberDetailComponent implements OnInit {
     });
   
   }
+
   deleteModal(template: TemplateRef<any>, userId: number): void {
     this.userIdToDelete = userId;
     this.modalRef = this.modalService.show(template, {
@@ -98,6 +99,7 @@ export class TeamMemberDetailComponent implements OnInit {
       this.confirmDelete();
     });
   }
+  
   confirmDelete(): void {
     if (this.userIdToDelete != null) {
       this.crudService.delete('member', this.userIdToDelete).subscribe(

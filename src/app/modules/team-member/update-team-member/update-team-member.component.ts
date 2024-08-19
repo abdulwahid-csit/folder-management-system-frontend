@@ -19,7 +19,7 @@ export class UpdateTeamMemberComponent implements OnInit {
     private modalRef: BsModalRef, private authService: AuthService) { }
 
   ngOnInit() {
-    // this.data = this.modalRef.content?.id;
+    
     this.updateMemberForm = new FormGroup({
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),

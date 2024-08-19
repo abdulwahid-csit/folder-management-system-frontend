@@ -4,31 +4,33 @@
     <span class="color-6F61CF fs-12px mt-1px">Team Members details </span>
 </div>
 <div class="wrapper">
-    <div class="main-div w-100 organization-details-div bg-white  mt-4 custom-shadow">
-        <div class="d-flex">
-            <div class="iis-logo">
-                <img src="../../../../../assets/images/iis.svg" alt="iis">
+  <div class="main-div w-100 organization-details-div bg-white mt-4 custom-shadow">
+    <div class="d-flex">
+        <div class="iis-logo">
+            <img [src]="user?.data?.profile_picture" alt="Profile Picture">
+        </div>
+        <div class="ms-3">
+            <div class="fs-20px fw-700 color-16192C bold-font">
+                {{ getOrganization(user?.data?.organization) || 'N/A' }}
             </div>
-            <div class="ms-3">
-                <div class="fs-20px fw-700 color-16192C bold-font">
-                    Degital Solutions
+            <div class="d-flex mt-1">
+                <div class="link-text fs-12px semi-bold-font color-8492A6">
+                    {{ user?.data?.id || 'N/A' }}
                 </div>
-                <div class="d-flex mt-1">
-                    <div class="link-text fs-12px semi-bold-font color-8492A6">
-                        org_01J3CGASS7GH6W79ECWECK2VYN
-                    </div>
-                    <div class="d-flex ms-4">
-                        <div>
-                            <img src="../../../../../assets/icons/Frame.svg" alt="">
-                        </div>
-                        <div class="ms-1">
-                            <span class="color-8492A6 fs-14px t">johny-smith@4ii Solutions</span>
-                        </div>
+                <div class="d-flex ms-2 align-items-center">
+                    
+                    <img [src]="user?.data?.email_verified ? '../../../../../assets/icons/Frame.svg' : '../../../../../assets/icons/Frame.svg'" 
+                         alt="Verification Status" class="verification-icon">
+                    <div class="ms-1 d-flex align-items-center">
+                        <span class="color-8492A6 fs-14px t">{{ user?.data?.email || 'N/A' }}</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+
 
     <div class="bg-white main-div w-100 settings-tab p-4 mt-4 bg-white custom-shadow semi-bold-font">
         <div class="section">
@@ -40,30 +42,31 @@
                         <tbody>
                             <tr>
                                 <td class="">First Name</td>
-                                <td class="dark-light ">Abdul</td>
+                                <td class="dark-light ">{{ user?.data?.first_name || 'N/A' }}</td>
                             </tr>
                             <tr>
                                 <td class="">Last Name</td>
-                                <td class="dark-light ">Wahid</td>
+                                <td class="dark-light ">{{ user?.data?.last_name || 'N/A' }}</td>
                             </tr>
                             <tr>
                                 <td class="">User Name</td>
-                                <td class="dark-light ">AbdulWahid</td>
+                                <td class="dark-light ">{{ user?.data?.username || 'N/A' }}</td>
                             </tr>
                             <tr>
                                 <td class="">Role</td>
-                                <td class="dark-light ">Owner</td>
+                                <td class="dark-light ">{{ getRole(user?.data?.role) || 'N/A' }}</td>
                             </tr>
                             <tr>
                                 <td class="">Phone Number</td>
-                                <td class="dark-light ">+92345432332</td>
+                                <td class="dark-light ">{{ user?.data?.phoneNumber || 'N/A' }}</td>
                             </tr>
                             <tr>
                                 <td class="">Email Address</td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <img src="../../../../../assets/icons/Frame.svg" alt="Email Icon">
-                                        <span class="dark-light  ms-2">johny-smith@domain.com</span>
+                                         <img [src]="user?.data?.email_verified ? '../../../../../assets/icons/Frame.svg' : '../../../../../assets/icons/Frame.svg'" 
+                                     alt="Verification Status" class="verification-icon">
+                                        <span class="dark-light ">{{ user?.data?.email || 'N/A' }}</span>
                                     </div>
                                 </td>
                             </tr>
@@ -71,16 +74,13 @@
                                 <td class="">Status</td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <span class="custom-badge-warning ps-3 pe-3">Inactive</span>
+                                        <span class="custom-badge-warning ps-3 pe-3">{{ user?.data?.status || 'N/A' }}</span>
                                     </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                     <div class="buttons">
-                        <button class="cancel_btn me-2"
-                            (click)="openModal('modal-dialog modal-dialog-centered modal-md common_modal_shadow', changePassword)">Change
-                            Password</button>
                         <button class="primary_button"
                             (click)="openModal('modal-dialog modal-dialog-centered modal-md common_modal_shadow modal-lg')">Edit
                             Details</button>
@@ -100,12 +100,12 @@
                         Deleting this user is permanent and canot be undone.
                     </div>
                 </div>
-                <div class="mt-4 delete-button">
-                    <button class="btn"
-                        (click)="openModal('modal-dialog modal-dialog-centered modal-lg  custom-delete-user-modal', deleteUser)">Delete
+                <div class="mt-4 delete-button semi-bold-font">
+                    <button class="btn fw-600"
+                        (click)="deleteModal(deleteUser)">Delete
                         User</button>
                 </div>
-            </div>
+            </div>`
         </div>
 
         <ng-template #deleteUser>
@@ -132,7 +132,7 @@
         </ng-template>
 
 
-        <ng-template #changePassword>
+        <!-- <ng-template #changePassword>
             <div class="common_modal">
                 <div class="modal-header border-bottom-0">
                     <h2 class="primary_color mb-0">Change Password</h2>
@@ -175,6 +175,6 @@
                     </form>
                 </div>
             </div>
-        </ng-template>
+        </ng-template> -->
     </div>
 </div>

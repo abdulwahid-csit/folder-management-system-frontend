@@ -26,8 +26,8 @@
                 <td class="align-content-center" *ngIf="data.lastSignedIn">{{data.lastSignedIn}}</td>
                 <td class="align-content-center" *ngIf="data.creationDate">{{data.creationDate}}</td>
             </tr>
-            <tr *ngIf="filterData.length == 0" class="text-center">
-                <td colspan="12" class="font_weight_600">No Search Found</td>
+            <tr *ngIf="filterData.length === 0" class="text-center">
+                <td colspan="columns.length" class="font_weight_600">No Search Found</td>
             </tr>
         </tbody>
     </table>
@@ -58,9 +58,12 @@
         <tr *ngFor="let row of filterData" class="cursor-pointer" (click)="onRowClick(row)">
           <td class="align-content-center" style="font-size: 12px;" *ngFor="let column of columns">
             <ng-container [ngSwitch]="column">
+              <span *ngSwitchCase="'first_name'">{{ row[column]}} {{row['last_name'] }}</span>
               <span *ngSwitchCase="'created_at'">{{ row[column] | date: 'dd-MM-yyyy' }}</span>
               <!-- <a *ngSwitchCase="'domain'" [href]="row[column]" target="_blank">{{ row[column] }}</a> -->
               <span *ngSwitchCase="'status'" [ngClass]="row[column] == 'active' ? 'badge badge-light-success text-capitalize' : 'badge badge-light-warning text-capitalize'">{{row[column]}}</span>
+              <span *ngSwitchCase="'role'">{{getRole(row[column]) || '-'}}</span>
+              <span *ngSwitchCase="'organization'">{{getOrganization(row[column]) || '-'}}</span>
               <span *ngSwitchDefault>{{ row[column] }}</span>
             </ng-container>
           </td>

@@ -47,17 +47,21 @@ export class CreateApplicationComponent implements OnInit {
       control.hasError(validationType) && (control.dirty || control.touched)
     );
   }
-// Getter to access the FormArray
+
 get redirectUriArray(): FormArray {
   return this.applicationForm.get('redirectUri') as FormArray;
 }
 
-// Method to add a new input for URI
+
 addInputUri() {
   this.redirectUriArray.push(new FormControl(''));
 }
+resetInputs(): void {
+  this.redirectUriArray.clear();
+  this.inputUris = [];
+  this.addInputUri();
+}
 
-// Method to remove a URI input by index
 removeInputUri(index: number) {
   this.redirectUriArray.removeAt(index);
 }
@@ -87,9 +91,5 @@ removeInputUri(index: number) {
     this.closeModal();
   }
 
-
-  // addInputUri(){
-  //   this.inputUris.push({value: ''});
-  // }
 
 }

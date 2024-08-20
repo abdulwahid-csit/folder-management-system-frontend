@@ -33,7 +33,7 @@ export class AuthService {
     this.localStoreService.setItem('refresh_token', refreshToken);
     this.localStoreService.setItem('token_expiry', expiryTimestamp.toString());
     this.localStoreService.setItem('user', user);
-            
+
   }
 
   signIn(email: string, password: string): Observable<any> {
@@ -45,7 +45,7 @@ export class AuthService {
   //   const body = {email,password,username};
   //   return this.http.post(`${environment.apiUrl}api/v1/auth/signup`, body);
   // }
-  
+
   getMember(): Observable<any> {
     return this.http.get(`${environment.apiUrl}member`,);
   }
@@ -58,5 +58,10 @@ export class AuthService {
   getMemberUpdate(id: number | string, memberData: number): Observable<any> {
     return this.http.put(`${environment.apiUrl}member/${id}`, memberData );
   }
-  
+  getUserRole(): string {
+
+    const userRole = 'Admin';
+    return userRole;
+  }
+
 }

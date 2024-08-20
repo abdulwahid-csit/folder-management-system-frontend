@@ -13,6 +13,11 @@ export class ApplicationListComponent {
   constructor(private modalService: BsModalService,
     private crudService: CrudService,
   ){}
+  ngOnInit(): void {
+    this.applicationListing()
+
+  }
+
 
   columns:any = []
   applicationList:any = {}
@@ -38,8 +43,10 @@ export class ApplicationListComponent {
     };
 
     applicationListing() {
+
       this.crudService.read('applications').subscribe((response: any) => {
        if (response.status_code === 200 || response.status_code === 201) {
+        console.log("here is the data", response.data)
           if (response.data.payload.length > 0) {
             const column = Object.keys(response.data.payload[0]);
             this.columns = column.filter((column: string) => column !== 'id' &&
@@ -63,13 +70,6 @@ export class ApplicationListComponent {
       }, error => {
         console.error('HTTP error:', error);
       });
-    }
-
-
-
-    ngOnInit(): void {
-      this. applicationListing()
-
     }
 
     createApplication() {

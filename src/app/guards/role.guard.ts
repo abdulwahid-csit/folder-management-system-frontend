@@ -6,6 +6,7 @@ export const roleGuardChild: CanActivateChildFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
+
   const expectedRoles = route.parent?.data['expectedRoles'] as Array<string> || [];
   const userRole = authService.getUserRole();
 
@@ -16,3 +17,4 @@ export const roleGuardChild: CanActivateChildFn = (route, state) => {
   router.navigate(['/unauthorized']);
   return false;
 };
+

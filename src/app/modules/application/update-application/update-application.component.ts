@@ -17,6 +17,10 @@ export class UpdateApplicationComponent implements OnInit {
   applicationForm!: FormGroup
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.applicatonId = params['id'];
+      console.log("here is the id ",this.applicatonId);
+    });
     this.applicationForm = new FormGroup({
       appName: new FormControl('', [Validators.required]),
       appUrl: new FormControl('', [Validators.required]),
@@ -46,21 +50,16 @@ export class UpdateApplicationComponent implements OnInit {
 
   onSubmit(){
 
+
+
     const formData = this.applicationForm.value
 
     if(!this.applicationForm.valid){
       this.applicationForm.markAllAsTouched();
       return;
     }
-    // this.route.paramMap.subscribe(params => {
-    //   const idParam = params.get('id');
-    //   if (idParam) {
-    //     this.applicatonId = 12
-    //   }
-    // });
-    this.applicatonId = 12
-
       this.crudService.update('applications', this.applicatonId ,formData).subscribe((response: any) => {
+
         if (response.status_code === 200 || response.status_code === 201) {
           if (response.data && typeof response.data === 'object') {
             console.log("Data updated");

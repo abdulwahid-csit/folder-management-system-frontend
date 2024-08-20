@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    canActivateChild: [roleGuardChild],
+    // canActivateChild: [roleGuardChild],
     // data: { expectedRoles: ['Master', 'Owner', 'Developer'] },
     children: [
       {

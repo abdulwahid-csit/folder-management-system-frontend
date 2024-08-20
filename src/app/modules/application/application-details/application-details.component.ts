@@ -9,17 +9,25 @@ import { CrudService } from 'src/app/shared/services/crud.service';
   templateUrl: './application-details.component.html',
   styleUrls: ['./application-details.component.scss']
 })
-export class ApplicationDetailsComponent {
+export class ApplicationDetailsComponent  {
   modalRef: any;
   modalOpen: boolean = false;
   selectedTab = 'features';
+  id: any;
 
 
 
 
 constructor(private modalService: BsModalService,
-  private crudService: CrudService, private route: ActivatedRoute,){}
+  private crudService: CrudService, private route: ActivatedRoute,){
+  }
 
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.id = params['id'];
+      console.log(this.id);
+    });
+  }
 
 setSelectedTab(tab: string){
   this.selectedTab = tab;
@@ -44,7 +52,7 @@ setSelectedTab(tab: string){
 
   closeModal(confirm:boolean): void {
     if(confirm){
-      const id = 12;
+      const id = this.id
       this.modalRef?.hide();
       this.modalOpen = false;
       this.crudService.delete('applications', id).subscribe((response: any) => {

@@ -2,6 +2,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from './../../../shared/services/auth.service';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-sign-in',
@@ -9,8 +10,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent {
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router,
-    private route: ActivatedRoute
+  constructor(
+    private fb: FormBuilder, 
+    private authService: AuthService, 
+    private router: Router,
+    private route: ActivatedRoute,
+    private toast: ToastrService
   ) {
 
   }
@@ -46,18 +51,16 @@ export class SignInComponent {
     const { email, password } = this.signInForm.value;
     this.authService.signIn(email, password).subscribe((response: any) => {
       if (response.status_code === 200) {
-        console.log('Login successful:',);
         const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/layout';
         this.router.navigateByUrl(returnUrl);
         const { access_token, refresh_token, access_token_expires, user } = response.data;
         this.authService.storeTokens(access_token, refresh_token, access_token_expires, user);
         this.router.navigate(['/layout']);
       } else {
-        console.error('Login failed:', response.message);
+        this.toast.error(response.message, "Error!");
       }
     }, error => {
-
-      console.error('HTTP error:', error);
+      this.toast.error(error.error.message, "Error!");
     });
   }
 

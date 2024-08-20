@@ -3,8 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { LocalStoreService } from './local-store.service';
-
 
 @Injectable({
   providedIn: 'root'
@@ -15,20 +13,13 @@ export class CrudService {
 
   constructor(
     private http: HttpClient,
-    private localStoreService: LocalStoreService
   ) {}
 
 
   private getHeaders(): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.getToken()}`
     });
-  }
-
-
-  private getToken(): string | null {
-    return  this.localStoreService.getItem('access_token')
   }
 
   create(endpoint: string, data: any): Observable<any> {

@@ -88,4 +88,28 @@ tr {
             font-weight: 600 !important;
         }
     }
+        
 }
+.iis-logo img {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.verification-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: -1px;
+}
+.eye2 {
+    top: 67%;
+    right: 29px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    width: 18px;
+    height: 14px;
+    background-size: cover;
+    background-position: center;
+}
+

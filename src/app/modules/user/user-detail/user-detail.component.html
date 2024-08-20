@@ -8,20 +8,21 @@
     <div class="section">
         <div class="main-div sso_card bg-white p-3 mt-4 ps-4">
             <div class="d-flex flex-wrap">
-                <div class="iis-logo mt-2">
-                    <img src="../../../../assets/images/userimage.svg" alt="User Image" class="img-fluid">
+                <div class="iis-logo ">
+                    <img [src]="userData?.profile_picture" alt="Profile Picture">
                 </div>
                 <div class="ms-3">
                     <div class="mt-1 header-content ms-2 ">
-                        Abdul Basit
+                        {{ userData?.first_name || 'N/A' }} {{ userData?.last_name }}
                     </div>
                     <div class="d-flex mt-2 align-items-center flex-wrap">
                         <div class="custom-badge-dark ps-2 pe-2 dark-light ms-2 semi-bold-fonts">
-                            org_01J3CGASS7GH6W79ECWECK2VYN
+                            {{ userData?.id }}
                         </div>
                         <div class="d-flex ms-4 mt-1 align-items-center">
-                            <img src="../../../../../assets/icons/Frame.svg" alt="Email Icon">
-                            <span class="dark-light fw-600  ms-1">abdulbasit@gmail.com</span>
+                            <img [src]="userData?.email_verified ? '../../../../../assets/icons/Frame.svg' : '../../../../assets/icons/unverified.svg'"
+                                alt="Verification Status" class="verification-icon">
+                            <span class="dark-light fw-600  ms-1">{{ userData?.email || 'N/A' }}</span>
                         </div>
                     </div>
                 </div>
@@ -39,28 +40,28 @@
                     <tbody>
                         <tr>
                             <td class="fw-600 w-200px">First Name</td>
-                            <td class="dark-light fs-12">Abubakar</td>
+                            <td class="dark-light fs-12">{{ userData?.first_name || 'N/A'}}</td>
                         </tr>
                         <tr>
 
                         </tr>
                         <tr>
                             <td class="fw-600 w-200px">Last Name</td>
-                            <td class="dark-light fs-12">Sidique</td>
+                            <td class="dark-light fs-12">{{ userData?.last_name || 'N/A'}}</td>
                         </tr>
                         <tr>
 
                         </tr>
                         <tr>
                             <td class="fw-600 w-200px">User Name</td>
-                            <td class="dark-light  fs-12">Abubakar</td>
+                            <td class="dark-light  fs-12">{{ userData?.username || 'N/A' }}</td>
                         </tr>
                         <tr>
 
                         </tr>
                         <tr>
                             <td class="fw-600 w-200px">Role</td>
-                            <td class="dark-light fs-12">Abubakar</td>
+                            <td class="dark-light fs-12">{{ getRole(userData?.role) || 'N/A' }}</td>
                         </tr>
                         <tr>
 
@@ -69,11 +70,11 @@
                             <td class="fw-600">Permission</td>
                             <td>
                                 <div class="d-flex flex-wrap align-items-center">
-                                    <span class="custom-badge-primary ps-3 pe-3 me-2 fs-12 ">super admin</span>
-                                    <span class="custom-badge-primary ps-3 pe-3 me-2 fs-12 ">Techbar</span>
-                                    <span class="custom-badge-primary ps-3 pe-3 me-2 fs-12 ">mobile sentrix</span>
-                                    <span class="custom-badge-primary ps-3 pe-3 me-2 fs-12 ">knowledge base</span>
-                                    <button class="primary_button custom-button ps-2 pe-3 me-4  "
+                                    <span class="custom-badge-primary ps-3 pe-3 me-2 fs-12"
+                                        *ngFor="let permission of userData?.permissions">
+                                        {{ getPermissions(userData?.permissions) || 'N/A' }}
+                                    </span>
+                                    <button class="primary_button custom-button ps-2 pe-3 me-4"
                                         (click)="openModal(permission)">
                                         <i class="bi bi-plus"></i> Add
                                     </button>
@@ -87,7 +88,14 @@
                             <td class="fs-14 fw-600">Status</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <span class="custom-badge-warning ps-3 pe-3">Inactive</span>
+                                    <span *ngIf="userData?.status === 'active'"
+                                        class="custom-badge-primary ps-3 pe-3">{{ userData?.status ||
+                                        'N/A' }}</span>
+                                    <span *ngIf="userData?.status === 'inactive'"
+                                        class="custom-badge-warning ps-3 pe-3">{{ userData?.status ||
+                                        'N/A' }}</span>
+                                    <span *ngIf="userData?.status !== 'active' && userData?.status !== 'inactive'"
+                                        class="custom-badge-default ps-3 pe-3">{{ userData?.status || 'N/A' }}</span>
                                 </div>
                             </td>
                         </tr>
@@ -98,8 +106,9 @@
                             <td class="fs-14 fw-600">Email Address</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <img src="../../../../../assets/icons/Frame.svg" alt="Email Icon">
-                                    <span class="dark-light fs-14 fw-600 ms-2">Abubakar@example.com</span>
+                                    <img [src]="userData?.email_verified ? '../../../../../assets/icons/Frame.svg' : '../../../../assets/icons/unverified.svg'"
+                                        alt="Verification Status" class="verification-icon">
+                                    <span class="dark-light fs-14 fw-600 ms-2">{{ userData?.email|| 'N/A' }}</span>
                                 </div>
                             </td>
                         </tr>
@@ -212,71 +221,72 @@
 
 <!--change password modal-->
 <ng-template #changepassword>
-    <div class="common_modal">
-        <div class="modal-header border-bottom-0">
-            <h2 class="mb-0">Change Password</h2>
-        </div>
-        <div class="modal-body">
-            <form [formGroup]="passwordForm" (ngSubmit)="onSubmit()">
-                <div class="row">
-                    <div class="input-container">
-                        <label for="" class="label-font required ">Password</label>
-                        <input [ngClass]="{
-              'is-invalid': isControlHasError('password', 'required')
-            }" type="password" class="form-control form-control-lg" formControlName="password"
-                            placeholder="Enter password">
-                        <span *ngIf="isControlHasError('password','required')" class="text-danger fs-8 ps-3">Password is
-                            required</span>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="input-container">
-                        <label for="" class=" label-font required">Confirm password</label>
-                        <input [ngClass]="{
-              'is-invalid': isControlHasError('confirmPassword', 'required')
-            }" type="password" class="form-control form-control-lg" formControlName="confirmPassword"
-                            placeholder="Enter confirm Password">
-                        <span *ngIf="isControlHasError('confirmPassword','required')"
-                            class="text-danger fs-8 ps-3">Confirm password is
-                            required</span>
-                    </div>
-
-                    <div class="modal-footer border-top-0 pb-0 mt-2">
-                        <button type="button" class="cancel_btn fs-12 fw-600 me-2" (click)="onCancel()">Cancel</button>
-                        <button type="submit" class="primary_button fs-14 fw-600">Save</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+  <div class="common_modal">
+    <div class="modal-header border-bottom-0">
+      <h2 class="mb-0">Change Password</h2>
     </div>
+    <div class="modal-body">
+      <form [formGroup]="passwordForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="input-container">
+            <label for="password" class="label-font required">Password</label>
+            <input id="password" type="password" class="form-control" formControlName="password"
+              [ngClass]="{'is-invalid': isControlHasError('password', 'required') || isControlHasError('password', 'minlength')}"
+              placeholder="Enter new password" [type]="hidePassword ? 'password' : 'text'">
+            <i class="eye2 position-absolute" (click)="togglePasswordVisibility()"
+              [ngClass]="{'eye-open': !hidePassword, 'eye-closed': hidePassword}"></i>
+            <span *ngIf="isControlHasError('password', 'required')" class="text-danger fs-8 ps-3 pt-1">Password is required</span>
+            <span *ngIf="isControlHasError('password', 'minlength')" class="text-danger fs-8 ps-3 pt-1">Password must be at least 8 characters</span>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="input-container">
+            <label for="confirmPassword" class="label-font required">Confirm password</label>
+            <input id="confirmPassword" type="password" class="form-control" formControlName="confirmPassword"
+              [ngClass]="{'is-invalid': isControlHasError('confirmPassword', 'required') || (passwordForm.hasError('mismatch') && (passwordForm.get('confirmPassword')?.touched || passwordForm.get('password')?.touched))}"
+              placeholder="Confirm your password" [type]="hideConfirmPassword ? 'password' : 'text'">
+            <span class="eye2 position-absolute" (click)="toggleConfirmPasswordVisibility()"></span>
+            <span *ngIf="isControlHasError('confirmPassword', 'required')" class="text-danger fs-8 ps-3 pt-1">Confirm password is required</span>
+            <span *ngIf="passwordForm.hasError('mismatch') && (passwordForm.get('confirmPassword')?.touched || passwordForm.get('password')?.touched)" class="text-danger fs-8 ps-3 pt-1">Passwords do not match</span>
+          </div>
+
+          <div class="modal-footer border-top-0 pb-0 mt-2">
+            <button type="button" class="cancel_btn fs-12 fw-600 me-2" (click)="onCancel()">Cancel</button>
+            <button type="submit" class="primary_button fs-14 fw-600">Save</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </ng-template>
+
 <!--end password modal-->
 <!--delete user modal-->
 
 <ng-template #deleteUser>
     <div class="modal-dialog-box">
         <div class="p-0">
-          <div class="p-0 modal-header border-bottom-0 d-flex justify-content-center align-items-baseline">
-            <div class="delete-icon"><img src="../../../../assets/icons/delete-icon.svg" alt=""></div>
-          </div>
-          <div class="p-0 modal-body semi-bold-font">
-            <div class="text text-center color-8492A6">Please confirm you really want to delete the
-              user.
-              After clicking yes, the user will
-              be deleted permanently.</div>
-          </div>
-          <div class="p-0 modal-footer border-top-0 d-flex justify-content-center">
-            <div class="buttons d-flex">
-              <button type="buttn" class="cancel_btn me-3" (click)="closeModal()">No, cancel</button>
-              <div class="">
-                <button type="submit" (click)="closeModal()"
-                  class="primary_button btn-delete delete-button-popup btn text-white">Yes, i am
-                  sure</button>
-              </div>
+            <div class="p-0 modal-header border-bottom-0 d-flex justify-content-center align-items-baseline">
+                <div class="delete-icon"><img src="../../../../assets/icons/delete-icon.svg" alt=""></div>
             </div>
-          </div>
+            <div class="p-0 modal-body semi-bold-font">
+                <div class="text text-center color-8492A6">Please confirm you really want to delete the
+                    user.
+                    After clicking yes, the user will
+                    be deleted permanently.</div>
+            </div>
+            <div class="p-0 modal-footer border-top-0 d-flex justify-content-center">
+                <div class="buttons d-flex">
+                    <button type="buttn" class="cancel_btn me-3" (click)="closeModal()">No, cancel</button>
+                    <div class="">
+                        <button type="submit" (click)="closeModal()"
+                            class="primary_button btn-delete delete-button-popup btn text-white">Yes, i am
+                            sure</button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    </div>
 </ng-template>
 
 <!-- end delete user modal-->

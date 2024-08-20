@@ -10,43 +10,34 @@
                 [ngClass]="isControlHasError('applicationName','required')? 'custom-input-error': 'custom-input'">
                 <label for="applicationName" class="mb-1 primary_color required fw-700 semi-bold-fonts">Name</label>
                 <input type="text" class="form-control form-control-lg ps-3 ps-2 fs-14px"
-                    formControlName="applicationName" placeholder="Enter domain name">
+                    formControlName="app_name" placeholder="Enter domain name">
                 <small *ngIf="isControlHasError('applicationName','required')" class="mt-1 fs-14px text-danger">Domain
                     name is
                     required</small>
             </div>
             <div class="mb-4 custom-input">
-                <label for="appUrl" class="mb-1 primary_color  fw-700 semi-bold-fonts">App URL</label> 
+                <label for="appUrl" class="mb-1 primary_color  fw-700 semi-bold-fonts">App URL</label>
                 <input type="text" class="form-control form-control-lg ps-3 fs-14px" placeholder="Enter url"
-                    formControlName="appUrl">
+                    formControlName="url">
                 <!-- <span *ngIf="isControlHasError('domainName','required')" class="text-danger">Domain name is
                     required</span> -->
             </div>
-            <div class="mb-4 custom-input">
-                <span class="fs-14px d-flex justify-content-between"> <label for="redirectUrl" class="mb-1 primary_color  fw-700 semi-bold-fonts">Redirect
-                    URI's</label><span class="add_button" (click)="addInputUri()">+ Add</span> </span>
-                    <p class="color-8492A6 mb-0">Lorem Ipsum adalah contoh teks atau dummy dalam huruf</p>
-                
-                <div class="d-flex">
-                    <input type="text" class="form-control  ps-3 fs-14px" placeholder="Enter URI"
-                        formControlName="redirectUrl">
-                    <!-- <span class="primary_button cursor-pointer plus_button">+</span> -->
-                </div>
-                <!-- <span *ngIf="isControlHasError('domainName','required')" class="text-danger">Domain name is
-                    required</span> -->
+            <div formArrayName="redirectUri">
+              <div *ngFor="let uri of redirectUriArray.controls; let i = index" class="d-flex">
+                <input
+                  type="text"
+                  class="form-control ps-3 fs-14px"
+                  placeholder="Enter URI"
+                  [formControlName]="i"
+                />
+                <span
+                  class="primary_button cursor-pointer plus_button"
+                  (click)="addInputUri()"
+                  >&#x2212;</span
+                >
+              </div>
             </div>
-            <div class="mb-4 custom-input">
-                <!-- <label for="url" class="mb-1 primary_color  fw-700 semi-bold-fonts">Url</label> -->
-                <p class="fs-14px color-8492A6 mb-0 ">Lorem Ipsum adalah contoh teks atau dummy dalam huruf</p>
-                <div class="d-flex">
-                    <input type="text" class="form-control  ps-3 fs-14px" placeholder="Enter URI"
-                        formControlName="url">
-                    <!-- <span class="primary_button cursor-pointer plus_button">+</span> -->
 
-                </div>
-                <!-- <span *ngIf="isControlHasError('domainName','required')" class="text-danger">Domain name is
-                    required</span> -->
-            </div>
             <ng-container *ngIf="inputUris.length <= 5">
             <ng-container *ngFor="let item of inputUris">
                 <div class="mb-4 custom-input">

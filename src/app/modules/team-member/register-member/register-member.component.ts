@@ -28,6 +28,10 @@ export class RegisterMemberComponent implements OnInit {
   constructor(private modalService: BsModalService) { }
 
   ngOnInit() {
+   this.initialize();
+  }
+
+  initialize(){
     this.registerForm = new FormGroup({
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
@@ -37,7 +41,7 @@ export class RegisterMemberComponent implements OnInit {
       password: new FormControl('', [Validators.required]),
     })
   }
-
+  
   setSelectedTab(tab: string){
     this.selectedTab = tab;
   }

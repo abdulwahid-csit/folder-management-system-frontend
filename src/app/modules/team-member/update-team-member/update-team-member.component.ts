@@ -20,6 +20,10 @@ export class UpdateTeamMemberComponent implements OnInit {
 
   ngOnInit() {
     // this.data = this.modalRef.content?.id;
+    this.initialize();
+  }
+
+  initialize(){
     this.updateMemberForm = new FormGroup({
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
@@ -34,7 +38,7 @@ export class UpdateTeamMemberComponent implements OnInit {
       this._id = this.membereDAta.id;
     }
   }
-
+  
   loadMemberData(data: any): void {
     // this.authService.getMemberById(this.data).subscribe(member => {
       this.updateMemberForm.patchValue({

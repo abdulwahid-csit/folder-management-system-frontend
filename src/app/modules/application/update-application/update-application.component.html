@@ -3,7 +3,7 @@
       <h2 class="primary_color mb-0">Edit Application</h2>
   </div>
   <div class="modal-body">
-      <form [formGroup]="organizationForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="applicationForm" (ngSubmit)="onSubmit()">
           <div class="mb-4 position-relative custom-input" [ngClass]="isControlHasError('appName','required')? 'custom-input-error': 'custom-input'">
               <label for="" class="mb-1 primary_color required font_weight_500 required">Name</label>
               <input type="text" class="form-control form-control-lg" formControlName="appName"

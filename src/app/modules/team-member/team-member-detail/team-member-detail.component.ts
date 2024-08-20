@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UpdateTeamMemberComponent } from '../update-team-member/update-team-member.component';
 import { CrudService } from '../../../shared/services/crud.service';
+import { DeleteModalComponent } from 'src/app/shared/components/delete-modal/delete-modal.component';
 
 
 @Component({
@@ -87,17 +88,35 @@ export class TeamMemberDetailComponent implements OnInit {
     });
   
   }
-  deleteModal(template: TemplateRef<any>, userId: number): void {
-    this.userIdToDelete = userId;
-    this.modalRef = this.modalService.show(template, {
-      class: 'modal-dialog modal-dialog-centered modal-lg common_modal_shadow',
+  
+  userDeleteModal(): void {
+    this.userIdToDelete = this.user?.data?.id;
+
+    const initialState = {description: 'Please confirm you really want to delete the member. After clicking yes, the member will be deleted permanently.'};
+    this.modalRef = this.modalService.show(DeleteModalComponent, {
+      class: 'modal-dialog-centered custom-delete-user-modal modal-lg',
       backdrop: 'static',
       keyboard: false,
+      initialState,
     });
-    this.modalRef.content.successCall.subscribe(() => {
+
+    this.modalRef.content.deleteData.subscribe(() => {
       this.confirmDelete();
     });
   }
+
+  // deleteModal(template: TemplateRef<any>, userId: number): void {
+  //   this.userIdToDelete = userId;
+  //   this.modalRef = this.modalService.show(template, {
+  //     class: 'modal-dialog modal-dialog-centered modal-lg common_modal_shadow',
+  //     backdrop: 'static',
+  //     keyboard: false,
+  //   });
+  //   this.modalRef.content.successCall.subscribe(() => {
+  //     this.confirmDelete();
+  //   });
+  // }
+
   confirmDelete(): void {
     if (this.userIdToDelete != null) {
       this.crudService.delete('member', this.userIdToDelete).subscribe(
@@ -112,8 +131,6 @@ export class TeamMemberDetailComponent implements OnInit {
       );
     }
   }
-  
-  
 
   isControlHasError(controlName: any, validationType: string): boolean {
     const control = this.changePasswordForm.controls[controlName];

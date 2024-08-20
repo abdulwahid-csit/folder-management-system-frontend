@@ -1,6 +1,8 @@
 import { Component, TemplateRef } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { UpdateApplicationComponent } from '../update-application/update-application.component';
+import { ActivatedRoute } from '@angular/router';
+import { CrudService } from 'src/app/shared/services/crud.service';
 
 @Component({
   selector: 'app-application-details',
@@ -15,7 +17,8 @@ export class ApplicationDetailsComponent {
 
 
 
-constructor(private modalService: BsModalService){}
+constructor(private modalService: BsModalService,
+  private crudService: CrudService, private route: ActivatedRoute,){}
 
 
 setSelectedTab(tab: string){
@@ -33,15 +36,37 @@ setSelectedTab(tab: string){
     class: classes,
     backdrop: 'static',
     keyboard: false,
-    
+
     });
     this.modalOpen = true;
   }
 
 
-  closeModal(): void {
-    this.modalRef?.hide();
-    this.modalOpen = false;
+  closeModal(confirm:boolean): void {
+    if(confirm){
+      const id = 12;
+      this.modalRef?.hide();
+      this.modalOpen = false;
+      this.crudService.delete('applications', id).subscribe((response: any) => {
+        if (response.status_code === 200 || response.status_code === 201) {
+            console.log("application deleted.")
+
+        } else {
+          console.error('delete failed:', response.message);
+        }
+      }, error => {
+
+        console.error('HTTP error:', error);
+      });
+
+
+
+    }
+    else {
+      this.modalRef?.hide();
+      this.modalOpen = false;
+    }
+
   }
 
   copyId(spanRef: HTMLElement, copySvg: HTMLElement, tickIcon: HTMLElement, selectedInput: HTMLInputElement) {

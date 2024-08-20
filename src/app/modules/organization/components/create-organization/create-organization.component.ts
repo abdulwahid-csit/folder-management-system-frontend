@@ -65,7 +65,7 @@ export class CreateOrganizationComponent implements OnInit, AfterViewInit {
       return;
     }
     if(this.title === 'Create'){
-      this.crudService.create('api/v1/organization', this.organizationForm.value).subscribe((response: any) => {
+      this.crudService.create('organization', this.organizationForm.value).subscribe((response: any) => {
         if (response.status_code === 200 || response.status_code === 201) {
             console.log("Organization created.")
             this.successCall.emit();
@@ -78,7 +78,7 @@ export class CreateOrganizationComponent implements OnInit, AfterViewInit {
         console.error('HTTP error:', error);
       });
     } else if(this.title === 'Edit'){
-      this.crudService.update('api/v1/organization', this.organizationId,this.organizationForm.value).subscribe((response: any) => {
+      this.crudService.update('organization', this.organizationId,this.organizationForm.value).subscribe((response: any) => {
         if (response.status_code === 200 || response.status_code === 201) {
             console.log("Organization updated.");
             this.successCall.emit();

@@ -35,9 +35,9 @@ export class TeamMemberListComponent implements OnInit {
       keyboard: false
       
     });
-    this.modalRef.content.successCall.subscribe(() => {
-      this.memberListing();
-    });
+    // this.modalRef.content.successCall.subscribe(() => {
+    //   this.memberListing();
+    // });
   }
 
  

@@ -21,14 +21,16 @@ export class InviteMemberComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.initialize();
+    this.fetchRoles();
+  }
+
+  initialize(){
     this.inviteForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       role: new FormControl(null, [Validators.required])
     });
-
-    this.fetchRoles();
   }
-
 
   fetchRoles(): void {
     this.crudService.read('access/roles')

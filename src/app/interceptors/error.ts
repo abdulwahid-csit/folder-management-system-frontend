@@ -58,7 +58,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         // });
 
 
-        console.error('HTTP Error:', error);
+        // console.error('HTTP Error:', error);
 
 
         return throwError(error);

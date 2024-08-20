@@ -46,7 +46,7 @@ export class ApplicationListComponent {
 
       this.crudService.read('applications').subscribe((response: any) => {
        if (response.status_code === 200 || response.status_code === 201) {
-        console.log("here is the data", response.data)
+        console.log("here is the data", response.data);
           if (response.data.payload.length > 0) {
             const column = Object.keys(response.data.payload[0]);
             this.columns = column.filter((column: string) => column !== 'id' &&

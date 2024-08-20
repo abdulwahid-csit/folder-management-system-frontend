@@ -33,7 +33,11 @@ export class TeamMemberListComponent implements OnInit {
       class: 'modal-dialog modal-dialog-centered modal-md common_modal_shadow',
       backdrop: 'static',
       keyboard: false
+<<<<<<< HEAD
 
+=======
+      
+>>>>>>> 6f650122d64acdc4d60e2218dd5e3e8b8d641926
     });
     // this.modalRef.content.successCall.subscribe(() => {
     //   this.memberListing();

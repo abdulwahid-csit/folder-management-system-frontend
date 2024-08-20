@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { CrudService } from '../../../shared/services/crud.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-invite-member',
@@ -17,7 +18,8 @@ export class InviteMemberComponent implements OnInit {
 
   constructor(
     private bsModalService: BsModalService,
-    private crudService: CrudService
+    private crudService: CrudService,
+    private toast: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -37,7 +39,7 @@ export class InviteMemberComponent implements OnInit {
       .subscribe(
         (response) => {
           this.roles = response.data.payload
-          console.log("here is the data of APi", this.roles);
+          // console.log("here is the data of APi", this.roles);
         },
         error => {
           console.error('Error fetching roles:', error);
@@ -69,17 +71,19 @@ export class InviteMemberComponent implements OnInit {
       organization: 19
     };
 
-    console.log('Form Submitted:', invitationData);
+    // console.log('Form Submitted:', invitationData);
 
 
     this.crudService.create('auth/invite', invitationData)
       .subscribe(
         response => {
-          console.log('Invite sent successfully', response);
+          this.toast.success(response.message, "Success!")
+          // console.log('Invite sent successfully', response);
           this.closeModal();
         },
         error => {
-          console.error('Error sending invite:', error);
+          this.toast.error(error.error.message, "Error!")
+          // console.error('Error sending invite:', error);
         }
       );
   }

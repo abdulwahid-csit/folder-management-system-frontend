@@ -5,6 +5,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { CrudService } from 'src/app/shared/services/crud.service';
 import { CreateOrganizationComponent } from '../create-organization/create-organization.component';
 import { DeleteModalComponent } from 'src/app/shared/components/delete-modal/delete-modal.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-organization-details',
@@ -46,7 +47,8 @@ export class OrganizationDetailsComponent implements OnInit {
     private modalService: BsModalService, 
     private crudService: CrudService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toast: ToastrService
   ) { }
 
   ngOnInit() {
@@ -189,15 +191,13 @@ export class OrganizationDetailsComponent implements OnInit {
   deleteOrganization(){
     this.crudService.delete('organization', this.organizationId).subscribe((response: any) => {
       if (response.status_code === 200 || response.status_code === 201) {
-          console.log("Organization deleted.")
-          this.modalService.hide();
-          this.router.navigate(['/layout/organization'])
+        this.modalService.hide();
+        this.router.navigate(['/layout/organization'])
       } else {
-        console.error('Organization deleted failed:', response.message);
+        this.toast.error(response.message, "Error!")
       }
     }, error => {
-
-      console.error('HTTP error:', error);
+      this.toast.error(error.error.message, "Error!")
     });
   }
 
@@ -230,13 +230,13 @@ export class OrganizationDetailsComponent implements OnInit {
     }
     this.crudService.create('auth/invite', data).subscribe((response: any) => {
       if (response.status_code === 200 || response.status_code === 201) {
-          console.log("Admin invited successfully.")
+          this.toast.success(response.message, "Success!")
           this.closeModal();
       } else {
-        console.error('Admin invite failed:', response.message);
+        this.toast.error(response.message, "Error!")
       }
     }, error => {
-      console.error('HTTP error:', error);
+      this.toast.error(error.error.message, "Error!")
     });
   }
 
@@ -247,13 +247,12 @@ export class OrganizationDetailsComponent implements OnInit {
 
    this.crudService.update('organization', this.organizationId, data).subscribe((response: any) => {
       if (response.status_code === 200 || response.status_code === 201) {
-          console.log("Organization status updated.");
+        this.toast.success(response.message, "Success!")
       } else {
-        console.error('Organization failed:', response.message);
+        this.toast.error(response.message, "Error!")
       }
     }, error => {
-
-      console.error('HTTP error:', error);
+      this.toast.error(error.error.message, "Error!")
     });
   }
 

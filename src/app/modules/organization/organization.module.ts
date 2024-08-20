@@ -27,7 +27,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
     FormsModule,
     SharedModule,
     NgxsModule.forFeature([OrganizationState]),
-    // InlineSVGModule,
     NgSelectModule
   ]
 })

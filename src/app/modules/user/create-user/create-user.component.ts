@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
 import { CrudService } from 'src/app/shared/services/crud.service';
 
 function numericValidator(control: AbstractControl): ValidationErrors | null {
@@ -23,12 +24,25 @@ export class CreateUserComponent implements OnInit {
   @Input() itemList: any;
 
   isPasswordVisible: boolean = false;
-  userForm: FormGroup;
+  userForm!: FormGroup;
   hidePassword = true;
   isFocused: boolean = false;
   roles: any[] = [];
 
-  constructor(private bsModalService: BsModalService, private fb: FormBuilder, private crudService: CrudService) {
+  constructor(
+    private bsModalService: BsModalService,
+    private fb: FormBuilder,
+    private crudService: CrudService,
+    private toast: ToastrService
+  ) {}
+
+  ngOnInit(): void {
+    this.initialize();
+    this.fetchRoles();
+  }
+
+  initialize() {
+
     this.userForm = this.fb.group({
       firstName: [null, Validators.required],
       lastName: [null, Validators.required],
@@ -38,17 +52,7 @@ export class CreateUserComponent implements OnInit {
       password: [null, Validators.required],
       role: [null, Validators.required],
     });
-  }
 
-  ngOnInit(): void {
-    this.initialize();
-    this.fetchRoles();
-    console.log("Mode: ", this.mode)
-    console.log("id: ", this.userId)
-    console.log("data: ", this.userData)
-  }
-
-  initialize() {
     if (this.mode === 'update' && this.userData) {
       this.userForm.patchValue({
         firstName: this.userData.first_name || '',
@@ -100,15 +104,15 @@ export class CreateUserComponent implements OnInit {
     apiMethod.subscribe(
       (response: any) => {
         if (response.status_code === 200 || response.status_code === 201) {
-          console.log(this.mode === 'create' ? "User created successfully." : "User updated successfully.");
+          this.toast.success(response.message, 'Success!');
           this.successCall.emit();
           this.closeModal();
         } else {
-          console.error('Operation failed:', response.message);
+          this.toast.error(response.message, 'Error!');
         }
       },
       error => {
-        console.error('HTTP error:', error);
+        this.toast.success(error, 'Success!');
       }
     );
   }
@@ -131,7 +135,6 @@ export class CreateUserComponent implements OnInit {
         (response: any) => {
           if (response.status_code === 200) {
             this.roles = response.data.payload;
-            console.log("Roles fetched:", this.roles);
           } else {
             console.error('Failed to fetch roles:', response.message);
           }

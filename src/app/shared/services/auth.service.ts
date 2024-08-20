@@ -9,26 +9,18 @@ import { LocalStoreService } from './local-store.service';
 })
 export class AuthService {
 
-
   constructor(
     private http: HttpClient,
     private localStoreService: LocalStoreService
   ) {
   }
 
-
   storeTokens(accessToken: string, refreshToken: string, expiresIn: string, user: string) {
 
     const expiresInHours = parseInt(expiresIn, 10);
     const expiresInMillis = expiresInHours * 60 * 60 * 1000;
-
-
-    // localStorage.setItem('user', JSON.stringify(user));
-    // localStorage.setItem('access_token', accessToken);
-    // localStorage.setItem('refresh_token', refreshToken);
-
     const expiryTimestamp = new Date().getTime() + expiresInMillis;
-    // localStorage.setItem('token_expiry', expiryTimestamp.toString());
+
     this.localStoreService.setItem('access_token', accessToken);
     this.localStoreService.setItem('refresh_token', refreshToken);
     this.localStoreService.setItem('token_expiry', expiryTimestamp.toString());

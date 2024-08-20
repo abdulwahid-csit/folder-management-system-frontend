@@ -20,14 +20,13 @@ export class HeaderComponent implements OnInit {
 
 
   constructor(
-    private commonService:CommonService, 
+    private commonService:CommonService,
     private router: Router,
     private localStoreService: LocalStoreService
   ){ }
 
 
   ngOnInit(): void {
-    // Listen for route changes to update visibility of settings icon and dashboard flag
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
@@ -76,9 +75,9 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    
+
   }
-  
+
   toggleDropdown() {
     this.isDropdownVisible = !this.isDropdownVisible;
   }

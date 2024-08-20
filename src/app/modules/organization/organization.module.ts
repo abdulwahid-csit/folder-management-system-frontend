@@ -7,7 +7,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { OrganizationComponent } from './components/organization/organization.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-// import { InlineSVGModule } from 'ng-inline-svg';
 import { OrganizationDetailsComponent } from './components/organization-details/organization-details.component';
 import { NgxsModule } from '@ngxs/store';
 import { OrganizationState } from './state/organization.state';
@@ -28,7 +27,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
     FormsModule,
     SharedModule,
     NgxsModule.forFeature([OrganizationState]),
-    // InlineSVGModule,
     NgSelectModule
   ]
 })

@@ -12,7 +12,8 @@
                 <button type="button" class="primary_button ms-2" (click)="createUser()">Create User</button>
             </div>
         </div>
-        <app-data-table [columns]="columns" [config]="tableConfig" [dataSet]="userlist" [searchTerm]="searchTerm"
-            [module]="'user'"></app-data-table>
+        <app-data-table [columns]="columns" [config]="tableConfig" [dataSet]="userList" [searchTerm]="searchTerm"
+            [module]="'user'" (rowClick)="viewUserDetail($event)">
+        </app-data-table>
     </div>
 </div>

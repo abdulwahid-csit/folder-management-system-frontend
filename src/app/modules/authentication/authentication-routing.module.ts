@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import {ToastrModule} from 'ngx-toastr';
+
 import { CreatePasswordComponent } from './create-password/create-password.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { RegisterComponent } from './register/register.component';
@@ -27,7 +29,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [
+    RouterModule.forChild(routes),
+    ToastrModule.forRoot({
+      timeOut: 1000,
+      positionClass: 'toast-top-right'
+    })
+  ],
   exports: [RouterModule]
 })
 export class AuthenticationRoutingModule { }

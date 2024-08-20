@@ -10,12 +10,10 @@ export class LocalStoreService {
 
   constructor() { }
 
-  // Encrypt data
   encrypt(data: string): string {
     return CryptoJS.AES.encrypt(data, this.key).toString();
   }
 
-  // Decrypt data
   decrypt(data: string): string {
     const bytes = CryptoJS.AES.decrypt(data, this.key);
     return bytes.toString(CryptoJS.enc.Utf8);

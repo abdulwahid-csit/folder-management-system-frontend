@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UpdateTeamMemberComponent } from '../update-team-member/update-team-member.component';
 import { CrudService } from '../../../shared/services/crud.service';
 import { DeleteModalComponent } from 'src/app/shared/components/delete-modal/delete-modal.component';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -27,13 +28,13 @@ export class TeamMemberDetailComponent implements OnInit {
     private authService: AuthService,
     private route: ActivatedRoute,
     private crudService: CrudService,
-    private router: Router 
+    private router: Router,
+    private toast: ToastrService, 
   ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.id = Number(params.get('id'));
-      console.log('ID from URL:', this.id);
       this.memberGetById(); 
     });
 
@@ -47,10 +48,7 @@ export class TeamMemberDetailComponent implements OnInit {
     if (this.id) {
       this.authService.getMemberById(this.id).subscribe({
         next: (response: any) => {
-          console.warn(response);
           this.user = response; 
-          console.warn(this.user, 'user data');
-          
         },
         error: (error) => {
           console.error('HTTP error:', error);
@@ -125,7 +123,8 @@ export class TeamMemberDetailComponent implements OnInit {
           this.router.navigate(['/layout/team-member']);
         },
         (error) => {
-          console.error('Error deleting user:', error);
+          // console.error('Error deleting user:', error);
+          this.toast.error("Error deleting user", "Error!")
          
         }
       );

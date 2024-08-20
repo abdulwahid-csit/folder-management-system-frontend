@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
@@ -15,8 +16,13 @@ export class UpdateTeamMemberComponent implements OnInit {
   @Input() data!: number;
   membereDAta: any;
   _id!: string | number;
-  constructor(private modalService: BsModalService, private http: HttpClient,
-    private modalRef: BsModalRef, private authService: AuthService) { }
+  constructor(
+    private modalService: BsModalService, 
+    private http: HttpClient,
+    private modalRef: BsModalRef, 
+    private authService: AuthService,
+    private toast: ToastrService
+  ) { }
 
   ngOnInit() {
     // this.data = this.modalRef.content?.id;
@@ -59,11 +65,11 @@ export class UpdateTeamMemberComponent implements OnInit {
     const memberData = this.updateMemberForm.value;
     if (this.data) { 
       this.authService.getMemberUpdate(this._id, memberData).subscribe(response => {
-        console.log('Member updated successfully', response);
+        this.toast.success(response.message, "Success!");
         this.successCall.emit();
         this.closeModal();
       }, error => {
-        console.error('Error updating member', error);
+        this.toast.error('Error updating member', "Error!");
       });
      
     }

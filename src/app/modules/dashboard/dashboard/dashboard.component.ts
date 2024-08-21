@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { CrudService } from 'src/app/shared/services/crud.service';
 import { LocalStoreService } from 'src/app/shared/services/local-store.service';
 
 @Component({
@@ -21,7 +22,7 @@ export class DashboardComponent {
 
   userName: string = '';
 
-  organizationList: any = []
+  overViewList: any = []
   dataTable: any = [
     {
       data: {
@@ -137,13 +138,25 @@ export class DashboardComponent {
     }
   };
 
-  constructor(private localStoreService: LocalStoreService) {}
+  constructor(
+    private localStoreService: LocalStoreService,
+    private crudService: CrudService
+  ) {}
 
   ngOnInit(): void {
-    this.columns = this.dataTable[0]?.data?.columns;
-    this.organizationList = this.dataTable[0].data.payload;
+    // this.columns = this.dataTable[0]?.data?.columns;
+    // this.organizationList = this.dataTable[0].data.payload;
 
     this.userName = this.localStoreService.getUserName();
+
+    this.getOverview();
   }
 
+  getOverview(){
+    this.crudService.read('dashboard/overview').subscribe((response: any) => {
+      this.overViewList = response.data;
+    }, error => {
+      console.error('HTTP error:', error);
+    });
+  }
 }

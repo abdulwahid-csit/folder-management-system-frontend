@@ -46,8 +46,6 @@ export class HeaderComponent implements OnInit {
 
     this.userName = this.localStoreService.getUserName();
     this.userRole = this.localStoreService.getUserRole();
-    // console.log(this.localStoreService.getItem('user'));
-
   }
 
   toggleSidebar(){
@@ -90,5 +88,8 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.localStoreService.removeItem();
     this.router.navigate(['/login'])
+  }
+  navigate(){
+    this.router.navigate(['layout/dashboard/settings']);
   }
 }

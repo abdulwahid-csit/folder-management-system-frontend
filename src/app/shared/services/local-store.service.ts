@@ -55,12 +55,12 @@ export class LocalStoreService {
   
   getUserProfile(): string {
     const userData = this.getItem('user');
-    return userData.profile_picture;
+    return userData.profile_picture || '../../../../../assets/images/iis.svg';
   }
 
   getUserRole(): string {
     const userData = this.getItem('user');
-    return userData.role.name;
+    return userData.role.name || 'NA';
   }
 
 }

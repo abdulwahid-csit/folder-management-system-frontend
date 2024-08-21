@@ -74,16 +74,17 @@
               </tr>
               <tr>
                 <td class="">Status</td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <span *ngIf="user?.data?.status === 'active'" class="custom-badge-primary ps-3 pe-3">{{
-                      user?.data?.status ||
-                      'N/A' }}</span>
-                    <span *ngIf="user?.data?.status === 'inactive'" class="custom-badge-warning ps-3 pe-3">{{
-                      user?.data?.status ||
-                      'N/A' }}</span>
-                    <span *ngIf="user?.data?.status !== 'active' && user?.data?.status !== 'inactive'"
-                      class="custom-badge-default ps-3 pe-3">{{ user?.data?.status || 'N/A' }}</span>
+                         <td>
+                  <div class="custom-dropdown w-25">
+                    <ng-select class="" #selectElement [ngClass]="{
+                                   'custom-select-focused': isFocused
+                                 }" [(ngModel)]="memberStatus" (focus)="isFocused = true"
+                      (blur)="isFocused = false" (change)="onValueChange()"
+                      placeholder="Select status">
+                      <ng-option value="active">Active</ng-option>
+                      <ng-option value="inactive">Inactive</ng-option>
+                      <ng-option value="blocked">Blocked</ng-option>
+                    </ng-select>
                   </div>
                 </td>
               </tr>

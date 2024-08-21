@@ -12,7 +12,7 @@
             </span>
         </div>
         <div *ngIf="showSettingsIcon" class="d-flex align-items-center justify-content-center settings-icon mx-4">
-            <span class="header_svg  cursor-pointer setting rotate-animate"></span>
+            <span class="header_svg  cursor-pointer setting rotate-animate border-danger " (click)="navigate()"></span>
         </div>
         <div (click)="toggleDropdown()">
             <img class="dropdown-profile-img rounded-circle" [src]="localStoreService.getUserProfile()" alt="">

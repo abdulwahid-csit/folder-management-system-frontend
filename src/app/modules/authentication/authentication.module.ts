@@ -9,6 +9,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { FormsModule } from '@angular/forms'
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { RegisterMemberComponent } from '../team-member/register-member/register-member.component';
 
 
 @NgModule({
@@ -17,7 +18,7 @@ import { RouterModule } from '@angular/router';
     RegisterComponent,
     CreatePasswordComponent,
     ForgotPasswordComponent,
-    
+    RegisterMemberComponent
   ],
   imports: [
     RouterModule,
@@ -25,7 +26,7 @@ import { RouterModule } from '@angular/router';
     SharedModule,
     AuthenticationRoutingModule,
     FormsModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule,
   ],
   exports:[
     SignInComponent,

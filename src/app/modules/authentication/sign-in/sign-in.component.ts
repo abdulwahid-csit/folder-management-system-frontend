@@ -10,6 +10,8 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent {
+  isLoading: boolean = false;
+
   constructor(
     private fb: FormBuilder, 
     private authService: AuthService, 
@@ -49,6 +51,7 @@ export class SignInComponent {
       return;
     }
     const { email, password } = this.signInForm.value;
+    this.isLoading = true;
     this.authService.signIn(email, password).subscribe((response: any) => {
       if (response.status_code === 200) {
         const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/layout';
@@ -59,8 +62,10 @@ export class SignInComponent {
       } else {
         this.toast.error(response.message, "Error!");
       }
+      this.isLoading = false;
     }, error => {
       this.toast.error(error.error.message, "Error!");
+      this.isLoading = false;
     });
   }
 

@@ -33,29 +33,34 @@ export class LocalStoreService {
     const encryptedItem = this.encrypt(item);
     localStorage.setItem(key, encryptedItem);
   }
-  
+
   removeItem(){
     localStorage.clear();
   }
-  
+
   getUserId(): number {
     const userData = this.getItem('user');
     return userData.id;
   }
-  
+
   getUserName(): string {
     const userData = this.getItem('user');
     return userData?.first_name + ' ' + userData?.last_name;
   }
-    
+
   getUserEmail(): string {
     const userData = this.getItem('user');
     return userData.email;
   }
+  
+  getUserProfile(): string {
+    const userData = this.getItem('user');
+    return userData.profile_picture || '../../../../../assets/images/iis.svg';
+  }
 
   getUserRole(): string {
     const userData = this.getItem('user');
-    return userData.role.name;
+    return userData.role.name || 'NA';
   }
 
 }

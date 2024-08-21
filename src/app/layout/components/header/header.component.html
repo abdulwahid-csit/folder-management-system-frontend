@@ -12,16 +12,16 @@
             </span>
         </div>
         <div *ngIf="showSettingsIcon" class="d-flex align-items-center justify-content-center settings-icon mx-4">
-            <span class="header_svg  cursor-pointer setting rotate-animate"></span>
+            <span class="header_svg  cursor-pointer setting rotate-animate border-danger " (click)="navigate()"></span>
         </div>
-        <div class="profile_img" (click)="toggleDropdown()">
-            <img src="../../../../assets/images/profile-img.png" alt="">
+        <div (click)="toggleDropdown()">
+            <img class="dropdown-profile-img rounded-circle" [src]="localStoreService.getUserProfile()" alt="">
         </div>
     </div>
     <div class="card" [class.hidden]="!isDropdownVisible">
         <div class="d-flex col-12 pt-2 ps-3 align-items-center">
             <div class="profile-image-container">
-                <img class="dropdown-profile-img" src="../../../../assets/images/profile-img.png" alt="">
+                <img class="dropdown-profile-img rounded-circle" [src]="localStoreService.getUserProfile()" alt="">
             </div>
             <div class="text-container">
                 <div class="text-header">{{userName}}</div>

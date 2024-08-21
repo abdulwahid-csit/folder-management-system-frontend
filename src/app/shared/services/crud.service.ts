@@ -49,6 +49,6 @@ export class CrudService {
   }
 
   private handleError(error: any): Observable<never> {
-    return throwError(() => new Error('Something went wrong. Please try again later.'));
+    return throwError(() => new Error(error.error.errors[0]));
   }
 }

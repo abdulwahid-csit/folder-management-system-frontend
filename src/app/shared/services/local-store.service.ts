@@ -52,6 +52,11 @@ export class LocalStoreService {
     const userData = this.getItem('user');
     return userData.email;
   }
+  
+  getUserProfile(): string {
+    const userData = this.getItem('user');
+    return userData.profile_picture;
+  }
 
   getUserRole(): string {
     const userData = this.getItem('user');

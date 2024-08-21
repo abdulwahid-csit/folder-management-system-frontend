@@ -9,6 +9,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { FormsModule } from '@angular/forms'
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { RegisterMemberComponent } from '../team-member/register-member/register-member.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 
 
@@ -18,6 +19,7 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
     RegisterComponent,
     CreatePasswordComponent,
     ForgotPasswordComponent,
+    RegisterMemberComponent,
     VerifyEmailComponent
   ],
   imports: [
@@ -26,7 +28,7 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
     SharedModule,
     AuthenticationRoutingModule,
     FormsModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule,
   ],
   exports:[
     SignInComponent,

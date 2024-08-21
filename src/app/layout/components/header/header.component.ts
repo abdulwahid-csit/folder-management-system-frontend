@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private commonService:CommonService,
     private router: Router,
-    private localStoreService: LocalStoreService
+    public localStoreService: LocalStoreService
   ){ }
 
 

@@ -1,0 +1,93 @@
+  .verify-email-container {
+      height: 100vh;
+      width: 100%;
+      background-image: url('../../../../assets/images/login-background.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+  }
+
+  .verify-email-box {
+      background-color: #fff;
+      padding: 56px;
+      border-radius: 16px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      max-width: 480px;
+  }
+
+  .logo img {
+      width: 44px;
+      margin-bottom: 40px;
+  }
+
+  .verify-email-box h2 {
+      font-size: 24px;
+      font-weight: 900;
+      margin-bottom: 8px;
+  }
+
+  .verify-email-box p {
+      font-size: 14px;
+      color: #8492A6;
+      margin-bottom: 38px;
+      font-weight: 500;
+  }
+  .verify-email-box h6{
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  .code-inputs {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 40px;
+  }
+
+  .code-inputs .form-control {
+      width: 46px;
+      height: 46px;
+      text-align: center;
+      font-size: 14px;
+  }
+
+  .btn-block {
+      background-color: #6F61CF;
+      border: none;
+      padding: 10px 16px !important;
+      font-size: 14px;
+      border-radius: 4px;
+      width: 100%;
+      font-weight: 700;
+      margin-bottom: 36px;
+      height: 46px;
+  }
+
+
+  .btn-block:hover {
+      background-color: #6353cd;
+  }
+  .resend{
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .resend a {
+      color: #6f42c1;
+      text-decoration: none;
+  }
+  .resend span{
+    color: #8492A6;
+   
+  }
+
+  .resend a:hover {
+      text-decoration: underline;
+  }
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}

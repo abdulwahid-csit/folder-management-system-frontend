@@ -136,7 +136,7 @@
                 <h5 class="header-content">Delete User Account</h5>
                 <p class="fs-14px dark-light mt-4">Deleting this user is permanent and cannot be undone.</p>
                 <div class="mt-4">
-                    <button class="danger_btn fs-14 fw-600" (click)="deleteModal(deleteUser)">
+                    <button class="danger_btn fs-14 fw-600" (click)="userDeleteModal()" >
                         Delete User
                     </button>
                 </div>
@@ -260,33 +260,7 @@
   </div>
 </ng-template>
 
-<!--end password modal-->
-<!--delete user modal-->
 
-<ng-template #deleteUser>
-    <div class="modal-dialog-box">
-        <div class="p-0">
-            <div class="p-0 modal-header border-bottom-0 d-flex justify-content-center align-items-baseline">
-                <div class="delete-icon"><img src="../../../../assets/icons/delete-icon.svg" alt=""></div>
-            </div>
-            <div class="p-0 modal-body semi-bold-font">
-                <div class="text text-center color-8492A6">Please confirm you really want to delete the
-                    user.
-                    After clicking yes, the user will
-                    be deleted permanently.</div>
-            </div>
-            <div class="p-0 modal-footer border-top-0 d-flex justify-content-center">
-                <div class="buttons d-flex">
-                    <button type="buttn" class="cancel_btn me-3" (click)="closeModal()">No, cancel</button>
-                    <div class="">
-                        <button type="submit" (click)="closeModal()"
-                            class="primary_button btn-delete delete-button-popup btn text-white">Yes, i am
-                            sure</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</ng-template>
 
-<!-- end delete user modal-->
+
+

@@ -2,21 +2,31 @@ import { Component, TemplateRef } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormControl, FormGroup, Validators, } from '@angular/forms';
 import { CreateUserComponent } from '../create-user/create-user.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CrudService } from 'src/app/shared/services/crud.service';
+import { DeleteModalComponent } from 'src/app/shared/components/delete-modal/delete-modal.component';
 @Component({
   selector: 'app-user-detail',
   templateUrl: './user-detail.component.html',
   styleUrls: ['./user-detail.component.scss']
 })
 export class UserDetailComponent {
-  constructor(private modalService: BsModalService, private crudService: CrudService, private route: ActivatedRoute, private bsModalService: BsModalService, private fb: FormBuilder,) { }
+  constructor(private modalService: BsModalService,
+    private crudService: CrudService,
+    private route: ActivatedRoute,
+    private bsModalService: BsModalService,
+    private fb: FormBuilder, 
+    private router: Router) { }
+  
   modalRef: any;
   userData: any;
   userId: number = 0;
+  userIdToDelete?: number;
   hidePassword: boolean = true;
   hideConfirmPassword: boolean = true;
   modalOpen: boolean = false;
+  passwordForm!: FormGroup
+
   openModal(template: TemplateRef<any>): void {
     this.modalRef = this.modalService.show(template, {
       class: 'modal-dialog modal-dialog-centered modal-lg common_modal_shadow',
@@ -26,6 +36,7 @@ export class UserDetailComponent {
     });
     this.modalOpen = true;
   }
+
   openUpdateModal() {
     const initialState = { itemList: this.userData, title: 'Edit', organizationId: this.userId };
     this.modalRef = this.modalService.show(CreateUserComponent, {
@@ -37,18 +48,41 @@ export class UserDetailComponent {
         userData: this.userData
       }
     });
+   }
 
-  }
-  deleteModal(template: TemplateRef<any>): void {
-    this.modalRef = this.modalService.show(template, {
-      class: 'modal-dialog modal-dialog-centered modal-lg custom-delete-user-modal',
+  userDeleteModal(): void {
+    if (!this.userData?.id) {
+      console.error('No user data available for deletion.');
+      return;
+    }
+    this.userIdToDelete = this.userData.id;
+
+    const initialState = { description: 'Please confirm you really want to delete the user. After clicking yes, the user will be deleted permanently.' };
+    this.modalRef = this.modalService.show(DeleteModalComponent, {
+      class: 'modal-dialog-centered custom-delete-user-modal modal-lg',
       backdrop: 'static',
       keyboard: false,
-
+      initialState,
     });
-    this.modalOpen = true;
+
+    this.modalRef.content.deleteData.subscribe(() => {
+      this.confirmDelete();
+    });
   }
-  passwordForm!: FormGroup
+
+  confirmDelete(): void {
+    if (this.userIdToDelete != null) {
+      this.crudService.delete('users', this.userIdToDelete).subscribe(
+        () => {
+          this.closeModal();
+          this.router.navigate(['/layout/user']);
+        },
+        (error) => {
+          console.error('Error deleting user:', error);
+        }
+      );
+    }
+  }
 
   ngOnInit(): void {
     this.initialize();
@@ -58,6 +92,7 @@ export class UserDetailComponent {
     }
 
   }
+
   initialize() {
     this.passwordForm = this.fb.group({
       password: [null, [Validators.required, Validators.minLength(8)]],
@@ -91,6 +126,7 @@ export class UserDetailComponent {
     this.modalRef?.hide();
     this.modalOpen = false;
   }
+
   isControlHasError(controlName: string, validationType: string): boolean {
     const control = this.passwordForm.controls[controlName];
     if (!control) {
@@ -115,7 +151,7 @@ export class UserDetailComponent {
       return;
     }
 
-    this.crudService.update('users', userId, { password }).subscribe(
+    this.crudService.update('users/change-password', userId, { password }).subscribe(
       response => {
         console.log('Password updated successfully', response);
         this.closeModal();

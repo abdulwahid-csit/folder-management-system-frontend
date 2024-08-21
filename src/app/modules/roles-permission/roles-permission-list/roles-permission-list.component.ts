@@ -2,27 +2,23 @@ import { Component } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
 import { CreateRoleComponent } from '../create-role/create-role.component';
+import { CrudService } from 'src/app/shared/services/crud.service';
 @Component({
   selector: 'app-roles-permission-list',
   templateUrl: './roles-permission-list.component.html',
   styleUrls: ['./roles-permission-list.component.scss']
 })
 export class RolesPermissionListComponent {
-  constructor(private modalService: BsModalService, private router: Router) { }
+  constructor(private modalService: BsModalService, private router: Router, private crudService: CrudService,) { }
   columns: any = []
+  roleslist: any = []
   modalRef?: BsModalRef;
   searchTerm: string = '';
-  total_pages = 10;
-  payload_size = 10;
-  current_page = 1
-  has_next = false
-  skipped_records = 0
-  total_records = 7
-  roleslist: any = []
-  
+  activeMenu: string = 'Dashboard';
+
   permissionUser() {
     this.modalRef = this.modalService.show(CreateRoleComponent, {
-      class: 'modal-dialog modal-dialog-centered modal-md common_modal_shadow',
+      class: 'modal-dialog modal-dialog-centered modal-lg common_modal_shadow',
       backdrop: 'static',
       keyboard: false,
       initialState: {
@@ -30,139 +26,51 @@ export class RolesPermissionListComponent {
       }
     });
   }
-  dataTable: any = [
-    {
-      data: {
-        columns: [
-          {
-            name: 'Role NAme',
-          },
-          {
-            name: 'Description',
-          },
-          {
-            name: 'User Count',
-          },
-          {
-            name: 'Created by',
-          },
-          {
-            name: 'Creation Date',
-          }
-        ],
-        payload: [
-          {
-            "id": 1,
-            "name": "Owner",
-            "description": "Lorem ipsum adalah contoh teks atau dummy dalam .....",
-            "domain_verified": false,
-            "created_at": {},
-            "updated_at": {},
-            "is_archive": false,
-            "users": 199,
-            "createdBy": "Hassa-ali",
-            "creationDate": '12-8-2024'
-          },
-          {
-            "id": 1,
-            "name": "Owner",
-            "description": "Lorem ipsum adalah contoh teks atau dummy dalam .....",
-            "domain_verified": false,
-            "created_at": {},
-            "updated_at": {},
-            "is_archive": false,
-            "users": 199,
-            "createdBy": "Hassa-ali",
-            "creationDate": '12-8-2024'
-          },
-          {
-            "id": 1,
-            "name": "Owner",
-            "description": "Lorem ipsum adalah contoh teks atau dummy dalam .....",
-            "domain_verified": false,
-            "created_at": {},
-            "updated_at": {},
-            "is_archive": false,
-            "users": 199,
-            "createdBy": "Hassa-ali",
-            "creationDate": '12-8-2024'
-          },
-          {
-            "id": 1,
-            "name": "Owner",
-            "description": "Lorem ipsum adalah contoh teks atau dummy dalam .....",
-            "domain_verified": false,
-            "created_at": {},
-            "updated_at": {},
-            "is_archive": false,
-            "users": 199,
-            "createdBy": "Hassa-ali",
-            "creationDate": '12-8-2024'
-          },
-          {
-            "id": 1,
-            "name": "Owner",
-            "description": "Lorem ipsum adalah contoh teks atau dummy dalam .....",
-            "domain_verified": false,
-            "created_at": {},
-            "updated_at": {},
-            "is_archive": false,
-            "users": 199,
-            "createdBy": "Hassa-ali",
-            "creationDate": '12-8-2024'
-          },
-          {
-            "id": 1,
-            "name": "Owner",
-            "description": "Lorem ipsum adalah contoh teks atau dummy dalam .....",
-            "domain_verified": false,
-            "created_at": {},
-            "updated_at": {},
-            "is_archive": false,
-            "users": 199,
-            "createdBy": "Hassa-ali",
-            "creationDate": '12-8-2024'
-          },
-          {
-            "id": 1,
-            "name": "Owner",
-            "description": "Lorem ipsum adalah contoh teks atau dummy dalam .....",
-            "domain_verified": false,
-            "created_at": {},
-            "updated_at": {},
-            "is_archive": false,
-            "users": 199,
-            "createdBy": "Hassa-ali",
-            "creationDate": '12-8-2024'
-          },
-          
-        ],
-        paginate_options: {
-          "total_pages": 1,
-          "payload_size": 7,
-          "has_next": false,
-          "current_page": 1,
-          "skipped_records": 0,
-          "total_records": 7
-        }
-      }
-    }
-  ]
+
   tableConfig = {
     paginationParams: {
-      "total_pages": this.total_pages,
-      "payload_size": this.payload_size,
-      "has_next": this.has_next,
-      "current_page": this.current_page,
-      "skipped_records": this.skipped_records,
-      "total_records": this.total_records
+      "total_pages": 0,
+      "payload_size": 0,
+      "has_next": false,
+      "current_page": 0,
+      "skipped_records": 0,
+      "total_records": 0
     }
   };
+
   ngOnInit(): void {
-    this.columns = this.dataTable[0]?.data?.columns;
-    this.roleslist = this.dataTable[0].data.payload
+    this.getRolePermissionListing()
   }
-  activeMenu: string = 'Dashboard';
+
+  getRolePermissionListing() {
+    this.crudService.read('access/roles').subscribe((response: any) => {
+      if (response.status_code === 200 || response.status_code === 201) {
+        if (response.data.payload.length > 0) {
+          const column = Object.keys(response.data.payload[0]);
+          this.columns = column.filter((column: string) => column !== 'id' &&
+            column !== 'email_verified' && column !== 'permissions' && column !== 'timezone'
+            && column !== 'active' && column !== 'organization' && column !== 'last_name');
+          this.roleslist = response.data.payload;
+
+          this.tableConfig = {
+            paginationParams: {
+              "total_pages": response.data.paginate_options.total_pages,
+              "payload_size": response.data.paginate_options.payload_size,
+              "has_next": response.data.paginate_options.has_next,
+              "current_page": response.data.paginate_options.current_page,
+              "skipped_records": response.data.paginate_options.skipped_records,
+              "total_records": response.data.paginate_options.total_records
+            }
+          };
+        }
+      }
+
+    }, error => {
+      console.error('HTTP error:', error);
+    });
+  }
+
+
   setActive(menu: string): void {
     this.activeMenu = menu;
   }

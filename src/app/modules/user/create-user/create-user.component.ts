@@ -23,12 +23,16 @@ export class CreateUserComponent implements OnInit {
   @Input() itemList: any;
 
   isPasswordVisible: boolean = false;
-  userForm: FormGroup;
+  userForm!: FormGroup;
   hidePassword = true;
   isFocused: boolean = false;
   roles: any[] = [];
 
   constructor(private bsModalService: BsModalService, private fb: FormBuilder, private crudService: CrudService) {
+   
+  }
+
+  ngOnInit(): void {
     this.userForm = this.fb.group({
       firstName: [null, Validators.required],
       lastName: [null, Validators.required],
@@ -38,15 +42,9 @@ export class CreateUserComponent implements OnInit {
       password: [null, Validators.required],
       role: [null, Validators.required],
     });
-  }
-
-  ngOnInit(): void {
     this.initialize();
     this.fetchRoles();
-    console.log("Mode: ", this.mode)
-    console.log("id: ", this.userId)
-    console.log("data: ", this.userData)
-  }
+}
 
   initialize() {
     if (this.mode === 'update' && this.userData) {
@@ -100,7 +98,6 @@ export class CreateUserComponent implements OnInit {
     apiMethod.subscribe(
       (response: any) => {
         if (response.status_code === 200 || response.status_code === 201) {
-          console.log(this.mode === 'create' ? "User created successfully." : "User updated successfully.");
           this.successCall.emit();
           this.closeModal();
         } else {
@@ -131,8 +128,7 @@ export class CreateUserComponent implements OnInit {
         (response: any) => {
           if (response.status_code === 200) {
             this.roles = response.data.payload;
-            console.log("Roles fetched:", this.roles);
-          } else {
+            } else {
             console.error('Failed to fetch roles:', response.message);
           }
         },

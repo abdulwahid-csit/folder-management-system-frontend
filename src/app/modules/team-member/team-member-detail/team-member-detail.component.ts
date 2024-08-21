@@ -103,19 +103,7 @@ export class TeamMemberDetailComponent implements OnInit {
     });
   }
 
-  // deleteModal(template: TemplateRef<any>, userId: number): void {
-  //   this.userIdToDelete = userId;
-  //   this.modalRef = this.modalService.show(template, {
-  //     class: 'modal-dialog modal-dialog-centered modal-lg common_modal_shadow',
-  //     backdrop: 'static',
-  //     keyboard: false,
-  //   });
-  //   this.modalRef.content.successCall.subscribe(() => {
-  //     this.confirmDelete();
-  //   });
-  // }
-
-  confirmDelete(): void {
+   confirmDelete(): void {
     if (this.userIdToDelete != null) {
       this.crudService.delete('member', this.userIdToDelete).subscribe(
         () => {

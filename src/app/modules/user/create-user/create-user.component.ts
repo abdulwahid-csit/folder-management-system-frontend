@@ -46,18 +46,19 @@ export class CreateUserComponent implements OnInit {
     this.userForm = this.fb.group({
       firstName: [null, Validators.required],
       lastName: [null, Validators.required],
-      userName: [null, Validators.required],
-      phoneName: [null, [Validators.required, numericValidator]],
+      username: [null, Validators.required],
+      phone: [ '', [Validators.required, numericValidator]],
       email: [null, [Validators.required, Validators.email]],
       password: [null, Validators.required],
       role: [null, Validators.required],
     });
+
     if (this.mode === 'update' && this.userData) {
       this.userForm.patchValue({
         firstName: this.userData.first_name || '',
         lastName: this.userData.last_name || '',
-        userName: this.userData.username || '',
-        phoneName: this.userData.phoneName || '',
+        username: this.userData.username || '',
+        phone: this.userData.phone || '',
         email: this.userData.email || '',
         role: this.userData.roles || '',
       });
@@ -134,7 +135,7 @@ export class CreateUserComponent implements OnInit {
         (response: any) => {
           if (response.status_code === 200) {
             this.roles = response.data.payload;
-            } else {
+          } else {
             console.error('Failed to fetch roles:', response.message);
           }
         },

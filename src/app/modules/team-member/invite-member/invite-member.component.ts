@@ -1,73 +1,97 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { CrudService } from '../../../shared/services/crud.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-invite-member',
   templateUrl: './invite-member.component.html',
-  styleUrls: ['./invite-member.component.scss','../../../css/custpm-dropdown-style.scss']
+  styleUrls: ['./invite-member.component.scss', '../../../css/custpm-dropdown-style.scss']
 })
+
+
 export class InviteMemberComponent implements OnInit {
-  inviteForm: any;
-  modalRef: any;
-  options = [
-    { id: 1, name: 'Option 1' },
-    { id: 2, name: 'Option 2' },
-    { id: 3, name: 'Option 3' }
-  ];
+  inviteForm!: FormGroup;
+  roles: any[] = [];
+  isFocused: boolean = false;
 
-  selectedCar: number = 1;
-
-    cars = [
-        { id: 1, name: 'Volvo' },
-        { id: 2, name: 'Saab' },
-        { id: 3, name: 'Opel' },
-        { id: 4, name: 'Audi' },
-    ];
-
-  selectedOption: any;
-  isFocused!: boolean;
-
-
-  constructor(private bsModalService: BsModalService) { }
+  constructor(
+    private bsModalService: BsModalService,
+    private crudService: CrudService,
+    private toast: ToastrService
+  ) { }
 
   ngOnInit(): void {
+    this.initialize();
+    this.fetchRoles();
+  }
 
+  initialize(){
     this.inviteForm = new FormGroup({
-      email: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       role: new FormControl(null, [Validators.required])
-    })
+    });
+  }
+
+  fetchRoles(): void {
+    this.crudService.read('access/roles')
+      .subscribe(
+        (response) => {
+          this.roles = response.data.payload
+          // console.log("here is the data of APi", this.roles);
+        },
+        error => {
+          console.error('Error fetching roles:', error);
+        }
+      );
   }
 
   closeModal(): void {
     this.bsModalService?.hide();
   }
 
-  isControlHasError(controlName: any, validationType: string): boolean {
+  isControlHasError(controlName: string, validationType: string): boolean {
     const control = this.inviteForm.controls[controlName];
-    if (!control) {
-      return false;
-    }
-    return (
-      control.hasError(validationType) && (control.dirty || control.touched)
-    );
+    return control.hasError(validationType) && (control.dirty || control.touched);
   }
 
-  
-  
-  onSubmit() {
-    if(this.inviteForm.invalid){
+  onSubmit(): void {
+    if (this.inviteForm.invalid) {
       this.inviteForm.markAllAsTouched();
       return;
     }
-    console.log("Form Submitted.")
-  }
-  
 
-  onValueChange() {
+    const formData = this.inviteForm.value;
+
+
+    const invitationData = {
+      ...formData,
+      path: '/layout/team-member/register',
+      organization: 19
+    };
+
+    // console.log('Form Submitted:', invitationData);
+
+
+    this.crudService.create('auth/invite', invitationData)
+      .subscribe(
+        response => {
+          this.toast.success(response.message, "Success!")
+          // console.log('Invite sent successfully', response);
+          this.closeModal();
+        },
+        error => {
+          this.toast.error(error.error.message, "Error!")
+          // console.error('Error sending invite:', error);
+        }
+      );
+  }
+
+  onValueChange(): void {
     const control = this.inviteForm.get('role');
     if (control?.value) {
-      this.isFocused = false; // Reset focus state if value is selected
+      this.isFocused = false;
     }
   }
 }

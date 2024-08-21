@@ -1,32 +1,33 @@
 <div class="p-0 modal-body">
-    <h4 class="fs-20px fw-700 invite-header mb-0">Invite Admin</h4>
-    <form [formGroup]="inviteForm" (ngSubmit)="onSubmit()">
-        <div class="mb-4 custom-input"
-            [ngClass]="isControlHasError('email', 'required') ? 'custom-input-error': 'custom-input'">
-            <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Email </label>
-            <input type="text" class="form-control ps-3 pe-3 form-control-lg fs-14px" id="exampleFormControlInput1"
-                placeholder="Enter email address" formControlName="email">
-            <small *ngIf="isControlHasError('email','required')" class="mt-1 fs-14px text-danger">Email is
-                required</small>
-        </div>
-        <div class="mb-3 custom-dropdown">
-            <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 fs-14px fw-700 required">Role
-            </label>
-            <ng-select class="" #selectElement [ngClass]="{
-               'custom-select-error': isControlHasError('role', 'required'),
-               'custom-select-focused': isFocused
-             }" formControlName="role" (focus)="isFocused = true" (blur)="isFocused = false" (change)="onValueChange()" placeholder="Select role">
-                <ng-option *ngFor="let car of cars" [value]="car.id">{{ car.name
-                    }}</ng-option>
-            </ng-select>
-
-            <small *ngIf="isControlHasError('role','required')" class="mt-1 fs-14px text-danger">Role is
-                required</small>
-        </div>
-        <div class="d-flex justify-content-end mt-4">
-            <button type="button" class="cancel_btn me-2" (click)="closeModal()">Cancel</button>
-            <button type="submit" type="submit" class="primary_button">Invite</button>
-        </div>
-    </form>
-
+  <h4 class="fs-20px fw-700 invite-header mb-0">Invite Admin</h4>
+  <form [formGroup]="inviteForm" (ngSubmit)="onSubmit()">
+    <div class="mb-4 custom-input"
+      [ngClass]="{
+        'custom-input-error': isControlHasError('email', 'required') || isControlHasError('email', 'email'),
+        'custom-input': !isControlHasError('email', 'required') && !isControlHasError('email', 'email')
+      }">
+      <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Email</label>
+      <input type="text" class="form-control ps-3 pe-3 form-control-lg fs-14px" id="exampleFormControlInput1"
+        placeholder="Enter email address" formControlName="email">
+      <small *ngIf="isControlHasError('email', 'required')" class="mt-1 fs-14px text-danger">Email is required</small>
+      <small *ngIf="isControlHasError('email', 'email')" class="mt-1 fs-14px text-danger">Enter a valid email address</small>
+    </div>
+    <div class="mb-3 custom-dropdown">
+      <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Role</label>
+      <ng-select class=""
+        [ngClass]="{
+          'custom-select-error': isControlHasError('role', 'required'),
+          'custom-select': !isControlHasError('role', 'required')
+        }"
+        formControlName="role" (focus)="isFocused = true" (blur)="isFocused = false" (change)="onValueChange()"
+        placeholder="Select role">
+        <ng-option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</ng-option>
+      </ng-select>
+      <small *ngIf="isControlHasError('role', 'required')" class="mt-1 fs-14px text-danger">Role is required</small>
+    </div>
+    <div class="d-flex justify-content-end mt-4">
+      <button type="button" class="cancel_btn me-2" (click)="closeModal()">Cancel</button>
+      <button type="submit" class="primary_button">Invite</button>
+    </div>
+  </form>
 </div>

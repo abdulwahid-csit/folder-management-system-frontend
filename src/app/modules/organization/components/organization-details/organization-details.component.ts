@@ -1,10 +1,11 @@
 import { ChangeDetectorRef, Component, OnInit, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { CrudService } from 'src/app/shared/services/crud.service';
 import { CreateOrganizationComponent } from '../create-organization/create-organization.component';
 import { DeleteModalComponent } from 'src/app/shared/components/delete-modal/delete-modal.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-organization-details',
@@ -17,380 +18,26 @@ export class OrganizationDetailsComponent implements OnInit {
   modalRef: any;
   modalOpen: boolean = false;
   organizationId: number = 0;
-  organizationData: any;
-  // organizationName: string = '';
-  // organizationDomain: string = '';
-  // organizationSlugId: string = '';
-  // organizationStatus: string = '';
-  // organizationLogo: string = '';
+  organizationStatus: string = '';
 
-  columns: any = []
-
-  total_pages = 10;
-  payload_size = 10;
-  current_page = 1
-  has_next = false
-  skipped_records = 0
-  total_records = 7
-  organizationForm!: FormGroup
-  inviteMemberForm!: FormGroup;
-  editOrganizationForm!: FormGroup;
   searchTerm: string = '';
   selectedOption: any;
   isFocused!: boolean;
-  currentStatus = 'active';
 
+  inviteMemberForm!: FormGroup;
 
-  cars = [
-    { id: 1, name: 'Volvo' },
-    { id: 2, name: 'Saab' },
-    { id: 3, name: 'Opel' },
-    { id: 4, name: 'Audi' },
-];
+  organizationData: any;
+  columns: any = []
+  dataTableList: any = []
 
-
-
-  organizationList: any;
-  // dataTable: any = [
-  //   {
-  //     data: {
-  //       columns: [
-  //         {
-  //           name: 'user',
-  //         },
-  //         {
-  //           name: 'Full Name',
-  //         },
-  //         {
-  //           name: 'Role',
-  //         },
-  //         {
-  //           name: 'Status',
-  //         },
-  //         {
-  //           name: 'Last Sign-in',
-  //         },
-  //       ],
-  //       payload: [
-  //         {
-  //           "id": 1,
-  //           "name": "organizations 1",
-  //           "domain": null,
-  //           "domain_verified": false,
-  //           "created_at": {},
-  //           "updated_at": {},
-  //           "is_archive": false,
-  //           "total_no_of_application": 15,
-  //           "users": 199,
-  //           "status": 'active',
-
-  //         },
-  //         {
-  //           "id": 3,
-  //           "name": "organizations 1",
-  //           "domain": "https://adminv2-dev.techbar.com/auth/login",
-  //           "domain_verified": false,
-  //           "created_at": {},
-  //           "updated_at": {},
-  //           "is_archive": false,
-  //           "total_no_of_application": 10,
-  //           "users": 588,
-  //           "status": 'inactive',
-  //           "creationDate": '01-8-2024'
-  //         },
-  //         {
-  //           "id": 7,
-  //           "name": "organizations 67",
-  //           "domain": "http://kham.ai",
-  //           "domain_verified": false,
-  //           "created_at": {},
-  //           "updated_at": {},
-  //           "is_archive": false,
-  //           "total_no_of_application": 1,
-  //           "users": 900,
-  //           "status": 'active',
-
-  //         },
-  //         {
-  //           "id": 9,
-  //           "name": "created",
-  //           "domain": "http://kham.ai",
-  //           "domain_verified": false,
-  //           "created_at": {},
-  //           "updated_at": {},
-  //           "is_archive": false,
-  //           "total_no_of_application": 14,
-  //           "users": 189,
-  //           "status": 'inactive',
-
-  //         },
-  //         {
-  //           "id": 8,
-  //           "name": "created updated 8",
-  //           "domain": "http://kham.bi",
-  //           "domain_verified": false,
-  //           "created_at": {},
-  //           "updated_at": {},
-  //           "is_archive": false,
-  //           "total_no_of_application": 7,
-  //           "users": 130,
-  //           "status": 'active',
-
-  //         },
-  //         {
-  //           "id": 11,
-  //           "name": "organization 01",
-  //           "domain": "http://web.ai",
-  //           "domain_verified": false,
-  //           "created_at": {},
-  //           "updated_at": {},
-  //           "is_archive": false,
-  //           "total_no_of_application": 10,
-  //           "users": 150,
-  //           "status": 'inactive',
-
-  //         },
-  //         {
-  //           "id": 10,
-  //           "name": "backend development",
-  //           "domain": "http://backend.dev",
-  //           "domain_verified": false,
-  //           "created_at": {},
-  //           "updated_at": {},
-  //           "is_archive": true,
-  //           "total_no_of_application": 1,
-  //           "users": 114,
-  //           "status": 'active',
-
-  //         }
-  //       ],
-  //       paginate_options: {
-  //         "total_pages": 1,
-  //         "payload_size": 7,
-  //         "has_next": false,
-  //         "current_page": 1,
-  //         "skipped_records": 0,
-  //         "total_records": 7
-  //       }
-  //     }
-  //   }
-  // ];
-
-  applicationColumns: any = [
-    {
-      name: 'Name',
-    },
-    {
-      name: 'App id',
-    },
-    {
-      name: 'Url',
-    },
-    {
-      name: 'Creation Date',
-    },
-  ];
-
-  usersColumns: any = [];
-  usersList: any = []
-  userDataTable: any = [
-    {
-      data: {
-        columns: [
-          {
-            name: 'user',
-          },
-          {
-            name: 'Full Name',
-          },
-          {
-            name: 'Role',
-          },
-          {
-            name: 'Status',
-          },
-          {
-            name: 'Last Sign-in',
-          },
-        ],
-        payload: [
-
-          {
-            "id": 3,
-            "name": "Wahid",
-            "fullName": "Abdul Basit",
-            "role": "Admin",
-            "status": 'active',
-            "creationDate": 'May 24, 2023',
-          },
-          {
-            "id": 3,
-            "name": "Wahid",
-            "fullName": "Abdul Basit",
-            "role": "Admin",
-            "status": 'active',
-            "creationDate": 'May 24, 2023',
-          },
-          {
-            "id": 3,
-            "name": "Wahid",
-            "fullName": "Abdul Basit",
-            "role": "Admin",
-            "status": 'active',
-            "creationDate": 'May 24, 2023',
-          },
-          {
-            "id": 3,
-            "name": "Wahid",
-            "fullName": "Abdul Basit",
-            "role": "Admin",
-            "status": 'active',
-            "creationDate": 'May 24, 2023',
-          },
-          {
-            "id": 3,
-            "name": "Wahid",
-            "fullName": "Abdul Basit",
-            "role": "Admin",
-            "status": 'active',
-            "creationDate": 'May 24, 2023',
-          },
-          {
-            "id": 3,
-            "name": "Wahid",
-            "fullName": "Abdul Basit",
-            "role": "Admin",
-            "status": 'active',
-            "creationDate": 'May 24, 2023',
-          },
-          {
-            "id": 3,
-            "name": "Wahid",
-            "fullName": "Abdul Basit",
-            "role": "Admin",
-            "status": 'active',
-            "creationDate": 'May 24, 2023',
-          },
-          {
-            "id": 3,
-            "name": "Wahid",
-            "fullName": "Abdul Basit",
-            "role": "Admin",
-            "status": 'active',
-            "creationDate": 'May 24, 2023',
-          },
-          {
-            "id": 3,
-            "name": "Wahid",
-            "fullName": "Abdul Basit",
-            "role": "Admin",
-            "status": 'active',
-            "creationDate": 'May 24, 2023',
-          },
-        ]
-      }
-    }
-  ];
-
-  applicationColumn: any = [];
-  applicationList: any = [];
-  applicationDataTable: any = [
-    {
-      data: {
-        columns: [
-          {
-            name: 'Name',
-          },
-          {
-            name: 'App Id',
-          },
-          {
-            name: 'Url',
-          },
-          {
-            name: 'Creation Date',
-          },
-
-        ],
-        payload: [
-
-          {
-            "id": 3,
-            "name": "Digital solutions",
-            "appId": "734832942349234",
-            "appUrl": "4iisolutions.com",
-            "creationDate": 'May 24, 2023',
-          },
-          {
-            "id": 3,
-            "name": "Digital solutions",
-            "appId": "734832942349234",
-            "appUrl": "4iisolutions.com",
-            "creationDate": 'May 24, 2023',
-          },
-          {
-            "id": 3,
-            "name": "Digital solutions",
-            "appId": "734832942349234",
-            "appUrl": "4iisolutions.com",
-            "creationDate": 'May 24, 2023',
-          },
-          {
-            "id": 3,
-            "name": "Digital solutions",
-            "appId": "734832942349234",
-            "appUrl": "4iisolutions.com",
-            "creationDate": 'May 24, 2023',
-          },
-          {
-            "id": 3,
-            "name": "Digital solutions",
-            "appId": "734832942349234",
-            "appUrl": "4iisolutions.com",
-            "creationDate": 'May 24, 2023',
-          },
-          {
-            "id": 3,
-            "name": "Digital solutions",
-            "appId": "734832942349234",
-            "appUrl": "4iisolutions.com",
-            "creationDate": 'May 24, 2023',
-          },
-          {
-            "id": 3,
-            "name": "Digital solutions",
-            "appId": "734832942349234",
-            "appUrl": "4iisolutions.com",
-            "creationDate": 'May 24, 2023',
-          },
-          {
-            "id": 3,
-            "name": "Digital solutions",
-            "appId": "734832942349234",
-            "appUrl": "4iisolutions.com",
-            "creationDate": 'May 24, 2023',
-          },
-          {
-            "id": 3,
-            "name": "Digital solutions",
-            "appId": "734832942349234",
-            "appUrl": "4iisolutions.com",
-            "creationDate": 'May 24, 2023',
-          },
-
-        ]
-      }
-    }
-  ]
-  // assign the data from api like total_pages, payload_size
   tableConfig = {
     paginationParams: {
-      "total_pages": this.total_pages,
-      "payload_size": this.payload_size,
-      "has_next": this.has_next,
-      "current_page": this.current_page,
-      "skipped_records": this.skipped_records,
-      "total_records": this.total_records
+      "total_pages": 0,
+      "payload_size": 0,
+      "has_next": false,
+      "current_page": 0,
+      "skipped_records": 0,
+      "total_records": 0
     }
   };
 
@@ -398,70 +45,38 @@ export class OrganizationDetailsComponent implements OnInit {
 
   constructor(
     private modalService: BsModalService, 
-    private cdr: ChangeDetectorRef,
     private crudService: CrudService,
     private route: ActivatedRoute,
+    private router: Router,
+    private toast: ToastrService
   ) { }
 
   ngOnInit() {
-    // this.columns = this.dataTable[0]?.data?.columns;
-    // this.organizationList = this.dataTable[0].data.payload;
-    
-    this.usersColumns = this.userDataTable[0]?.data?.columns;
-    this.usersList = this.userDataTable[0].data.payload;
-
-    this.applicationColumn = this.applicationDataTable[0]?.data?.columns;
-    this.applicationList = this.applicationDataTable[0].data.payload;
-
-
-    this.organizationForm = new FormGroup({
-      organizationName: new FormControl('', [Validators.required]),
-      domainName: new FormControl('', [Validators.required])
-    })
-
+    this.initialize();
+    this.getOrganization();
+  }
+  
+  initialize(){
     this.inviteMemberForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email])
     })
-
-    this.editOrganizationForm = new FormGroup({
-      name: new FormControl('', [Validators.required]),
-      domain: new FormControl('', [Validators.required]),
-      status: new FormControl('', [Validators.required])
-    })
-
-    this.getOrganization();
+  
   }
 
   getOrganization(){
     this.route.paramMap.subscribe(params => {
       const idParam = params.get('id');
-      
       if (idParam) {
         this.organizationId = +idParam;
       }
-      
-      
-      this.crudService.read('api/v1/organization/'+ this.organizationId).subscribe((response: any) => {
-        // console.log(response.data)
+
+      this.crudService.read('organization/'+ this.organizationId).subscribe((response: any) => {
         if (response.status_code === 200 || response.status_code === 201) {
           if (response.data && typeof response.data === 'object') {
             const column = Object.keys(response.data);
             this.columns = column.filter((column: string) => column !== 'id' && column !== 'logo');
-            this.organizationList = response.data;
             this.organizationData = response.data;
-            // this.organizationDomain = response.data.domain;
-            // this.organizationSlugId = response.data.org_id;
-            // this.organizationStatus = response.data.status;
-            // this.organizationLogo = response.data.logo;
-          //   {
-          //     "id": 3,
-          //     "name": "testing",
-          //     "domain": "http://test.com",
-          //     "domain_verified": false,
-          //     "org_id": "org_1d014096-9941-44ed-891b-ea59b1c55a9b",
-          //     "logo": "https://ui-avatars.com/api/?name=abc&size=512&background=F22A37&font-size=0.45",
-          //     "status": "active",
-          // }
+            this.organizationStatus = response.data.status;
           }
         } 
       }, error => {
@@ -470,12 +85,67 @@ export class OrganizationDetailsComponent implements OnInit {
     });
   }
 
+  getOrganizationUsers(){
+    this.crudService.read('users?organization='+ this.organizationId).subscribe((response: any) => {
+      if (response.status_code === 200 || response.status_code === 201) {
+        if (response.data && typeof response.data === 'object') {
+          const column = Object.keys(response.data.payload[0]);
+          this.columns = column.filter((column: string) => column !== 'id' && column !== 'email_verified' && column !== 'updated_at' && column !== 'last_name'
+                && column !== 'organization' && column !== 'timezone' && column !== 'profile_picture' && column !== 'roles' && column !== 'permissions');
+          this.dataTableList = response.data.payload;
+          
+          this.tableConfig = {
+            paginationParams: {
+              "total_pages": response.data.paginate_options.total_pages,
+              "payload_size": response.data.paginate_options.payload_size,
+              "has_next": response.data.paginate_options.has_next,
+              "current_page": response.data.paginate_options.current_page,
+              "skipped_records": response.data.paginate_options.skipped_records,
+              "total_records": response.data.paginate_options.total_records
+            }
+          };
+        }
+      } 
+    }, error => {
+      console.error('HTTP error:', error);
+    });
+  }
+
+  getOrganizationApplication(){
+    this.crudService.read('applications?organization='+ this.organizationId).subscribe((response: any) => {
+      if (response.status_code === 200 || response.status_code === 201) {
+        if (response.data && typeof response.data === 'object') {
+          const column = Object.keys(response.data.payload[0]);
+          this.columns = column.filter((column: string) => column !== 'id' && column !== 'created_by' && column !== 'updated_by' && column !== 'updated_at' && column !== 'organization');
+          this.dataTableList = response.data.payload;
+          
+          this.tableConfig = {
+            paginationParams: {
+              "total_pages": response.data.paginate_options.total_pages,
+              "payload_size": response.data.paginate_options.payload_size,
+              "has_next": response.data.paginate_options.has_next,
+              "current_page": response.data.paginate_options.current_page,
+              "skipped_records": response.data.paginate_options.skipped_records,
+              "total_records": response.data.paginate_options.total_records
+            }
+          };
+        }
+      } 
+    }, error => {
+      console.error('HTTP error:', error);
+    });
+  }
+
   setSelectedTab(tab: string) {
     this.selectedTab = tab;
-    if (tab === 'applications') {
-      this.columns = this.applicationColumns;
-    } else {
-      // this.columns = this.columns = this.dataTable[0]?.data?.columns;
+    this.columns = [];
+    this.dataTableList =  [];
+    this.searchTerm = '';
+
+    if (tab === 'application') {
+      this.getOrganizationApplication();
+    } else if (tab === 'user') {
+      this.getOrganizationUsers();
     }
   }
 
@@ -491,7 +161,7 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   organizationModal(): void {
-    const initialState = {itemList: this.organizationList, title: 'Edit', organizationId: this.organizationId};
+    const initialState = {itemList: this.organizationData, title: 'Edit', organizationId: this.organizationId};
     this.modalRef = this.modalService.show(CreateOrganizationComponent, {
       class: 'modal-dialog-centered common_modal_shadow',
       backdrop: 'static',
@@ -505,24 +175,35 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   organizationDeleteModal(): void {
-    // const initialState = {itemList: this.organizationList, title: 'Edit', organizationId: this.organizationId};
+    const initialState = {description: 'Please confirm you really want to delete the organization. After clicking yes, the organization will be deleted permanently.'};
     this.modalRef = this.modalService.show(DeleteModalComponent, {
       class: 'modal-dialog-centered custom-delete-user-modal modal-lg',
       backdrop: 'static',
       keyboard: false,
-      // initialState,
+      initialState,
     });
 
-    // this.modalRef.content.successCall.subscribe(() => {
-    //   this.getOrganization();
-    // });
+    this.modalRef.content.deleteData.subscribe(() => {
+      this.deleteOrganization();
+    });
   }
 
+  deleteOrganization(){
+    this.crudService.delete('organization', this.organizationId).subscribe((response: any) => {
+      if (response.status_code === 200 || response.status_code === 201) {
+        this.modalService.hide();
+        this.router.navigate(['/layout/organization'])
+      } else {
+        this.toast.error(response.message, "Error!")
+      }
+    }, error => {
+      this.toast.error(error.error.message, "Error!")
+    });
+  }
 
   closeModal(): void {
     this.modalRef?.hide();
     this.modalOpen = false;
-    this.editOrganizationForm.reset();
   }
 
 
@@ -538,28 +219,41 @@ export class OrganizationDetailsComponent implements OnInit {
 
 
   onInviteAdmin() {
-    this.inviteMemberForm.markAllAsTouched();
     if (this.inviteMemberForm.invalid) {
+      this.inviteMemberForm.markAllAsTouched();
       return;
     }
-    console.log("Person invited.");
-  }
-
-
-  onEditOrganization() {
-
-    if (this.organizationForm.invalid) {
-      this.editOrganizationForm.markAllAsTouched()
-      this.cdr.detectChanges()
-      return;
+    const data = {
+      email: this.inviteMemberForm.get('email')?.value,
+      path: '/layout/team-member/register',
+      organization: this.organizationId
     }
-    console.log("Form is submitted.")
-    this.cdr.detectChanges()
+    this.crudService.create('auth/invite', data).subscribe((response: any) => {
+      if (response.status_code === 200 || response.status_code === 201) {
+          this.toast.success(response.message, "Success!")
+          this.closeModal();
+      } else {
+        this.toast.error(response.message, "Error!")
+      }
+    }, error => {
+      this.toast.error(error.error.message, "Error!")
+    });
   }
-
 
   onValueChange() {
-   
+   const data = {
+    status: this.organizationStatus
+   }
+
+   this.crudService.update('organization', this.organizationId, data).subscribe((response: any) => {
+      if (response.status_code === 200 || response.status_code === 201) {
+        this.toast.success(response.message, "Success!")
+      } else {
+        this.toast.error(response.message, "Error!")
+      }
+    }, error => {
+      this.toast.error(error.error.message, "Error!")
+    });
   }
 
 

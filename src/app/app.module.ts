@@ -12,6 +12,7 @@ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { AuthInterceptor } from './interceptors/auth';
 import { ErrorInterceptor } from './interceptors/error';
+import {ToastrModule} from 'ngx-toastr';
 
 import { NgxsModule } from '@ngxs/store';
 import { NgxsStoragePluginModule, STORAGE_ENGINE } from '@ngxs/storage-plugin';
@@ -37,8 +38,14 @@ import { OrganizationState } from './modules/organization/state/organization.sta
     NgxsModule.forRoot([OrganizationState]),
     NgxsStoragePluginModule.forRoot({
       keys: ['organizations']
+    }),
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+      progressBar: true,
+      tapToDismiss: true,
     })
-
 
   ],
   providers: [

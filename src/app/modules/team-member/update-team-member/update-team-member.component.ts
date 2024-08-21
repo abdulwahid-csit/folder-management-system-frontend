@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
@@ -10,16 +11,25 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./update-team-member.component.scss']
 })
 export class UpdateTeamMemberComponent implements OnInit {
-
+  @Output() successCall = new EventEmitter();
   updateMemberForm!: FormGroup;
   @Input() data!: number;
   membereDAta: any;
   _id!: string | number;
-  constructor(private modalService: BsModalService, private http: HttpClient,
-    private modalRef: BsModalRef, private authService: AuthService) { }
+  constructor(
+    private modalService: BsModalService, 
+    private http: HttpClient,
+    private modalRef: BsModalRef, 
+    private authService: AuthService,
+    private toast: ToastrService
+  ) { }
 
   ngOnInit() {
     // this.data = this.modalRef.content?.id;
+    this.initialize();
+  }
+
+  initialize(){
     this.updateMemberForm = new FormGroup({
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
@@ -34,7 +44,7 @@ export class UpdateTeamMemberComponent implements OnInit {
       this._id = this.membereDAta.id;
     }
   }
-
+  
   loadMemberData(data: any): void {
     // this.authService.getMemberById(this.data).subscribe(member => {
       this.updateMemberForm.patchValue({
@@ -44,8 +54,7 @@ export class UpdateTeamMemberComponent implements OnInit {
         phoneNumber: data.phoneNumber,
         email: data.email
       });
-    // });
-  }
+    }
 
   updateMember(): void {
     if (this.updateMemberForm.invalid) {
@@ -56,10 +65,11 @@ export class UpdateTeamMemberComponent implements OnInit {
     const memberData = this.updateMemberForm.value;
     if (this.data) { 
       this.authService.getMemberUpdate(this._id, memberData).subscribe(response => {
-        console.log('Member updated successfully', response);
+        this.toast.success(response.message, "Success!");
+        this.successCall.emit();
         this.closeModal();
       }, error => {
-        console.error('Error updating member', error);
+        this.toast.error('Error updating member', "Error!");
       });
      
     }

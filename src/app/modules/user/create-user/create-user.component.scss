@@ -15,5 +15,22 @@
   color: black;
   height: 37px;
   border-left: 1px solid #151616;
-  margin: 0 0.5rem;
+  margin: 1px 25px;
+}
+.eye2 {
+    top: 58%;
+      right: 98px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      width: 18px;
+      height: 14px;
+     
+    }
+
+.eye-open {
+  background-image: url('../../../../assets/icons/eye-hide.svg');
+}
+
+.eye-closed {
+  background-image: url('../../../../assets//icons/EYE-3.svg');
 }

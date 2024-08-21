@@ -112,4 +112,15 @@ tr {
     background-size: cover;
     background-position: center;
 }
+.model {
+    width: 100%;
+    height: auto;
+}
+
+.scrollable-content {
+    max-height: 460px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+}
 

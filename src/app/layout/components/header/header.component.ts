@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
 
 
   constructor(
-    private commonService:CommonService, 
+    private commonService:CommonService,
     private router: Router,
     private localStoreService: LocalStoreService
   ){ }
@@ -38,14 +38,16 @@ export class HeaderComponent implements OnInit {
     })
 
     this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)  // Only pass NavigationEnd events
+      filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
-      // Check if the current URL is for the details page
-      this.isDetailsPage = event.urlAfterRedirects.includes('/details'); // Adjust this path to your details route
+
+      this.isDetailsPage = event.urlAfterRedirects.includes('/details');
     })
 
     this.userName = this.localStoreService.getUserName();
     this.userRole = this.localStoreService.getUserRole();
+    // console.log(this.localStoreService.getItem('user'));
+
   }
 
   toggleSidebar(){
@@ -73,9 +75,9 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    
+
   }
-  
+
   toggleDropdown() {
     this.isDropdownVisible = !this.isDropdownVisible;
   }

@@ -30,8 +30,8 @@ export class CreateUserComponent implements OnInit {
   roles: any[] = [];
 
   constructor(
-    private bsModalService: BsModalService, 
-    private fb: FormBuilder, 
+    private bsModalService: BsModalService,
+    private fb: FormBuilder,
     private crudService: CrudService,
     private toast: ToastrService
   ) {}

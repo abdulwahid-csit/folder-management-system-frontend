@@ -27,7 +27,6 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit(): void {
-    // Listen for route changes to update visibility of settings icon and dashboard flag
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
@@ -47,8 +46,6 @@ export class HeaderComponent implements OnInit {
 
     this.userName = this.localStoreService.getUserName();
     this.userRole = this.localStoreService.getUserRole();
-    // console.log(this.localStoreService.getItem('user'));
-
   }
 
   toggleSidebar(){

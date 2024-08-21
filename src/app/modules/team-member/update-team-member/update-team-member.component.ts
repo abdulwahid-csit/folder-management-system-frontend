@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
 import { CrudService } from 'src/app/shared/services/crud.service';
 
 @Component({
@@ -12,14 +13,15 @@ import { CrudService } from 'src/app/shared/services/crud.service';
 export class UpdateTeamMemberComponent implements OnInit {
   @Output() successCall = new EventEmitter<void>();
   updateMemberForm!: FormGroup;
-  @Input() data!: any; // Assuming data is an object containing member information
-  memberId!: number; // Ensure memberId is of type number
-
+  @Input() data!: any;
+  memberId!: number;
+    
   constructor(
-    private modalService: BsModalService,
+    private modalService: BsModalService, 
     private http: HttpClient,
     private modalRef: BsModalRef,
-    private crudService: CrudService
+    private crudService: CrudService,
+    private toast: ToastrService
   ) { }
 
   ngOnInit() {
@@ -62,15 +64,15 @@ export class UpdateTeamMemberComponent implements OnInit {
       this.crudService.update('member', this.memberId, memberData).subscribe(
         (response: any) => {
           if (response.status_code === 200) {
-            console.log('Member updated successfully', response);
+            this.toast.success(response.message, "Success!");
             this.successCall.emit();
             this.closeModal();
           } else {
-            console.error('Error updating member:', response.message);
+            this.toast.error('Error updating member', "Error!");
           }
         },
         error => {
-          console.error('HTTP error:', error);
+          this.toast.error('Error updating member', "Error!");
         }
       );
     }

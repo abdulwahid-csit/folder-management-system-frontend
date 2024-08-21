@@ -38,10 +38,10 @@ export class HeaderComponent implements OnInit {
     })
 
     this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)  // Only pass NavigationEnd events
+      filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
-      // Check if the current URL is for the details page
-      this.isDetailsPage = event.urlAfterRedirects.includes('/details'); // Adjust this path to your details route
+
+      this.isDetailsPage = event.urlAfterRedirects.includes('/details');
     })
 
     this.userName = this.localStoreService.getUserName();

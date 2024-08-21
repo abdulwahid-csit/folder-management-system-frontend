@@ -1,8 +1,10 @@
 import { Component, TemplateRef } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { UpdateApplicationComponent } from '../update-application/update-application.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CrudService } from 'src/app/shared/services/crud.service';
+import { DeleteModalComponent } from 'src/app/shared/components/delete-modal/delete-modal.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-application-details',
@@ -13,19 +15,21 @@ export class ApplicationDetailsComponent  {
   modalRef: any;
   modalOpen: boolean = false;
   selectedTab = 'features';
-  id: any;
+  applicationID: any;
 
 
 
 
 constructor(private modalService: BsModalService,
-  private crudService: CrudService, private route: ActivatedRoute,){
+  private crudService: CrudService, private route: ActivatedRoute,
+private router: Router,
+private toast: ToastrService){
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.id = params['id'];
-      console.log(this.id);
+      this.applicationID = params['id'];
+      console.log(this.applicationID);
     });
   }
 
@@ -38,44 +42,57 @@ setSelectedTab(tab: string){
   }
 }
 
-
-  openModal(template: TemplateRef<any>, classes: string): void {
-    this.modalRef = this.modalService.show(template, {
-    class: classes,
+applicationDeleteModal(): void {
+  const initialState = {description: 'Please confirm you really want to delete the organization. After clicking yes, the organization will be deleted permanently.'};
+  this.modalRef = this.modalService.show(DeleteModalComponent, {
+    class: 'modal-dialog-centered custom-delete-user-modal modal-lg',
     backdrop: 'static',
     keyboard: false,
+    initialState,
+  });
 
-    });
-    this.modalOpen = true;
-  }
+  this.modalRef.content.deleteData.subscribe(() => {
+    this.deleteApplication();
+  });
+}
 
-
-  closeModal(confirm:boolean): void {
-    if(confirm){
-      const id = this.id
-      this.modalRef?.hide();
-      this.modalOpen = false;
-      this.crudService.delete('applications', id).subscribe((response: any) => {
-        if (response.status_code === 200 || response.status_code === 201) {
-            console.log("application deleted.")
-
-        } else {
-          console.error('delete failed:', response.message);
-        }
-      }, error => {
-
-        console.error('HTTP error:', error);
-      });
-
-
-
+deleteApplication(){
+  this.crudService.delete('applications', this.applicationID).subscribe((response: any) => {
+    if (response.status_code === 200 || response.status_code === 201) {
+      this.modalService.hide();
+      this.router.navigate(['/layout/applications'])
+    } else {
+      this.toast.error(response.message, "Error!")
     }
-    else {
-      this.modalRef?.hide();
-      this.modalOpen = false;
-    }
+  }, error => {
+    this.toast.error(error.error.message, "Error!")
+  });
+}
 
-  }
+  // openModal(template: TemplateRef<any>, classes: string): void {
+  //   this.modalRef = this.modalService.show(template, {
+  //   class: classes,
+  //   backdrop: 'static',
+  //   keyboard: false,
+
+  //   });
+  //   this.modalOpen = true;
+  // }
+
+
+  // closeModal(confirm:boolean): void {
+  //   if(confirm){
+
+  //     this.modalRef?.hide();
+  //     this.modalOpen = false;
+
+  //   }
+  //   else {
+  //     this.modalRef?.hide();
+  //     this.modalOpen = false;
+  //   }
+
+  // }
 
   copyId(spanRef: HTMLElement, copySvg: HTMLElement, tickIcon: HTMLElement, selectedInput: HTMLInputElement) {
     copySvg?.classList.add('d-none');
@@ -99,7 +116,11 @@ setSelectedTab(tab: string){
 
 
   editApplication(){
+    const initialState = {
+      applicationId: this.applicationID,
+    };
     this.modalRef = this.modalService.show(UpdateApplicationComponent, {
+      initialState,
       class: 'modal-dialog modal-dialog-centered modal-md common_modal_shadow',
       backdrop: 'static',
       keyboard: false,

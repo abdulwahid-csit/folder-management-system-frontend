@@ -10,21 +10,26 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./update-application.component.scss']
 })
 export class UpdateApplicationComponent implements OnInit {
-  applicatonId: any | undefined;
+  receivedID: any | undefined;
+  applicationId: any;
+  inputUris: Array<{value: string}> = [];
   constructor(private bsModeService: BsModalService, private fb: FormBuilder,
     private crudService: CrudService, private route: ActivatedRoute,
   ) { }
   applicationForm!: FormGroup
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.applicatonId = params['id'];
-      console.log("here is the id ",this.applicatonId);
-    });
+    console.log('Received application ID:', this.applicationId);
+    // this.route.params.subscribe(params => {
+    //   this.applicatonId = params['id'];
+    //   console.log("here is the id ",this.applicatonId);
+    // });
+    this.receivedID = this.applicationId
     this.applicationForm = new FormGroup({
       appName: new FormControl('', [Validators.required]),
       appUrl: new FormControl('', [Validators.required]),
       redirectUri: new FormArray([new FormControl('')]),
+      // redirectUri: new FormControl ([],)
     })
   }
 
@@ -33,6 +38,19 @@ export class UpdateApplicationComponent implements OnInit {
   }
 
 
+  get redirectUriArray(): FormArray {
+    return this.applicationForm.get('redirectUri') as FormArray;
+  }
+
+
+  addInputUri() {
+    this.redirectUriArray.push(new FormControl(''));
+  }
+  resetInputs(): void {
+    this.redirectUriArray.clear();
+    this.inputUris = [];
+    this.addInputUri();
+  }
 
   isControlHasError(controlName: any, validationType: string): boolean {
     const control = this.applicationForm.controls[controlName];
@@ -49,16 +67,13 @@ export class UpdateApplicationComponent implements OnInit {
   }
 
   onSubmit(){
-
-
-
     const formData = this.applicationForm.value
 
     if(!this.applicationForm.valid){
       this.applicationForm.markAllAsTouched();
       return;
     }
-      this.crudService.update('applications', this.applicatonId ,formData).subscribe((response: any) => {
+      this.crudService.update('applications', this.receivedID ,formData).subscribe((response: any) => {
 
         if (response.status_code === 200 || response.status_code === 201) {
           if (response.data && typeof response.data === 'object') {

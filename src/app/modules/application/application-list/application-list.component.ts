@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ApplicationDetailsComponent } from '../application-details/application-details.component';
 import { CreateApplicationComponent } from '../create-application/create-application.component';
+import { CrudService } from 'src/app/shared/services/crud.service';
 
 @Component({
   selector: 'app-application-list',
@@ -9,9 +10,17 @@ import { CreateApplicationComponent } from '../create-application/create-applica
   styleUrls: ['./application-list.component.scss']
 })
 export class ApplicationListComponent {
+  constructor(private modalService: BsModalService,
+    private crudService: CrudService,
+  ){}
+  ngOnInit(): void {
+    this.applicationListing()
+
+  }
+
 
   columns:any = []
-
+  applicationList:any = {}
   total_pages = 10;
   payload_size = 10;
   current_page = 1
@@ -20,142 +29,8 @@ export class ApplicationListComponent {
   total_records = 7
   modalRef?: BsModalRef;
   searchTerm: string = '';
-  
-  organizationList:any = []
-    dataTable:any = [
-      {
-        data: {
-            columns:[
-              {
-                name: 'Name',
-              },
-              {
-                name: 'Organization',
-              },
-              {
-                name: 'App ID',
-              },
-              {
-                name: 'url',
-              },
-              {
-                name: 'status',
-              },
-              {
-                name: 'Creation Date',
-              }
-            ],
-            payload: [
-                {
-                    "id": 1,
-                    "name": "Ideal innovative solutions",
-                    "organization": "Ideal innovative solutions",
-                    "appId": "734832942349234",
-                    "appUrl": "4iisolutions.com",
-                    "domain_verified": false,
-                    "created_at": {},
-                    "updated_at": {},
-                    "is_archive": false,
-                    "status": 'active',
-                    "creationDate": '12-8-2024'
-                },
-                {
-                    "id": 1,
-                    "name": "Ideal innovative solutions",
-                    "organization": "Ideal innovative solutions",
-                    "appId": "734832942349234",
-                    "appUrl": "4iisolutions.com",
-                    "domain_verified": false,
-                    "created_at": {},
-                    "updated_at": {},
-                    "is_archive": false,
-                    "status": 'active',
-                    "creationDate": '12-8-2024'
-                },
-                {
-                    "id": 1,
-                    "name": "Ideal innovative solutions",
-                    "organization": "Ideal innovative solutions",
-                    "appId": "734832942349234",
-                    "appUrl": "4iisolutions.com",
-                    "domain_verified": false,
-                    "created_at": {},
-                    "updated_at": {},
-                    "is_archive": false,
-                    "status": 'active',
-                    "creationDate": '12-8-2024'
-                },
-                {
-                    "id": 1,
-                    "name": "Ideal innovative solutions",
-                    "organization": "Ideal innovative solutions",
-                    "appId": "734832942349234",
-                    "appUrl": "4iisolutions.com",
-                    "domain_verified": false,
-                    "created_at": {},
-                    "updated_at": {},
-                    "is_archive": false,
-                    "status": 'active',
-                    "creationDate": '12-8-2024'
-                },
-                {
-                    "id": 1,
-                    "name": "Ideal innovative solutions",
-                    "organization": "Ideal innovative solutions",
-                    "appId": "734832942349234",
-                    "appUrl": "4iisolutions.com",
-                    "domain_verified": false,
-                    "created_at": {},
-                    "updated_at": {},
-                    "is_archive": false,
-                    "status": 'active',
-                    "creationDate": '12-8-2024'
-                },
-                {
-                    "id": 1,
-                    "name": "Ideal innovative solutions",
-                    "organization": "Ideal innovative solutions",
-                    "appId": "734832942349234",
-                    "appUrl": "4iisolutions.com",
-                    "domain_verified": false,
-                    "created_at": {},
-                    "updated_at": {},
-                    "is_archive": false,
-                    "status": 'active',
-                    "creationDate": '12-8-2024'
-                },
-                {
-                    "id": 1,
-                    "name": "Ideal innovative solutions",
-                    "organization": "Ideal innovative solutions",
-                    "appId": "734832942349234",
-                    "appUrl": "4iisolutions.com",
-                    "domain_verified": false,
-                    "created_at": {},
-                    "updated_at": {},
-                    "is_archive": false,
-                    "status": 'active',
-                    "creationDate": '12-8-2024'
-                },
-                {
-                    "id": 1,
-                    "name": "Ideal innovative solutions",
-                    "organization": "Ideal innovative solutions",
-                    "appId": "734832942349234",
-                    "appUrl": "4iisolutions.com",
-                    "domain_verified": false,
-                    "created_at": {},
-                    "updated_at": {},
-                    "is_archive": false,
-                    "status": 'active',
-                    "creationDate": '12-8-2024'
-                },
-              ]
-        }
-    }
-    ]
-  
-    // assign the data from api like total_pages, payload_size
+
+
     tableConfig = {
       paginationParams: {
         "total_pages": this.total_pages,
@@ -167,12 +42,34 @@ export class ApplicationListComponent {
       }
     };
 
+    applicationListing() {
 
-    constructor(private modalService: BsModalService){}
-  
-    ngOnInit(): void {
-      this.columns = this.dataTable[0]?.data?.columns;
-      this.organizationList = this.dataTable[0].data.payload
+      this.crudService.read('applications').subscribe((response: any) => {
+       if (response.status_code === 200 || response.status_code === 201) {
+        console.log("here is the data", response.data);
+          if (response.data.payload.length > 0) {
+            const column = Object.keys(response.data.payload[0]);
+            this.columns = column.filter((column: string) => column !== 'id' &&
+              column !== 'email_verified' && column !== 'permissions' && column !== 'timezone' &&
+              column !== 'username' && column !== 'updated_at' && column !== 'profile_picture' && column !== 'last_name');
+            this.applicationList = response.data.payload;
+
+            this.tableConfig = {
+              paginationParams: {
+                "total_pages": response.data.paginate_options.total_pages,
+                "payload_size": response.data.paginate_options.payload_size,
+                "has_next": response.data.paginate_options.has_next,
+                "current_page": response.data.paginate_options.current_page,
+                "skipped_records": response.data.paginate_options.skipped_records,
+                "total_records": response.data.paginate_options.total_records
+              }
+            };
+          }
+        }
+
+      }, error => {
+        console.error('HTTP error:', error);
+      });
     }
 
     createApplication() {

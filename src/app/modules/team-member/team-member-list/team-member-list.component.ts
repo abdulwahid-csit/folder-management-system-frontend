@@ -19,9 +19,9 @@ export class TeamMemberListComponent implements OnInit {
 
   constructor(
     private modalService: BsModalService,
-    
+
     private crudService: CrudService,
-  
+
   ) { }
 
   ngOnInit(): void {
@@ -33,17 +33,18 @@ export class TeamMemberListComponent implements OnInit {
       class: 'modal-dialog modal-dialog-centered modal-md common_modal_shadow',
       backdrop: 'static',
       keyboard: false
-      
+
     });
     // this.modalRef.content.successCall.subscribe(() => {
     //   this.memberListing();
     // });
   }
 
- 
+
   memberListing() {
     this.crudService.read('member').subscribe((response: any) => {
      if (response.status_code === 200 || response.status_code === 201) {
+      console.log("here is the data", response.data);
         if (response.data.payload.length > 0) {
           const column = Object.keys(response.data.payload[0]);
           this.columns = column.filter((column: string) => column !== 'id' &&

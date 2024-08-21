@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService } from 'src/app/shared/services/auth.service';
+import { CrudService } from 'src/app/shared/services/crud.service';
 
 @Component({
   selector: 'app-update-team-member',
@@ -11,25 +11,24 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./update-team-member.component.scss']
 })
 export class UpdateTeamMemberComponent implements OnInit {
-  @Output() successCall = new EventEmitter();
+  @Output() successCall = new EventEmitter<void>();
   updateMemberForm!: FormGroup;
-  @Input() data!: number;
-  membereDAta: any;
-  _id!: string | number;
+  @Input() data!: any;
+  memberId!: number;
+    
   constructor(
     private modalService: BsModalService, 
     private http: HttpClient,
-    private modalRef: BsModalRef, 
-    private authService: AuthService,
+    private modalRef: BsModalRef,
+    private crudService: CrudService,
     private toast: ToastrService
   ) { }
 
   ngOnInit() {
-    // this.data = this.modalRef.content?.id;
     this.initialize();
   }
 
-  initialize(){
+  initialize() {
     this.updateMemberForm = new FormGroup({
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
@@ -37,24 +36,22 @@ export class UpdateTeamMemberComponent implements OnInit {
       phoneNumber: new FormControl('', [Validators.required]),
       email: new FormControl({ value: '', disabled: true })
     });
-   
+
     if (this.data) {
-      this.membereDAta = this.data;
+      this.memberId = Number(this.data.id); // Ensure memberId is a number
       this.loadMemberData(this.data);
-      this._id = this.membereDAta.id;
     }
   }
-  
+
   loadMemberData(data: any): void {
-    // this.authService.getMemberById(this.data).subscribe(member => {
-      this.updateMemberForm.patchValue({
-        firstName: data.first_name,
-        lastName: data.last_name,
-        username: data.username,
-        phoneNumber: data.phoneNumber,
-        email: data.email
-      });
-    }
+    this.updateMemberForm.patchValue({
+      firstName: data.first_name,
+      lastName: data.last_name,
+      username: data.username,
+      phoneNumber: data.phoneNumber,
+      email: data.email
+    });
+  }
 
   updateMember(): void {
     if (this.updateMemberForm.invalid) {
@@ -63,30 +60,30 @@ export class UpdateTeamMemberComponent implements OnInit {
     }
 
     const memberData = this.updateMemberForm.value;
-    if (this.data) { 
-      this.authService.getMemberUpdate(this._id, memberData).subscribe(response => {
-        this.toast.success(response.message, "Success!");
-        this.successCall.emit();
-        this.closeModal();
-      }, error => {
-        this.toast.error('Error updating member', "Error!");
-      });
-     
+    if (this.memberId !== undefined) {
+      this.crudService.update('member', this.memberId, memberData).subscribe(
+        (response: any) => {
+          if (response.status_code === 200) {
+            this.toast.success(response.message, "Success!");
+            this.successCall.emit();
+            this.closeModal();
+          } else {
+            this.toast.error('Error updating member', "Error!");
+          }
+        },
+        error => {
+          this.toast.error('Error updating member', "Error!");
+        }
+      );
     }
   }
 
-  isControlHasError(controlName: any, validationType: string): boolean {
+  isControlHasError(controlName: string, validationType: string): boolean {
     const control = this.updateMemberForm.controls[controlName];
-    if (!control) {
-      return false;
-    }
-    return (
-      control.hasError(validationType) && (control.dirty || control.touched)
-    );
+    return control?.hasError(validationType) && (control.dirty || control.touched);
   }
 
   closeModal() {
-    this.modalService.hide();
+    this.modalRef.hide();
   }
-
 }

@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms'
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { RegisterMemberComponent } from '../team-member/register-member/register-member.component';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { RegisterMemberComponent } from '../team-member/register-member/register
     RegisterComponent,
     CreatePasswordComponent,
     ForgotPasswordComponent,
-    RegisterMemberComponent
+    RegisterMemberComponent,
+    VerifyEmailComponent
   ],
   imports: [
     RouterModule,
@@ -32,7 +34,8 @@ import { RegisterMemberComponent } from '../team-member/register-member/register
     SignInComponent,
     RegisterComponent,
     CreatePasswordComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    VerifyEmailComponent
   ]
 })
 export class AuthenticationModule { }

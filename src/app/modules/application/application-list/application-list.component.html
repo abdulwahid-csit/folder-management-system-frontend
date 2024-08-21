@@ -14,7 +14,6 @@
                     Application</button>
             </div>
         </div>
-        <app-data-table [columns]="columns" [config]="tableConfig" [dataSet]="organizationList"
-            [module]="'application'"></app-data-table>
-    </div>
+            <app-data-table [columns]="columns" [config]="tableConfig" [dataSet]="applicationList"
+            [searchTerm]="searchTerm" [module]="'application'"></app-data-table>
 </div>

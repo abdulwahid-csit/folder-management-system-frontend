@@ -33,21 +33,21 @@ export class LocalStoreService {
     const encryptedItem = this.encrypt(item);
     localStorage.setItem(key, encryptedItem);
   }
-  
+
   removeItem(){
     localStorage.clear();
   }
-  
+
   getUserId(): number {
     const userData = this.getItem('user');
     return userData.id;
   }
-  
+
   getUserName(): string {
     const userData = this.getItem('user');
     return userData?.first_name + ' ' + userData?.last_name;
   }
-    
+
   getUserEmail(): string {
     const userData = this.getItem('user');
     return userData.email;

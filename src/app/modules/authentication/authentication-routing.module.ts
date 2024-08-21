@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import {ToastrModule} from 'ngx-toastr';
 
 import { CreatePasswordComponent } from './create-password/create-password.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { RegisterComponent } from './register/register.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { RegisterMemberComponent } from '../team-member/register-member/register-member.component';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
 
 
 const routes: Routes = [
@@ -29,11 +31,19 @@ const routes: Routes = [
   { path: 'confirm/:id',
     component: RegisterMemberComponent
   },
+  {
+    path: "verify-email",
+    component: VerifyEmailComponent
+  }
 ];
 
 @NgModule({
   imports: [
     RouterModule.forChild(routes),
+    ToastrModule.forRoot({
+      timeOut: 1000,
+      positionClass: 'toast-top-right'
+    })
   ],
   exports: [RouterModule]
 })

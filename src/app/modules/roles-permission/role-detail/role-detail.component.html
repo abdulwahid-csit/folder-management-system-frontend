@@ -1,125 +1,85 @@
 <div class="path d-flex pt-1 bg-white ps-4 custom-shadow semi-bold-font">
-    <span class="color-8492A6 fs-12px mt-1px cursor-pointer" routerLink="/layout/roles">Roles & Permission</span>
-    <span class="mx-1"><img class="mb-1" src="../../../../assets/icons/chevron-right.svg" alt=""></span>
-    <span class="color-6F61CF fs-12px mt-1px">Roles & Permission details </span>
+  <span class="color-8492A6 fs-12px mt-1px cursor-pointer" routerLink="/layout/roles">Roles & Permission</span>
+  <span class="mx-1"><img class="mb-1" src="../../../../assets/icons/chevron-right.svg" alt=""></span>
+  <span class="color-6F61CF fs-12px mt-1px">Roles & Permission details </span>
 </div>
 <div class="ps-4 pe-4">
-    <!-- First Section -->
-    <div class="section">
-        <div class="sso_card bg-white p-3 mt-4 ps-4">
-            <div class="pt-1">
-                <h5 class="mb-4 header-content">Role Details</h5>
-                <hr class="mt-4 mb-2 me-2 custom-hr">
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <td class="fw-600 w-200px">Role Name</td>
-                            <td class="dark-light fs-12   ">Abubakar</td>
-                        </tr>
-                        <tr>
-                            <td class="fw-600">Description</td>
-                            <td class="dark-light fs-12 ">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga
-                                quae dolorum consequatur molestias, enim accusamus voluptatum, saepe officia ducimus
-                                inventore quod eveniet ea natus, maxime atque. Iste voluptatibus quis nihil.</td>
-                        </tr>
-                        <tr>
-                            <td class="fw-600">Permission</td>
-                            <td>
-                                <div class="d-flex flex-wrap align-items-center">
-                                    <span class="custom-badge-primary ps-3 pe-3 me-2 fs-12">super admin</span>
-                                    <span class="custom-badge-primary ps-3 pe-3 me-2 fs-12">Techbar</span>
-                                    <span class="custom-badge-primary ps-3 pe-3 me-2 fs-12">mobile sentrix</span>
-                                    <span class="custom-badge-primary ps-3 pe-3 me-2 fs-12">knowledge base</span>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="modal-footer border-0 d-flex justify-content-start mt-2">
-                    <button class="primary_button fs-14 fw-600" (click)="openUpdateModal()">
-                        Edit Detail
-                    </button>
+  <!-- First Section -->
+  <div class="section">
+    <div class="sso_card bg-white p-3 mt-4 ps-4">
+      <div class="pt-1">
+        <h5 class="mb-4 header-content">Role Details</h5>
+        <hr class="mt-4 mb-2 me-2 custom-hr">
+        <table class="table">
+          <tbody>
+            <tr>
+              <td class="fw-600 w-200px">Role Name</td>
+              <td class="dark-light fs-12">{{ role?.name || 'N/A' }}</td>
+            </tr>
+            <tr>
+              <td class="fw-600">Description</td>
+              <td class="dark-light fs-12">{{ role?.description || 'N/A' }}</td>
+            </tr>
+            <tr>
+              <td class="fw-600">Permissions</td>
+              <td>
+                <div class="d-flex flex-wrap align-items-center">
+                  <span *ngFor="let perm of role?.permissions" class="custom-badge-primary ps-3 pe-3 me-2 fs-12">{{
+                    perm.name || 'N/A' }}</span>
                 </div>
-            </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="modal-footer border-0 d-flex justify-content-start mt-2">
+          <button class="primary_button fs-14 fw-600" (click)="openUpdateModal()">Edit Detail</button>
         </div>
+      </div>
     </div>
-    <div class="section">
-        <div class="sso_card bg-white p-3 mt-4 ps-4">
-            <div class="pt-1">
-                <h5 class="fs-20px fw-700 mb-4 bold-fonts">History</h5>
-                <hr class="mt-4 mb-2 me-2 custom-hr">
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <td class="fw-600 w-200px">Creation Time</td>
-                            <td class="dark-light fs-12">2024-07-24T07:24:39.532Z</td>
-                        </tr>
+  </div>
 
-                        <tr>
-                            <td class="fs-14 fw-600 ">Created by</td>
-                            <td class="dark-light fs-12">Jimmy Johson</td>
-                        </tr>
+  <!-- History Section -->
+  <div class="section">
+    <div class="sso_card bg-white p-3 mt-4 ps-4">
+      <div class="pt-1">
+        <h5 class="fs-20px fw-700 mb-4 bold-fonts">History</h5>
+        <hr class="mt-4 mb-2 me-2 custom-hr">
+        <table class="table">
+          <tbody>
+            <tr>
+              <td class="fw-600 w-200px">Creation Time</td>
+              <td class="dark-light fs-12">{{ role?.created_at || 'N/A' }}</td>
+            </tr>
+            <tr>
+              <td class="fs-14 fw-600">Created by</td>
+              <td class="dark-light fs-12">{{ role?.created_by || 'N/A' }}</td>
+            </tr>
+            <tr>
+              <td class="fw-600">Last Updated Time</td>
+              <td class="dark-light fs-12">{{ role?.updated_at || 'N/A' }}</td>
+            </tr>
+            <tr>
+              <td class="fw-600">Last Updated By</td>
+              <td class="dark-light fs-12">{{ role?.updated_by || 'N/A' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
-                        <tr>
-                            <td class="fw-600 ">Last Updated Time</td>
-                            <td class="dark-light fs-12 ">2024-07-24T07:24:39.532Z</td>
-                        </tr>
-
-                        <tr>
-                            <td class="fw-600 ">Last Updated By</td>
-                            <td class="dark-light fs-12 ">Anderson Smit</td>
-                        </tr>
-
-
-                    </tbody>
-                </table>
-
-            </div>
+  <!-- Delete Role Section -->
+  <div class="section">
+    <div class="main-div sso_card bg-white p-3 mt-4 ps-4">
+      <div>
+        <h5 class="fs-20px fw-700">Delete role</h5>
+        <p class="fs-14px dark-light mt-4">To proceed with deleting this role, you must first reassign all users
+          currently assigned to it. The delete operation will remain disabled until all users have been reassigned,
+          ensuring they do not lose access or permissions unexpectedly.</p>
+        <div class="mt-4">
+          <button class="primary_button danger_btn fs-14 fw-600" (click)="userDeleteModal()">Delete Role</button>
         </div>
+      </div>
     </div>
-
-
-    <!-- delete user Section -->
-    <div class="section">
-        <div class="main-div sso_card bg-white p-3 mt-4 ps-4">
-            <div>
-                <h5 class="fs-20px fw-700">Delete role</h5>
-                <p class="fs-14px dark-light mt-4">To proceed with deleting this role, you must first reassign all users
-                    currently assign to it. The delete operation will remain disabled all users have been reassigned,
-                    ensuring they do not lose access or permissions unexpectely..</p>
-                <div class="mt-4">
-                    <button class="primary_button danger_btn fs-14 fw-600" (click)="deleteModal(deleteUser)">
-                        Delete Role
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+  </div>
 </div>
-<!--delete modal-->
-<ng-template #deleteUser>
-    <div class="modal-dialog-box">
-        <div class="p-0">
-            <div class="p-0 modal-header border-bottom-0 d-flex justify-content-center align-items-baseline">
-                <div class="delete-icon"><img src="../../../../assets/icons/delete-icon.svg" alt=""></div>
-            </div>
-            <div class="p-0 modal-body semi-bold-font">
-                <div class="text text-center color-8492A6">Please confirm you really want to delete the
-                    role.
-                    After clicking yes, the role will
-                    be deleted permanently.</div>
-            </div>
-            <div class="p-0 modal-footer border-top-0 d-flex justify-content-center">
-                <div class="buttons d-flex">
-                    <button type="buttn" class="cancel_btn me-3" (click)="closeModal()">No, cancel</button>
-                    <div class="">
-                        <button type="submit" (click)="closeModal()"
-                            class="primary_button btn-delete delete-button-popup btn text-white">Yes, i am
-                            sure</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</ng-template>
-<!--delete modal-->

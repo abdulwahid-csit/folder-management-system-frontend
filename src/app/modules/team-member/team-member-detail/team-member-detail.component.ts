@@ -20,7 +20,7 @@ export class TeamMemberDetailComponent implements OnInit {
   modalRef: any;
   changePasswordForm: any;
   id: number | null = null;
-  user: any; 
+  user: any;
   userIdToDelete?: number;
 
   constructor(
@@ -29,13 +29,13 @@ export class TeamMemberDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private crudService: CrudService,
     private router: Router,
-    private toast: ToastrService, 
+    private toast: ToastrService,
   ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.id = Number(params.get('id'));
-      this.memberGetById(); 
+      this.memberGetById();
     });
 
     this.changePasswordForm = new FormGroup({
@@ -48,7 +48,7 @@ export class TeamMemberDetailComponent implements OnInit {
     if (this.id) {
       this.authService.getMemberById(this.id).subscribe({
         next: (response: any) => {
-          this.user = response; 
+          this.user = response;
         },
         error: (error) => {
           console.error('HTTP error:', error);
@@ -84,9 +84,9 @@ export class TeamMemberDetailComponent implements OnInit {
     this.modalRef.content.successCall.subscribe(() => {
       this.memberGetById();
     });
-  
+
   }
-  
+
   userDeleteModal(): void {
     this.userIdToDelete = this.user?.data?.id;
 
@@ -103,19 +103,7 @@ export class TeamMemberDetailComponent implements OnInit {
     });
   }
 
-  // deleteModal(template: TemplateRef<any>, userId: number): void {
-  //   this.userIdToDelete = userId;
-  //   this.modalRef = this.modalService.show(template, {
-  //     class: 'modal-dialog modal-dialog-centered modal-lg common_modal_shadow',
-  //     backdrop: 'static',
-  //     keyboard: false,
-  //   });
-  //   this.modalRef.content.successCall.subscribe(() => {
-  //     this.confirmDelete();
-  //   });
-  // }
-
-  confirmDelete(): void {
+   confirmDelete(): void {
     if (this.userIdToDelete != null) {
       this.crudService.delete('member', this.userIdToDelete).subscribe(
         () => {
@@ -125,7 +113,7 @@ export class TeamMemberDetailComponent implements OnInit {
         (error) => {
           // console.error('Error deleting user:', error);
           this.toast.error("Error deleting user", "Error!")
-         
+
         }
       );
     }

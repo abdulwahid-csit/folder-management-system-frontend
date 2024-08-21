@@ -30,8 +30,8 @@ export class CreateUserComponent implements OnInit {
   roles: any[] = [];
 
   constructor(
-    private bsModalService: BsModalService, 
-    private fb: FormBuilder, 
+    private bsModalService: BsModalService,
+    private fb: FormBuilder,
     private crudService: CrudService,
     private toast: ToastrService
   ) {}
@@ -52,7 +52,6 @@ export class CreateUserComponent implements OnInit {
       password: [null, Validators.required],
       role: [null, Validators.required],
     });
-
     if (this.mode === 'update' && this.userData) {
       this.userForm.patchValue({
         firstName: this.userData.first_name || '',
@@ -135,7 +134,7 @@ export class CreateUserComponent implements OnInit {
         (response: any) => {
           if (response.status_code === 200) {
             this.roles = response.data.payload;
-          } else {
+            } else {
             console.error('Failed to fetch roles:', response.message);
           }
         },

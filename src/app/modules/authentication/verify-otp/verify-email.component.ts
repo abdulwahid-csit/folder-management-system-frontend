@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CrudService } from 'src/app/shared/services/crud.service';
 
 @Component({
   selector: 'app-verify-email',
@@ -6,10 +8,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./verify-email.component.scss']
 })
 export class VerifyEmailComponent implements OnInit {
-  
+
   code: any[6] = [null, null, null, null, null, null];
 
-  constructor() { }
+  constructor(private crudservice:CrudService,private router:Router) { }
 
   ngOnInit() {
   }
@@ -24,7 +26,7 @@ export class VerifyEmailComponent implements OnInit {
     }
 
     this.code[index] = value;
-    input.value = value; 
+    input.value = value;
 
     if (value.length === 1 && index < this.code.length - 1) {
       input.nextElementSibling.focus();
@@ -44,6 +46,16 @@ export class VerifyEmailComponent implements OnInit {
 
   verifyAccount() {
     const enteredCode = this.code.join('');
-    console.log('Entered Code:', enteredCode);
+
+    this.crudservice.create('auth/verify-otp', { code: enteredCode } ).subscribe(
+      (response) => {
+        console.log("this is the otp", enteredCode);
+        this.router.navigate(['/create/password']);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
+
 }

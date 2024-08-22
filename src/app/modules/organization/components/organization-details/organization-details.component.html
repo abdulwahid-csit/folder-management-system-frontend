@@ -11,18 +11,18 @@
       </div>
       <div class="ms-3">
         <div class="fs-20px fw-700 color-16192C bold-fonts text-capitalize">
-          {{organizationData.name}}
+          {{organizationData?.name}}
         </div>
         <div class="d-flex mt-1">
           <div class="link-text fs-12px semi-bold-fonts">
-            {{organizationData.org_id}}
+            {{organizationData?.org_id}}
           </div>
           <div class="d-flex ms-4">
             <div>
               <img src="../../../../../assets/icons/Frame.svg" alt="">
             </div>
             <div class="ms-2">
-              <span class="color-8492A6 fs-14px semi-bold-fonts">{{organizationData.domain}}</span>
+              <span class="color-8492A6 fs-14px semi-bold-fonts">{{organizationData?.domain}}</span>
             </div>
           </div>
         </div>
@@ -40,16 +40,16 @@
             aria-controls="nav-features" [attr.aria-selected]="selectedTab === 'features'">
             Features
           </button>
-          <button (click)="setSelectedTab('users')" class="nav-link border-top-0 border-start-0 border-end-0"
+          <button (click)="setSelectedTab('user')" class="nav-link border-top-0 border-start-0 border-end-0"
             id="nav-users-tab" data-bs-toggle="tab" data-bs-target="#nav-users" type="button" role="tab"
-            aria-controls="nav-users" [ngClass]="{'active-nav-tab': selectedTab === 'users'}"
-            [attr.aria-selected]="selectedTab === 'users'">
+            aria-controls="nav-users" [ngClass]="{'active-nav-tab': selectedTab === 'user'}"
+            [attr.aria-selected]="selectedTab === 'user'">
             Users
           </button>
-          <button (click)="setSelectedTab('applications')" class="nav-link border-top-0 border-start-0 border-end-0"
-            [ngClass]="{'active-nav-tab': selectedTab === 'applications'}" id="nav-applications-tab"
-            data-bs-toggle="tab" data-bs-target="#nav-applications" type="button" role="tab"
-            aria-controls="nav-applications" [attr.aria-selected]="selectedTab === 'applications'">
+          <button (click)="setSelectedTab('application')" class="nav-link border-top-0 border-start-0 border-end-0"
+            [ngClass]="{'active-nav-tab': selectedTab === 'application'}" id="nav-applications-tab" data-bs-toggle="tab"
+            data-bs-target="#nav-applications" type="button" role="tab" aria-controls="nav-applications"
+            [attr.aria-selected]="selectedTab === 'application'">
             Applications
           </button>
           <button (click)="setSelectedTab('setting')" class="nav-link border-top-0 border-start-0 border-end-0"
@@ -71,9 +71,6 @@
     <div class="main-div w-100  features-tab p-3 mt-4 bg-white">
       <div class="pt-1">
         <div>
-          <div class="fs-20px fw-700 color-16192C bold-fonts">
-            Ideal Innovative Solutions
-          </div>
           <div class="d-flex mt-3">
             <div class="fs-14px color-8492A6  semi-bold-font">
               Organization admins can be invited to the Admin Portal for self-serve set up of features.
@@ -89,15 +86,21 @@
     </div>
   </div>
 
-  <div class="mt-4" id="users-tab" *ngIf="selectedTab === 'users'">
+  <div class="mt-4" [id]="selectedTab + '-tab'" *ngIf="selectedTab === 'user' || selectedTab === 'application'">
     <div class="sso_card w-100 h-100">
-      <app-data-table [columns]="usersColumns" [config]="tableConfig" [dataSet]="usersList" [module]="'user'"></app-data-table>
-    </div>
-  </div>
-
-  <div class="mt-4" id="application-tab" *ngIf="selectedTab === 'applications'">
-    <div class="sso_card w-100 h-100">
-      <app-data-table [columns]="applicationColumn" [config]="tableConfig" [dataSet]="applicationList" [module]="'application'"></app-data-table>
+      <div class="d-flex align-items-center justify-content-between dataTable_header">
+        <h4 class="primary_color mb-0 table-header-letter-spacing text-capitalize">{{selectedTab}}s List</h4>
+        <div class="d-flex">
+          <div class="position-relative display-flex ms-3 custom-input">
+            <input type="text" class="form-control dataTableSearch" [(ngModel)]="searchTerm"
+              placeholder="Search by name or domain">
+            <span class="search_icon searchIcon"></span>
+          </div>
+          <button *ngIf="selectedTab === 'user'" type="button" class="btn filter_btn ms-3"><span class="filterIcon me-2"></span> Filter</button>
+        </div>
+      </div>
+      <app-data-table [columns]="columns" [config]="tableConfig" [dataSet]="dataTableList"
+        [module]="selectedTab"></app-data-table>
     </div>
   </div>
 
@@ -111,14 +114,14 @@
             <tbody>
               <tr>
                 <td class="">Name</td>
-                <td class="dark-light ">Ideal Innovative Solutions</td>
+                <td class="dark-light ">{{organizationData?.name}}</td>
               </tr>
               <tr>
-                <td class="">Doamin</td>
+                <td class="">Domain</td>
                 <td>
                   <div class="d-flex align-items-center">
                     <img src="../../../../../assets/icons/Frame.svg" alt="Email Icon">
-                    <span class="dark-light  ms-1">johny-smith@domain.com</span>
+                    <span class="dark-light  ms-1">{{organizationData?.domain}}</span>
                   </div>
                 </td>
               </tr>
@@ -128,20 +131,20 @@
                   <div class="custom-dropdown w-25">
                     <ng-select class="" #selectElement [ngClass]="{
                                    'custom-select-focused': isFocused
-                                 }" formControlName="role" (focus)="isFocused = true" (blur)="isFocused = false"
-                      (change)="onValueChange()" [(ngModel)]="currentStatus" placeholder="Select status">
-                      <ng-option>Active</ng-option>
-                      <ng-option>Inactive</ng-option>
-                      <ng-option>Blocked</ng-option>
+                                 }" [(ngModel)]="organizationStatus" (focus)="isFocused = true"
+                      (blur)="isFocused = false" (change)="onValueChange()"
+                      placeholder="Select status">
+                      <ng-option value="active">Active</ng-option>
+                      <ng-option value="inactive">Inactive</ng-option>
+                      <ng-option value="blocked">Blocked</ng-option>
                     </ng-select>
                   </div>
                 </td>
               </tr>
             </tbody>
           </table>
-          <div class="buttons">
-            <button class="primary_button"
-              (click)="openModal(updateOrganization, 'modal-dialog modal-dialog-centered common_modal_shadow')"><span>Edit
+          <div class="buttons" *ngIf="localStoreService.hasPermission('can.update.organization')">
+            <button class="primary_button" (click)="organizationModal()"><span>Edit
                 Details</span>
             </button>
           </div>
@@ -149,7 +152,7 @@
       </div>
     </div>
 
-    <div class="main-div w-100 settings-tab p-3 mt-4 ps-4 bg-white">
+    <div class="main-div w-100 settings-tab p-3 mt-4 ps-4 bg-white" *ngIf="localStoreService.hasPermission('can.delete.organization')">
       <div class="pt-1">
         <div>
           <div class="fs-20px fw-700 color-16192C bold-fonts">
@@ -180,7 +183,8 @@
           <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Email</label>
           <input type="email" class="form-control ps-3 pe-3 form-control-lg fs-14px" id="exampleFormControlInput1"
             placeholder="Enter email address" formControlName="email">
-          <small *ngIf="isControlHasError('email','required', inviteMemberForm)" class="text-danger">Email is required</small>
+          <small *ngIf="isControlHasError('email','required', inviteMemberForm)" class="text-danger">Email is
+            required</small>
         </div>
         <div>
         </div>
@@ -191,64 +195,4 @@
       </form>
     </div>
   </ng-template>
-
-
-
-  <ng-template #updateOrganization>
-    <div class="organization_update_modal">
-      <div class="modal-header border-bottom-0 pt-0 ps-0 pe-0">
-        <h2 class="primary_color mb-0 bold-fonts fs-20px mb-3">Edit Organization</h2>
-      </div>
-      <div class="modal-body p-0">
-        <form *ngIf="editOrganizationForm" [formGroup]="editOrganizationForm" (ngSubmit)="onEditOrganization()">
-          <div class="mb-4" [ngClass]="isControlHasError('name','required', editOrganizationForm) ? 'custom-input-error': 'custom-input'">
-            <span [innerHTML]="isControlHasError('name','required', editOrganizationForm)"></span>
-            <label for="name" class="mb-1 primary_color required fw-700 semi-bold-fonts">Name</label>
-            <input type="text" class="form-control form-control-lg  ps-3 pe-3" formControlName="name" id="name"
-              placeholder="Enter organization name">
-            <small *ngIf="isControlHasError('name','required', editOrganizationForm)" class="text-danger">Organization name is
-              required</small>
-          </div>
-          <div class="mb-3" [ngClass]="isControlHasError('domain','required', editOrganizationForm)? 'custom-input-error': 'custom-input'">
-            <label for="domain" class="mb-1 primary_color required fw-700 semi-bold-fonts">Domain</label>
-            <input type="text" class="form-control form-control-lg ps-3 pe-3" formControlName="domain" id="domain"
-              placeholder="Enter domain name">
-            <small *ngIf="isControlHasError('domain','required', editOrganizationForm)" class="text-danger">Domain name is required</small>
-          </div>
-          <div class="modal-footer fs-14px border-top-0 pb-0 pe-0 semi-bold-fonts">
-            <button type="button" class="cancel_btn me-2" (click)="closeModal()">Cancel</button>
-            <button type="submit" class="primary_button">Update</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </ng-template>
-
-
-  <ng-template #deleteOrganization>
-      <div class="modal-dialog-box">
-        <div class="p-0">
-          <div class="p-0 modal-header border-bottom-0 d-flex justify-content-center align-items-baseline">
-            <div class="delete-icon"><img src="../../../../assets/icons/delete-icon.svg" alt=""></div>
-          </div>
-          <div class="p-0 modal-body semi-bold-font">
-            <div class="text text-center color-8492A6">Please confirm you really want to delete the
-              organizarion.
-              After clicking yes, the organization will
-              be deleted permanently.</div>
-          </div>
-          <div class="p-0 modal-footer border-top-0 d-flex justify-content-center">
-            <div class="buttons d-flex">
-              <button type="buttn" class="cancel_btn me-3" (click)="closeModal()">No, cancel</button>
-              <div class="">
-                <button type="submit" (click)="closeModal()"
-                  class="primary_button btn-delete delete-button-popup btn text-white">Yes, i am
-                  sure</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-  </ng-template>
-
 </div>

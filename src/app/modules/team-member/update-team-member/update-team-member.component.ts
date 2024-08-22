@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
+import { CrudService } from 'src/app/shared/services/crud.service';
 
 @Component({
   selector: 'app-update-team-member',
@@ -8,43 +11,84 @@ import { BsModalService } from 'ngx-bootstrap/modal';
   styleUrls: ['./update-team-member.component.scss']
 })
 export class UpdateTeamMemberComponent implements OnInit {
-
-  updateMemberForm: any;
-  constructor(private modalService: BsModalService) { }
+  @Output() successCall = new EventEmitter<void>();
+  updateMemberForm!: FormGroup;
+  @Input() data!: any;
+  memberId!: number;
+  isLoading: boolean = false;
+    
+  constructor(
+    private modalService: BsModalService, 
+    private http: HttpClient,
+    private modalRef: BsModalRef,
+    private crudService: CrudService,
+    private toast: ToastrService
+  ) { }
 
   ngOnInit() {
+    this.initialize();
+  }
+
+  initialize() {
     this.updateMemberForm = new FormGroup({
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
       username: new FormControl('', [Validators.required]),
       phoneNumber: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required]),
-      confirmPassword: new FormControl('', [Validators.required])
-    })
+      email: new FormControl({ value: '', disabled: true })
+    });
+
+    if (this.data) {
+      this.memberId = Number(this.data.id); // Ensure memberId is a number
+      this.loadMemberData(this.data);
+    }
   }
 
+  loadMemberData(data: any): void {
+    this.updateMemberForm.patchValue({
+      firstName: data.first_name,
+      lastName: data.last_name,
+      username: data.username,
+      phoneNumber: data.phoneNumber,
+      email: data.email
+    });
+  }
 
-  onSubmit() {
-    this.updateMemberForm.markAllAsTouched();
-    if(this.updateMemberForm.invalid){
+  updateMember(): void {
+    if (this.updateMemberForm.invalid) {
+      this.updateMemberForm.markAllAsTouched();
       return;
     }
-    console.log("Form submitted.")
+
+    const memberData = this.updateMemberForm.value;
+    if (this.memberId !== undefined) {
+      this.isLoading = true;
+      this.crudService.update('member', this.memberId, memberData).subscribe(
+        (response: any) => {
+          if (response.status_code === 200) {
+            this.toast.success(response.message, "Success!");
+            this.isLoading = false;
+            this.successCall.emit();
+            this.closeModal();
+          } else {
+            this.toast.error('Error updating member', "Error!");
+            this.isLoading = false;
+          }
+        },
+        error => {
+          this.toast.error('Error updating member', "Error!");
+          this.isLoading = false;
+        }
+      );
+    }
   }
 
-  isControlHasError(controlName: any, validationType: string): boolean {
+  isControlHasError(controlName: string, validationType: string): boolean {
     const control = this.updateMemberForm.controls[controlName];
-    if (!control) {
-      return false;
-    }
-    return (
-      control.hasError(validationType) && (control.dirty || control.touched)
-    );
+    return control?.hasError(validationType) && (control.dirty || control.touched);
   }
 
   closeModal() {
-    this.modalService.hide();
+    this.modalRef.hide();
   }
-
 }

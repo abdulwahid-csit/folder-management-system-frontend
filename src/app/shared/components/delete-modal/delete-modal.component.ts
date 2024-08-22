@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-delete-modal',
@@ -6,11 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./delete-modal.component.scss']
 })
 export class DeleteModalComponent {
-
+  @Output() deleteData = new EventEmitter();
+  @Input() description: string = '';
   
+  constructor(private modalService: BsModalService) {}
+
   closeModal(): void {
-    // this.modalRef?.hide();
-    // this.modalOpen = false;
-    // this.editOrganizationForm.reset();
+    this.modalService.hide();
+  }
+
+  delete(){
+    this.deleteData.emit();
   }
 }

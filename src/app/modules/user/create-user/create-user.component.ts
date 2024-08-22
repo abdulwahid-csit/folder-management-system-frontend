@@ -1,54 +1,71 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators, } from '@angular/forms';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
+import { CrudService } from 'src/app/shared/services/crud.service';
 
+function numericValidator(control: AbstractControl): ValidationErrors | null {
+  if (control.value && !/^[0-9]+$/.test(control.value)) {
+    return { numeric: true };
+  }
+  return null;
+}
 
 @Component({
   selector: 'app-create-user',
   templateUrl: './create-user.component.html',
-  styleUrls: ['./create-user.component.scss' ,'../../../css/custpm-dropdown-style.scss']
+  styleUrls: ['./create-user.component.scss', '../../../css/custpm-dropdown-style.scss']
 })
 export class CreateUserComponent implements OnInit {
-  @Input() mode: 'create' | 'update' = 'create';
+  @Input() mode: string = 'create';
   @Input() userData: any;
+  @Output() successCall = new EventEmitter<void>();
+  @Input() userId: number = 0;
+  @Input() itemList: any;
 
-  selectedCar: number = 1;
-
-  cars = [
-    { id: 1, name: 'Volvo' },
-    { id: 2, name: 'Saab' },
-    { id: 3, name: 'Opel' },
-    { id: 4, name: 'Audi' },
-  ];
-
-  selectedOption: any;
-  isFocused!: boolean;
-
-
-  constructor(private bsModalService: BsModalService, private fb: FormBuilder,) {
-
-  }
-  userForm!: FormGroup
   isPasswordVisible: boolean = false;
+  userForm!: FormGroup;
+  hidePassword = true;
+  isFocused: boolean = false;
+  roles: any[] = [];
+  isLoading: boolean = false;
+
+  constructor(
+    private bsModalService: BsModalService,
+    private fb: FormBuilder,
+    private crudService: CrudService,
+    private toast: ToastrService
+  ) {}
+
   ngOnInit(): void {
-    if (this.mode === 'update' && this.userData) {
-      this.userForm.patchValue(this.userData);
-      this.userForm.removeControl('password'); // Remove password field for update
-    }
-    this.userForm = this.fb.group({
-      firstName: [null, Validators.compose([Validators.required])],
-      lastName: [null, Validators.compose([Validators.required])],
-      userName: [null, Validators.compose([Validators.required])],
-      domainName: [null, Validators.compose([Validators.required])],
-      phoneName: [null, Validators.compose([Validators.required])],
-      email: [null, Validators.compose([Validators.required])],
-      password: [null, Validators.compose([Validators.required])],
-      role: [null, Validators.compose([Validators.required])],
-    })
+    this.initialize();
+    this.fetchRoles();
   }
 
-  ngAfterViewInit(): void {
+  initialize() {
 
+    this.userForm = this.fb.group({
+      firstName: [null, Validators.required],
+      lastName: [null, Validators.required],
+      username: [null, Validators.required],
+      phone: [ '', [Validators.required, numericValidator]],
+      email: [null, [Validators.required, Validators.email]],
+      password: [null, Validators.required],
+      role: [null, Validators.required],
+    });
+
+    if (this.mode === 'update' && this.userData) {
+      this.userForm.patchValue({
+        firstName: this.userData.first_name || '',
+        lastName: this.userData.last_name || '',
+        username: this.userData.username || '',
+        phone: this.userData.phone || '',
+        email: this.userData.email || '',
+        role: this.userData.roles || '',
+      });
+      this.userForm.get('email')?.disable();
+      this.userForm.removeControl('password');
+    }
   }
 
   isControlHasError(controlName: string, validationType: string): boolean {
@@ -56,36 +73,78 @@ export class CreateUserComponent implements OnInit {
     if (!control) {
       return false;
     }
-    return (
-      control.hasError(validationType) && (control.dirty || control.touched)
-    );
+    return control.hasError(validationType) && (control.dirty || control.touched);
   }
 
-  closeModal() {
-    this.bsModalService.hide()
-  }
-  onSubmit(): void {
-    if (this.userForm.valid) {
-      if (this.mode === 'create') {
-      } else if (this.mode === 'update') {
-      }
-    }
-    this.userForm.markAllAsTouched();
-    if (this.userForm.invalid) {
-
-      return;
-    }
-    console.log(this.userForm.value);
-    this.bsModalService.hide();
-  }
   togglePasswordVisibility(): void {
     this.isPasswordVisible = !this.isPasswordVisible;
   }
 
-  onValueChange() {
+  generatePassword(): void {
+    const length = 12;
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
+    let password = "";
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * charset.length);
+      password += charset[randomIndex];
+    }
+    this.userForm.get('password')?.setValue(password);
+  }
+
+  onSubmit(): void {
+    if (this.userForm.invalid) {
+      this.userForm.markAllAsTouched();
+      return;
+    }
+
+    const endpoint = 'users';
+    const apiMethod = this.mode === 'create'
+      ? this.crudService.create(endpoint, this.userForm.value)
+      : this.crudService.update(endpoint, this.userData?.id, this.userForm.value);
+    this.isLoading = true;
+    apiMethod.subscribe(
+      (response: any) => {
+        if (response.status_code === 200 || response.status_code === 201) {
+          this.toast.success(response.message, 'Success!');
+          this.successCall.emit();
+          this.closeModal();
+        } else {
+          this.toast.error(response.message, 'Error!');
+          this.isLoading = false;
+        }
+      },
+      error => {
+        this.toast.success(error, 'Success!');
+        this.isLoading = false;
+      }
+    );
+  }
+
+
+  closeModal(): void {
+    this.bsModalService.hide();
+  }
+
+  onValueChange(): void {
     const control = this.userForm.get('role');
     if (control?.value) {
-      this.isFocused = false; // Reset focus state if value is selected
+      this.isFocused = false;
     }
+  }
+
+  fetchRoles(): void {
+    this.crudService.read('access/roles')
+      .subscribe(
+        (response: any) => {
+          if (response.status_code === 200) {
+            this.roles = response.data.payload;
+          } else {
+            console.error('Failed to fetch roles:', response.message);
+          }
+        },
+        error => {
+          console.error('Error fetching roles:', error);
+        }
+      );
   }
 }

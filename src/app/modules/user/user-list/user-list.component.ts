@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CreateUserComponent } from '../create-user/create-user.component';
 import { Router } from '@angular/router';
+import { CrudService } from 'src/app/shared/services/crud.service';
+import { Store } from '@ngxs/store';
+import { LocalStoreService } from 'src/app/shared/services/local-store.service';
 
 
 @Component({
@@ -10,158 +13,82 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent {
-  constructor(private modalService: BsModalService, private router: Router) { }
+  
   columns: any = []
+  userList: any = []
   modalRef?: BsModalRef;
   searchTerm: string = '';
-  createUser() {
+  
+  tableConfig = {
+    paginationParams: {
+      "total_pages": 0,
+      "payload_size": 0,
+      "has_next": false,
+      "current_page": 0,
+      "skipped_records": 0,
+      "total_records": 0
+    }
+  };
+
+  constructor(
+    private modalService: BsModalService, 
+    private router: Router, 
+    private crudService: CrudService,
+    private store: Store,
+    public localStoreService: LocalStoreService
+  ) { }
+
+  ngOnInit(): void {
+    this.userListing()
+  }
+
+  createUser(user?: any) {
+    const initialState = {
+      mode: user ? 'update' : 'create',
+      userData: user || null,
+      userId: user ? user.id : null
+      // userId: user ? user.id : 0 
+    }
     this.modalRef = this.modalService.show(CreateUserComponent, {
       class: 'modal-dialog modal-dialog-centered modal-lg common_modal_shadow',
       backdrop: 'static',
       keyboard: false,
-      initialState: {
-        mode: 'create'
-      }
+      initialState: initialState
+    });
+
+    this.modalRef.content.successCall.subscribe(() => {
+      this.userListing();
     });
   }
-  total_pages = 10;
-  payload_size = 10;
-  current_page = 1
-  has_next = false
-  skipped_records = 0
-  total_records = 7
-  userlist: any = []
-  dataTable: any = [
-    {
-      data: {
-        columns: [
-          {
-            name: 'Email',
-          },
-          {
-            name: 'Full Name',
-          },
-          {
-            name: 'Orgnization',
-          },
-          {
-            name: 'Role',
-          },
-          {
-            name: 'status',
-          },
-          {
-            name: 'Creation Date',
-          }
-        ],
-        payload: [
-          {
-            "id": 1,
-            "name": "Hassa-ali@4iisolutions.com",
-            "fullName": "Abdul Basit",
-            "domain_verified": false,
-            "created_at": {},
-            "updated_at": {},
-            "is_archive": false,
-            "organization": "Ideal solutions",
-            "role": "Admin",
-            "status": 'active',
-            "creationDate": '12-8-2024'
-          },
-          {
-            "id": 1,
-            "name": "Hassa-ali@4iisolutions.com",
-            "fullName": "Abdul Basit",
-            "domain_verified": false,
-            "created_at": {},
-            "updated_at": {},
-            "is_archive": false,
-            "organization": "Ideal solutions",
-            "role": "Admin",
-            "status": 'active',
-            "creationDate": '12-8-2024'
-          },
-          {
-            "id": 1,
-            "name": "Hassa-ali@4iisolutions.com",
-            "fullName": "Abdul Basit",
-            "domain_verified": false,
-            "created_at": {},
-            "updated_at": {},
-            "is_archive": false,
-            "organization": "Ideal solutions",
-            "role": "Admin",
-            "status": 'inactive',
-            "creationDate": '12-8-2024'
-          },
-          {
-            "id": 1,
-            "name": "Hassa-ali@4iisolutions.com",
-            "fullName": "Abdul Basit",
-            "domain_verified": false,
-            "created_at": {},
-            "updated_at": {},
-            "is_archive": false,
-            "organization": "Ideal solutions",
-            "role": "Admin",
-            "status": 'active',
-            "creationDate": '12-8-2024'
-          },
-          {
-            "id": 1,
-            "name": "Hassa-ali@4iisolutions.com",
-            "fullName": "Abdul Basit",
-            "domain_verified": false,
-            "created_at": {},
-            "updated_at": {},
-            "is_archive": false,
-            "organization": "Ideal solutions",
-            "role": "Admin",
-            "status": 'active',
-            "creationDate": '12-8-2024'
-          },
-          {
-            "id": 1,
-            "name": "Hassa-ali@4iisolutions.com",
-            "fullName": "Abdul Basit",
-            "domain_verified": false,
-            "created_at": {},
-            "updated_at": {},
-            "is_archive": false,
-            "organization": "Ideal solutions",
-            "role": "Admin",
-            "status": 'inactive',
-            "creationDate": '12-8-2024'
-          },
-          {
-            "id": 1,
-            "name": "Hassa-ali@4iisolutions.com",
-            "fullName": "Abdul Basit",
-            "domain_verified": false,
-            "created_at": {},
-            "updated_at": {},
-            "is_archive": false,
-            "organization": "Ideal solutions",
-            "role": "Admin",
-            "status": 'active',
-            "creationDate": '12-8-2024'
-          },
-        ]
-      }
-    }
-  ]
 
-  // assign the data from api like total_pages, payload_size
-  tableConfig = {
-    paginationParams: {
-      "total_pages": this.total_pages,
-      "payload_size": this.payload_size,
-      "has_next": this.has_next,
-      "current_page": this.current_page,
-      "skipped_records": this.skipped_records,
-      "total_records": this.total_records
-    }
-  };
+  userListing() {
+    this.crudService.read('users').subscribe((response: any) => {
+      if (response.status_code === 200 || response.status_code === 201) {
+        if (response.data.payload.length > 0) {
+          const column = Object.keys(response.data.payload[0]);
+          this.columns = column.filter((column: string) => column !== 'id' &&
+            column !== 'email_verified' && column !== 'permissions' && column !== 'timezone' &&
+            column !== 'username' && column !== 'updated_at' && column !== 'profile_picture' && column !== 'last_name');
+          this.userList = response.data.payload;
+
+          this.tableConfig = {
+            paginationParams: {
+              "total_pages": response.data.paginate_options.total_pages,
+              "payload_size": response.data.paginate_options.payload_size,
+              "has_next": response.data.paginate_options.has_next,
+              "current_page": response.data.paginate_options.current_page,
+              "skipped_records": response.data.paginate_options.skipped_records,
+              "total_records": response.data.paginate_options.total_records
+            }
+          };
+        }
+      }
+
+    }, error => {
+      console.error('HTTP error:', error);
+    });
+  }
+
 
   navigate() {
     this.router.navigate(['/userDetail']);
@@ -171,10 +98,9 @@ export class UserListComponent {
   setActive(menu: string): void {
     this.activeMenu = menu;
   }
-
-  ngOnInit(): void {
-    this.columns = this.dataTable[0]?.data?.columns;
-    this.userlist = this.dataTable[0].data.payload
+  
+  viewUserDetail(user: any) {
+    this.router.navigate(['/user-detail', user.id]);
   }
 }
 

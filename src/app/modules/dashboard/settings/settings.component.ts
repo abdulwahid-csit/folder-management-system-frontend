@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { CrudService } from 'src/app/shared/services/crud.service';
+import { LocalStoreService } from 'src/app/shared/services/local-store.service';
 
 @Component({
   selector: 'app-settings',
@@ -7,34 +10,54 @@ import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
-accountDetailsForm!: FormGroup
-selectedTab = 'account';
+  accountDetailsForm!: FormGroup
+  selectedTab = 'account';
   changePasswordForm!: FormGroup;
   organizationForm!: FormGroup;
+  matchPassword: boolean = false;
+  isLoadingPassword: boolean = false;
+  isLoadingAccount: boolean = false;
 
-
-
-constructor() { }
+  constructor(
+    public localStoreService: LocalStoreService,
+    private fb: FormBuilder,
+    private crudService: CrudService,
+    private toast: ToastrService
+  ) { }
 
   ngOnInit() {
-    this.accountDetailsForm = new FormGroup({
-      firstName: new FormControl('', [Validators.required]),
-      lastName: new FormControl('', [Validators.required]),
-      username: new FormControl('', [Validators.required]),
-      phoneNumber: new FormControl('', [Validators.required]),
-      email: new FormControl('johonysmith@domain.com'),
-      role: new FormControl('Admin'),
-    })
-
-
-    this.changePasswordForm = new FormGroup({
-      currentPassword: new FormControl('', [Validators.required]),
-      newPassword: new FormControl('', [Validators.required]),
-      confirmPassword: new FormControl('', [Validators.required]),
-    })
+    this.initialize();
   }
 
+  initialize() {
+    
+    this.accountDetailsForm = this.fb.group({
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      username: ['', [Validators.required]],
+      phoneNumber: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      role: [''],
+    })
 
+    const data = this.localStoreService.getItem('user');
+    if(typeof data === 'object'){
+      this.accountDetailsForm.patchValue({
+        firstName: data.first_name,
+        lastName: data.last_name,
+        username: data.username,
+        phoneNumber: data.phone_number || '',
+        email: data.email,
+        role: data.role.name || '',
+      })
+    }
+
+    this.changePasswordForm = this.fb.group({
+      password: ['', [Validators.required]],
+      newPassword: ['', [Validators.required]],
+      confirmPassword: ['', [Validators.required]],
+    })
+  }
 
 
   setSelectedTab(tab: string){
@@ -56,20 +79,67 @@ constructor() { }
   onAccountDetailsSubmit(){
     if(this.accountDetailsForm.invalid){
       this.accountDetailsForm.markAllAsTouched();
-      let email = this.accountDetailsForm.controls?.['email'].value;
-      email = 'Abdulwahid@gmail.com'
       return;
     }
-    console.log("Form Submitted");
+    console.log("Form Submit", this.accountDetailsForm.value);
+    this.isLoadingAccount = true;
+    this.accountDetailsForm.removeControl('role');
+    this.crudService.update('member', this.localStoreService.getUserId(), this.accountDetailsForm.value).subscribe(response => {
+      this.toast.success(response.message, "Success!");
+      this.updateLocalStorage(this.accountDetailsForm.value);
+      this.isLoadingAccount = false;
+    }, error => {
+      this.toast.error(error.message, "Error!");
+      this.isLoadingAccount = false;
+    });
+    this.accountDetailsForm.addControl('role', this.fb.control(this.localStoreService.getUserRole(), Validators.required));
   }
 
+  updateLocalStorage(data: { firstName: string, lastName: string, username: string, phoneNumber?: string }): void {
+    const user = this.localStoreService.getItem('user');
+
+    if (user) {
+      user.first_name = data.firstName;
+      user.last_name = data.lastName;
+      user.username = data.username;
+      user.phone_number = data.phoneNumber || '';
+
+      this.localStoreService.setItem('user', user);
+    } else {
+      console.warn('User not found in localStorage');
+    }
+  }
 
   onChangePasswordSubmit(){
     if(this.changePasswordForm.invalid){
       this.changePasswordForm.markAllAsTouched();
       return;
     };
-    console.log("Form Submitted.")
+    if(this.changePasswordForm.get('newPassword')?.value  !== this.changePasswordForm.get('confirmPassword')?.value){
+      this.matchPassword = true;
+      return
+    }
+
+    this.matchPassword = false;
+    this.isLoadingPassword = true;
+    var dataChangePassword = this.changePasswordForm.get('confirmPassword')?.value;
+    this.changePasswordForm.removeControl('confirmPassword');
+
+    this.crudService.update('auth/change-password', this.localStoreService.getUserId(),this.changePasswordForm.value).subscribe((response: any) => {
+      if (response.status_code === 200 || response.status_code === 201) {
+        this.toast.success(response.message, "Success!")
+        this.changePasswordForm.addControl('confirmPassword', this.fb.control('', Validators.required));
+        this.changePasswordForm.reset();
+      } else {
+        this.toast.error(response.message, "Error!");
+      }
+      this.isLoadingPassword = false;
+    }, error => {
+      this.changePasswordForm.addControl('confirmPassword', this.fb.control(dataChangePassword, Validators.required));
+      this.toast.error(error.message, "Error!");
+      this.isLoadingPassword = false;
+    });
+
   }
 
 }

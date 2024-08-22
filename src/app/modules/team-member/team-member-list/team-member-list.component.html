@@ -8,15 +8,10 @@
                         placeholder="Search by name or domain">
                     <span class="search_icon searchIcon"></span>
                 </div>
-                <!-- <div class="d-flex">
-                    <button type="button" class="btn filter_btn ms-2 ">
-                        <span class="me-2 filterIcon"></span> Filter
-                    </button>
-                </div> -->
-                <button type="button" class="primary_button ms-2" (click)="createOganization()">Invite</button>
+               <button *ngIf="localStoreService.hasPermission('can.invite.member')" type="button" class="primary_button ms-2" (click)="createMember()">Invite</button>
             </div>
         </div>
-        <app-data-table [columns]="columns" [config]="tableConfig" [dataSet]="organizationList"
+        <app-data-table [columns]="columns" [config]="tableConfig" [dataSet]="teamMemberList"
             [searchTerm]="searchTerm" [module]="'team-member'"></app-data-table>
     </div>
 </div>

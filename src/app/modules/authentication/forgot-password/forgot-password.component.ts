@@ -48,5 +48,6 @@ export class ForgotPasswordComponent implements OnInit {
       return;
     }
     console.log("Form Submitted");
+    this.router.navigate(['/verify-email'])
   }
 }

@@ -1,6 +1,5 @@
 .bg-login {
-  // background-image: linear-gradient(to bottom, #0F172A, #081431);
-  background-image: url('../../../../assets/images/backgroundimg.png');
+  background-image: url('../../../../assets/images/background-images/background-2.svg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -10,167 +9,7 @@
   top: 0;
   left: 0;
   overflow: hidden;
-  .background-svgs{
-   span{
-    position: absolute;
-   }
-    .top-left{
-      left: 98px;
-      top: 98px;
-    }
-    .top-center{
-      top: -5px;
-      left: 41%;
-    }
-    .top-right{
-      right:134px;
-      top: 39px;
-    }
-    .bottom-left{
-      left: 144px;
-      bottom: 39px;
-    }
-    .bottom-center{
-      left: 43%;
-      bottom: -5px;
-      rotate: 180deg;
-    }
-    .bottom-right{
-      right: 98px;
-      bottom: 98px;
-    }
-    .left-center{
-      left: -20px;
-      top: 42%;
-    }
-    .right-center{
-      right: -20px;
-      top: 16%;
-      rotate: 180deg;
-    }
-  }
-
 }
-
-// @media (min-width: 600px) and (max-width: 899px) {
-//   .background-svgs{
-//     img{
-//       width: 100% !important;
-//       height: 100% !important;
-//     }
-//   }
-// }
-
-// @media (min-width: 900px) and (max-width: 1199px) {
-//   .background-svgs{
-//     img{
-//       width: 105% !important;
-//       height: 105% !important;
-//     }
-//   }}
-
-// @media (min-width: 1200px) and (max-width: 1499px) {
-//   .background-svgs{
-//     img{
-//       .background-svgs{
-//         img{
-//           width: 110% !important;
-//           height: 110% !important;
-//         }
-//       }
-//     }
-//   }}
-
-// @media (min-width: 1500px) and (max-width: 1799px) {
-//   .background-svgs{
-//     img{
-//       width: 120% !important;
-//       height: 120% !important;
-//     }
-//   }}
-
-// @media (min-width: 1800px) and (max-width: 2099px) {
-//   .background-svgs{
-//     img{
-//       width: 130% !important;
-//           height: 130% !important;
-//     }
-//   }}
-
-// @media (min-width: 2100px) and (max-width: 2399px) {
-//   .background-svgs{
-//     img{
-//       width: 140% !important;
-//           height: 140% !important;
-//     }
-//   }}
-
-// @media (min-width: 2400px) and (max-width: 2699px) {
-//   .background-svgs{
-//     img{
-//       width: 150% !important;
-//       height: 150% !important;
-//     }
-//   }}
-
-// @media (min-width: 2700px) and (max-width: 2999px) {
-//   .background-svgs{
-//     img{
-//       width: 160% !important;
-//       height: 160% !important;
-//     }
-//   }}
-
-// @media (min-width: 3000px) and (max-width: 3299px) {
-//   .background-svgs{
-//     img{
-//       width: 170% !important;
-//       height: 170% !important;
-//     }
-//   }}
-
-// @media (min-width: 3300px) and (max-width: 3599px) {
-//   .background-svgs{
-//     img{
-//       width: 180% !important;
-//       height: 180% !important;
-//     }
-//   }}
-
-// @media (min-width: 3600px) and (max-width: 3899px) {
-//   .background-svgs{
-//     img{
-//       width: 190% !important;
-//       height: 190% !important;
-//     }
-//   }}
-
-// @media (min-width: 3900px) and (max-width: 4199px) {
-//   .background-svgs{
-//     img{
-//       width: 190% !important;
-//       height: 190% !important;
-//     }
-//   }}
-@media (min-width: 5000px) and (max-width: 7999px) {
-  .background-svgs{
-    img{
-      width: 300% !important;
-      height: 300% !important;
-    }
-    .login-box{
-      width: 5000px !important;
-      height: 5000px !important;
-    }
-  }}
-
-
-
-
-
-
-
-
 
 .common_modal{
 .header-content{
@@ -217,6 +56,8 @@ input[type="password"]{
   border-radius: 10px;
   padding: 40px !important;
   z-index: 1000;
+  --bs-box-shadow-sm: 0 3px 10px rgba(0, 0, 0, 0.1);
+
 }
 
 .btn-clr {

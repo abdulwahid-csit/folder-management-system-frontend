@@ -8,7 +8,7 @@
                         placeholder="Search by name or domain">
                     <span class="search_icon searchIcon"></span>
                 </div>
-               <button type="button" class="primary_button ms-2" (click)="createMember()">Invite</button>
+               <button *ngIf="localStoreService.hasPermission('can.invite.member')" type="button" class="primary_button ms-2" (click)="createMember()">Invite</button>
             </div>
         </div>
         <app-data-table [columns]="columns" [config]="tableConfig" [dataSet]="teamMemberList"

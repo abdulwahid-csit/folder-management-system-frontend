@@ -7,6 +7,7 @@ import { UpdateTeamMemberComponent } from '../update-team-member/update-team-mem
 import { CrudService } from '../../../shared/services/crud.service';
 import { DeleteModalComponent } from 'src/app/shared/components/delete-modal/delete-modal.component';
 import { ToastrService } from 'ngx-toastr';
+import { LocalStoreService } from 'src/app/shared/services/local-store.service';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class TeamMemberDetailComponent implements OnInit {
     private crudService: CrudService,
     private router: Router,
     private toast: ToastrService,
+    public localStoreService: LocalStoreService,
   ) { }
 
   ngOnInit(): void {

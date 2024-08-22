@@ -6,36 +6,56 @@
         <div class="navigations">
             <div class="fs-12px ms-3 semi-bold-font menu-text mt-2">MENU</div>
             <ul class="pt-2">
-                <li class="d-flex align-items-center sidebar_svg" (click)="setActive('Dashboard')" routerLink="dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }"><span class="d-flex align-items-center sidebar_svg home"></span><a>Dashboard</a></li>
-    
-                <li class="d-flex align-items-center sidebar_svg" (click)="setActive('Organizations')" routerLink="organization" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }"><span class="d-flex align-items-center sidebar_svg Icon" ></span><a>Organizations</a></li>
-    
-                <li class="d-flex align-items-center sidebar_svg" (click)="setActive('Permissions')" routerLink="roles" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }"><span class="d-flex align-items-center sidebar_svg check-verified" ></span><a>Roles & Permissions</a></li>
-    
-      <li class="d-flex align-items-center sidebar_svg" (click)="setActive('Applications')" routerLink="application" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }"><span class="d-flex align-items-center sidebar_svg monitor" ></span><a>Applications</a></li>
-    
-                <li class="d-flex align-items-center sidebar_svg" (click)="setActive('Users')" routerLink="user" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }"><span class="d-flex align-items-center sidebar_svg iconone"></span><a>Users</a></li>
-     
-        <li class="d-flex align-items-center sidebar_svg" (click)="setActive('teamMembers')" routerLink="team-member" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }"><span class="d-flex align-items-center sidebar_svg users " ></span><a>Team Members</a></li>
+                <li *ngIf="localStoreService.hasPermission('can.view.dashboard')"
+                    class="d-flex align-items-center sidebar_svg" (click)="setActive('Dashboard')"
+                    routerLink="dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }"><span
+                        class="d-flex align-items-center sidebar_svg home"></span><a>Dashboard</a></li>
+
+                <li *ngIf="localStoreService.hasPermission('can.view.organization')"
+                    class="d-flex align-items-center sidebar_svg" (click)="setActive('Organizations')"
+                    routerLink="organization" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
+                    <span class="d-flex align-items-center sidebar_svg Icon"></span><a>Organizations</a></li>
+
+                <li *ngIf="localStoreService.hasPermission('can.view.role')"
+                    class="d-flex align-items-center sidebar_svg" (click)="setActive('Permissions')" routerLink="roles"
+                    routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }"><span
+                        class="d-flex align-items-center sidebar_svg check-verified"></span><a>Roles & Permissions</a>
+                </li>
+
+                <li *ngIf="localStoreService.hasPermission('can.view.application')"
+                    class="d-flex align-items-center sidebar_svg" (click)="setActive('Applications')"
+                    routerLink="application" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
+                    <span class="d-flex align-items-center sidebar_svg monitor"></span><a>Applications</a></li>
+
+                <li *ngIf="localStoreService.hasPermission('can.view.user')"
+                    class="d-flex align-items-center sidebar_svg" (click)="setActive('Users')" routerLink="user"
+                    routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }"><span
+                        class="d-flex align-items-center sidebar_svg iconone"></span><a>Users</a></li>
+
+                <!-- <li *ngIf="localStoreService.hasPermission('can.view.member')" -->
+                <li
+                    class="d-flex align-items-center sidebar_svg" (click)="setActive('teamMembers')"
+                    routerLink="team-member" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
+                    <span class="d-flex align-items-center sidebar_svg users "></span><a>Team Members</a></li>
             </ul>
         </div>
     </div>
 
     <div class="px-3">
-    <div class="logout-section pt-3">
-        <!-- <hr class="text-white"> -->
-        <div class="text-white d-flex justify-content-between">
-            <div class="d-flex">
-                <div class="user-img">
-                    <img class="rounded-circle" [src]="localStoreService.getUserProfile()" alt="">
+        <div class="logout-section pt-3">
+            <!-- <hr class="text-white"> -->
+            <div class="text-white d-flex justify-content-between">
+                <div class="d-flex">
+                    <div class="user-img">
+                        <img class="rounded-circle" [src]="localStoreService.getUserProfile()" alt="">
+                    </div>
+                    <div class="ms-2">
+                        <div class="fs-14px fw-700">{{userName}}</div>
+                        <div class="role fs-12px">{{userRole}}</div>
+                    </div>
                 </div>
-                <div class="ms-2">
-                    <div class="fs-14px fw-700">{{userName}}</div>
-                    <div class="role fs-12px">{{userRole}}</div>
-                </div>
+                <div class="me-4 mt-2" (click)="logout()"><span class="cursor-pointer logout-icon"></span></div>
             </div>
-            <div class="me-4 mt-2" (click)="logout()"><span class="cursor-pointer logout-icon"></span></div>
         </div>
     </div>
-</div>
 </div>

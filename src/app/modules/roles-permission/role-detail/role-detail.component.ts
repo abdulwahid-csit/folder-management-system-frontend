@@ -4,6 +4,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CrudService } from 'src/app/shared/services/crud.service';
 import { CreateRoleComponent } from '../create-role/create-role.component';
 import { DeleteModalComponent } from 'src/app/shared/components/delete-modal/delete-modal.component';
+import { LocalStoreService } from 'src/app/shared/services/local-store.service';
 
 @Component({
   selector: 'app-role-detail',
@@ -20,7 +21,8 @@ export class RoleDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private crudService: CrudService,
     private modalService: BsModalService,
-    private router: Router
+    private router: Router,
+    public localStoreService: LocalStoreService,
   ) { }
 
   ngOnInit(): void {

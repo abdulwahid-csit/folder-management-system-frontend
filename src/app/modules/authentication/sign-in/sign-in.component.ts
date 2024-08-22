@@ -53,6 +53,7 @@ export class SignInComponent {
     const { email, password } = this.signInForm.value;
     this.isLoading = true;
     this.authService.signIn(email, password).subscribe((response: any) => {
+      debugger
       if (response.status_code === 200) {
         const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/layout';
         this.router.navigateByUrl(returnUrl);

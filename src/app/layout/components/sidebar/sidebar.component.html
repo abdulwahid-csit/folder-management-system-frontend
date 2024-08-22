@@ -6,34 +6,33 @@
         <div class="navigations">
             <div class="fs-12px ms-3 semi-bold-font menu-text mt-2">MENU</div>
             <ul class="pt-2">
-                <li *ngIf="localStoreService.hasPermission('can.view.dashboard')"
+                <li *ngIf="localStoreService.hasPermission('can.access.dashboard')"
                     class="d-flex align-items-center sidebar_svg" (click)="setActive('Dashboard')"
                     routerLink="dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }"><span
                         class="d-flex align-items-center sidebar_svg home"></span><a>Dashboard</a></li>
 
-                <li *ngIf="localStoreService.hasPermission('can.view.organization')"
+                <li *ngIf="localStoreService.hasPermission('can.access.organizations')"
                     class="d-flex align-items-center sidebar_svg" (click)="setActive('Organizations')"
                     routerLink="organization" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
                     <span class="d-flex align-items-center sidebar_svg Icon"></span><a>Organizations</a></li>
 
-                <li *ngIf="localStoreService.hasPermission('can.view.role')"
+                <li *ngIf="localStoreService.hasPermission('can.access.roles')"
                     class="d-flex align-items-center sidebar_svg" (click)="setActive('Permissions')" routerLink="roles"
                     routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }"><span
                         class="d-flex align-items-center sidebar_svg check-verified"></span><a>Roles & Permissions</a>
                 </li>
 
-                <li *ngIf="localStoreService.hasPermission('can.view.application')"
+                <li *ngIf="localStoreService.hasPermission('can.access.applications')"
                     class="d-flex align-items-center sidebar_svg" (click)="setActive('Applications')"
                     routerLink="application" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
                     <span class="d-flex align-items-center sidebar_svg monitor"></span><a>Applications</a></li>
 
-                <li *ngIf="localStoreService.hasPermission('can.view.user')"
+                <li *ngIf="localStoreService.hasPermission('can.access.users')"
                     class="d-flex align-items-center sidebar_svg" (click)="setActive('Users')" routerLink="user"
                     routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }"><span
                         class="d-flex align-items-center sidebar_svg iconone"></span><a>Users</a></li>
 
-                <!-- <li *ngIf="localStoreService.hasPermission('can.view.member')" -->
-                <li
+                <li *ngIf="localStoreService.hasPermission('can.access.members')"
                     class="d-flex align-items-center sidebar_svg" (click)="setActive('teamMembers')"
                     routerLink="team-member" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
                     <span class="d-flex align-items-center sidebar_svg users "></span><a>Team Members</a></li>

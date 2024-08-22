@@ -55,12 +55,21 @@ export class LocalStoreService {
   
   getUserProfile(): string {
     const userData = this.getItem('user');
-    return userData.profile_picture;
+    return userData.profile_picture || '../../../../../assets/images/iis.svg';
   }
 
   getUserRole(): string {
     const userData = this.getItem('user');
-    return userData.role.name;
+    return userData.role.name || [];
   }
-
+  
+  getUserPermission() {
+    const userData = this.getItem('user');
+    return userData.permissions || 'NA';
+  }
+  
+  hasPermission(permissionName: string): boolean {
+    const permissionData = this.getUserPermission();
+    return permissionData.some((permission: { slug: string; }) => permission.slug === permissionName);
+  }
 }

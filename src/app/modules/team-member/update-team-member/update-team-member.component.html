@@ -47,7 +47,9 @@
     <div class="d-flex justify-content-end mt-4">
       <!-- <button type="button" class="btn border me-3 close-modal" (click)="closeModal()">Cancel</button> -->
       <button type="button" class="cancel_btn me-2" (click)="closeModal()">Cancel</button>
-      <button type="submit" class="primary_button">Update</button>
+      <button type="submit" class="primary_button" [disabled]="isLoading">
+        <span class="spinner-border spinner-border-sm" *ngIf="isLoading"></span>
+        Update</button>
 
     </div>
   </form>

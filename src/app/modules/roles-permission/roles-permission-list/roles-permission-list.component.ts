@@ -3,13 +3,13 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
 import { CreateRoleComponent } from '../create-role/create-role.component';
 import { CrudService } from 'src/app/shared/services/crud.service';
+import { LocalStoreService } from 'src/app/shared/services/local-store.service';
 @Component({
   selector: 'app-roles-permission-list',
   templateUrl: './roles-permission-list.component.html',
   styleUrls: ['./roles-permission-list.component.scss']
 })
 export class RolesPermissionListComponent {
-  constructor(private modalService: BsModalService, private router: Router, private crudService: CrudService,) { }
   columns: any = []
   roleslist: any = []
   modalRef?: BsModalRef;
@@ -37,6 +37,12 @@ export class RolesPermissionListComponent {
       "total_records": 0
     }
   };
+
+  constructor(
+    private modalService: BsModalService, 
+    private crudService: CrudService,
+    public localStoreService: LocalStoreService,
+  ) { }
 
   ngOnInit(): void {
     this.getRolePermissionListing()

@@ -4,6 +4,7 @@ import { CreateUserComponent } from '../create-user/create-user.component';
 import { Router } from '@angular/router';
 import { CrudService } from 'src/app/shared/services/crud.service';
 import { Store } from '@ngxs/store';
+import { LocalStoreService } from 'src/app/shared/services/local-store.service';
 
 
 @Component({
@@ -12,13 +13,34 @@ import { Store } from '@ngxs/store';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent {
-  constructor(private modalService: BsModalService, private router: Router, private crudService: CrudService,
-    private store: Store
-  ) { }
+  
   columns: any = []
   userList: any = []
   modalRef?: BsModalRef;
   searchTerm: string = '';
+  
+  tableConfig = {
+    paginationParams: {
+      "total_pages": 0,
+      "payload_size": 0,
+      "has_next": false,
+      "current_page": 0,
+      "skipped_records": 0,
+      "total_records": 0
+    }
+  };
+
+  constructor(
+    private modalService: BsModalService, 
+    private router: Router, 
+    private crudService: CrudService,
+    private store: Store,
+    public localStoreService: LocalStoreService
+  ) { }
+
+  ngOnInit(): void {
+    this.userListing()
+  }
 
   createUser(user?: any) {
     const initialState = {
@@ -38,16 +60,6 @@ export class UserListComponent {
       this.userListing();
     });
   }
-  tableConfig = {
-    paginationParams: {
-      "total_pages": 0,
-      "payload_size": 0,
-      "has_next": false,
-      "current_page": 0,
-      "skipped_records": 0,
-      "total_records": 0
-    }
-  };
 
   userListing() {
     this.crudService.read('users').subscribe((response: any) => {
@@ -85,11 +97,6 @@ export class UserListComponent {
   activeMenu: string = 'Dashboard';
   setActive(menu: string): void {
     this.activeMenu = menu;
-  }
-
-  ngOnInit(): void {
-    this.userListing()
-
   }
   
   viewUserDetail(user: any) {

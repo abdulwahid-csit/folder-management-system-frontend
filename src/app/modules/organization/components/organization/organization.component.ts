@@ -6,6 +6,7 @@ import { CrudService } from 'src/app/shared/services/crud.service';
 import { AddOrganization, Organization, OrganizationState } from '../../state/organization.state';
 import { Observable } from 'rxjs';
 import { Select, Store } from '@ngxs/store';
+import { LocalStoreService } from 'src/app/shared/services/local-store.service';
 
 @Component({
   selector: 'app-organization',
@@ -18,7 +19,8 @@ export class OrganizationComponent {
   constructor(
     private modalService: BsModalService,
     private crudService: CrudService,
-    private store: Store
+    private store: Store,
+    public localStoreService: LocalStoreService
   ) { }
 
   modalRef?: BsModalRef;

@@ -15,6 +15,7 @@ export class InviteMemberComponent implements OnInit {
   inviteForm!: FormGroup;
   roles: any[] = [];
   isFocused: boolean = false;
+  isLoading: boolean = false;
 
   constructor(
     private bsModalService: BsModalService,
@@ -70,6 +71,7 @@ export class InviteMemberComponent implements OnInit {
       path: '/layout/team-member/register',
       organization: 19
     };
+    this.isLoading = true;
 
     // console.log('Form Submitted:', invitationData);
 
@@ -78,14 +80,17 @@ export class InviteMemberComponent implements OnInit {
       .subscribe(
         response => {
           this.toast.success(response.message, "Success!")
+          this.isLoading = false;
           // console.log('Invite sent successfully', response);
           this.closeModal();
         },
         error => {
           this.toast.error(error.error.message, "Error!")
+          this.isLoading = false;
           // console.error('Error sending invite:', error);
         }
       );
+         
   }
 
   onValueChange(): void {

@@ -16,15 +16,16 @@ import { LocalStoreService } from 'src/app/shared/services/local-store.service';
 export class OrganizationComponent {
   @Select(OrganizationState.getOrganizations) users$!: Observable<Organization[]>;
 
+  modalRef?: BsModalRef;
+  searchTerm: string = '';
+  searchType: boolean = false;
+
   constructor(
     private modalService: BsModalService,
     private crudService: CrudService,
     private store: Store,
     public localStoreService: LocalStoreService
   ) { }
-
-  modalRef?: BsModalRef;
-  searchTerm: string = '';
 
   columns: any = []
   organizationList: any = []
@@ -42,11 +43,19 @@ export class OrganizationComponent {
   };
 
   ngOnInit(): void {
-    this.getOrganization();
+    this.getOrganization(1);
   }
 
-  getOrganization(){
-    this.crudService.read('organization').subscribe((response: any) => {
+  getOrganization(currentPage: any) {
+    let urlData = 'organization?page=${currentPage}&limit=10';
+    if(this.searchType){
+      urlData = `organization?page=${currentPage}&limit=10&search=${this.searchTerm}`;
+    }else{
+      urlData = `organization?page=${currentPage}&limit=10`;
+    }
+
+    this.crudService.read(urlData).subscribe((response: any) => {
+      this.searchType = false;
       if (response.status_code === 200 || response.status_code === 201) {
         this.store.dispatch(new AddOrganization(response));
         if (response.data.payload.length > 0) {
@@ -82,7 +91,15 @@ export class OrganizationComponent {
     });
 
     this.modalRef.content.successCall.subscribe(() => {
-      this.getOrganization();
+      this.getOrganization(1);
     });
+  }
+  onKeyChange(item: any){
+    this.searchType = false;
+
+    if(item.keyCode == 13){
+      this.searchType = true;
+      this.getOrganization(1);
+    }
   }
 }

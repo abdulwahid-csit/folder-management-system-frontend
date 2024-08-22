@@ -45,8 +45,8 @@
 
 
 
- <div class="data_table_wrapper">
-    <table class="table table-hover">
+ <div class="data_table_wrapper pb-0">
+    <table class="table table-hover mb-0">
       <thead>
         <tr>
           <th class="align-content-center" *ngFor="let column of getUpdatedColumns()">
@@ -75,10 +75,10 @@
     </table>
     <div class="dataTable_pagination d-flex align-items-center justify-content-between" *ngIf="filterData.length">
       <div>
-        <p class="mb-0">Showing {{config.paginationParams.current_page}} to {{config.paginationParams.total_pages}} of {{ filterData.length }} results</p>
+        <p class="mb-0 fw-600 color-8492A6 fs-14px">Showing {{config.paginationParams.current_page}} to {{config.paginationParams.total_pages}} of {{ filterData.length }} results</p>
       </div>
       <div>
-        <app-pagination [totalPages]="config.paginationParams.total_pages" [currentPage]="config.paginationParams.current_page"></app-pagination>
+        <app-pagination [totalPages]="config.paginationParams.total_pages" [currentPage]="config.paginationParams.current_page" (currentPageChange)="onPageChange($event)"></app-pagination>
       </div>
     </div>
   </div>

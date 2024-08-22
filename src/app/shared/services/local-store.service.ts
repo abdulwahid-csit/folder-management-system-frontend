@@ -60,7 +60,16 @@ export class LocalStoreService {
 
   getUserRole(): string {
     const userData = this.getItem('user');
-    return userData.role.name || 'NA';
+    return userData.role.name || [];
   }
-
+  
+  getUserPermission() {
+    const userData = this.getItem('user');
+    return userData.permissions || 'NA';
+  }
+  
+  hasPermission(permissionName: string): boolean {
+    const permissionData = this.getUserPermission();
+    return permissionData.some((permission: { slug: string; }) => permission.slug === permissionName);
+  }
 }

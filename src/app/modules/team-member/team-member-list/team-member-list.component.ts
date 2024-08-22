@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { InviteMemberComponent } from '../invite-member/invite-member.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CrudService } from 'src/app/shared/services/crud.service';
+import { LocalStoreService } from 'src/app/shared/services/local-store.service';
 
 
 
@@ -19,9 +20,8 @@ export class TeamMemberListComponent implements OnInit {
 
   constructor(
     private modalService: BsModalService,
-
     private crudService: CrudService,
-
+    public localStoreService: LocalStoreService,
   ) { }
 
   ngOnInit(): void {

@@ -10,7 +10,7 @@
                 </div>
                 <button type="button" class="btn filter_btn ms-8px"><span class="filterIcon me-2"></span>
                     Filter</button>
-                <button type="button" class="primary_button ms-8px" (click)="createOganization()">Create
+                <button *ngIf="localStoreService.hasPermission('can.create.organization')" type="button" class="primary_button ms-8px" (click)="createOganization()">Create
                     Oganization</button>
             </div>
         </div>

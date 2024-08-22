@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CrudService } from 'src/app/shared/services/crud.service';
 import { DeleteModalComponent } from 'src/app/shared/components/delete-modal/delete-modal.component';
 import { ToastrService } from 'ngx-toastr';
+import { LocalStoreService } from 'src/app/shared/services/local-store.service';
 @Component({
   selector: 'app-user-detail',
   templateUrl: './user-detail.component.html',
@@ -33,7 +34,8 @@ export class UserDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private router: Router,
-    private toast: ToastrService
+    private toast: ToastrService,
+    public localStoreService: LocalStoreService
   ) { }
 
   ngOnInit(): void {

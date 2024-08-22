@@ -105,7 +105,7 @@
                   <input type="text" class="form-control fs-14px" id="exampleFormControlInput1"
                     placeholder="Enter last name" formControlName="lastName">
                   <small *ngIf="isControlHasError('lastName','required', accountDetailsForm)"
-                    class="mt-1 text-danger">First
+                    class="mt-1 text-danger">Last
                     Name is
                     required</small>
                 </div>
@@ -127,7 +127,7 @@
                   [ngClass]="isControlHasError('phoneNumber', 'required', accountDetailsForm) ? 'custom-input-error': 'custom-input'">
                   <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Phone Number
                   </label>
-                  <input type="number" class="form-control fs-14px" id="exampleFormControlInput1"
+                  <input type="text" class="form-control fs-14px" id="exampleFormControlInput1"
                     placeholder="Enter phone number" formControlName="phoneNumber" maxLength="11">
                   <small *ngIf="isControlHasError('phoneNumber','required', accountDetailsForm)"
                     class="mt-1 text-danger">First Name is

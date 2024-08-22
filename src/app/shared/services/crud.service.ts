@@ -39,10 +39,19 @@ export class CrudService {
   }
 
 
-  update(endpoint: string, id: number, data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}${endpoint}/${id}`, data, { headers: this.getHeaders() })
+  // update(endpoint: string, id: number, data: any): Observable<any> {
+  //   return this.http.put(`${this.apiUrl}${endpoint}/${id}`, data, { headers: this.getHeaders() })
+  //     .pipe(catchError(this.handleError));
+  // }
+  update(endpoint: string, id?: number, data?: any, path?: string): Observable<any> {
+    let url = `${this.apiUrl}${endpoint}/${id}`;
+    if (path) {
+      url += `/${path}`;
+    }
+    return this.http.put(url, data, { headers: this.getHeaders() })
       .pipe(catchError(this.handleError));
   }
+
 
   delete(endpoint: string, id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}${endpoint}/${id}`, { headers: this.getHeaders() })

@@ -13,8 +13,8 @@ export class VerifyEmailComponent implements OnInit {
   otpForm!: FormGroup;
 
   constructor(private fb: FormBuilder,
-    private crudservice:CrudService,
-  private router: Router) {}
+    private crudservice: CrudService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.otpForm = this.fb.group({
@@ -44,18 +44,8 @@ export class VerifyEmailComponent implements OnInit {
   }
 
 
-  verifyAccount() {
-    const enteredCode = this.otpForm
-
-    this.crudservice.create('auth/verify-otp',enteredCode ).subscribe(
-      (response) => {
-        console.log("this is the otp", enteredCode);
-        this.router.navigate(['/create/password']);
-      },
-      (error) => {
-        console.log(error);
-      }
-    )}
+  // verifyAccount() {
+  //  }
 
   onKeyDown(event: KeyboardEvent, index: number): void {
     const input = event.target as HTMLInputElement;
@@ -73,9 +63,19 @@ export class VerifyEmailComponent implements OnInit {
   onSubmit(): void {
     if (this.otpForm.invalid) {
       this.otpForm.markAllAsTouched();
-    } else {
-    const otpCode = Object.values(this.otpForm.value).join('');
-    console.log('6-Digit OTP Code:', otpCode);
+    }
+    else {
+          const otpCode = Object.values(this.otpForm.value).join('');
+            console.log('6-Digit OTP Code:', otpCode);
+              this.crudservice.create('auth/verify-otp', otpCode).subscribe(
+        (response) => {
+                console.log("this is the otp", otpCode);
+                  this.router.navigate(['/create/password']);
+        },
+        (error) => {
+                console.log(error);
+        }
+      )
     }
   }
 

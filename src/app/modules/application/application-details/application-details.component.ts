@@ -16,12 +16,12 @@ export class ApplicationDetailsComponent  {
   modalOpen: boolean = false;
   selectedTab = 'features';
   applicationID: any;
+  app_secret: string | undefined;
 
 
 
 
-constructor(
-  private modalService: BsModalService,
+constructor(private modalService: BsModalService,
   private crudService: CrudService, private route: ActivatedRoute,
 private router: Router,
 private toast: ToastrService){
@@ -42,94 +42,70 @@ setSelectedTab(tab: string){
     // this.columns = this.columns = this.dataTable[0]?.data?.columns;
   }
 }
-applicationDeleteModal(){
 
-}
-// regenerateKeyModal(): void {
-//   const initialState = {description: 'Please confirm you really want to delete the organization. After clicking yes, the organization will be deleted permanently.'};
-//   this.modalRef = this.modalService.show(DeleteModalComponent, {
-//     class: 'modal-dialog-centered custom-delete-user-modal modal-lg',
-//     backdrop: 'static',
-//     keyboard: false,
-//     initialState,
-//   });
-
-//   this.modalRef.content.deleteData.subscribe(() => {
-//     this.deleteApplication();
-//   });
-// }
-// regenerateKey(){
-//   this.crudService.update('/applications',this.applicationID,'/secret/regenerate').subscribe((response: any) => {
-//     if (response.status_code === 200 || response.status_code === 201) {
-//       this.modalService.hide();
-//       this.router.navigate(['/layout/applications'])
-//     } else {
-//       this.toast.error(response.message, "Error!")
-//     }
-//   }, error => {
-//     this.toast.error(error.error.message, "Error!")
-//   });
-// }
-
-// applicationDeleteModal(): void {
-////     backdrop: 'static',
-//     keyboard: false,
-//     initialState,
-//   });
-
-//   this.modalRef.content.deleteData.subscribe(() => {
-//     this.deleteApplication();
-//   });
-// }
-
-// deleteApplication(){
-
-// }
-// openRegenerateModal() {
-//   this.modalRef = this.modalService.open(this.regenerateModal, {
-//     size: 'lg',
-//     backdrop: 'static',
-//     keyboard: false
-//   });
-// }
-  //  const initialState = {description: 'Please confirm you really want to delete the organization. After clicking yes, the organization will be deleted permanently.'};
-//   this.modalRef = this.modalService.show(DeleteModalComponent, {
-//     class: 'modal-dialog-centered custom-delete-user-modal modal-lg',
-
-  openModal(template: TemplateRef<any>, classes: string): void {
-    this.modalRef = this.modalService.show(template, {
-    class: classes,
+applicationDeleteModal(): void {
+  const initialState = {description: 'Please confirm you really want to delete the organization. After clicking yes, the organization will be deleted permanently.'};
+  this.modalRef = this.modalService.show(DeleteModalComponent, {
+    class: 'modal-dialog-centered custom-delete-user-modal modal-lg',
     backdrop: 'static',
     keyboard: false,
+    initialState,
+  });
 
+  this.modalRef.content.deleteData.subscribe(() => {
+    this.deleteApplication();
+  });
+}
+
+deleteApplication(){
+  this.crudService.delete('applications', this.applicationID).subscribe((response: any) => {
+    if (response.status_code === 200 || response.status_code === 201) {
+      this.modalService.hide();
+      this.router.navigate(['/layout/applications'])
+    } else {
+      this.toast.error(response.message, "Error!")
+    }
+  }, error => {
+    this.toast.error(error.error.message, "Error!")
+  });
+}
+openModal(template: TemplateRef<any>, classes: string): void {
+  this.modalRef = this.modalService.show(template, {
+  class: classes,
+  backdrop: 'static',
+  keyboard: false,
+
+  });
+  this.modalOpen = true;
+}
+closeModal(confirm:boolean): void {
+  if(confirm){
+    const body = {}
+    this.crudService.update('applications', this.applicationID,body,'secret/regenerate').subscribe((response: any) => {
+      if (response.status_code === 200 || response.status_code === 201) {
+        this.modalService.hide();
+        // this.router.navigate(['/layout/applications'])
+        console.log("here is the response",response.data.app_secret);
+        this.app_secret =  response.data.app_secret
+
+      } else {
+        this.toast.error(response.message, "Error!")
+      }
+    }, error => {
+      this.toast.error(error.error.message, "Error!")
     });
-    this.modalOpen = true;
-  }
 
-
-  closeModal(confirm:boolean): void {
-    if(confirm){
-      this.crudService.delete('applications', this.applicationID).subscribe((response: any) => {
-        if (response.status_code === 200 || response.status_code === 201) {
-          this.modalService.hide();
-          this.router.navigate(['/layout/applications'])
-        } else {
-          this.toast.error(response.message, "Error!")
-        }
-      }, error => {
-        this.toast.error(error.error.message, "Error!")
-      });
-
-      this.modalRef?.hide();
-      this.modalOpen = false;
-
-    }
-    else {
-      this.modalRef?.hide();
-      this.modalOpen = false;
-    }
+    this.modalRef?.hide();
+    this.modalOpen = false;
 
   }
+  else {
+    this.modalRef?.hide();
+    this.modalOpen = false;
+  }
+
+}
+
 
   copyId(spanRef: HTMLElement, copySvg: HTMLElement, tickIcon: HTMLElement, selectedInput: HTMLInputElement) {
     copySvg?.classList.add('d-none');

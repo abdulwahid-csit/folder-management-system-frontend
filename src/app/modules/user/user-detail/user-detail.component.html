@@ -70,7 +70,7 @@
                             <td class="fw-600">Permission</td>
                             <td>
                                 <div class="d-flex flex-wrap align-items-center">
-                                    <span class="custom-badge-primary ps-3 pe-3 me-2 fs-12"
+                                    <span class="custom-badge-primary ps-3 pe-3 m-1 me-2 fs-12"
                                         *ngFor="let permission of userData?.permissions">
                                               {{ permission.description || 'N/A' }}
                                     </span>
@@ -87,17 +87,18 @@
                         <tr>
                             <td class="fs-14 fw-600">Status</td>
                             <td>
-                                <div class="d-flex align-items-center">
-                                    <span *ngIf="userData?.status === 'active'"
-                                        class="custom-badge-primary ps-3 pe-3">{{ userData?.status ||
-                                        'N/A' }}</span>
-                                    <span *ngIf="userData?.status === 'inactive'"
-                                        class="custom-badge-warning ps-3 pe-3">{{ userData?.status ||
-                                        'N/A' }}</span>
-                                    <span *ngIf="userData?.status !== 'active' && userData?.status !== 'inactive'"
-                                        class="custom-badge-default ps-3 pe-3">{{ userData?.status || 'N/A' }}</span>
-                                </div>
-                            </td>
+                  <div class="custom-dropdown w-25">
+                    <ng-select class="" #selectElement [ngClass]="{
+                                   'custom-select-focused': isFocused
+                                 }" [(ngModel)]="userStatus" (focus)="isFocused = true"
+                      (blur)="isFocused = false" (change)="onValueChange()"
+                      placeholder="Select status">
+                      <ng-option value="active">Active</ng-option>
+                      <ng-option value="inactive">Inactive</ng-option>
+                      <ng-option value="blocked">Blocked</ng-option>
+                    </ng-select>
+                  </div>
+                </td>
                         </tr>
                         <tr>
 

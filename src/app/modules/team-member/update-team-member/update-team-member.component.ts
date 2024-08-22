@@ -15,6 +15,7 @@ export class UpdateTeamMemberComponent implements OnInit {
   updateMemberForm!: FormGroup;
   @Input() data!: any;
   memberId!: number;
+  isLoading: boolean = false;
     
   constructor(
     private modalService: BsModalService, 
@@ -61,18 +62,22 @@ export class UpdateTeamMemberComponent implements OnInit {
 
     const memberData = this.updateMemberForm.value;
     if (this.memberId !== undefined) {
+      this.isLoading = true;
       this.crudService.update('member', this.memberId, memberData).subscribe(
         (response: any) => {
           if (response.status_code === 200) {
             this.toast.success(response.message, "Success!");
+            this.isLoading = false;
             this.successCall.emit();
             this.closeModal();
           } else {
             this.toast.error('Error updating member', "Error!");
+            this.isLoading = false;
           }
         },
         error => {
           this.toast.error('Error updating member', "Error!");
+          this.isLoading = false;
         }
       );
     }

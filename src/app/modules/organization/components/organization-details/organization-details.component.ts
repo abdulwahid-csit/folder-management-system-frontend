@@ -6,6 +6,7 @@ import { CrudService } from 'src/app/shared/services/crud.service';
 import { CreateOrganizationComponent } from '../create-organization/create-organization.component';
 import { DeleteModalComponent } from 'src/app/shared/components/delete-modal/delete-modal.component';
 import { ToastrService } from 'ngx-toastr';
+import { LocalStoreService } from 'src/app/shared/services/local-store.service';
 
 @Component({
   selector: 'app-organization-details',
@@ -48,7 +49,8 @@ export class OrganizationDetailsComponent implements OnInit {
     private crudService: CrudService,
     private route: ActivatedRoute,
     private router: Router,
-    private toast: ToastrService
+    private toast: ToastrService,
+    public localStoreService: LocalStoreService,
   ) { }
 
   ngOnInit() {

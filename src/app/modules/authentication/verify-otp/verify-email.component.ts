@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CrudService } from 'src/app/shared/services/crud.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-verify-email',
@@ -9,45 +10,44 @@ import { CrudService } from 'src/app/shared/services/crud.service';
 })
 export class VerifyEmailComponent implements OnInit {
 
-  code: any[6] = [null, null, null, null, null, null];
+  otpForm!: FormGroup;
 
-  constructor(private crudservice:CrudService,private router:Router) { }
+  constructor(private fb: FormBuilder,
+    private crudservice:CrudService,
+  private router: Router) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.otpForm = this.fb.group({
+      code0: ['', [Validators.required, Validators.maxLength(1)]],
+      code1: ['', [Validators.required, Validators.maxLength(1)]],
+      code2: ['', [Validators.required, Validators.maxLength(1)]],
+      code3: ['', [Validators.required, Validators.maxLength(1)]],
+      code4: ['', [Validators.required, Validators.maxLength(1)]],
+      code5: ['', [Validators.required, Validators.maxLength(1)]]
+    });
   }
 
-
-  onInputChange(event: any, index: number) {
-    const input = event.target;
-    let value = input.value.replace(/\D/g, '');
+  onInputChange(event: Event, index: number): void {
+    const input = event.target as HTMLInputElement;
+    const value = input.value;
 
     if (value.length > 1) {
-      value = value[0];
+      input.value = value.slice(0, 1);
     }
 
-    this.code[index] = value;
-    input.value = value;
-
-    if (value.length === 1 && index < this.code.length - 1) {
-      input.nextElementSibling.focus();
-    }
-  }
-
-  onKeyDown(event: any, index: number) {
-    const input = event.target;
-
-    if (event.key === 'Backspace') {
-      if (input.value.length === 0 && index > 0) {
-        input.previousElementSibling.focus();
-        this.code[index - 1] = '';
+    if (input.value && index < 5) {
+      const nextInput = document.getElementById(`otp-${index + 1}`) as HTMLInputElement;
+      if (nextInput) {
+        nextInput.focus();
       }
     }
   }
 
-  verifyAccount() {
-    const enteredCode = this.code.join('');
 
-    this.crudservice.create('auth/verify-otp', { code: enteredCode } ).subscribe(
+  verifyAccount() {
+    const enteredCode = this.otpForm
+
+    this.crudservice.create('auth/verify-otp',enteredCode ).subscribe(
       (response) => {
         console.log("this is the otp", enteredCode);
         this.router.navigate(['/create/password']);
@@ -55,7 +55,28 @@ export class VerifyEmailComponent implements OnInit {
       (error) => {
         console.log(error);
       }
-    );
+    )}
+
+  onKeyDown(event: KeyboardEvent, index: number): void {
+    const input = event.target as HTMLInputElement;
+
+    if (event.key === 'Backspace' && !input.value && index > 0) {
+      const prevInput = document.getElementById(`otp-${index - 1}`) as HTMLInputElement;
+      if (prevInput) {
+        prevInput.focus();
+      }
+    }
+  }
+
+
+
+  onSubmit(): void {
+    if (this.otpForm.invalid) {
+      this.otpForm.markAllAsTouched();
+    } else {
+    const otpCode = Object.values(this.otpForm.value).join('');
+    console.log('6-Digit OTP Code:', otpCode);
+    }
   }
 
 }

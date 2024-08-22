@@ -17,6 +17,7 @@ export class CreateRoleComponent implements OnInit {
   selectedPermissions: Set<number> = new Set();
   modalRef?: BsModalRef;
   permissionModalRef?: BsModalRef;
+  isLoading: boolean = false;
 
   constructor(
     public bsModalRef: BsModalRef,
@@ -95,18 +96,21 @@ export class CreateRoleComponent implements OnInit {
       permissions: permissionsArray,
       // organization: Number(this.rolesForm.value.organization.id)
     };
-
+    this.isLoading = true;
     if (this.mode === 'create') {
       this.crudService.create('access/roles', formData).subscribe(response => {
         if (response.status_code === 200) {
           console.log('Role created successfully:', response);
           this.toastr.success('Role created successfully!', 'Success');
+          this.isLoading = false;
         } else {
           this.toastr.error(response.message, 'Error');
+          this.isLoading = false;
         }
       }, error => {
         console.error('Error creating role:', error);
         this.toastr.error(error.error.message, 'Error');
+        this.isLoading = false;
       });
     } else if (this.mode === 'update') {
       if (this.userData?.id) {
@@ -114,15 +118,20 @@ export class CreateRoleComponent implements OnInit {
           if (response.status_code === 200) {
             console.log('Role updated successfully:', response);
             this.toastr.success('Role updated successfully!', 'Success');
+            this.isLoading = false;
           } else {
             this.toastr.error(response.message, 'Error');
+            this.isLoading = false;
           }
         }, error => {
           console.error('Error updating role:', error);
           this.toastr.error(error.error.message, 'Error');
+          this.isLoading = false;
         });
+        this.isLoading = false;
       } else {
         this.toastr.error('No valid user ID found for update', 'Error');
+        this.isLoading = false;
       }
     }
 

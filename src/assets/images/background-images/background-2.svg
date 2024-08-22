@@ -1,0 +1,33 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1328_2282)">
+<path d="M1920 0H0V1080H1920V0Z" fill="url(#paint0_linear_1328_2282)"/>
+<path style="mix-blend-mode:lighten" d="M1920 0H0V1080H1920V0Z" fill="url(#paint1_radial_1328_2282)"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_1328_2282" x1="1947.97" y1="-15.7317" x2="1044.17" y2="1591.03" gradientUnits="userSpaceOnUse">
+<stop stop-color="#6BD0F3"/>
+<stop offset="1" stop-color="#1D87DC"/>
+</linearGradient>
+<radialGradient id="paint1_radial_1328_2282" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1562.98 -11.8471) scale(2340.92 1316.77)">
+<stop stop-color="#FFFB90"/>
+<stop offset="0.1" stop-color="#FBEA78"/>
+<stop offset="0.17" stop-color="#F8DC65"/>
+<stop offset="0.22" stop-color="#F3D661"/>
+<stop offset="0.29" stop-color="#E4C557"/>
+<stop offset="0.36" stop-color="#CCA846"/>
+<stop offset="0.45" stop-color="#AA812E"/>
+<stop offset="0.49" stop-color="#996C22"/>
+<stop offset="0.6" stop-color="#BE9B42"/>
+<stop offset="0.74" stop-color="#EAD269"/>
+<stop offset="0.81" stop-color="#FBE878"/>
+<stop offset="0.84" stop-color="#F5DF72"/>
+<stop offset="0.88" stop-color="#E6C862"/>
+<stop offset="0.93" stop-color="#CDA147"/>
+<stop offset="0.99" stop-color="#AA6D22"/>
+<stop offset="1" stop-color="#A4631B"/>
+</radialGradient>
+<clipPath id="clip0_1328_2282">
+<rect width="1920" height="1080" fill="white"/>
+</clipPath>
+</defs>
+</svg>

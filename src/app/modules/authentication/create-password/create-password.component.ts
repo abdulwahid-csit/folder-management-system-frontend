@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { CrudService } from 'src/app/shared/services/crud.service';
 
 @Component({
   selector: 'app-create-password',
@@ -11,7 +14,7 @@ export class CreatePasswordComponent implements OnInit {
   hidePassword: boolean = true;
   hideConfirmPassword: boolean = true;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private crudservice: CrudService, private router: Router, private toast: ToastrService) { }
 
   ngOnInit(): void {
     this.passwordForm = this.fb.group({
@@ -32,12 +35,33 @@ export class CreatePasswordComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.passwordForm.invalid) {
+
+    if (this.passwordForm.invalid || this.passwordForm.hasError('mismatch')) {
       this.passwordForm.markAllAsTouched();
       return;
     }
-    console.log(this.passwordForm.value);
+
+    const formValue = this.passwordForm.value;
+    const password = formValue.password;
+    const confirmPassword = formValue.confirmPassword;
+
+    if (password !== confirmPassword) {
+      console.log('Passwords do not match');
+
+      return;
+    }
+    this.crudservice.create('auth/change-password', { newpassword: password }).subscribe(
+      (response) => {
+        this.toast.success("Password changed successfully","password changing")
+          console.log('Password successfully changed', response);
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
+
 
   togglePasswordVisibility(): void {
     this.hidePassword = !this.hidePassword;

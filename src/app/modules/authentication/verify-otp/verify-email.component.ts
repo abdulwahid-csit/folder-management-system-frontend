@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CrudService } from 'src/app/shared/services/crud.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -7,10 +9,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./verify-email.component.scss']
 })
 export class VerifyEmailComponent implements OnInit {
-  
+
   otpForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder,
+    private crudservice: CrudService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.otpForm = this.fb.group({
@@ -26,11 +30,11 @@ export class VerifyEmailComponent implements OnInit {
   onInputChange(event: Event, index: number): void {
     const input = event.target as HTMLInputElement;
     const value = input.value;
-  
+
     if (value.length > 1) {
       input.value = value.slice(0, 1);
     }
-  
+
     if (input.value && index < 5) {
       const nextInput = document.getElementById(`otp-${index + 1}`) as HTMLInputElement;
       if (nextInput) {
@@ -38,11 +42,14 @@ export class VerifyEmailComponent implements OnInit {
       }
     }
   }
-  
+
+
+  // verifyAccount() {
+  //  }
 
   onKeyDown(event: KeyboardEvent, index: number): void {
     const input = event.target as HTMLInputElement;
-  
+
     if (event.key === 'Backspace' && !input.value && index > 0) {
       const prevInput = document.getElementById(`otp-${index - 1}`) as HTMLInputElement;
       if (prevInput) {
@@ -50,15 +57,26 @@ export class VerifyEmailComponent implements OnInit {
       }
     }
   }
-  
-  
+
+
 
   onSubmit(): void {
     if (this.otpForm.invalid) {
       this.otpForm.markAllAsTouched();
-    } else {
-    const otpCode = Object.values(this.otpForm.value).join('');
-    console.log('6-Digit OTP Code:', otpCode);
+    }
+    else {
+          const otpCode = Object.values(this.otpForm.value).join('');
+            console.log('6-Digit OTP Code:', otpCode);
+              this.crudservice.create('auth/verify-otp', otpCode).subscribe(
+        (response) => {
+                console.log("this is the otp", otpCode);
+                  this.router.navigate(['/create/password']);
+        },
+        (error) => {
+                console.log(error);
+        }
+      )
     }
   }
+
 }

@@ -5,7 +5,7 @@ import { CreateUserComponent } from '../create-user/create-user.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CrudService } from 'src/app/shared/services/crud.service';
 import { DeleteModalComponent } from 'src/app/shared/components/delete-modal/delete-modal.component';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-detail',
   templateUrl: './user-detail.component.html',
@@ -19,6 +19,8 @@ export class UserDetailComponent implements OnInit {
   hidePassword: boolean = true;
   hideConfirmPassword: boolean = true;
   passwordForm!: FormGroup;
+  isFocused!: boolean;
+  userStatus: string = '';
   permissions: {
     slug: any; id: number, name: string 
 }[] = [];
@@ -30,7 +32,8 @@ export class UserDetailComponent implements OnInit {
     private crudService: CrudService,
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private toast: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -55,6 +58,7 @@ export class UserDetailComponent implements OnInit {
     this.crudService.read('users', +id).subscribe((response: any) => {
       if (response.status_code === 200 || response.status_code === 201) {
         this.userData = response.data;
+        this.userStatus = response.data.status;
         this.selectedPermissions = new Set(
           this.userData.permissions.map((perm: any) => {
             return this.permissions.find(p => p.slug === perm.slug)?.id;
@@ -74,6 +78,21 @@ export class UserDetailComponent implements OnInit {
       }
     }, error => {
       console.error('HTTP error:', error);
+    });
+  }
+  onValueChange() {
+    const data = {
+      status: this.userStatus
+    }
+
+    this.crudService.update('users', this.userId, data).subscribe((response: any) => {
+      if (response.status_code === 200 || response.status_code === 201) {
+        this.toast.success(response.message, "Success!")
+      } else {
+        this.toast.error(response.message, "Error!")
+      }
+    }, error => {
+      this.toast.error(error.error.message, "Error!")
     });
   }
 

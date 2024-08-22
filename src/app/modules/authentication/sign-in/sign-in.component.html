@@ -1,4 +1,4 @@
-<div class="bg-login d-flex justify-content-center align-items-center">
+<div class="bg-login d-flex justify-content-center align-items-center position-relative">
   <div class="border-0 shadow-sm rounded-4 login-box">
     <div class="">
       <div class="row">
@@ -52,7 +52,10 @@
                 </div>
                 <div class="col-12 sign-in-div">
                   <div class="d-grid">
-                    <button class="btn btn-clr" type="submit">Sign in</button>
+                    <button class="btn btn-clr" type="submit" [disabled]="isLoading">
+                      <span class="spinner-border spinner-border-sm" *ngIf="isLoading"></span>
+                      Sign in
+                    </button>
                   </div>
                 </div>
               </form>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { CommonService } from 'src/app/shared/services/common.service';
+import { LocalStoreService } from 'src/app/shared/services/local-store.service';
 
 @Component({
   selector: 'app-header',
@@ -14,11 +15,18 @@ export class HeaderComponent implements OnInit {
   showSettingsIcon = true;
   isDropdownVisible = false;
   isDashboard = false;
-  constructor(private commonService:CommonService, private router: Router){ }
+  userName: string = '';
+  userRole: string = '';
+
+
+  constructor(
+    private commonService:CommonService,
+    private router: Router,
+    public localStoreService: LocalStoreService
+  ){ }
 
 
   ngOnInit(): void {
-    // Listen for route changes to update visibility of settings icon and dashboard flag
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
@@ -30,14 +38,14 @@ export class HeaderComponent implements OnInit {
     })
 
     this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)  // Only pass NavigationEnd events
+      filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
-      // Check if the current URL is for the details page
-      this.isDetailsPage = event.urlAfterRedirects.includes('/details'); // Adjust this path to your details route
-      console.log("Current url incllude details page: ", this.isDetailsPage);
-  
+
+      this.isDetailsPage = event.urlAfterRedirects.includes('/details');
     })
 
+    this.userName = this.localStoreService.getUserName();
+    this.userRole = this.localStoreService.getUserRole();
   }
 
   toggleSidebar(){
@@ -65,9 +73,9 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    
+
   }
-  
+
   toggleDropdown() {
     this.isDropdownVisible = !this.isDropdownVisible;
   }
@@ -75,5 +83,13 @@ export class HeaderComponent implements OnInit {
     const currentRoute = this.router.url;
     this.showSettingsIcon = !currentRoute.includes('dashboard');
     this.isDashboard = currentRoute.includes('dashboard');
+  }
+
+  logout() {
+    this.localStoreService.removeItem();
+    this.router.navigate(['/login'])
+  }
+  navigate(){
+    this.router.navigate(['layout/dashboard/settings']);
   }
 }

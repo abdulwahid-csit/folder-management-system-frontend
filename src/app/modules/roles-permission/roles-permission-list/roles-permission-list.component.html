@@ -13,11 +13,12 @@
                         <span class="me-2 filterIcon"></span> Filter
                     </button>
                 </div>
-                <button type="button" class="primary_button ms-0 ms-2 mb-3 mb-md-0" (click)="permissionUser()">Create
+                <button *ngIf="localStoreService.hasPermission('can.create.role')" type="button" class="primary_button ms-0 ms-2 mb-3 mb-md-0" (click)="permissionUser()">Create
                     Roles</button>
             </div>
         </div>
-        <app-data-table [columns]="columns" [config]="tableConfig" [dataSet]="roleslist" [searchTerm]="searchTerm"
-            [module]="'roles'"></app-data-table>
+            <app-data-table [columns]="columns" [config]="tableConfig" [dataSet]="roleslist" [searchTerm]="searchTerm"
+            [module]="'roles'">
+        </app-data-table>
     </div>
 </div>

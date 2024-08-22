@@ -1,5 +1,5 @@
 .bg-login {
-  background-image: url('../../../../assets/images/backgroundimg.png');
+  background-image: url('../../../../assets/images/background-images/background-2.svg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -55,6 +55,9 @@ input[type="password"]{
   background-color: white !important;
   border-radius: 10px;
   padding: 40px !important;
+  z-index: 1000;
+  --bs-box-shadow-sm: 0 3px 10px rgba(0, 0, 0, 0.1);
+
 }
 
 .btn-clr {

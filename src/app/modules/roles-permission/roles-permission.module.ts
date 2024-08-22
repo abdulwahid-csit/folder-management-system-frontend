@@ -7,6 +7,7 @@ import { CreateRoleComponent } from './create-role/create-role.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms'
 import { RoleDetailComponent } from './role-detail/role-detail.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { RoleDetailComponent } from './role-detail/role-detail.component';
     CommonModule,
     RolesPermissionRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgSelectModule 
   ]
 })
 export class RolesPermissionModule { }

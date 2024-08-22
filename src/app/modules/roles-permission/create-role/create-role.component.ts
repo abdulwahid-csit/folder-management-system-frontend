@@ -1,67 +1,166 @@
-import { Component, Input, TemplateRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, } from '@angular/forms';
-import { BsModalService } from 'ngx-bootstrap/modal';
+import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { CrudService } from 'src/app/shared/services/crud.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-role',
   templateUrl: './create-role.component.html',
   styleUrls: ['./create-role.component.scss']
 })
-export class CreateRoleComponent {
+export class CreateRoleComponent implements OnInit {
   @Input() mode: 'create' | 'update' = 'create';
   @Input() userData: any;
   rolesForm!: FormGroup;
-  constructor(private bsModalService: BsModalService, private fb: FormBuilder, private modalService: BsModalService) { }
-  modalRef: any;
+  permissions: { id: number, name: string }[] = [];
+  selectedPermissions: Set<number> = new Set();
+  modalRef?: BsModalRef;
+  permissionModalRef?: BsModalRef;
+  isLoading: boolean = false;
 
-  modalOpen: boolean = false;
+  constructor(
+    public bsModalRef: BsModalRef,
+    private fb: FormBuilder,
+    private crudService: CrudService,
+    private modalService: BsModalService,
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit(): void {
-    if (this.mode === 'update' && this.userData) {
-      this.rolesForm.patchValue(this.userData);
-      this.rolesForm.removeControl('password');
-    }
-    this.rolesForm = this.fb.group({
+    this.initializeForm();
+    this.fetchPermissions();
+    console.warn(this.userData);
 
-      description: [null, Validators.compose([Validators.required])],
-      name: [null, Validators.compose([Validators.required])],
-    })
+    if (this.mode === 'update' && this.userData) {
+      this.rolesForm.patchValue({
+        name: this.userData.name,
+        description: this.userData.description,
+        organization: this.userData.organization.id
+      });
+      this.selectedPermissions = new Set(this.userData.permissions.map((p: any) => p.id));
+    }
   }
+
+  initializeForm() {
+    this.rolesForm = this.fb.group({
+      name: [null, Validators.required],
+      description: [null, Validators.required],
+      permissions: [null,],
+      organization: [1, Validators.required]
+    });
+  }
+
+  fetchPermissions() {
+    this.crudService.read('access/permissions').subscribe((response: any) => {
+      if (response.status_code === 200) {
+        this.permissions = response.data.payload;
+      }
+    }, error => {
+      console.error('HTTP error:', error);
+    });
+  }
+
   closeModal(): void {
-    this.modalRef?.hide();
-    this.modalOpen = false;
+    this.bsModalRef.hide();
   }
+
   isControlHasError(controlName: string, validationType: string): boolean {
     const control = this.rolesForm.controls[controlName];
-    if (!control) {
-      return false;
-    }
-    return (
-      control.hasError(validationType) && (control.dirty || control.touched)
-    );
+    return control?.hasError(validationType) && (control.dirty || control.touched);
   }
+
+  openModal(template: TemplateRef<any>): void {
+    this.permissionModalRef = this.modalService.show(template, {
+      class: 'modal-dialog modal-dialog-centered modal-lg common_modal_shadow',
+      backdrop: 'static',
+      keyboard: false,
+    });
+
+    this.permissionModalRef.onHidden?.subscribe(() => {
+
+    });
+  }
+
   onSubmit(): void {
-    this.rolesForm.markAllAsTouched(); 
     if (this.rolesForm.invalid) {
-      return;  
+      this.rolesForm.markAllAsTouched();
+      return;
     }
 
-    console.log(this.rolesForm.value);
+    const permissionsArray = Array.from(this.selectedPermissions);
+
+
+    const formData = {
+      ...this.rolesForm.value,
+      permissions: permissionsArray,
+      // organization: Number(this.rolesForm.value.organization.id)
+    };
+    this.isLoading = true;
+    if (this.mode === 'create') {
+      this.crudService.create('access/roles', formData).subscribe(response => {
+        if (response.status_code === 200) {
+          console.log('Role created successfully:', response);
+          this.toastr.success('Role created successfully!', 'Success');
+          this.isLoading = false;
+        } else {
+          this.toastr.error(response.message, 'Error');
+          this.isLoading = false;
+        }
+      }, error => {
+        console.error('Error creating role:', error);
+        this.toastr.error(error.error.message, 'Error');
+        this.isLoading = false;
+      });
+    } else if (this.mode === 'update') {
+      if (this.userData?.id) {
+        this.crudService.update('access/roles', this.userData.id, formData).subscribe(response => {
+          if (response.status_code === 200) {
+            console.log('Role updated successfully:', response);
+            this.toastr.success('Role updated successfully!', 'Success');
+            this.isLoading = false;
+          } else {
+            this.toastr.error(response.message, 'Error');
+            this.isLoading = false;
+          }
+        }, error => {
+          console.error('Error updating role:', error);
+          this.toastr.error(error.error.message, 'Error');
+          this.isLoading = false;
+        });
+        this.isLoading = false;
+      } else {
+        this.toastr.error('No valid user ID found for update', 'Error');
+        this.isLoading = false;
+      }
+    }
+
     this.rolesForm.reset();
-    this.bsModalService.hide();
+    this.closeModal();
   }
 
   onCancel(): void {
     this.rolesForm.reset();
-    this.bsModalService.hide();
+    this.closeModal();
   }
-  openModal(template: TemplateRef<any>): void {
-    this.modalRef = this.modalService.show(template, {
-      class: 'modal-dialog modal-dialog-centered modal-lg common_modal_shadow',
-      backdrop: 'static',
-      keyboard: false,
 
-    });
-    this.modalOpen = true;
+  togglePermission(permissionId: number) {
+    if (this.selectedPermissions.has(permissionId)) {
+      this.selectedPermissions.delete(permissionId);
+    } else {
+      this.selectedPermissions.add(permissionId);
+    }
+  }
+
+  isPermissionSelected(permissionId: number): boolean {
+    return this.selectedPermissions.has(permissionId);
+  }
+
+  saveChanges(): void {
+    this.permissionModalRef?.hide();
+  }
+
+  cancelPermissionModal(): void {
+    this.permissionModalRef?.hide();
   }
 }

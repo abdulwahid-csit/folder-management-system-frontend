@@ -1,4 +1,3 @@
-<!-- <button class="btn btn-primary" routerLink="details">Organization Details</button> -->
 <div class="main-div">
     <div class="sso_card w-100 h-100">
         <div class="d-flex align-items-center justify-content-between dataTable_header">
@@ -11,7 +10,7 @@
                 </div>
                 <button type="button" class="btn filter_btn ms-8px"><span class="filterIcon me-2"></span>
                     Filter</button>
-                <button type="button" class="primary_button ms-8px" (click)="createOganization()">Create
+                <button *ngIf="localStoreService.hasPermission('can.create.organization')" type="button" class="primary_button ms-8px" (click)="createOganization()">Create
                     Oganization</button>
             </div>
         </div>

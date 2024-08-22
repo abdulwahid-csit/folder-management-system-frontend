@@ -90,7 +90,7 @@
                                 </span>
                             </div>
                             <div class="invite-button mt-4">
-                                <button class="primary_button ms-2 mb-1">Re-Generate</button>
+                                <button class="primary_button ms-2 mb-1"(click)="openModal(regenerateModal,'modal-lg')">Re-Generate</button>
                             </div>
                         </div>
                     </div>
@@ -189,19 +189,40 @@
 
 
 
-    <ng-template #deleteApp>
-        <div class="modal-dialog-box">
+    <ng-template #regenerateModal>
+      <div class="modal-dialog-box">
+    <div class="pt-0">
+      <div class="p-0 modal-header border-bottom-0 d-flex justify-content-center align-items-baseline">
+        <div class="regenerate-icon">
+          <img src="../../../../assets/icons/regenerate-icon.svg" alt="Regenerate Icon">
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="p-0 text fw-600 text-center color-8492A6">Please confirm you really want to regenerate new key
+          After clicking yes, the application will
+          be currnt key will be deleted permanently.</div>
+      </div>
+      <div class="p-0 modal-footer border-top-0 d-flex justify-content-center">
+        <div class="buttons">
+          <button type="button" class="cancel_btn me-2" (click)="closeModal(false)">No, cancel</button>
+          <button type="submit" (click)="closeModal(true)" class="primary_button btn-delete btn text-white">
+            Yes, I am sure
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+        <!-- <div class="modal-dialog-box">
             <div class="p-0">
                 <div class="p-0 modal-header border-bottom-0 d-flex justify-content-center align-items-baseline">
                     <div class="delete-icon"><img src="../../../../assets/icons/delete-icon.svg" alt=""></div>
                 </div>
                 <div class="p-0 modal-body semi-bold-font">
-                    <div class="text text-center color-8492A6">Please confirm you really want to delete the
-                        application.
+                    <div class="text text-center color-8492A6">Please confirm you really want to regenerate new key
                         After clicking yes, the application will
-                        be deleted permanently.</div>
+                        be currnt key will be deleted permanently.</div>
                 </div>
-                <!-- <div class="p-0 modal-footer border-top-0 d-flex justify-content-center">
+                <div class="p-0 modal-footer border-top-0 d-flex justify-content-center">
                     <div class="buttons d-flex">
                         <button type="buttn" class="cancel_btn me-3" (click)="closeModal(false)">No, cancel</button>
                         <div class="">
@@ -210,9 +231,35 @@
                                 sure</button>
                         </div>
                     </div>
-                </div> -->
+                </div>
             </div>
-        </div>
+        </div> -->
     </ng-template>
+    <!-- Button to open the modal -->
+
+<!-- Modal Template -->
+<!-- <ng-template #regenerateModal let-description="description">
+  <div class="modal-dialog-box">
+    <div class="pt-0">
+      <div class="p-0 modal-header border-bottom-0 d-flex justify-content-center align-items-baseline">
+        <div class="regenerate-icon">
+          <img src="../../../../assets/icons/regenerate-icon.svg" alt="Regenerate Icon">
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="p-0 text fw-600 text-center color-8492A6">{{ description }}</div>
+      </div>
+      <div class="p-0 modal-footer border-top-0 d-flex justify-content-center">
+        <div class="buttons">
+          <button type="button" class="cancel_btn me-2" (click)="closeModal()">No, cancel</button>
+          <button type="submit" (click)="confirmRegenerate()" class="primary_button btn-delete btn text-white">
+            Yes, I am sure
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template> -->
+
 
 </div>

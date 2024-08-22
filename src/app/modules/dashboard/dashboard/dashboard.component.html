@@ -27,9 +27,10 @@
             <div class="col-sm-12 col-md-6 col-lg-3  mt-4" *ngFor="let item of overViewList">
                 <div class="custom-card d-flex">
                     <div class="card-icon-div d-flex justify-content-center align-items-center me-3"
-                        [ngClass]="{'bg-2DD1DB': item.key === 'total_members', 'bg-F7B06F': item.key === 'total_applications', 'bg-FBC8D4': item.key === 'total_users', 'bg-9795F0': item.key === 'active_users'}">
+                        [ngClass]="{'bg-2DD1DB': item.key === 'total_members' || item.key === 'total_organizations', 'bg-F7B06F': item.key === 'total_applications', 'bg-FBC8D4': item.key === 'total_users', 'bg-9795F0': item.key === 'active_users'}">
                         <i [ngSwitch]="item.key">
                             <img *ngSwitchCase="'total_members'" src="../../../../assets/icons/logs-icon.svg" alt="">
+                            <img *ngSwitchCase="'total_organizations'" src="../../../../assets/icons/logs-icon.svg" alt="">
                             <img *ngSwitchCase="'total_applications'" src="../../../../assets/icons/building.svg"
                                 alt="">
                             <img *ngSwitchCase="'total_users'" src="../../../../assets/icons/user-icons.svg" alt="">

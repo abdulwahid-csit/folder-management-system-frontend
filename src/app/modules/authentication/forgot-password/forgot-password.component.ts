@@ -18,6 +18,7 @@ export class ForgotPasswordComponent implements OnInit {
     private toast: ToastrService) { }
 
   ngOnInit(): void {
+
     this.forgotForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
     });
@@ -32,11 +33,12 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log(this.forgotForm.value);
     const body = this.forgotForm.value
     if (this.forgotForm.valid) {
       this.crudservice.create('auth/forgot-password',body).subscribe(
         (response) => {
-          this.router.navigate(['/verify-otp'])
+          this.router.navigate(['/verify-otp'], { queryParams: body });
         },
         (error) => {
           console.log(error);

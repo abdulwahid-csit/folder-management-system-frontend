@@ -28,6 +28,7 @@ export class CreateUserComponent implements OnInit {
   hidePassword = true;
   isFocused: boolean = false;
   roles: any[] = [];
+  isLoading: boolean = false;
 
   constructor(
     private bsModalService: BsModalService,
@@ -100,7 +101,7 @@ export class CreateUserComponent implements OnInit {
     const apiMethod = this.mode === 'create'
       ? this.crudService.create(endpoint, this.userForm.value)
       : this.crudService.update(endpoint, this.userData?.id, this.userForm.value);
-
+    this.isLoading = true;
     apiMethod.subscribe(
       (response: any) => {
         if (response.status_code === 200 || response.status_code === 201) {
@@ -109,10 +110,12 @@ export class CreateUserComponent implements OnInit {
           this.closeModal();
         } else {
           this.toast.error(response.message, 'Error!');
+          this.isLoading = false;
         }
       },
       error => {
         this.toast.success(error, 'Success!');
+        this.isLoading = false;
       }
     );
   }

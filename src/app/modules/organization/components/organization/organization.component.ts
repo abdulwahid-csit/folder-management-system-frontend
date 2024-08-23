@@ -100,6 +100,8 @@ export class OrganizationComponent {
     if(item.keyCode == 13){
       this.searchType = true;
       this.getOrganization(1);
+    }else if(this.searchTerm == ''){
+      this.getOrganization(1);
     }
   }
 }

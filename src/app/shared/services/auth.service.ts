@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LocalStoreService } from './local-store.service';
-import { environment } from 'src/environments/environments';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'

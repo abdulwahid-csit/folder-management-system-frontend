@@ -69,7 +69,7 @@ export class InviteMemberComponent implements OnInit {
     const invitationData = {
       ...formData,
       path: '/layout/team-member/register',
-      organization: 19
+      // organization: 2
     };
     this.isLoading = true;
 

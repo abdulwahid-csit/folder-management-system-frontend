@@ -29,7 +29,8 @@ export class DataTableComponent implements OnInit {
     created_at: 'Creation Date',
     app_name: 'Name',
     app_id: 'App ID',
-    first_name: 'Full Name'
+    first_name: 'Full Name',
+    last_logged_in: ' Last Sign in'
   };
 
   @Input() set module(value: string) {
@@ -104,6 +105,7 @@ export class DataTableComponent implements OnInit {
 
     this.router.navigate([detailRoute]);
   }
+
   getOrganization(value: any) {
     if (value && typeof value === 'object') {
       return value.name;

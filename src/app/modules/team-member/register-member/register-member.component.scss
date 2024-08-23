@@ -23,3 +23,11 @@ small {
         border-color: red !important;
     }
 }
+
+.role-select {
+    border-color: red !important;
+
+    .ng-select-container .ng-has-value {
+        display: none !important;
+    }
+}

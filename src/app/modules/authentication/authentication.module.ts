@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms'
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { RegisterMemberComponent } from '../team-member/register-member/register-member.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { VerifyEmailComponent } from './verify-otp/verify-email.component';
 
 
@@ -20,7 +21,8 @@ import { VerifyEmailComponent } from './verify-otp/verify-email.component';
     CreatePasswordComponent,
     ForgotPasswordComponent,
     RegisterMemberComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    
   ],
   imports: [
     RouterModule,
@@ -29,6 +31,7 @@ import { VerifyEmailComponent } from './verify-otp/verify-email.component';
     AuthenticationRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    NgSelectModule
   ],
   exports:[
     SignInComponent,

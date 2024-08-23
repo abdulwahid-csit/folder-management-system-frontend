@@ -50,6 +50,7 @@ export class RolesPermissionListComponent {
 
   getRolePermissionListing() {
     this.crudService.read('access/roles').subscribe((response: any) => {
+      console.log(response)
       if (response.status_code === 200 || response.status_code === 201) {
         if (response.data.payload.length > 0) {
           const column = Object.keys(response.data.payload[0]);

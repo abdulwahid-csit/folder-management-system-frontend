@@ -15,6 +15,7 @@ export class CreateOrganizationComponent implements OnInit, AfterViewInit {
   @Input() itemList: any;
   @Input() organizationId: number = 0;
   @Input() title: string = '';
+  isLoading: boolean = false;
 
   constructor(
     private bsModeService: BsModalService, 
@@ -66,6 +67,7 @@ export class CreateOrganizationComponent implements OnInit, AfterViewInit {
       this.organizationForm.markAllAsTouched();
       return;
     }
+    this.isLoading = true;
     if(this.title === 'Create'){
       this.crudService.create('organization', this.organizationForm.value).subscribe((response: any) => {
         if (response.status_code === 200 || response.status_code === 201) {
@@ -75,8 +77,11 @@ export class CreateOrganizationComponent implements OnInit, AfterViewInit {
         } else {
           this.toast.error(response.message, "Error!");
         }
+        
+        this.isLoading = false;
       }, error => {
         this.toast.error(error.error.message, "Error!");
+        this.isLoading = false;
       });
     } else if(this.title === 'Edit'){
       this.crudService.update('organization', this.organizationId,this.organizationForm.value).subscribe((response: any) => {
@@ -87,8 +92,10 @@ export class CreateOrganizationComponent implements OnInit, AfterViewInit {
         } else {
           this.toast.error(response.message, "Error!");
         }
+        this.isLoading = false;
       }, error => {
         this.toast.error(error.message, "Error!");
+        this.isLoading = false;
       });
     }
     

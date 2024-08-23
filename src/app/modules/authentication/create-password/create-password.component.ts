@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { CrudService } from 'src/app/shared/services/crud.service';
 
 @Component({
   selector: 'app-create-password',
@@ -10,10 +13,20 @@ export class CreatePasswordComponent implements OnInit {
   passwordForm!: FormGroup;
   hidePassword: boolean = true;
   hideConfirmPassword: boolean = true;
+  formData: any;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+    private crudservice: CrudService,
+    private router: Router,
+    private toast: ToastrService,
+    private route: ActivatedRoute,) { }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.formData = params;
+     console.log('Received form data the otp', this.formData);
+     // Use the formData as needed
+   });
     this.passwordForm = this.fb.group({
       password: [null, [Validators.required, Validators.minLength(8)]],
       confirmPassword: [null, Validators.required]
@@ -32,12 +45,37 @@ export class CreatePasswordComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.passwordForm.invalid) {
+
+    if (this.passwordForm.invalid || this.passwordForm.hasError('mismatch')) {
       this.passwordForm.markAllAsTouched();
       return;
     }
-    console.log(this.passwordForm.value);
+
+    const formValue = this.passwordForm.value;
+    const password = formValue.password;
+    const new_password = formValue.confirmPassword;
+    const userDetails = {
+      ...this.formData,
+      password: formValue.password
+    };
+
+    if (password !== new_password) {
+      console.log('Passwords do not match');
+
+      return;
+    }
+    this.crudservice.create('auth/password-recovery', { ...userDetails}).subscribe(
+      (response) => {
+        this.toast.success("Password changed successfully","password changing")
+          console.log('Password successfully changed', response);
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
+
 
   togglePasswordVisibility(): void {
     this.hidePassword = !this.hidePassword;

@@ -16,6 +16,7 @@ export class ApplicationDetailsComponent  {
   modalOpen: boolean = false;
   selectedTab = 'features';
   applicationID: any;
+  app_secret: string | undefined;
 
 
 
@@ -68,31 +69,43 @@ deleteApplication(){
     this.toast.error(error.error.message, "Error!")
   });
 }
+openModal(template: TemplateRef<any>, classes: string): void {
+  this.modalRef = this.modalService.show(template, {
+  class: classes,
+  backdrop: 'static',
+  keyboard: false,
 
-  // openModal(template: TemplateRef<any>, classes: string): void {
-  //   this.modalRef = this.modalService.show(template, {
-  //   class: classes,
-  //   backdrop: 'static',
-  //   keyboard: false,
+  });
+  this.modalOpen = true;
+}
+closeModal(confirm:boolean): void {
+  if(confirm){
+    const body = {}
+    this.crudService.update('applications', this.applicationID,body,'secret/regenerate').subscribe((response: any) => {
+      if (response.status_code === 200 || response.status_code === 201) {
+        this.modalService.hide();
+        // this.router.navigate(['/layout/applications'])
+        console.log("here is the response",response.data.app_secret);
+        this.app_secret =  response.data.app_secret
 
-  //   });
-  //   this.modalOpen = true;
-  // }
+      } else {
+        this.toast.error(response.message, "Error!")
+      }
+    }, error => {
+      this.toast.error(error.error.message, "Error!")
+    });
 
+    this.modalRef?.hide();
+    this.modalOpen = false;
 
-  // closeModal(confirm:boolean): void {
-  //   if(confirm){
+  }
+  else {
+    this.modalRef?.hide();
+    this.modalOpen = false;
+  }
 
-  //     this.modalRef?.hide();
-  //     this.modalOpen = false;
+}
 
-  //   }
-  //   else {
-  //     this.modalRef?.hide();
-  //     this.modalOpen = false;
-  //   }
-
-  // }
 
   copyId(spanRef: HTMLElement, copySvg: HTMLElement, tickIcon: HTMLElement, selectedInput: HTMLInputElement) {
     copySvg?.classList.add('d-none');

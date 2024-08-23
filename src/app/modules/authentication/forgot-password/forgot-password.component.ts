@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { CrudService } from 'src/app/shared/services/crud.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -10,11 +12,15 @@ import { Router } from '@angular/router';
 export class ForgotPasswordComponent implements OnInit {
   forgotForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) { }
+  constructor(private fb: FormBuilder,
+    private crudservice:CrudService,
+    private router:Router,
+    private toast: ToastrService) { }
 
   ngOnInit(): void {
+
     this.forgotForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]]  // Added email validation
+      email: ['', [Validators.required, Validators.email]]
     });
   }
 
@@ -27,8 +33,17 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log(this.forgotForm.value);
+    const body = this.forgotForm.value
     if (this.forgotForm.valid) {
-      this.router.navigate(['/create/password']);
+      this.crudservice.create('auth/forgot-password',body).subscribe(
+        (response) => {
+          this.router.navigate(['/verify-otp'], { queryParams: body });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     } else {
       this.forgotForm.markAllAsTouched();
     }
@@ -41,13 +56,4 @@ export class ForgotPasswordComponent implements OnInit {
     }
   }
 
-
-  onSendResetLink(){
-    if(this.forgotForm.invalid){
-      this.forgotForm.markAllAsTouched();
-      return;
-    }
-    console.log("Form Submitted");
-    this.router.navigate(['/verify-email'])
-  }
 }

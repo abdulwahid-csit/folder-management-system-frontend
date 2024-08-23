@@ -19,11 +19,14 @@ export class PaginationComponent {
 
   updatePagination() {
     this.paginationArray = [];
+    console.log('oustide')
     if (this.totalPages) {
+      console.log('if')
       for (let i = 1; i <= this.totalPages; i++) {
         this.paginationArray.push(i);
       }
     } else {
+      console.log('else')
       if (this.currentPage) {
         this.paginationArray = [1, 2, 3, 4, 5, '...', this.totalPages];
       } else if (this.currentPage > this.totalPages - 4) {

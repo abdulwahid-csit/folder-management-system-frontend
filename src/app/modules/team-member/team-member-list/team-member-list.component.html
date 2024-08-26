@@ -1,17 +1,19 @@
 <div class="main-div">
-    <div class="sso_card w-100 h-100">
-        <div class="d-flex align-items-center justify-content-between dataTable_header">
-            <h4 class="primary_color mb-0 table-header-letter-spacing">Team Members</h4>
-            <div class="d-flex">
-                <div class="position-relative display-flex ms-2 custom-input">
-                    <input type="text" class="form-control dataTableSearch" [(ngModel)]="searchTerm"
-                        placeholder="Search by name or domain">
-                    <span class="search_icon searchIcon"></span>
-                </div>
-               <button *ngIf="localStoreService.hasPermission('can.invite.member')" type="button" class="primary_button ms-2" (click)="createMember()">Invite</button>
-            </div>
+  <div class="sso_card w-100 h-100">
+    <div class="d-flex align-items-center justify-content-between dataTable_header">
+      <h4 class="primary_color mb-0 table-header-letter-spacing">Team Members</h4>
+      <div class="d-flex">
+        <div class="position-relative display-flex ms-2 custom-input">
+          <input type="text" class="form-control dataTableSearch" [(ngModel)]="searchTerm"
+                 placeholder="Search by name or domain" (ngModelChange)="onSearchChange($event)">
+          <span class="search_icon searchIcon"></span>
         </div>
-        <app-data-table [columns]="columns" [config]="tableConfig" [dataSet]="teamMemberList"
-            [searchTerm]="searchTerm" [module]="'team-member'"></app-data-table>
+        <button *ngIf="localStoreService.hasPermission('can.invite.member')" type="button" class="primary_button ms-2" (click)="createMember()">Invite</button>
+      </div>
     </div>
+    <app-data-table [columns]="columns" [config]="tableConfig" [dataSet]="teamMemberList"
+                    [searchTerm]="searchTerm" [module]="'team-member'"
+                    (changePage)="onPageChange($event)">
+    </app-data-table>
+  </div>
 </div>

@@ -5,7 +5,7 @@
             <div class="d-flex">
                 <div class="position-relative display-flex ms-8px custom-input">
                     <input type="text" class="form-control dataTableSearch" [(ngModel)]="searchTerm"
-                        placeholder="Search by name or domain">
+                        placeholder="Search by name or domain" (keyup)="onKeyChange($event)">
                     <span class="search_icon searchIcon"></span>
                 </div>
                 <button type="button" class="btn filter_btn ms-8px"><span class="filterIcon me-2"></span>
@@ -15,7 +15,7 @@
             </div>
         </div>
         <app-data-table [columns]="columns" [config]="tableConfig" [dataSet]="organizationList"
-            [searchTerm]="searchTerm" [module]="'organization'"></app-data-table>
+            [module]="'organization'" (changePage)="getOrganization($event)"></app-data-table>
 
     </div>
 </div>

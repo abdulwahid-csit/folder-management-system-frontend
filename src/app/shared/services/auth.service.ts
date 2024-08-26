@@ -1,14 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { LocalStoreService } from './local-store.service';
+import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { LocalStoreService } from './local-store.service';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
+  private apiUrl: string = environment.apiUrl;
+  private getHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+  }
   constructor(
     private http: HttpClient,
     private localStoreService: LocalStoreService
@@ -38,6 +44,10 @@ export class AuthService {
     return this.http.post(`${environment.apiUrl}auth/signup`, body);
   }
 
+  register(endpoint: string, data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}${endpoint}`, data);
+  }
+
   getMember(): Observable<any> {
     return this.http.get(`${environment.apiUrl}member`,);
   }
@@ -56,4 +66,11 @@ export class AuthService {
     return userRole;
   }
 
+  verifyLink(endPoint: string, data: any): Observable<any> {
+    return this.http.post(environment.apiUrl + endPoint, data);
+  }
+ 
+  private handleError(error: any): Observable<never> {
+    return throwError(() => new Error(error.error.errors[0]));
+  }
 }

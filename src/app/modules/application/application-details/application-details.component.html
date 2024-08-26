@@ -15,7 +15,7 @@
                 </div>
                 <div class="d-flex mt-1">
                     <div class="link-text fs-12px semi-bold-fonts">
-                        org_01J3CGASS7GH6W79ECWECK2VYN
+                        {{app_secret}}
                     </div>
                     <div class="d-flex ms-4">
                         <div>
@@ -64,8 +64,7 @@
                     </div>
                     <div class="d-flex">
                         <div class="fs-14px color-8492A6  medium-fonts ">
-                            Lorem Ipsum adalah contoh teks atau dummy dalam industri percetakan dan penataan huruf atau
-                            typesetting.
+                          A confidential key used to securely integrate your application's credentials. Keep this secret to ensure secure communication with the service.
                         </div>
                     </div>
 
@@ -73,8 +72,8 @@
                             <div class="input-group mb-3 w-50 app-secret">
                                 <input #appSecret readonly type="text" class="form-control focus-none border-end-0"
                                     placeholder="" aria-label="Recipient's username" aria-describedby="basic-addon1"
-                                    value="EDFEFDFSFDSFSDFE#$#$783497234EWRWQE">
-                                <span #spanRef class="input-group-text bg-transparent cursor-pointer border-start-0"
+                                    [value]="app_secret">
+                                <span #spanRef class="input-group-text bg-transparent cursor-pointer"
                                     id="appsecret-copy" (click)="copyId(spanRef,copySvg, tickIcon, appSecret)">
                                     <svg #copySvg class="" fill="none" height="24" stroke-width="1.5"
                                         viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -90,7 +89,7 @@
                                 </span>
                             </div>
                             <div class="invite-button mt-4">
-                                <button class="primary_button ms-2 mb-1">Re-Generate</button>
+                                <button class="primary_button ms-2 mb-1" (click)="openModal(regenerateModal,'')">Re-Generate</button>
                             </div>
                         </div>
                     </div>
@@ -115,8 +114,8 @@
                         <div class="input-group mb-3 w-50 app-id mt-3">
                             <input #appId readonly type="text" class="form-control focus-none border-end-0"
                                 placeholder="" aria-label="" aria-describedby="basic-addon2"
-                                value="EDFEFDFSFDSFSDFE#$#$783497234EWRWQE">
-                            <span #spanRef1 class="input-group-text bg-transparent cursor-pointer border-start-0"
+                                [value]="app_secret">
+                            <span #spanRef1 class="input-group-text bg-transparent cursor-pointer"
                                 title="Copy" id="appid-copy" (click)="copyId(spanRef1,copySvg1, tickIcon1, appId)">
                                 <svg #copySvg1 class="" fill="none" height="24" stroke-width="1.5"
                                     viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -214,5 +213,28 @@
             </div>
         </div>
     </ng-template>
-
+    <ng-template #regenerateModal>
+      <div class="modal-dialog-box">
+    <div class="pt-0">
+      <div class="p-0 modal-header border-bottom-0 d-flex justify-content-center align-items-baseline">
+        <div class="regenerate-icon">
+          <div class="delete-icon"><img src="../../../../assets/icons/delete-icon.svg" alt=""></div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="p-0 text fw-600 text-center color-8492A6">Please confirm you really want to regenerate new key
+          After clicking yes, the application will
+          be currnt key will be deleted permanently.</div>
+      </div>
+      <div class="p-0 modal-footer border-top-0 d-flex justify-content-center">
+        <div class="buttons">
+          <button type="button" class="cancel_btn me-2" (click)="closeModal(false)">No, cancel</button>
+          <button type="submit" (click)="closeModal(true)" class="primary_button btn-delete btn text-white">
+            Yes, I am sure
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
 </div>

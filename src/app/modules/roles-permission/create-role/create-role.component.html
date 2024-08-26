@@ -47,7 +47,8 @@
       <div class="modal-footer border-top-0 pb-0 mt-2 pe-0">
         <button type="button" class="cancel_btn fs-14 fw-600 me-2" (click)="onCancel()">Cancel</button>
 
-        <button type="submit" class="primary_button fs-14 fw-600 me-0">
+        <button type="submit" class="primary_button fs-14 fw-600 me-0" [disabled]="isLoading">
+           <span class="spinner-border spinner-border-sm" *ngIf="isLoading"></span>
           {{ mode === 'create' ? 'Create' : 'Update' }}
         </button>
       </div>

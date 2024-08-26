@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { CreateOrganizationComponent } from 'src/app/modules/organization/components/create-organization/create-organization.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
@@ -9,13 +9,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./data-table.component.scss']
 })
 export class DataTableComponent implements OnInit {
-  @Input() columns: any
-  @Input() config: any
+  @Output() changePage = new EventEmitter();
+  @Input() columns: any;
+  @Input() config: any;
   @Input() dataSet: any[] = [];
   //  @Input() module!:string;
   @Input() searchTerm: string = '';
-  totalPages = 2;
-  currentPage = 1;
+
   modalRef?: BsModalRef;
   searchResults: any[] = [];
   searchFilter: boolean = false
@@ -29,7 +29,8 @@ export class DataTableComponent implements OnInit {
     created_at: 'Creation Date',
     app_name: 'Name',
     app_id: 'App ID',
-    first_name: 'Full Name'
+    first_name: 'Full Name',
+    last_logged_in: ' Last Sign in'
   };
 
   @Input() set module(value: string) {
@@ -104,6 +105,7 @@ export class DataTableComponent implements OnInit {
 
     this.router.navigate([detailRoute]);
   }
+
   getOrganization(value: any) {
     if (value && typeof value === 'object') {
       return value.name;
@@ -118,4 +120,7 @@ export class DataTableComponent implements OnInit {
     return '';
   }
 
+  onPageChange(item: any){
+    this.changePage.emit(item);
+  }
 }

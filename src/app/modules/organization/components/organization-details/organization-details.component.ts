@@ -18,6 +18,7 @@ export class OrganizationDetailsComponent implements OnInit {
   selectedTab = 'features';
   modalRef: any;
   modalOpen: boolean = false;
+  isLoading: boolean = false;
   organizationId: number = 0;
   organizationStatus: string = '';
 
@@ -177,7 +178,7 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   organizationDeleteModal(): void {
-    const initialState = {description: 'Please confirm you really want to delete the organization. After clicking yes, the organization will be deleted permanently.'};
+    const initialState = {isLoading: false, description: 'Please confirm you really want to delete the organization. After clicking yes, the organization will be deleted permanently.'};
     this.modalRef = this.modalService.show(DeleteModalComponent, {
       class: 'modal-dialog-centered custom-delete-user-modal modal-lg',
       backdrop: 'static',
@@ -191,6 +192,7 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   deleteOrganization(){
+    this.modalRef.content.isLoading = true;
     this.crudService.delete('organization', this.organizationId).subscribe((response: any) => {
       if (response.status_code === 200 || response.status_code === 201) {
         this.modalService.hide();
@@ -198,8 +200,10 @@ export class OrganizationDetailsComponent implements OnInit {
       } else {
         this.toast.error(response.message, "Error!")
       }
+      this.modalRef.content.isLoading = false;
     }, error => {
-      this.toast.error(error.error.message, "Error!")
+      this.toast.error(error.error.message, "Error!");
+      this.modalRef.content.isLoading = true;
     });
   }
 

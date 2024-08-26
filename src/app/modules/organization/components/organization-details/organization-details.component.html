@@ -7,7 +7,7 @@
   <div class="main-div w-100 organization-details-div bg-white  p-3 mt-4 ps-4">
     <div class="d-flex">
       <div class="iis-logo">
-        <img src="../../../../../assets/images/iis.svg" alt="iis">
+        <img class="rounded" [src]="organizationData?.logo" height="64px" alt="iis">
       </div>
       <div class="ms-3">
         <div class="fs-20px fw-700 color-16192C bold-fonts text-capitalize">
@@ -120,7 +120,7 @@
                 <td class="">Domain</td>
                 <td>
                   <div class="d-flex align-items-center">
-                    <img src="../../../../../assets/icons/Frame.svg" alt="Email Icon">
+                    <img src="../../../../../assets/icons/Frame.svg" alt="">
                     <span class="dark-light  ms-1">{{organizationData?.domain}}</span>
                   </div>
                 </td>

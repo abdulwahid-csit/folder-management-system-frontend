@@ -9,6 +9,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 export class DeleteModalComponent {
   @Output() deleteData = new EventEmitter();
   @Input() description: string = '';
+  @Input() isLoading: boolean = false;
   
   constructor(private modalService: BsModalService) {}
 

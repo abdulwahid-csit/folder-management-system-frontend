@@ -73,6 +73,20 @@ export class OrganizationComponent {
               "total_records": response.data.paginate_options.total_records
             }
           };
+        }else{
+          this.columns = [];
+          this.organizationList = [];
+          
+          this.tableConfig = {
+            paginationParams: {
+              "total_pages": response.data.paginate_options.total_pages,
+              "payload_size": response.data.paginate_options.payload_size,
+              "has_next": response.data.paginate_options.has_next,
+              "current_page": response.data.paginate_options.current_page,
+              "skipped_records": response.data.paginate_options.skipped_records,
+              "total_records": response.data.paginate_options.total_records
+            }
+          };
         }
       } 
 

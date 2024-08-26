@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { LocalStoreService } from 'src/app/shared/services/local-store.service';
@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
     private commonService:CommonService,
     private router: Router,
     public localStoreService: LocalStoreService,
-    private elRef: ElementRef
+    private elRef: ElementRef,private route: ActivatedRoute
   ){ }
 
 
@@ -43,10 +43,12 @@ export class HeaderComponent implements OnInit {
     ).subscribe((event: any) => {
 
       this.isDetailsPage = event.urlAfterRedirects.includes('/details');
+      console.log("here is the details page",this.isDetailsPage);
     })
 
     this.userName = this.localStoreService.getUserName();
     this.userRole = this.localStoreService.getUserRole();
+    this.route.queryParamMap.subscribe()
   }
 
   toggleSidebar(){

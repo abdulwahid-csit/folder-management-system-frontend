@@ -33,12 +33,12 @@
                   <div class="input-container">
                     <label for="email" class="label-font required">Email</label>
                     <input id="email" type="email" class="form-control" formControlName="email" [ngClass]="{
-                        'is-invalid': isControlHasError('email', 'required') || isControlHasError('email', 'email')
+                        'is-invalid': isControlHasError('email', 'required') || isControlHasError('email', 'pattern')
                       }" placeholder="Enter email address" (blur)="onControlBlur('email')" />
                     <span *ngIf="isControlHasError('email', 'required')" class="text-danger fs-8 ps-3 pt-1">
                       Email is required
                     </span>
-                    <span *ngIf="isControlHasError('email', 'email')" class="text-danger fs-8 ps-3 pt-1">
+                    <span *ngIf="isControlHasError('email', 'pattern')" class="text-danger fs-8 ps-3 pt-1">
                       Enter a valid email address
                     </span>
                   </div>
@@ -50,7 +50,7 @@
                     <label for="password" class="label-font required">Password</label>
                     <input id="password" [type]="hidePassword ? 'password' : 'text'" class="form-control"
                       formControlName="password" [ngClass]="{'is-invalid': isControlHasError('password', 'required')}"
-                      placeholder="Enter password" (blur)="onControlBlur('password')" />
+                      placeholder="Enter password" />
                     <i class="eye2 position-absolute" (click)="togglePasswordVisibility()"
                       [ngClass]="{'eye-open': !hidePassword, 'eye-closed': hidePassword}"></i>
                     <span *ngIf="isControlHasError('password', 'required')" class="text-danger fs-8 ps-3 pt-1">

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { CommonService } from 'src/app/shared/services/common.service';
@@ -22,7 +22,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     private commonService:CommonService,
     private router: Router,
-    public localStoreService: LocalStoreService
+    public localStoreService: LocalStoreService,
+    private elRef: ElementRef
   ){ }
 
 
@@ -92,4 +93,12 @@ export class HeaderComponent implements OnInit {
   navigate(){
     this.router.navigate(['layout/dashboard/settings']);
   }
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent) {
+    if (!this.elRef.nativeElement.contains(event.target)) {
+      this.isDropdownVisible = false;
+    }
+  }
+
 }

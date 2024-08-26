@@ -17,7 +17,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
   declarations: [
     UserListComponent,
     CreateUserComponent,
-    UserDetailComponent
+    UserDetailComponent,
   ],
   imports: [
     CommonModule,

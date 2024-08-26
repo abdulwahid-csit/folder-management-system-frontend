@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CrudService } from 'src/app/shared/services/crud.service';
@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 export class CreateRoleComponent implements OnInit {
   @Input() mode: 'create' | 'update' = 'create';
   @Input() userData: any;
+  @Output() successCall = new EventEmitter();
   rolesForm!: FormGroup;
   permissions: { id: number, name: string }[] = [];
   selectedPermissions: Set<number> = new Set();
@@ -30,24 +31,25 @@ export class CreateRoleComponent implements OnInit {
   ngOnInit(): void {
     this.initializeForm();
     this.fetchPermissions();
-    console.warn(this.userData);
+    console.warn('UserData:', this.userData);
 
     if (this.mode === 'update' && this.userData) {
       this.rolesForm.patchValue({
         name: this.userData.name,
         description: this.userData.description,
-        organization: this.userData.organization.id
+        organization: this.userData.organization?.id || 1
       });
       this.selectedPermissions = new Set(this.userData.permissions.map((p: any) => p.id));
     }
   }
 
+
   initializeForm() {
     this.rolesForm = this.fb.group({
       name: [null, Validators.required],
       description: [null, Validators.required],
-      permissions: [null,],
-      organization: [1, Validators.required]
+      permissions: [null],
+      organization: [1, Validators.required]  // Default value
     });
   }
 
@@ -83,30 +85,32 @@ export class CreateRoleComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log('Form Values Before Submission:', this.rolesForm.value);
+
     if (this.rolesForm.invalid) {
       this.rolesForm.markAllAsTouched();
       return;
     }
 
     const permissionsArray = Array.from(this.selectedPermissions);
-
-
     const formData = {
       ...this.rolesForm.value,
       permissions: permissionsArray,
-      // organization: Number(this.rolesForm.value.organization.id)
+      organization: Number(this.rolesForm.value.organization)
     };
+
+    console.log('Submitting form data:', formData);
+
     this.isLoading = true;
     if (this.mode === 'create') {
       this.crudService.create('access/roles', formData).subscribe(response => {
         if (response.status_code === 200) {
-          console.log('Role created successfully:', response);
           this.toastr.success('Role created successfully!', 'Success');
-          this.isLoading = false;
+          this.successCall.emit();
         } else {
           this.toastr.error(response.message, 'Error');
-          this.isLoading = false;
         }
+        this.isLoading = false;
       }, error => {
         console.error('Error creating role:', error);
         this.toastr.error(error.error.message, 'Error');
@@ -116,19 +120,17 @@ export class CreateRoleComponent implements OnInit {
       if (this.userData?.id) {
         this.crudService.update('access/roles', this.userData.id, formData).subscribe(response => {
           if (response.status_code === 200) {
-            console.log('Role updated successfully:', response);
             this.toastr.success('Role updated successfully!', 'Success');
-            this.isLoading = false;
+            this.successCall.emit();
           } else {
             this.toastr.error(response.message, 'Error');
-            this.isLoading = false;
           }
+          this.isLoading = false;
         }, error => {
           console.error('Error updating role:', error);
           this.toastr.error(error.error.message, 'Error');
           this.isLoading = false;
         });
-        this.isLoading = false;
       } else {
         this.toastr.error('No valid user ID found for update', 'Error');
         this.isLoading = false;
@@ -138,6 +140,7 @@ export class CreateRoleComponent implements OnInit {
     this.rolesForm.reset();
     this.closeModal();
   }
+
 
   onCancel(): void {
     this.rolesForm.reset();

@@ -1,5 +1,5 @@
 <div class="header-wrapper d-flex align-items-center justify-content-between "
-    [ngClass]="{'custom-shadow': !isDetailsPage }">
+    [ngClass]="!isDetailsPage? 'custom-shadow': ''">
     <div (click)="toggleSidebar()" class="sidebar-toggle-div d-flex align-items-center justify-content-center">
         <span *ngIf="!isSidebarVisible"
             class="cursor-pointer sideBarToggle align-items-center justify-content-center "></span>
@@ -51,3 +51,4 @@
 
     </div>
 </div>
+<hr class="m-0 path-line" [ngClass]="{'custom-shadow': !isDetailsPage }">

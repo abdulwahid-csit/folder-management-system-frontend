@@ -4,12 +4,14 @@ import { DataTableComponent } from './components/data-table/data-table.component
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DeleteModalComponent } from './components/delete-modal/delete-modal.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
     DataTableComponent,
     PaginationComponent,
-    DeleteModalComponent
+    DeleteModalComponent,
+    NotFoundComponent
   ],
   imports: [
     CommonModule,
@@ -19,6 +21,7 @@ import { DeleteModalComponent } from './components/delete-modal/delete-modal.com
   ],
   exports:[
     DataTableComponent,
+    NotFoundComponent
   ]
 })
 export class SharedModule { }

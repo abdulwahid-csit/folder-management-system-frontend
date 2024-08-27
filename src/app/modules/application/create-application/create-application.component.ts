@@ -3,6 +3,7 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { CrudService } from 'src/app/shared/services/crud.service';
+import { LocalStoreService } from 'src/app/shared/services/local-store.service';
 
 @Component({
   selector: 'app-create-application',
@@ -22,12 +23,17 @@ export class CreateApplicationComponent implements OnInit {
   constructor(private modalService: BsModalService,
     private crudService: CrudService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public localStoreService: LocalStoreService
   ) { }
 
 
   ngOnInit(): void {
-    this.fetchOrganization();
+    
+    if(this.localStoreService.getUserRole().toLowerCase() === 'master'){
+      this.fetchOrganization();
+    }
+
     this.applicationForm = new FormGroup({
       app_name: new FormControl('', [Validators.required]),
       url: new FormControl(''),
@@ -87,6 +93,11 @@ removeInputUri(index: number) {
   this.redirectUriArray.removeAt(index);
 }
   submitForm() {
+    if(this.localStoreService.getUserRole().toLowerCase() !== 'master'){
+      this.applicationForm.patchValue({
+        organization: this.localStoreService.getUserOrganization()
+      });
+    }
 
     const createData = this.applicationForm.value;
     if (this.applicationForm.invalid) {

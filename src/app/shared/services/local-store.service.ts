@@ -60,7 +60,12 @@ export class LocalStoreService {
 
   getUserRole(): string {
     const userData = this.getItem('user');
-    return userData.role.name || [];
+    return userData.role.name || '';
+  }
+
+  getUserOrganization(): string {
+    const userData = this.getItem('user');
+    return userData.organization.id || '';
   }
   
   getUserPermission() {

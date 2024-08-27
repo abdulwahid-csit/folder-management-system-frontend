@@ -43,7 +43,6 @@ export class HeaderComponent implements OnInit {
     ).subscribe((event: any) => {
 
       this.isDetailsPage = event.urlAfterRedirects.includes('/details');
-      console.log("here is the details page",this.isDetailsPage);
     })
 
     this.userName = this.localStoreService.getUserName();
@@ -56,7 +55,6 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleFullscreen() {
-    console.log("Full scree button pressed.")
     if (!document.fullscreenElement) {
       this.openFullscreen();
     }

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { CrudService } from '../../../shared/services/crud.service';
 import { ToastrService } from 'ngx-toastr';
+import { LocalStoreService } from 'src/app/shared/services/local-store.service';
 
 @Component({
   selector: 'app-invite-member',
@@ -21,13 +22,17 @@ export class InviteMemberComponent implements OnInit {
   constructor(
     private bsModalService: BsModalService,
     private crudService: CrudService,
-    private toast: ToastrService
+    private toast: ToastrService,
+    public localStoreService: LocalStoreService
   ) { }
 
   ngOnInit(): void {
     this.initialize();
     this.fetchRoles();
-    this.fetchOrganization();
+    
+    if(this.localStoreService.getUserRole().toLowerCase() === 'master'){
+      this.fetchOrganization();
+    }
   }
 
   initialize(){
@@ -73,6 +78,12 @@ export class InviteMemberComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if(this.localStoreService.getUserRole().toLowerCase() !== 'master'){
+      this.inviteForm.patchValue({
+        organization: this.localStoreService.getUserOrganization()
+      });
+    }
+
     if (this.inviteForm.invalid) {
       this.inviteForm.markAllAsTouched();
       return;

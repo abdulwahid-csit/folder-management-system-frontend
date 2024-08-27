@@ -76,7 +76,7 @@ export class OrganizationComponent {
         }else{
           this.columns = [];
           this.organizationList = [];
-          
+
           this.tableConfig = {
             paginationParams: {
               "total_pages": response.data.paginate_options.total_pages,
@@ -88,7 +88,7 @@ export class OrganizationComponent {
             }
           };
         }
-      } 
+      }
 
     }, error => {
       console.error('HTTP error:', error);
@@ -111,7 +111,7 @@ export class OrganizationComponent {
   onKeyChange(item: any){
     this.searchType = false;
 
-    if(item.keyCode == 13){
+   if(item.keyCode == 13){
       this.searchType = true;
       this.getOrganization(1);
     }else if(this.searchTerm == ''){

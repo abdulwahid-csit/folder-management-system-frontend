@@ -15,6 +15,8 @@ export class CreateApplicationComponent implements OnInit {
   modalOpen: boolean = false;
   inputUris: Array<{value: string}> = [];
   @Output() successCall = new EventEmitter();
+  organization: any[] = [];
+  isFocused: boolean = false;
 
 
   constructor(private modalService: BsModalService,
@@ -25,15 +27,23 @@ export class CreateApplicationComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.fetchOrganization();
     this.applicationForm = new FormGroup({
       app_name: new FormControl('', [Validators.required]),
       url: new FormControl(''),
-      organization: new FormControl('0', [Validators.required, Validators.pattern('^[0-9]+$')]),
+      organization: new FormControl(null, [Validators.required]),
+      // organization: new FormControl('0', [Validators.required, Validators.pattern('^[0-9]+$')]),
       redirectUri: new FormArray([new FormControl('')]),
       // redirectUri: new FormControl(''),
     })
   }
 
+  onChange(): void {
+    const control = this.applicationForm.get('organization');
+    if (control?.value) {
+      this.isFocused = false;
+    }
+  }
 
   closeModal(): void {
     this.modalService.hide();
@@ -62,7 +72,17 @@ resetInputs(): void {
   this.inputUris = [];
   this.addInputUri();
 }
-
+fetchOrganization(): void {
+  this.crudService.read('organization')
+    .subscribe(
+      (response) => {
+        this.organization = response.data.payload
+      },
+      error => {
+        console.error('Error fetching roles:', error);
+      }
+    );
+}
 removeInputUri(index: number) {
   this.redirectUriArray.removeAt(index);
 }

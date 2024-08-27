@@ -8,6 +8,7 @@ import { ApplicationDetailsComponent } from './application-details/application-d
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UpdateApplicationComponent } from './update-application/update-application.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { UpdateApplicationComponent } from './update-application/update-applicat
     CommonModule,
     ApplicationRoutingModule,
     SharedModule,
+    NgSelectModule
 
   ]
 

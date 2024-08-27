@@ -23,7 +23,7 @@
                 <!-- <span *ngIf="isControlHasError('domainName','required')" class="text-danger">Domain name is
                     required</span> -->
             </div>
-            <label for="appUrl" class="mb-1 primary_color  fw-700 semi-bold-fonts">App URL</label>
+            <label for="appUrl" class="mb-1 primary_color  fw-700 semi-bold-fonts">Redirect URL</label>
             <p>A unique identifier for your application. Use this ID to configure and authenticate your application with the service</p>
             <div formArrayName="redirectUri">
               <div *ngFor="let uri of redirectUriArray.controls; let i = index" class="d-flex align-items-center mb-2">

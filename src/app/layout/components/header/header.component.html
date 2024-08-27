@@ -6,9 +6,9 @@
         <span *ngIf="isSidebarVisible" class="cursor-pointer rotate_icon closeArrow"></span>
     </div>
     <div class="d-flex align-items-center justify-content-between">
-        <div class="fullscreen-icon d-flex align-items-center justify-content-center">
+        <div class="fullscreen-icon d-flex align-items-center justify-content-center" [ngClass]="{ 'me-4': isDashboard }">
             <span (click)="toggleFullscreen()" class="header_svg cursor-pointer fullscreen"
-                [ngClass]="{ 'me-4': isDashboard }">
+                >
             </span>
         </div>
         <div *ngIf="showSettingsIcon" class="d-flex align-items-center justify-content-center settings-icon mx-4">

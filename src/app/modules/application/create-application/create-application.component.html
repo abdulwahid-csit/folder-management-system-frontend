@@ -47,7 +47,8 @@
                 >reset</span>
               </div>
             </div>
-            <div class="mt-4 custom-dropdown">
+            <div class="mt-4 custom-dropdown"
+            *ngIf="this.localStoreService.getUserRole().toLowerCase() === 'master'">
               <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Organization</label>
               <ng-select class=""
                 [ngClass]="{

@@ -48,7 +48,6 @@ export class TeamMemberListComponent implements OnInit {
     const url = `member?page=${page}&pageSize=${this.pageSize}&search=${search}`;
     this.crudService.read(url).subscribe((response: any) => {
       if (response.status_code === 200 || response.status_code === 201) {
-        console.log("here is the data", response.data);
         if (response.data.payload.length > 0) {
           const column = Object.keys(response.data.payload[0]);
           this.columns = column.filter((col: string) =>

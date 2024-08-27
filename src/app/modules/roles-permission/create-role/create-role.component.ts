@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CrudService } from 'src/app/shared/services/crud.service';
 import { ToastrService } from 'ngx-toastr';
+import { LocalStoreService } from 'src/app/shared/services/local-store.service';
 
 @Component({
   selector: 'app-create-role',
@@ -27,14 +28,17 @@ export class CreateRoleComponent implements OnInit {
     private fb: FormBuilder,
     private crudService: CrudService,
     private modalService: BsModalService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public localStoreService: LocalStoreService
   ) { }
 
   ngOnInit(): void {
     this.initializeForm();
     this.fetchPermissions();
-    this.fetchOrganization();
-    console.warn('UserData:', this.userData);
+
+    if(this.localStoreService.getUserRole().toLowerCase() === 'master'){
+      this.fetchOrganization();
+    }
 
     if (this.mode === 'update' && this.userData) {
       this.rolesForm.patchValue({
@@ -88,7 +92,11 @@ export class CreateRoleComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log('Form Values Before Submission:', this.rolesForm.value);
+    if(this.localStoreService.getUserRole().toLowerCase() !== 'master'){
+      this.rolesForm.patchValue({
+        organization: this.localStoreService.getUserOrganization()
+      });
+    }
 
     if (this.rolesForm.invalid) {
       this.rolesForm.markAllAsTouched();
@@ -102,8 +110,6 @@ export class CreateRoleComponent implements OnInit {
       organization: Number(this.rolesForm.value.organization)
     };
 
-    console.log('Submitting form data:', formData);
-
     this.isLoading = true;
     if (this.mode === 'create') {
       this.crudService.create('access/roles', formData).subscribe(response => {
@@ -115,7 +121,6 @@ export class CreateRoleComponent implements OnInit {
         }
         this.isLoading = false;
       }, error => {
-        console.error('Error creating role:', error);
         this.toastr.error(error.error.message, 'Error');
         this.isLoading = false;
       });
@@ -130,7 +135,6 @@ export class CreateRoleComponent implements OnInit {
           }
           this.isLoading = false;
         }, error => {
-          console.error('Error updating role:', error);
           this.toastr.error(error.error.message, 'Error');
           this.isLoading = false;
         });

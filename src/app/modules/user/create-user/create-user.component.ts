@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors }
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { CrudService } from 'src/app/shared/services/crud.service';
+import { LocalStoreService } from 'src/app/shared/services/local-store.service';
 
 function numericValidator(control: AbstractControl): ValidationErrors | null {
   if (control.value && !/^[0-9]+$/.test(control.value)) {
@@ -35,13 +36,17 @@ export class CreateUserComponent implements OnInit {
     private bsModalService: BsModalService,
     private fb: FormBuilder,
     private crudService: CrudService,
-    private toast: ToastrService
+    private toast: ToastrService,
+    public localStoreService: LocalStoreService
   ) {}
 
   ngOnInit(): void {
     this.initialize();
     this.fetchRoles();
-    this.fetchOrganization();
+    
+    if(this.localStoreService.getUserRole().toLowerCase() === 'master'){
+      this.fetchOrganization();
+    }
   }
 
   initialize() {
@@ -96,6 +101,12 @@ export class CreateUserComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if(this.localStoreService.getUserRole().toLowerCase() !== 'master'){
+      this.userForm.patchValue({
+        organization: this.localStoreService.getUserOrganization()
+      });
+    }
+
     if (this.userForm.invalid) {
       this.userForm.markAllAsTouched();
       return;

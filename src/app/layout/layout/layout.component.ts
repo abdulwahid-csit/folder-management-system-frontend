@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/shared/services/common.service';
 
 @Component({
@@ -14,5 +14,23 @@ export class LayoutComponent implements OnInit {
     this.commonService.sidebarVisible$.subscribe((visible:boolean) => {
       this.isSidebarVisible = visible;
     });
+  }
+
+
+  @HostListener('click', ['$event'])
+  onClick(event: Event) {
+    const width = window.innerWidth;
+    let isSmallScreen = width < 1048;
+
+    if (isSmallScreen) {
+      let ele = event.target as HTMLElement;
+    console.log("ELEMENT: ", ele);
+    if((!(ele.classList.contains('sidebar-main') || ele.classList.contains('sidbar-logo-navigations'))) && this.isSidebarVisible == false){
+    this.commonService.toggleSidebar();
+    }
+    if(ele.classList.contains('sidebar-toggle-div') || ele.classList.contains('rotate_icon')){
+      this.commonService.toggleSidebar();
+    }
+    }
   }
 }

@@ -46,27 +46,31 @@
             }
         }
     }
-    .logout-section{
-        border-top: 1px solid rgba(255, 255, 255, 0.16);
-        // padding: 24px;
-        .user-img{
-            img{
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
+    .logout-section-main-div{
+        padding: 15px 25px;
+        .logout-section{
+            border-top: 1px solid rgba(255, 255, 255, 0.16);
+            padding-top: 15px;
+            .user-img{
+                img{
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                }
+            }
+    
+            .role{
+                font-weight: 600;
+                color: #6F61CF;
+            }
+            .logout-icon{
+                width: 20px !important;
+                position: absolute;
+                height: 20px !important;
             }
         }
-
-        .role{
-            font-weight: 600;
-            color: #6F61CF;
-        }
-        .logout-icon{
-            width: 20px !important;
-            position: absolute;
-            height: 20px !important;
-        }
     }
+   
 }
 li.active{
     &::before{
@@ -95,4 +99,9 @@ li.active{
 .sidebar-main {
     transform: translate(0%);
     transition: .5s ease;
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+.sidebar-main{
+    height: 90%;
+}
 }

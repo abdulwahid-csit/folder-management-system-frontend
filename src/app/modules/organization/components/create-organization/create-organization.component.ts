@@ -18,7 +18,7 @@ export class CreateOrganizationComponent implements OnInit, AfterViewInit {
   isLoading: boolean = false;
 
   constructor(
-    private bsModeService: BsModalService, 
+    private bsModeService: BsModalService,
     private fb: FormBuilder,
     private crudService: CrudService,
     private toast: ToastrService
@@ -27,19 +27,19 @@ export class CreateOrganizationComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.initialize();
-  
+
   }
 
   ngAfterViewInit(): void {
 
   }
-  
+
   initialize(){
     this.organizationForm = this.fb.group({
       name: ['', [Validators.required]],
       domain: ['', [Validators.required]],
     });
-    
+
     if (this.itemList && typeof this.itemList === 'object') {
       this.organizationForm.patchValue({
         name: this.itemList.name,
@@ -77,7 +77,7 @@ export class CreateOrganizationComponent implements OnInit, AfterViewInit {
         } else {
           this.toast.error(response.message, "Error!");
         }
-        
+
         this.isLoading = false;
       }, error => {
         this.toast.error(error.error.message, "Error!");
@@ -98,6 +98,6 @@ export class CreateOrganizationComponent implements OnInit, AfterViewInit {
         this.isLoading = false;
       });
     }
-    
+
   }
 }

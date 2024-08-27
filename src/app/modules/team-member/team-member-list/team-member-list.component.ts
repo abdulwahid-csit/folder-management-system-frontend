@@ -13,6 +13,8 @@ export class TeamMemberListComponent implements OnInit {
   columns: any[] = [];
   modalRef?: BsModalRef;
   searchTerm: string = '';
+  filterData: any[] = [];
+  searchType: boolean = false;
   teamMemberList: any[] = [];
   tableConfig: any = {};
 
@@ -53,6 +55,7 @@ export class TeamMemberListComponent implements OnInit {
             !['id', 'email_verified', 'permissions', 'timezone', 'username', 'updated_at', 'profile_picture', 'last_name'].includes(col)
           );
           this.teamMemberList = response.data.payload;
+          this.filterData = this.teamMemberList;
 
           this.tableConfig = {
             paginationParams: {
@@ -64,17 +67,27 @@ export class TeamMemberListComponent implements OnInit {
               total_records: response.data.paginate_options.total_records
             }
           };
-        }
+        
+      
+    } else {
+          this.teamMemberList = [];
+      this.filterData = [];
+    }
       }
     }, error => {
       console.error('HTTP error:', error);
     });
   }
 
-  onSearchChange(search: string): void {
-    this.searchTerm = search;
-    this.currentPage = 1;
-    this.memberListing(this.currentPage, this.searchTerm);
+  onKeyChange(item: any) {
+    this.searchType = false;
+
+    if (item.keyCode == 13) {
+      this.searchType = true;
+      this.memberListing(1);
+    } else if (this.searchTerm == '') {
+      this.memberListing(1);
+    }
   }
 
   onPageChange(page: number): void {

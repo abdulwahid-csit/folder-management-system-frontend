@@ -33,6 +33,7 @@
                   placeholder="Enter URI"
                   [formControlName]="i"
                 />
+
                 <!-- Add button only for the last input and if less than 5 inputs -->
                 <span
                   *ngIf="i === redirectUriArray.controls.length - 1 && redirectUriArray.controls.length < 5"

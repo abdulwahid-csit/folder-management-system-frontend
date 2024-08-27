@@ -29,11 +29,16 @@ export class CreateApplicationComponent implements OnInit {
       app_name: new FormControl('', [Validators.required]),
       url: new FormControl(''),
       organization: new FormControl('0', [Validators.required, Validators.pattern('^[0-9]+$')]),
-      redirectUri: new FormArray([new FormControl('')]),
+      redirectUri: new FormArray([this.createUriGroup()]),
       // redirectUri: new FormControl(''),
     })
   }
-
+  createUriGroup(): FormGroup {
+    return new FormGroup({
+      uri1: new FormControl(''),
+      uri2: new FormControl('')
+    });
+  }
 
   closeModal(): void {
     this.modalService.hide();
@@ -67,6 +72,7 @@ removeInputUri(index: number) {
   this.redirectUriArray.removeAt(index);
 }
   submitForm() {
+    console.log("here is the value", this.applicationForm.value);
 
     const createData = this.applicationForm.value;
     if (this.applicationForm.invalid) {

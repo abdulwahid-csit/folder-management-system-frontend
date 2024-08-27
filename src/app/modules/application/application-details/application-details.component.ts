@@ -51,7 +51,6 @@ applicationListing( ) {
 
       this.crudService.read('applications/'+this.applicationID).subscribe((response: any) => {
      {
-      console.log("here is the data",response)
       this.app_secret = response.data.app_secret;
       this.app_id =  response.data.app_id;
      }

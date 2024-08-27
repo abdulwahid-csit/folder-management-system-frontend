@@ -14,6 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 export class InviteMemberComponent implements OnInit {
   inviteForm!: FormGroup;
   roles: any[] = [];
+  organization: any[] = [];
   isFocused: boolean = false;
   isLoading: boolean = false;
 
@@ -26,21 +27,35 @@ export class InviteMemberComponent implements OnInit {
   ngOnInit(): void {
     this.initialize();
     this.fetchRoles();
+    this.fetchOrganization();
   }
 
   initialize(){
     this.inviteForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
-      role: new FormControl(null, [Validators.required])
+      role: new FormControl(null, [Validators.required]),
+      organization: new FormControl(null, [Validators.required])
     });
   }
+
 
   fetchRoles(): void {
     this.crudService.read('access/roles')
       .subscribe(
         (response) => {
           this.roles = response.data.payload
-          // console.log("here is the data of APi", this.roles);
+        },
+        error => {
+          console.error('Error fetching roles:', error);
+        }
+      );
+  }
+  
+  fetchOrganization(): void {
+    this.crudService.read('organization')
+      .subscribe(
+        (response) => {
+          this.organization = response.data.payload
         },
         error => {
           console.error('Error fetching roles:', error);
@@ -69,25 +84,18 @@ export class InviteMemberComponent implements OnInit {
     const invitationData = {
       ...formData,
       path: '/layout/team-member/register',
-      // organization: 2
     };
     this.isLoading = true;
-
-    // console.log('Form Submitted:', invitationData);
-
-
     this.crudService.create('auth/invite', invitationData)
       .subscribe(
         response => {
           this.toast.success(response.message, "Success!")
           this.isLoading = false;
-          // console.log('Invite sent successfully', response);
           this.closeModal();
         },
         error => {
           this.toast.error(error.error.message, "Error!")
           this.isLoading = false;
-          // console.error('Error sending invite:', error);
         }
       );
          
@@ -95,6 +103,12 @@ export class InviteMemberComponent implements OnInit {
 
   onValueChange(): void {
     const control = this.inviteForm.get('role');
+    if (control?.value) {
+      this.isFocused = false;
+    }
+  }
+  onChange(): void {
+    const control = this.inviteForm.get('organization');
     if (control?.value) {
       this.isFocused = false;
     }

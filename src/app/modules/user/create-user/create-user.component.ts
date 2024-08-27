@@ -28,6 +28,7 @@ export class CreateUserComponent implements OnInit {
   hidePassword = true;
   isFocused: boolean = false;
   roles: any[] = [];
+  organization: any[] = [];
   isLoading: boolean = false;
 
   constructor(
@@ -40,6 +41,7 @@ export class CreateUserComponent implements OnInit {
   ngOnInit(): void {
     this.initialize();
     this.fetchRoles();
+    this.fetchOrganization();
   }
 
   initialize() {
@@ -52,6 +54,7 @@ export class CreateUserComponent implements OnInit {
       email: [null, [Validators.required, Validators.email]],
       password: [null, Validators.required],
       role: [null, Validators.required],
+      organization: [null, Validators.required],
     });
 
     if (this.mode === 'update' && this.userData) {
@@ -62,6 +65,7 @@ export class CreateUserComponent implements OnInit {
         phone: this.userData.phone || '',
         email: this.userData.email || '',
         role: this.userData.roles || '',
+        organization: this.userData.organization ? this.userData.organization.id : ''
       });
       this.userForm.get('email')?.disable();
       this.userForm.removeControl('password');
@@ -96,11 +100,16 @@ export class CreateUserComponent implements OnInit {
       this.userForm.markAllAsTouched();
       return;
     }
+    const formValue = { ...this.userForm.value };
+    if (formValue.organization) {
+      formValue.organization = Number(formValue.organization);
+    }
 
     const endpoint = 'users';
     const apiMethod = this.mode === 'create'
-      ? this.crudService.create(endpoint, this.userForm.value)
-      : this.crudService.update(endpoint, this.userData?.id, this.userForm.value);
+      ? this.crudService.create(endpoint, formValue)
+      : this.crudService.update(endpoint, this.userData?.id, formValue);
+
     this.isLoading = true;
     apiMethod.subscribe(
       (response: any) => {
@@ -114,12 +123,11 @@ export class CreateUserComponent implements OnInit {
         }
       },
       error => {
-        this.toast.success(error, 'Success!');
+        this.toast.error(error.message || 'An error occurred', 'Error!');
         this.isLoading = false;
       }
     );
   }
-
 
   closeModal(): void {
     this.bsModalService.hide();
@@ -146,5 +154,24 @@ export class CreateUserComponent implements OnInit {
           console.error('Error fetching roles:', error);
         }
       );
+  }
+
+  fetchOrganization(): void {
+    this.crudService.read('organization')
+      .subscribe(
+        (response) => {
+          this.organization = response.data.payload
+        },
+        error => {
+          console.error('Error fetching roles:', error);
+        }
+      );
+  }
+
+  onChange(): void {
+    const control = this.userForm.get('organization');
+    if (control?.value) {
+      this.isFocused = false;
+    }
   }
 }

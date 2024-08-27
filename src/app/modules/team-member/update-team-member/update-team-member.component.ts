@@ -34,12 +34,12 @@ export class UpdateTeamMemberComponent implements OnInit {
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
       username: new FormControl('', [Validators.required]),
-      phoneNumber: new FormControl('', [Validators.required]),
+      phone: new FormControl('', [Validators.required]),
       email: new FormControl({ value: '', disabled: true })
     });
 
     if (this.data) {
-      this.memberId = Number(this.data.id); // Ensure memberId is a number
+      this.memberId = Number(this.data.id);
       this.loadMemberData(this.data);
     }
   }
@@ -49,7 +49,7 @@ export class UpdateTeamMemberComponent implements OnInit {
       firstName: data.first_name,
       lastName: data.last_name,
       username: data.username,
-      phoneNumber: data.phoneNumber,
+      phoneNumber: data.phone,
       email: data.email
     });
   }

@@ -58,19 +58,41 @@ export class DataTableComponent implements OnInit {
     });
   }
 
+  // filteredData() {
+  //   if (!this.searchTerm) {
+  //     this.filterData = this.dataSet;
+  //   }
+  //   const lowercasedSearchTerm = this.searchTerm.toLowerCase();
+  //   this.filterData = this.dataSet.filter((item: any) =>
+  //     Object.values(item).some(value => {
+  //       if (value === null || value === undefined) {
+  //         return false;
+  //       }
+  //       return value.toString().toLowerCase().includes(lowercasedSearchTerm);
+  //     })
+  //   );
+  // }
+
   filteredData() {
+    if (!Array.isArray(this.dataSet)) {
+      // console.error('dataSet is not an array:', this.dataSet);
+      this.filterData = []; // Clear filterData to avoid displaying incorrect data
+      return;
+    }
+
     if (!this.searchTerm) {
       this.filterData = this.dataSet;
+    } else {
+      const lowercasedSearchTerm = this.searchTerm.toLowerCase();
+      this.filterData = this.dataSet.filter((item: any) =>
+        Object.values(item).some(value => {
+          if (value === null || value === undefined) {
+            return false;
+          }
+          return value.toString().toLowerCase().includes(lowercasedSearchTerm);
+        })
+      );
     }
-    const lowercasedSearchTerm = this.searchTerm.toLowerCase();
-    this.filterData = this.dataSet.filter((item: any) =>
-      Object.values(item).some(value => {
-        if (value === null || value === undefined) {
-          return false;
-        }
-        return value.toString().toLowerCase().includes(lowercasedSearchTerm);
-      })
-    );
   }
 
   onRowClick(rowData: any) {

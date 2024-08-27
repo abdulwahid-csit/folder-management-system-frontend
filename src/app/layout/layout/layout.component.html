@@ -2,10 +2,10 @@
     <div class="sidebar-wrapper h-100">
         <app-sidebar></app-sidebar>
     </div>
-    <div class="layout_inner" [class.expand]="isSidebarVisible">
+    <div class="layout_inner" [class.expand]="isSidebarVisible" >
         <app-header></app-header>
         <!-- <app-content></app-content> -->
-        <div class="content-wrapper">
+        <div class="content-wrapper" [ngClass]="!isSidebarVisible? 'reduce-opacity': ''">
             <router-outlet></router-outlet>
         </div>
     </div>

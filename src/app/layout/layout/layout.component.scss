@@ -18,5 +18,22 @@
 .content-wrapper{
     height: calc(100% - 72px);
     overflow-y: auto;
-    // padding: 2px 0px 0px 0px;
 }
+@media (min-width: 768px) and (max-width: 1024px) {
+    .layout_inner{
+        position: absolute;
+        left: 0;
+        margin-left: 0px !important;
+        width: 100% !important;
+        transition: .5s ease;
+        height: 100%;
+    }
+    .sidebar-wrapper{
+        z-index: 1000;
+        margin-top: 73px !important;
+    }
+    .reduce-opacity{
+        opacity: 0.5;
+    }
+}
+

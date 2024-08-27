@@ -14,8 +14,7 @@ export class ApplicationListComponent {
     private crudService: CrudService,
   ){}
   ngOnInit(): void {
-    this.applicationListing()
-
+    this.applicationListing(1)
   }
 
 
@@ -29,6 +28,7 @@ export class ApplicationListComponent {
   total_records = 7
   modalRef?: BsModalRef;
   searchTerm: string = '';
+  searchType: boolean = false;
 
 
     tableConfig = {
@@ -42,16 +42,21 @@ export class ApplicationListComponent {
       }
     };
 
-    applicationListing() {
+    applicationListing(currentPage: any) {
+      let urlData = 'applications?page=${currentPage}&limit=10';
+      if(this.searchType){
+        urlData = `applications?page=${currentPage}&limit=10&search=${this.searchTerm}`;
+      }else{
+        urlData = `applications?page=${currentPage}&limit=10`;
+      }
 
       this.crudService.read('applications').subscribe((response: any) => {
        if (response.status_code === 200 || response.status_code === 201) {
-        console.log("here is the data", response.data);
           if (response.data.payload.length > 0) {
             const column = Object.keys(response.data.payload[0]);
             this.columns = column.filter((column: string) => column !== 'id' &&
-              column !== 'email_verified' && column !== 'permissions' && column !== 'timezone' &&
-              column !== 'username' && column !== 'updated_at' && column !== 'profile_picture' && column !== 'last_name');
+              column !== 'email_verified' && column !== 'permissions' && column !== 'timezone' && column !=='created_by' &&
+              column !== 'updated_by' && column !== 'username' && column !== 'updated_at' && column !== 'profile_picture' && column !== 'last_name');
             this.applicationList = response.data.payload;
 
             this.tableConfig = {
@@ -80,5 +85,19 @@ export class ApplicationListComponent {
         keyboard: true,
         // initialState,
       });
+      this.modalRef.content.successCall.subscribe(() => {
+        this.applicationListing(1);
+      });
+    }
+
+    onKeyChange(item: any){
+      this.searchType = false;
+
+      if(item.keyCode == 13){
+        this.searchType = true;
+        this.applicationListing(1);
+      }else if(this.searchTerm == ''){
+        this.applicationListing(1);
+      }
     }
 }

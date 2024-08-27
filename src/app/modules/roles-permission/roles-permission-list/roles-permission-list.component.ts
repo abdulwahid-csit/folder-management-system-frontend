@@ -15,6 +15,7 @@ export class RolesPermissionListComponent implements OnInit {
   modalRef?: BsModalRef;
   searchTerm: string = '';
   activeMenu: string = 'Dashboard';
+  searchType: boolean = false;
 
   tableConfig = {
     paginationParams: {
@@ -81,9 +82,19 @@ export class RolesPermissionListComponent implements OnInit {
     });
   }
 
-  onKeyChange(event: KeyboardEvent) {
-    if (event.key === 'Enter' || this.searchTerm === '') {
-      this.getRolePermissionListing(1); 
+  // onKeyChange(event: KeyboardEvent) {
+  //   if (event.key === 'Enter' || this.searchTerm === '') {
+  //     this.getRolePermissionListing(1); 
+  //   }
+  // }
+  onKeyChange(item: any) {
+    this.searchType = false;
+
+    if (item.keyCode == 13) {
+      this.searchType = true;
+      this.getRolePermissionListing(1);
+    } else if (this.searchTerm == '') {
+      this.getRolePermissionListing(1);
     }
   }
 

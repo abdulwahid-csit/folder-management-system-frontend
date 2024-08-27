@@ -14,11 +14,13 @@ export class UserListComponent implements OnInit {
 
   columns: any[] = [];
   userList: any[] = [];
+  filterData: any[] = [];
   modalRef?: BsModalRef;
   searchTerm: string = '';
   currentPage: number = 1;
   pageSize: number = 10;
   activeMenu: string = 'Dashboard';
+  searchType: boolean = false;
 
   tableConfig = {
     paginationParams: {
@@ -61,7 +63,10 @@ export class UserListComponent implements OnInit {
   }
 
   userListing(page: number = this.currentPage, search: string = this.searchTerm) {
-    const urlData = `users?page=${page}&pageSize=${this.pageSize}&search=${search}`;
+    let urlData = `users?page=${page}&limit=10`;
+    if (this.searchTerm) {
+      urlData += `&search=${this.searchTerm}`;
+    }
     this.crudService.read(urlData).subscribe((response: any) => {
       if (response.status_code === 200 || response.status_code === 201) {
         if (response.data.payload.length > 0) {
@@ -70,6 +75,7 @@ export class UserListComponent implements OnInit {
             !['id', 'email_verified', 'permissions', 'timezone', 'username', 'updated_at', 'profile_picture', 'last_name'].includes(col)
           );
           this.userList = response.data.payload;
+          this.filterData = this.userList;
 
           this.tableConfig = {
             paginationParams: {
@@ -81,16 +87,25 @@ export class UserListComponent implements OnInit {
               total_records: response.data.paginate_options.total_records
             }
           };
+        } else {
+          this.userList = [];
+          this.filterData = []; 
         }
       }
     }, error => {
       console.error('HTTP error:', error);
     });
   }
+ 
+  onKeyChange(item: any) {
+    this.searchType = false;
 
-  onSearchChange(search: string): void {
-    this.searchTerm = search;
-    this.userListing(1, this.searchTerm);
+    if (item.keyCode == 13) {
+      this.searchType = true;
+      this.userListing(1);
+    } else if (this.searchTerm == '') {
+      this.userListing(1);
+    }
   }
 
   onPageChange(page: number): void {

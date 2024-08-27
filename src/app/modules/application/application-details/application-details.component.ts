@@ -18,19 +18,16 @@ export class ApplicationDetailsComponent  {
   applicationID: any;
   app_secret: string | undefined;
 
-
-
-
 constructor(private modalService: BsModalService,
-  private crudService: CrudService, private route: ActivatedRoute,
-private router: Router,
-private toast: ToastrService){
+  private crudService: CrudService,
+  private route: ActivatedRoute,
+  private router: Router,
+  private toast: ToastrService){
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.applicationID = params['id'];
-      console.log(this.applicationID);
     });
   }
 

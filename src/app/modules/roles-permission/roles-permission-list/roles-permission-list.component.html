@@ -16,7 +16,7 @@
                 <button *ngIf="localStoreService.hasPermission('can.create.role')" type="button" class="primary_button ms-0 ms-2 mb-3 mb-md-0" (click)="permissionUser()">Create Roles</button>
             </div>
         </div>
-        <app-data-table [columns]="columns" [config]="tableConfig" [dataSet]="roleslist" [searchTerm]="searchTerm"
+        <app-data-table [columns]="columns" [config]="tableConfig" [dataSet]="roleslist"
             [module]="'roles'" (changePage)="onPageChange($event)">
         </app-data-table>
     </div>

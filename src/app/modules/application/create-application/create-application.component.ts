@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, TemplateRef } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -14,6 +14,7 @@ export class CreateApplicationComponent implements OnInit {
   applicationForm!: FormGroup
   modalOpen: boolean = false;
   inputUris: Array<{value: string}> = [];
+  @Output() successCall = new EventEmitter();
 
 
   constructor(private modalService: BsModalService,
@@ -67,7 +68,6 @@ removeInputUri(index: number) {
 }
   submitForm() {
 
-    console.log("form data", this.applicationForm.value);
     const createData = this.applicationForm.value;
     if (this.applicationForm.invalid) {
       this.applicationForm.markAllAsTouched();
@@ -77,7 +77,7 @@ removeInputUri(index: number) {
       this.crudService.create('applications',createData).subscribe((response: any) => {
         if (response.status_code === 200 || response.status_code === 201) {
           if (response.data && typeof response.data === 'object') {
-            console.log("Form Submitted.")
+            this.successCall.emit()
           }
         }
       }, error => {

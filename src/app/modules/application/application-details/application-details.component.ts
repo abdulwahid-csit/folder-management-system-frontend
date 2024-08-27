@@ -17,10 +17,13 @@ export class ApplicationDetailsComponent  {
   selectedTab = 'features';
   applicationID: any;
   app_secret: string | undefined;
+  app_id!: string;
+
+
+
 
 constructor(private modalService: BsModalService,
-  private crudService: CrudService,
-  private route: ActivatedRoute,
+  private crudService: CrudService, private route: ActivatedRoute,
   private router: Router,
   private toast: ToastrService){
   }
@@ -28,7 +31,10 @@ constructor(private modalService: BsModalService,
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.applicationID = params['id'];
+      console.log(this.applicationID);
     });
+   this.applicationListing()
+
   }
 
 setSelectedTab(tab: string){
@@ -39,6 +45,20 @@ setSelectedTab(tab: string){
     // this.columns = this.columns = this.dataTable[0]?.data?.columns;
   }
 }
+
+applicationListing( ) {
+
+
+      this.crudService.read('applications/'+this.applicationID).subscribe((response: any) => {
+     {
+      this.app_secret = response.data.app_secret;
+      this.app_id =  response.data.app_id;
+     }
+
+      }, error => {
+        console.error('HTTP error:', error);
+      });
+    }
 
 applicationDeleteModal(): void {
   const initialState = {description: 'Please confirm you really want to delete the organization. After clicking yes, the organization will be deleted permanently.'};

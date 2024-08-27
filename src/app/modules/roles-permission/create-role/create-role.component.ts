@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-create-role',
   templateUrl: './create-role.component.html',
-  styleUrls: ['./create-role.component.scss']
+  styleUrls: ['./create-role.component.scss','../../../css/custpm-dropdown-style.scss']
 })
 export class CreateRoleComponent implements OnInit {
   @Input() mode: 'create' | 'update' = 'create';
@@ -19,6 +19,8 @@ export class CreateRoleComponent implements OnInit {
   modalRef?: BsModalRef;
   permissionModalRef?: BsModalRef;
   isLoading: boolean = false;
+  isFocused: boolean = false;
+  organization: any[] = [];
 
   constructor(
     public bsModalRef: BsModalRef,
@@ -31,13 +33,14 @@ export class CreateRoleComponent implements OnInit {
   ngOnInit(): void {
     this.initializeForm();
     this.fetchPermissions();
+    this.fetchOrganization();
     console.warn('UserData:', this.userData);
 
     if (this.mode === 'update' && this.userData) {
       this.rolesForm.patchValue({
         name: this.userData.name,
         description: this.userData.description,
-        organization: this.userData.organization?.id || 1
+        organization: this.userData.organization ? this.userData.organization.id : ''
       });
       this.selectedPermissions = new Set(this.userData.permissions.map((p: any) => p.id));
     }
@@ -49,7 +52,7 @@ export class CreateRoleComponent implements OnInit {
       name: [null, Validators.required],
       description: [null, Validators.required],
       permissions: [null],
-      organization: [1, Validators.required]  // Default value
+      organization: [null, this.mode === 'create' ? Validators.required : null],
     });
   }
 
@@ -165,5 +168,24 @@ export class CreateRoleComponent implements OnInit {
 
   cancelPermissionModal(): void {
     this.permissionModalRef?.hide();
+  }
+
+  onChange(): void {
+    const control = this.rolesForm.get('organization');
+    if (control?.value) {
+      this.isFocused = false;
+    }
+  }
+
+  fetchOrganization(): void {
+    this.crudService.read('organization')
+      .subscribe(
+        (response) => {
+          this.organization = response.data.payload
+        },
+        error => {
+          console.error('Error fetching roles:', error);
+        }
+      );
   }
 }

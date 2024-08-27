@@ -70,9 +70,10 @@ export class UserListComponent implements OnInit {
     this.crudService.read(urlData).subscribe((response: any) => {
       if (response.status_code === 200 || response.status_code === 201) {
         if (response.data.payload.length > 0) {
+          console.log("here is th response", response.data);
           const column = Object.keys(response.data.payload[0]);
           this.columns = column.filter((col: string) =>
-            !['id', 'email_verified', 'permissions', 'timezone', 'username', 'updated_at', 'profile_picture', 'last_name'].includes(col)
+            !['id','roles', 'email_verified', 'permissions', 'timezone', 'username', 'updated_at', 'profile_picture', 'last_name'].includes(col)
           );
           this.userList = response.data.payload;
           this.filterData = this.userList;

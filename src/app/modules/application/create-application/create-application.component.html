@@ -47,7 +47,19 @@
                 >reset</span>
               </div>
             </div>
-
+            <div class="mt-4 custom-dropdown">
+              <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Organization</label>
+              <ng-select class=""
+                [ngClass]="{
+                  'custom-select-error': isControlHasError('organization', 'required'),
+                  'custom-select': !isControlHasError('organization', 'required')
+                }"
+                formControlName="organization" (focus)="isFocused = true" (blur)="isFocused = false" (change)="onChange()"
+                placeholder="Select organization">
+                <ng-option *ngFor="let organization of organization" [value]="organization.id">{{ organization.name }}</ng-option>
+              </ng-select>
+              <small *ngIf="isControlHasError('organization', 'required')" class="mt-1 fs-14px text-danger">organization is required</small>
+            </div>
 
             <ng-container *ngIf="inputUris.length <= 5">
             <ng-container *ngFor="let item of inputUris">

@@ -3,6 +3,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ApplicationDetailsComponent } from '../application-details/application-details.component';
 import { CreateApplicationComponent } from '../create-application/create-application.component';
 import { CrudService } from 'src/app/shared/services/crud.service';
+import { LocalStoreService } from 'src/app/shared/services/local-store.service';
 
 @Component({
   selector: 'app-application-list',
@@ -10,8 +11,10 @@ import { CrudService } from 'src/app/shared/services/crud.service';
   styleUrls: ['./application-list.component.scss']
 })
 export class ApplicationListComponent {
-  constructor(private modalService: BsModalService,
+  constructor(
+    private modalService: BsModalService,
     private crudService: CrudService,
+    private localStoreService: LocalStoreService
   ){}
   ngOnInit(): void {
     this.applicationListing(1)
@@ -43,14 +46,16 @@ export class ApplicationListComponent {
     };
 
     applicationListing(currentPage: any) {
-      let urlData = 'applications?page=${currentPage}&limit=10';
-      if(this.searchType){
-        urlData = `applications?page=${currentPage}&limit=10&search=${this.searchTerm}`;
-      }else{
-        urlData = `applications?page=${currentPage}&limit=10`;
+      let urlData = `applications?page=${currentPage}&limit=10`;
+      if(this.localStoreService.getUserRole().toLowerCase() !== 'master'){
+        urlData += `&organization=${this.localStoreService.getUserOrganization()}`;
       }
 
-      this.crudService.read('applications').subscribe((response: any) => {
+      if(this.searchType){
+        urlData += `&search=${this.searchTerm}`;
+      }
+
+      this.crudService.read(urlData).subscribe((response: any) => {
        if (response.status_code === 200 || response.status_code === 201) {
           if (response.data.payload.length > 0) {
             const column = Object.keys(response.data.payload[0]);

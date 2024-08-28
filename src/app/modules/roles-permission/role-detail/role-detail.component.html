@@ -69,7 +69,7 @@
   </div>
 
   <!-- Delete Role Section -->
-  <div class="section" *ngIf="localStoreService.hasPermission('can.delete.role')">
+  <div class="section d-none" *ngIf="localStoreService.hasPermission('can.delete.role')">
     <div class="main-div sso_card bg-white p-3 mt-4 ps-4">
       <div>
         <h5 class="fs-20px fw-700">Delete role</h5>

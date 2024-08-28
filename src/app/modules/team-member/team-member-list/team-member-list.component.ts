@@ -45,8 +45,16 @@ export class TeamMemberListComponent implements OnInit {
   }
 
   memberListing(page: number = this.currentPage, search: string = this.searchTerm) {
-    const url = `member?page=${page}&pageSize=${this.pageSize}&search=${search}`;
-    this.crudService.read(url).subscribe((response: any) => {
+    // const url = `member?page=${page}&pageSize=${this.pageSize}&search=${search}`;
+    let urlData = `member?page=${page}&limit=10`;
+    if(this.localStoreService.getUserRole().toLowerCase() !== 'master'){
+      urlData += `&organization=${this.localStoreService.getUserOrganization()}`;
+    }
+
+    if(this.searchType){
+      urlData += `&search=${this.searchTerm}`;
+    }
+    this.crudService.read(urlData).subscribe((response: any) => {
       if (response.status_code === 200 || response.status_code === 201) {
         if (response.data.payload.length > 0) {
           const column = Object.keys(response.data.payload[0]);

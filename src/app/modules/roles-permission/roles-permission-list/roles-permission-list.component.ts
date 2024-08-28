@@ -39,8 +39,16 @@ export class RolesPermissionListComponent implements OnInit {
   }
 
   getRolePermissionListing(page: number) {
+    // let urlData = `access/roles?page=${page}&limit=10`;
+    // if (this.searchTerm) {
+    //   urlData += `&search=${this.searchTerm}`;
+    // }
     let urlData = `access/roles?page=${page}&limit=10`;
-    if (this.searchTerm) {
+    if(this.localStoreService.getUserRole().toLowerCase() !== 'master'){
+      urlData += `&organization=${this.localStoreService.getUserOrganization()}`;
+    }
+
+    if(this.searchType){
       urlData += `&search=${this.searchTerm}`;
     }
 

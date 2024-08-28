@@ -32,21 +32,25 @@
                   class="form-control ps-3 fs-14px"
                   placeholder="Enter URI"
                   [formControlName]="i"
+                  (input)="onUriInputChange(i)"
                 />
-                <!-- Add button only for the last input and if less than 5 inputs -->
+
+                <!-- Plus button shown only if the input is not empty and if less than 5 inputs -->
                 <span
-                  *ngIf="i === redirectUriArray.controls.length - 1 && redirectUriArray.controls.length < 5"
+                  *ngIf="uri.value && i === redirectUriArray.controls.length - 1 && redirectUriArray.controls.length < 5"
                   class="primary_button cursor-pointer plus_button ms-2"
                   (click)="addInputUri()"
                 >&#x2B;</span>
 
+                <!-- Minus button shown for filled inputs except the last one -->
                 <span
-                  *ngIf="redirectUriArray.controls.length === 5 && i === redirectUriArray.controls.length - 1"
+                  *ngIf="uri.value && i !== redirectUriArray.controls.length - 1"
                   class="primary_button cursor-pointer delete_button ms-2"
-                  (click)="resetInputs()"
-                >reset</span>
+                  (click)="removeInputUri(i)"
+                >&#x2212;</span>
               </div>
             </div>
+
             <div class="mt-4 custom-dropdown"
             *ngIf="this.localStoreService.getUserRole().toLowerCase() === 'master'">
               <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Organization</label>

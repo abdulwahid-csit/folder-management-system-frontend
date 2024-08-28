@@ -12,10 +12,10 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   hidePassword = true;
-  isPasswordVisible: boolean = false;
   isLoading: boolean = false;
-  
-  constructor(private fb: FormBuilder,
+
+  constructor(
+    private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
@@ -25,19 +25,60 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.registerForm = this.fb.group({
       userName: [null, Validators.required],
-      email: [null, [Validators.required, Validators.pattern("^[A-Z a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-      password: [null, Validators.compose([Validators.required])],
+      email: [null, [
+        Validators.required,
+        Validators.pattern("^[A-Z a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
+      ]],
+      password: [null, [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W+)(?!.*\s).*/)
+      ]],
     });
   }
 
   isControlHasError(controlName: string, validationType: string): boolean {
     const control = this.registerForm.get(controlName);
-    if (!control) {
-      return false;
-    }
-    return control.hasError(validationType) && (control.dirty || control.touched);
+    return control ? control.hasError(validationType) && (control.dirty || control.touched) : false;
   }
-   
+
+  getPasswordErrors(): { [key: string]: boolean } {
+    const errors: { [key: string]: boolean } = {
+      required: false,
+      minlength: false,
+      uppercase: false,
+      lowercase: false,
+      digit: false,
+      special: false
+    };
+
+    const passwordControl = this.registerForm.get('password');
+    if (!passwordControl) return errors;
+
+    const password = passwordControl.value;
+
+    if (passwordControl.hasError('required')) {
+      errors['required'] = true;
+    }
+    if (passwordControl.hasError('minlength')) {
+      errors['minlength'] = true;
+    }
+    if (password && !/[A-Z]/.test(password)) {
+      errors['uppercase'] = true;
+    }
+    if (password && !/[a-z]/.test(password)) {
+      errors['lowercase'] = true;
+    }
+    if (password && !/\d/.test(password)) {
+      errors['digit'] = true;
+    }
+    if (password && !/\W/.test(password)) {
+      errors['special'] = true;
+    }
+
+    return errors;
+  }
+
   onSubmit(): void {
     if (this.registerForm.invalid) {
       this.registerForm.markAllAsTouched();

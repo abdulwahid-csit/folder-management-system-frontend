@@ -57,7 +57,7 @@ export class CreateUserComponent implements OnInit {
       username: [null, Validators.required],
       phone: [ '', [Validators.required, numericValidator]],
       email: [null, [Validators.required, Validators.email]],
-      password: [null, Validators.required],
+      password: [null, [Validators.required, Validators.minLength(8)]],
       role: [null, Validators.required],
       organization: [null, Validators.required],
     });
@@ -184,5 +184,41 @@ export class CreateUserComponent implements OnInit {
     if (control?.value) {
       this.isFocused = false;
     }
+  }
+  getPasswordErrors(): { [key: string]: boolean } {
+    const errors: { [key: string]: boolean } = {
+      required: false,
+      minlength: false,
+      uppercase: false,
+      lowercase: false,
+      digit: false,
+      special: false
+    };
+
+    const passwordControl = this.userForm.get('password');
+    if (!passwordControl) return errors;
+
+    const password = passwordControl.value;
+
+    if (passwordControl.hasError('required')) {
+      errors['required'] = true;
+    }
+    if (passwordControl.hasError('minlength')) {
+      errors['minlength'] = true;
+    }
+    if (password && !/[A-Z]/.test(password)) {
+      errors['uppercase'] = true;
+    }
+    if (password && !/[a-z]/.test(password)) {
+      errors['lowercase'] = true;
+    }
+    if (password && !/\d/.test(password)) {
+      errors['digit'] = true;
+    }
+    if (password && !/\W/.test(password)) {
+      errors['special'] = true;
+    }
+
+    return errors;
   }
 }

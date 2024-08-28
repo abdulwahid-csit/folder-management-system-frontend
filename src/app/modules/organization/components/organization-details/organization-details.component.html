@@ -19,7 +19,7 @@
           </div>
           <div class="d-flex ms-4">
             <div>
-              <img src="../../../../../assets/icons/Frame.svg" alt="">
+              <img [src]="organizationData?.domain_verified ? '../../../../../assets/icons/Frame.svg' : '../../../../assets/icons/unverified.svg'" alt="">
             </div>
             <div class="ms-1">
               <span class="color-8492A6 fs-14px semi-bold-fonts">{{organizationData?.domain}}</span>
@@ -123,7 +123,7 @@
                 <td class="">Domain</td>
                 <td>
                   <div class="d-flex align-items-center">
-                    <img src="../../../../../assets/icons/Frame.svg" alt="">
+                    <img [src]="organizationData?.domain_verified ? '../../../../../assets/icons/Frame.svg' : '../../../../assets/icons/unverified.svg'" alt="">
                     <span class="dark-light  ms-1">{{organizationData?.domain}}</span>
                   </div>
                 </td>

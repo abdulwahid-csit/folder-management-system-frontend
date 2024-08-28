@@ -63,10 +63,18 @@ export class UserListComponent implements OnInit {
   }
 
   userListing(page: number = this.currentPage, search: string = this.searchTerm) {
+    // let urlData = `users?page=${page}&limit=10`;
+    // if (this.searchTerm) {
+    //   urlData += `&search=${this.searchTerm}`;
+    // }
     let urlData = `users?page=${page}&limit=10`;
-    if (this.searchTerm) {
+    if(this.localStoreService.getUserRole().toLowerCase() !== 'master'){
+      urlData += `&organization=${this.localStoreService.getUserOrganization()}`;
+    }
+    if(this.searchType){
       urlData += `&search=${this.searchTerm}`;
     }
+
     this.crudService.read(urlData).subscribe((response: any) => {
       if (response.status_code === 200 || response.status_code === 201) {
         if (response.data.payload.length > 0) {

@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { CrudService } from 'src/app/shared/services/crud.service';
@@ -21,7 +22,8 @@ export class CreateOrganizationComponent implements OnInit, AfterViewInit {
     private bsModeService: BsModalService,
     private fb: FormBuilder,
     private crudService: CrudService,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private router: Router
   ) { }
   organizationForm!: FormGroup
 
@@ -72,7 +74,9 @@ export class CreateOrganizationComponent implements OnInit, AfterViewInit {
       this.crudService.create('organization', this.organizationForm.value).subscribe((response: any) => {
         if (response.status_code === 200 || response.status_code === 201) {
           this.toast.success(response.message, "Success!")
-          this.successCall.emit();
+          this.router.navigate(['/layout/organization/details/' + response.data.id])
+          
+          // this.successCall.emit();
           this.closeModal();
         } else {
           this.toast.error(response.message, "Error!");

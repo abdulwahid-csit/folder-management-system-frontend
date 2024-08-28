@@ -7,22 +7,22 @@
     <div class="main-div w-100 organization-details-div bg-white  p-3 mt-4 ps-4 custom-shadow">
         <div class="d-flex">
             <div class="iis-logo">
-                <img src="../../../../../assets/images/iis.svg" alt="iis">
+                <img class="rounded" [src]="applicationData?.logo" height="64px" alt="iis">
             </div>
             <div class="ms-3">
                 <div class="fs-20px fw-700 color-16192C bold-fonts">
-                    Degital Solutions
+                    {{applicationData.app_name}}
                 </div>
                 <div class="d-flex mt-1">
                     <div class="link-text fs-12px semi-bold-fonts">
-                        {{app_secret}}
+                        {{applicationData.app_secret || 'N/A'}}
                     </div>
                     <div class="d-flex ms-4">
                         <div>
                             <img src="../../../../../assets/icons/Frame.svg" alt="">
                         </div>
                         <div class="ms-1">
-                            <span class="color-8492A6 fs-14px semi-bold-fonts">4ii Solutions</span>
+                            <span class="color-8492A6 fs-14px semi-bold-fonts">{{applicationData.url}}</span>
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                             <div class="input-group mb-3 w-50 app-secret">
                                 <input #appSecret readonly type="text" class="form-control focus-none border-end-0"
                                     placeholder="" aria-label="Recipient's username" aria-describedby="basic-addon1"
-                                    [value]="app_secret">
+                                    [value]="applicationData.app_secret">
                                 <span #spanRef class="border-start-0 input-group-text bg-transparent cursor-pointer"
                                     id="appsecret-copy" (click)="copyId(spanRef,copySvg, tickIcon, appSecret)">
                                     <svg #copySvg class="" fill="none" height="24" stroke-width="1.5"
@@ -114,7 +114,7 @@
                         <div class="input-group mb-3 w-50 app-id mt-3">
                             <input #appId readonly type="text" class="form-control focus-none border-end-0"
                                 placeholder="" aria-label="" aria-describedby="basic-addon2"
-                                [value]="app_id">
+                                [value]="applicationData.app_id">
                             <span #spanRef1 class="border-start-0 input-group-text bg-transparent cursor-pointer"
                                 title="Copy" id="appid-copy" (click)="copyId(spanRef1,copySvg1, tickIcon1, appId)">
                                 <svg #copySvg1 class="" fill="none" height="24" stroke-width="1.5"

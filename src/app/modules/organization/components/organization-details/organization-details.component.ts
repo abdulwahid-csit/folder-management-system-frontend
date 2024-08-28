@@ -74,6 +74,7 @@ export class OrganizationDetailsComponent implements OnInit {
       }
 
       this.crudService.read('organization/'+ this.organizationId).subscribe((response: any) => {
+
         if (response.status_code === 200 || response.status_code === 201) {
           if (response.data && typeof response.data === 'object') {
             const column = Object.keys(response.data);
@@ -172,12 +173,16 @@ export class OrganizationDetailsComponent implements OnInit {
       initialState,
     });
 
-    this.modalRef.content.successCall.subscribe(() => {
-      this.getOrganization();
-    });
+    // this.modalRef.content.successCall.subscribe(() => {
+    //   this.getOrganization();
+    // });
   }
 
   organizationDeleteModal(): void {
+    if(this.organizationData.application_count || this.organizationData.user_count){
+      this.toast.error('You cannot delete the organization because it has associated users or applications.', "Error!")
+      return;
+    }
     const initialState = {isLoading: false, description: 'Please confirm you really want to delete the organization. After clicking yes, the organization will be deleted permanently.'};
     this.modalRef = this.modalService.show(DeleteModalComponent, {
       class: 'modal-dialog-centered custom-delete-user-modal modal-lg',
@@ -202,8 +207,8 @@ export class OrganizationDetailsComponent implements OnInit {
       }
       this.modalRef.content.isLoading = false;
     }, error => {
-      this.toast.error(error.error.message, "Error!");
-      this.modalRef.content.isLoading = true;
+      this.toast.error(error.message, "Error!");
+      this.modalRef.content.isLoading = false;
     });
   }
 

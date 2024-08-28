@@ -86,6 +86,10 @@ export class RoleDetailComponent implements OnInit {
   }
 
   confirmDelete(): void {
+    // if(this.role.application_count || this.role.user_count){
+    //   this.toast.error('You cannot delete the organization because it has associated users or applications.', "Error!")
+    //   return;
+    // }
     if (this.roleIdToDelete != null) {
       this.crudService.delete('access/roles', this.roleIdToDelete).subscribe(
         () => {

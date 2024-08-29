@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output, TemplateRef } from '@angular/c
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
 import { CrudService } from 'src/app/shared/services/crud.service';
 import { LocalStoreService } from 'src/app/shared/services/local-store.service';
 
@@ -14,7 +15,7 @@ export class CreateApplicationComponent implements OnInit {
   modalRef: any;
   applicationForm!: FormGroup
   modalOpen: boolean = false;
-  inputUris: Array<{value: string}> = [];
+  inputUris: Array<{ value: string }> = [];
   @Output() successCall = new EventEmitter();
   organization: any[] = [];
   isFocused: boolean = false;
@@ -24,13 +25,14 @@ export class CreateApplicationComponent implements OnInit {
     private crudService: CrudService,
     private route: ActivatedRoute,
     private router: Router,
+    private toast: ToastrService,
     public localStoreService: LocalStoreService
   ) { }
 
 
   ngOnInit(): void {
 
-    if(this.localStoreService.getUserRole().toLowerCase() === 'master'){
+    if (this.localStoreService.getUserRole().toLowerCase() === 'master') {
       this.fetchOrganization();
     }
 
@@ -63,44 +65,44 @@ export class CreateApplicationComponent implements OnInit {
     );
   }
 
-get redirectUriArray(): FormArray {
-  return this.applicationForm.get('redirectUri') as FormArray;
-}
-
-
-addInputUri() {
-  this.redirectUriArray.push(new FormControl(''));
-}
-resetInputs(): void {
-  this.redirectUriArray.clear();
-  this.inputUris = [];
-  this.addInputUri();
-}
-fetchOrganization(): void {
-  this.crudService.read('organization')
-    .subscribe(
-      (response) => {
-        this.organization = response.data.payload
-      },
-      error => {
-        console.error('Error fetching roles:', error);
-      }
-    );
-}
-removeInputUri(index: number) {
-  if (this.redirectUriArray.length > 1) {
-    this.redirectUriArray.removeAt(index);
+  get redirectUriArray(): FormArray {
+    return this.applicationForm.get('redirectUri') as FormArray;
   }
-}
 
-onUriInputChange(index: number) {
-  const control = this.redirectUriArray.at(index) as FormControl;
-  if (!control.value && this.redirectUriArray.length > 1) {
-    this.removeInputUri(index);
+
+  addInputUri() {
+    this.redirectUriArray.push(new FormControl(''));
   }
-}
+  resetInputs(): void {
+    this.redirectUriArray.clear();
+    this.inputUris = [];
+    this.addInputUri();
+  }
+  fetchOrganization(): void {
+    this.crudService.read('organization')
+      .subscribe(
+        (response) => {
+          this.organization = response.data.payload
+        },
+        error => {
+          console.error('Error fetching roles:', error);
+        }
+      );
+  }
+  removeInputUri(index: number) {
+    if (this.redirectUriArray.length > 1) {
+      this.redirectUriArray.removeAt(index);
+    }
+  }
+
+  onUriInputChange(index: number) {
+    const control = this.redirectUriArray.at(index) as FormControl;
+    if (!control.value && this.redirectUriArray.length > 1) {
+      this.removeInputUri(index);
+    }
+  }
   submitForm() {
-    if(this.localStoreService.getUserRole().toLowerCase() !== 'master'){
+    if (this.localStoreService.getUserRole().toLowerCase() !== 'master') {
       this.applicationForm.patchValue({
         organization: this.localStoreService.getUserOrganization()
       });
@@ -112,23 +114,22 @@ onUriInputChange(index: number) {
       return;
     }
     else {
-      this.crudService.create('applications',createData).subscribe((response: any) => {
+      this.crudService.create('applications', createData).subscribe((response: any) => {
         if (response.status_code === 200 || response.status_code === 201) {
+          this.toast.success(response.message, "Success!")
           if (response.data && typeof response.data === 'object') {
-            this.router.navigate(['layout/application/details/']);
-            this.successCall.emit()
+            this.router.navigate(['layout/application/details/' + response.data.id]);
+            this.successCall.emit();
+            this.closeModal();
           }
 
         }
       }, error => {
+        this.toast.error(error.message, "Success!")
         console.error('HTTP error:', error);
       });
     }
 
-
-
-
-    this.closeModal();
   }
 
 

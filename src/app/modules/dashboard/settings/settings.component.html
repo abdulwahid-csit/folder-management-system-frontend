@@ -7,7 +7,7 @@
       </div>
       <div class="ms-3">
         <div class="fs-20px fw-700 color-16192C bold-fonts">
-          Digital Solutions
+          {{organizationData.name}}
         </div>
         <div class="d-flex mt-1">
           <div class="d-flex">
@@ -15,7 +15,30 @@
               <img src="../../../../../assets/icons/Frame.svg" alt="">
             </div>
             <div class="ms-1">
-              <span class="color-8492A6 fs-14px semi-bold-fonts">4ii Solutions</span>
+              <span class="color-8492A6 fs-14px semi-bold-fonts">{{organizationData.domain}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="main-div w-100 organization-details-div bg-white  p-3 ps-4 custom-shadow"
+    *ngIf="this.localStoreService.getUserRole().toLowerCase() === 'master'">
+    <div class="d-flex">
+      <div class="iis-logo">
+        <img class="rounded" [src]="localStoreService.getUserProfile()" height="64px" alt="iis">
+      </div>
+      <div class="ms-3">
+        <div class="fs-20px fw-700 color-16192C bold-fonts">
+          {{localStoreService.getUserName()}}
+        </div>
+        <div class="d-flex mt-1">
+          <div class="d-flex">
+            <div>
+              <img src="../../../../../assets/icons/Frame.svg" alt="">
+            </div>
+            <div class="ms-1">
+              <span class="color-8492A6 fs-14px semi-bold-fonts">{{localStoreService.getUserEmail()}}</span>
             </div>
           </div>
         </div>
@@ -229,7 +252,7 @@
       <div class="main-div w-100 organization-tab">
         <div class="main-div mt-1">
           <h4 class="fs-20px fw-700 mb-3">Organization Detail</h4>
-          <form [formGroup]="changePasswordForm" (ngSubmit)="onChangePasswordSubmit()" class="">
+          <form [formGroup]="organizationForm" (ngSubmit)="onOrganizationSubmit()" class="">
             <div class="d-flex justify-content-between">
               <div class="mb-3 custom-input w-50 me-4">
                 <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700">Name
@@ -242,13 +265,16 @@
                 <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 ">Domain
                 </label>
                 <input type="text" class="form-control fs-14px" placeholder="Enter domain name"
-                  formControlName="lastName">
+                  formControlName="domain">
 
               </div>
 
             </div>
             <div class="d-flex justify-content-end mt-4">
-              <button type="submit" class="primary_button">Save</button>
+              <button type="submit" class="primary_button" [disabled]="isLoadingOrganization">
+                <span class="spinner-border spinner-border-sm" *ngIf="isLoadingOrganization"></span>
+                Save
+              </button>
             </div>
           </form>
         </div>

@@ -38,7 +38,7 @@ export class CreateUserComponent implements OnInit {
     private crudService: CrudService,
     private toast: ToastrService,
     public localStoreService: LocalStoreService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.initialize();
@@ -52,19 +52,22 @@ export class CreateUserComponent implements OnInit {
   }
 
   initialize() {
-
     this.userForm = this.fb.group({
       firstName: [null, Validators.required],
       lastName: [null, Validators.required],
       username: [null, Validators.required],
-      phone: [ '', [Validators.required, numericValidator]],
+      phone: ['', [Validators.required, numericValidator]],
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required, Validators.minLength(8)]],
       role: [null, Validators.required],
       organization: [null, Validators.required],
+      status: [null,]
     });
 
     if (this.mode === 'update' && this.userData) {
+      this.userForm.get('organization')?.clearValidators();
+      this.userForm.get('role')?.clearValidators();
+
       this.userForm.patchValue({
         firstName: this.userData.first_name || '',
         lastName: this.userData.last_name || '',
@@ -72,10 +75,14 @@ export class CreateUserComponent implements OnInit {
         phone: this.userData.phone || '',
         email: this.userData.email || '',
         role: this.userData.roles || '',
-        organization: this.userData.organization ? this.userData.organization.id : ''
+        organization: this.userData.organization ? this.userData.organization.id : '',
+        status: this.userData.status || 'active'
       });
       this.userForm.get('email')?.disable();
       this.userForm.removeControl('password');
+    }else {
+      this.userForm.get('organization')?.setValidators(Validators.required);
+      this.userForm.get('role')?.setValidators(Validators.required);
     }
   }
 
@@ -103,7 +110,7 @@ export class CreateUserComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if(this.localStoreService.getUserRole().toLowerCase() !== 'master'){
+    if (this.localStoreService.getUserRole().toLowerCase() !== 'master') {
       this.userForm.patchValue({
         organization: this.localStoreService.getUserOrganization()
       });
@@ -113,7 +120,14 @@ export class CreateUserComponent implements OnInit {
       this.userForm.markAllAsTouched();
       return;
     }
+
     const formValue = { ...this.userForm.value };
+
+   
+    if (!formValue.status) {
+      formValue.status = 'active'; 
+    }
+
     if (formValue.organization) {
       formValue.organization = Number(formValue.organization);
     }
@@ -142,6 +156,7 @@ export class CreateUserComponent implements OnInit {
     );
   }
 
+
   closeModal(): void {
     this.bsModalService.hide();
   }
@@ -160,7 +175,6 @@ export class CreateUserComponent implements OnInit {
     });
 
     const urlData = 'access/roles?organization='+organizationId;
-    console.log(urlData)
     this.crudService.read(urlData)
       .subscribe(
         (response: any) => {
@@ -180,10 +194,10 @@ export class CreateUserComponent implements OnInit {
     this.crudService.read('organization')
       .subscribe(
         (response) => {
-          this.organization = response.data.payload
+          this.organization = response.data.payload;
         },
         error => {
-          console.error('Error fetching roles:', error);
+          console.error('Error fetching organizations:', error);
         }
       );
   }
@@ -195,6 +209,7 @@ export class CreateUserComponent implements OnInit {
       this.fetchRoles(control.value);
     }
   }
+
   getPasswordErrors(): { [key: string]: boolean } {
     const errors: { [key: string]: boolean } = {
       required: false,

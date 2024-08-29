@@ -45,7 +45,6 @@ export class SettingsComponent implements OnInit {
     const data = this.localStoreService.getItem('user');
     if(typeof data === 'object'){
       this.organizationData = data.organization;
-      
       this.accountDetailsForm.patchValue({
         firstName: data.first_name,
         lastName: data.last_name,

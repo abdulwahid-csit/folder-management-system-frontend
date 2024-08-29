@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { CrudService } from 'src/app/shared/services/crud.service';
 
 @Component({
   selector: 'app-update-team-member',
   templateUrl: './update-team-member.component.html',
-  styleUrls: ['./update-team-member.component.scss']
+  styleUrls: ['./update-team-member.component.scss','../../../css/custpm-dropdown-style.scss']
 })
 export class UpdateTeamMemberComponent implements OnInit {
   @Output() successCall = new EventEmitter<void>();
@@ -16,9 +16,9 @@ export class UpdateTeamMemberComponent implements OnInit {
   @Input() data!: any;
   memberId!: number;
   isLoading: boolean = false;
-    
+  isFocused!: boolean;
+
   constructor(
-    private modalService: BsModalService, 
     private http: HttpClient,
     private modalRef: BsModalRef,
     private crudService: CrudService,
@@ -34,8 +34,9 @@ export class UpdateTeamMemberComponent implements OnInit {
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
       username: new FormControl('', [Validators.required]),
-      phone: new FormControl('', [Validators.required]),
-      email: new FormControl({ value: '', disabled: true })
+      phoneNumber: new FormControl('', [Validators.required]),
+      email: new FormControl({ value: '', disabled: true }),
+      status: new FormControl('', [Validators.required])
     });
 
     if (this.data) {
@@ -50,7 +51,8 @@ export class UpdateTeamMemberComponent implements OnInit {
       lastName: data.last_name,
       username: data.username,
       phoneNumber: data.phone,
-      email: data.email
+      email: data.email,
+      status: data.status 
     });
   }
 

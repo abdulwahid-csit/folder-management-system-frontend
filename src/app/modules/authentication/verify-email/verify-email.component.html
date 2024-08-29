@@ -1,0 +1,56 @@
+<div class="verify-email-container d-flex justify-content-center align-items-center">
+       <div class="verify-email-box custom-shadow">
+              <div class="logo">
+                     <!-- <img src="../../../../assets/logos/verify-email-page-logo.svg" alt="Logo"> -->
+              </div>
+              <h2>Verify Your Email 📩</h2>
+              <p>We sent a verification code to your email. Enter the code from the email in the field below.</p>
+
+              <h6>Type your 6 digit security code</h6>
+              <div class="form-group code-inputs">
+                     <form [formGroup]="otpForm" (ngSubmit)="onSubmit()" class="w-100">
+                            <div class="d-flex justify-content-between w-100 custom-input" >
+                                   <input type="number" id="otp-0" maxlength="1" class="form-control"
+                                          formControlName="code0" (input)="onInputChange($event, 0)"
+                                          (keydown)="onKeyDown($event, 0)"
+                                          [ngClass]="{'is-invalid-input': otpForm.get('code0')?.invalid && otpForm.get('code0')?.touched}" />
+
+                                   <input type="number" id="otp-1" maxlength="1" class="form-control"
+                                          formControlName="code1" (input)="onInputChange($event, 1)"
+                                          (keydown)="onKeyDown($event, 1)"
+                                          [ngClass]="{'is-invalid-input': otpForm.get('code1')?.invalid && otpForm.get('code1')?.touched}" />
+
+                                   <input type="number" id="otp-2" maxlength="1" class="form-control"
+                                          formControlName="code2" (input)="onInputChange($event, 2)"
+                                          (keydown)="onKeyDown($event, 2)"
+                                          [ngClass]="{'is-invalid-input': otpForm.get('code2')?.invalid && otpForm.get('code2')?.touched}" />
+
+                                   <input type="number" id="otp-3" maxlength="1" class="form-control"
+                                          formControlName="code3" (input)="onInputChange($event, 3)"
+                                          (keydown)="onKeyDown($event, 3)"
+                                          [ngClass]="{'is-invalid-input': otpForm.get('code3')?.invalid && otpForm.get('code3')?.touched}" />
+
+                                   <input type="number" id="otp-4" maxlength="1" class="form-control"
+                                          formControlName="code4" (input)="onInputChange($event, 4)"
+                                          (keydown)="onKeyDown($event, 4)"
+                                          [ngClass]="{'is-invalid-input': otpForm.get('code4')?.invalid && otpForm.get('code4')?.touched}" />
+
+                                   <input type="number" id="otp-5" maxlength="1" class="form-control"
+                                          formControlName="code5" (input)="onInputChange($event, 5)"
+                                          (keydown)="onKeyDown($event, 5)"
+                                          [ngClass]="{'is-invalid-input': otpForm.get('code5')?.invalid && otpForm.get('code5')?.touched}" />
+
+                            </div>
+                            <small *ngIf="otpForm.invalid && otpForm.touched" class="">Please enter 6 digit otp.</small>
+                            <button type="submit" class="btn primary_button text-white btn-block">Verify my
+                                   account</button>
+                     </form>
+
+              </div>
+
+
+              <div class="resend text-center">
+                     <span>Didn't get the code?</span><a href="#"> Resend</a>
+              </div>
+       </div>
+</div>

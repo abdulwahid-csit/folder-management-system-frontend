@@ -86,11 +86,13 @@
             <form [formGroup]="accountDetailsForm" (ngSubmit)="onAccountDetailsSubmit()" class="">
               <div class="d-flex justify-content-between">
                 <div class="mb-4 custom-input w-50 me-4 position-relative"
-                  [ngClass]="isControlHasError('firstName', 'required', accountDetailsForm) ? 'custom-input-error': 'custom-input'">
-                  <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">First Name
+                  [ngClass]="isControlHasError('firstName', 'required', accountDetailsForm) ? 'custom-input-error': 'custom-input'"
+                  [ngClass]="{'disabled-input':!isEdited}">
+                  <label for="first-name" class="form-label mb-1 fs-14px fw-700 required">First Name
                   </label>
-                  <input type="text" class="form-control fs-14px" id="exampleFormControlInput1"
-                    placeholder="Enter first name" formControlName="firstName">
+                  <input type="text" class="form-control fs-14px" id="first-name"
+                    placeholder="Enter first name" formControlName="firstName" [readOnly]="!isEdited"
+                    [ngClass]="{'pointer-none disabled focus-none': !isEdited}">
                   <div class="error-message">
                     <small *ngIf="isControlHasError('firstName','required', accountDetailsForm)"
                       class="mt-1 text-danger">First
@@ -99,11 +101,13 @@
                   </div>
                 </div>
                 <div class="mb-4 custom-input w-50 position-relative"
-                  [ngClass]="isControlHasError('lastName', 'required', accountDetailsForm) ? 'custom-input-error': 'custom-input'">
-                  <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required ">Last Name
+                  [ngClass]="isControlHasError('lastName', 'required', accountDetailsForm) ? 'custom-input-error': 'custom-input'"
+                  [ngClass]="{'disabled-input':!isEdited}">
+                  <label for="last-name" class="form-label mb-1 fs-14px fw-700 required ">Last Name
                   </label>
-                  <input type="text" class="form-control fs-14px" id="exampleFormControlInput1"
-                    placeholder="Enter last name" formControlName="lastName">
+                  <input type="text" class="form-control fs-14px" id="last-name"
+                    placeholder="Enter last name" formControlName="lastName" [readOnly]="!isEdited"
+                    [ngClass]="{'pointer-none disabled focus-none': !isEdited}">
                   <small *ngIf="isControlHasError('lastName','required', accountDetailsForm)"
                     class="mt-1 text-danger">Last
                     Name is
@@ -113,41 +117,42 @@
               </div>
               <div class="d-flex justify-content-between position-relative">
                 <div class="mb-4 custom-input w-50 me-4 position-relative"
-                  [ngClass]="isControlHasError('username', 'required', accountDetailsForm) ? 'custom-input-error': 'custom-input'">
-                  <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">User Name
+                  [ngClass]="isControlHasError('username', 'required', accountDetailsForm) ? 'custom-input-error': 'custom-input'"
+                  [ngClass]="{'disabled-input':!isEdited}">
+                  <label for="username" class="form-label mb-1 fs-14px fw-700 required">User Name
                   </label>
-                  <input type="text" class="form-control fs-14px" id="exampleFormControlInput1"
-                    placeholder="Enter username" formControlName="username">
+                  <input type="text" class="form-control fs-14px" id="username"
+                    placeholder="Enter username" formControlName="username" [readOnly]="!isEdited"
+                    [ngClass]="{'pointer-none disabled focus-none': !isEdited}">
                   <small *ngIf="isControlHasError('username','required', accountDetailsForm)"
-                    class=" mt-1 text-danger">First
-                    Name is
-                    required</small>
+                    class=" mt-1 text-danger">Username is required</small>
                 </div>
                 <div class="mb-4 custom-input w-50 position-relative"
-                  [ngClass]="isControlHasError('phoneNumber', 'required', accountDetailsForm) ? 'custom-input-error': 'custom-input'">
-                  <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Phone Number
+                  [ngClass]="isControlHasError('phoneNumber', 'required', accountDetailsForm) ? 'custom-input-error': 'custom-input'"
+                  [ngClass]="{'disabled-input':!isEdited}">
+                  <label for="phone-number" class="form-label mb-1 fs-14px fw-700 required">Phone Number
                   </label>
-                  <input type="text" class="form-control fs-14px" id="exampleFormControlInput1"
-                    placeholder="Enter phone number" formControlName="phoneNumber" maxLength="11">
+                  <input type="number" class="form-control fs-14px" id="phone-number"
+                    placeholder="Enter phone number" formControlName="phoneNumber" maxLength="11" [readOnly]="!isEdited"
+                    [ngClass]="{'pointer-none disabled focus-none': !isEdited}">
                   <small *ngIf="isControlHasError('phoneNumber','required', accountDetailsForm)"
-                    class="mt-1 text-danger">First Name is
-                    required</small>
+                    class="mt-1 text-danger">Phone number required</small>
                 </div>
 
               </div>
               <div class="d-flex justify-content-between">
                 <div class="mb-4 w-50 me-4 disabled-input">
-                  <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Email </label>
-                  <input type="text" class="form-control fs-14px pointer-none" id="exampleFormControlInput1"
+                  <label for="email" class="form-label mb-1 fs-14px fw-700 required">Email </label>
+                  <input type="text" class="form-control fs-14px pointer-none" id="email"
                     placeholder="" formControlName="email" [readOnly]="true">
                   <!-- <small *ngIf="isControlHasError('email','required', accountDetailsForm)" class="text-danger">First
                     Name is
                     required</small> -->
                 </div>
                 <div class="mb-4 w-50 disabled-input">
-                  <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Role
+                  <label for="role" class="form-label mb-1 fs-14px fw-700 required">Role
                   </label>
-                  <input type="text" class="form-control fs-14px disabled pointer-none" id="exampleFormControlInput1"
+                  <input type="text" class="form-control fs-14px disabled pointer-none" id="role"
                     placeholder="Enter role" formControlName="role" [readOnly]="true">
                   <!-- <small *ngIf="isControlHasError('role','required', accountDetailsForm)" class="text-danger">First Name
                     is
@@ -157,9 +162,16 @@
               </div>
               <div class="d-flex justify-content-end mt-4">
                 <!-- <button type="button" class="btn border me-3 close-modal" (click)="closeModal()">Cancel</button> -->
-                <button type="submit" class="primary_button" [disabled]="isLoadingAccount">
+                <button type="button" class="primary_button" *ngIf="!isEdited" (click)="isEdited = true">
+                  Edit
+                </button>
+
+                <button type="button" class="cancel_btn me-2" *ngIf="isEdited" (click)="isEdited = false; ngOnInit()" >
+                  Cancel
+                </button>
+                <button type="submit" class="primary_button" [disabled]="isLoadingAccount" *ngIf="isEdited">
                   <span class="spinner-border spinner-border-sm" *ngIf="isLoadingAccount"></span>
-                  Save
+                  Update
                 </button>
 
               </div>
@@ -178,35 +190,51 @@
             <div class="d-flex justify-content-between">
               <div class="mb-4 custom-input w-50 me-4 position-relative"
                 [ngClass]="isControlHasError('password', 'required', changePasswordForm) ? 'custom-input-error': 'custom-input'">
-                <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Current Password
+                <label for="current-password" class="form-label mb-1 fs-14px fw-700 required">Current Password
                 </label>
-                <input type="password" class="form-control fs-14px" id="exampleFormControlInput1"
-                  placeholder="Enter current password" formControlName="password">
+                <input [type]="hideCurrentPassword ? 'password' : 'text'" class="form-control fs-14px"
+                  id="current-password" placeholder="Enter current password" formControlName="password">
                 <small *ngIf="isControlHasError('password','required', changePasswordForm)"
                   class="mt-1 text-danger">Current password is required</small>
+                <i class="eye2 position-absolute" (click)="togglePasswordVisibility(1)"
+                  [ngClass]="{'eye-open': !hideCurrentPassword, 'eye-closed': hideCurrentPassword}"></i>
               </div>
               <div class="mb-4 custom-input w-50 me-4 position-relative"></div>
             </div>
             <div class="d-flex justify-content-between">
               <div class="mb-4 custom-input w-50 position-relative"
-                [ngClass]="(isControlHasError('newPassword', 'required', changePasswordForm) || matchPassword) ? 'custom-input-error': 'custom-input'">
+                [ngClass]="isControlHasError('newPassword', 'required', changePasswordForm) || isControlHasError('newPassword', 'pattern', changePasswordForm) ||  isControlHasError('newPassword', 'minlength', changePasswordForm)? 'custom-input-error': 'custom-input'">
                 <label for="exampleFormCont" class="form-label mb-1 fs-14px fw-700 required ">New Password
                 </label>
-                <input type="password" class="form-control fs-14px" id="exampleFormCont"
+                <input [type]="hideNewPassword ? 'password' : 'text'" class="form-control fs-14px" id="exampleFormCont"
                   placeholder="Enter new password" formControlName="newPassword">
-                <small *ngIf="isControlHasError('newPassword','required', changePasswordForm)"
-                  class="mt-1 text-danger">New
-                  password</small>
-                <small *ngIf="matchPassword" class="mt-1 text-danger">Password not matched</small>
+                <i class="eye2 position-absolute" (click)="togglePasswordVisibility(2)"
+                  [ngClass]="{'eye-open': !hideNewPassword, 'eye-closed': hideNewPassword}"></i>
+
+                  <div [ngSwitch]="true">
+                    <div *ngSwitchCase="isControlHasError('newPassword','required', changePasswordForm)">
+                      <small class="mt-1 text-danger">Password is required</small>
+                    </div>
+                    <div *ngSwitchCase="isControlHasError('newPassword', 'pattern', changePasswordForm) && !isControlHasError('newPassword', 'minlength', changePasswordForm)">
+                      <small class="mt-1 text-danger">Please choose a stronger password. Try a mix of letters, numbers, and symbols.</small>
+                    </div>
+                    <div *ngSwitchCase="isControlHasError('newPassword', 'minlength', changePasswordForm)">
+                      <small class="mt-1 text-danger">Use 8 or more characters.</small>
+                    </div>
+                  </div>
+                  
               </div>
               <div class="custom-input position-relative"></div>
               <div class="mb-4 custom-input w-50 me-4 ms-4 pointer-none position-relative"
                 [ngClass]="(isControlHasError('confirmPassword', 'required', changePasswordForm) || matchPassword) ? 'custom-input-error': 'custom-input'">
-                <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Confirm New
+                <label for="confirm-password" class="form-label mb-1 fs-14px fw-700 required">Confirm New
                   Password
                 </label>
-                <input type="password" class="form-control fs-14px" id="exampleFormControlInput1"
-                  placeholder="Retype new password" formControlName="confirmPassword">
+                <input [type]="hideConfirmNewPassword ? 'password' : 'text'" class="form-control fs-14px"
+                  id="confirm-password" placeholder="Retype new password" formControlName="confirmPassword"
+                  (keyup)="checkPasswordEquality()">
+                <i class="eye2 position-absolute" (click)="togglePasswordVisibility(3)"
+                  [ngClass]="{'eye-open': !hideConfirmNewPassword, 'eye-closed': hideConfirmNewPassword}"></i>
                 <small *ngIf="isControlHasError('confirmPassword','required', changePasswordForm)"
                   class="mt-1 text-danger">Please confirm new password</small>
                 <small *ngIf="matchPassword" class="mt-1 text-danger">Password not matched</small>

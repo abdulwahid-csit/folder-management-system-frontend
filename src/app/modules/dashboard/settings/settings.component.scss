@@ -1,8 +1,10 @@
 .wrapper {
     padding: 40px;
-    .main-div{
+
+    .main-div {
         border-radius: 16px;
     }
+
     .tabs-div {
         padding: 24px 24px 36px 24px;
         border-radius: 16px;
@@ -13,12 +15,12 @@
 
 
     .tabs-div {
-            min-height: 12px !important;
-            small {
-                position: absolute;
-                // margin-bottom: 12px !important;
-             font-size: 12px
-            
+        min-height: 12px !important;
+
+        small {
+            position: absolute;
+            // margin-bottom: 12px !important;
+            font-size: 12px
         }
 
         ;
@@ -56,7 +58,7 @@
 
     input,
     input:focus {
-        border-color: #D0DBE5;
+        border-color: #dee2e6 !important;
         box-shadow: none !important;
         height: 46px;
         background-color: #F1F5F9;
@@ -68,4 +70,27 @@
         color:
             #8492A6;
     }
+}
+
+.eye2 {
+    top: 67%;
+    right: 29px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    width: 18px;
+    height: 14px;
+    background-size: cover;
+    background-position: center;
+}
+
+.eye-open {
+    background-image: url('../../../../assets/icons/eye-hide.svg');
+}
+
+.eye-closed {
+    background-image: url('../../../../assets//icons/EYE-3.svg');
+}
+
+input[type="text"], input::placeholder{
+    letter-spacing: 0;
 }

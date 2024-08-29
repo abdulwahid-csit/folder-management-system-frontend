@@ -103,6 +103,10 @@ export class UserDetailComponent implements OnInit {
         userData: this.userData
       }
     });
+    
+    this.modalRef.content.successCall.subscribe(() => {
+      this.fetchUserDetails(this.userId);
+    });
   }
 
   userDeleteModal(): void {

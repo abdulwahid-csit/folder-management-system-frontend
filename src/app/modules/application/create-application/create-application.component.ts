@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -19,6 +19,10 @@ export class CreateApplicationComponent implements OnInit {
   @Output() successCall = new EventEmitter();
   organization: any[] = [];
   isFocused: boolean = false;
+  @Input() itemList: any;
+  @Input() applicationID: number = 0;
+  @Input() title: string = '';
+  isLoading: boolean = false;
 
 
   constructor(private modalService: BsModalService,
@@ -36,18 +40,30 @@ export class CreateApplicationComponent implements OnInit {
       this.fetchOrganization();
     }
 
-    this.applicationForm = new FormGroup({
-      app_name: new FormControl('', [Validators.required]),
-      url: new FormControl(''),
-      organization: new FormControl(null, [Validators.required]),
-      redirectUri: new FormArray([new FormControl('')]),
-    })
+    this.initialize();
   }
 
   onChange(): void {
     const control = this.applicationForm.get('organization');
     if (control?.value) {
       this.isFocused = false;
+    }
+  }
+  initialize(){
+    this.applicationForm = new FormGroup({
+      app_name: new FormControl('', [Validators.required]),
+      url: new FormControl(''),
+      organization: new FormControl(6, [Validators.required]),
+      redirectUri: new FormArray([new FormControl('')]),
+    })
+
+    if (this.itemList && typeof this.itemList === 'object') {
+      this.applicationForm.patchValue({
+        app_name: this.itemList.app_name,
+        url: this.itemList.url,
+        redirectUri: this.itemList.redirect_uri
+
+      });
     }
   }
 
@@ -101,36 +117,62 @@ export class CreateApplicationComponent implements OnInit {
       this.removeInputUri(index);
     }
   }
-  submitForm() {
-    if (this.localStoreService.getUserRole().toLowerCase() !== 'master') {
-      this.applicationForm.patchValue({
-        organization: this.localStoreService.getUserOrganization()
-      });
-    }
+  onSubmit() {
 
+    // if (this.applicationForm.invalid) {
+    //   this.applicationForm.markAllAsTouched();
+    //   return;
+    // }
+
+    this.isLoading = true;
     const createData = this.applicationForm.value;
-    if (this.applicationForm.invalid) {
-      this.applicationForm.markAllAsTouched();
-      return;
-    }
-    else {
-      this.crudService.create('applications', createData).subscribe((response: any) => {
-        if (response.status_code === 200 || response.status_code === 201) {
-          this.toast.success(response.message, "Success!")
-          if (response.data && typeof response.data === 'object') {
-            this.router.navigate(['layout/application/details/' + response.data.id]);
-            this.successCall.emit();
-            this.closeModal();
+
+    if (this.title === 'Create') {
+      this.crudService.create('applications', createData).subscribe(
+        (response: any) => {
+          if (response.status_code === 200 || response.status_code === 201) {
+            this.toast.success(response.message, "Success!");
+            if (response.data && typeof response.data === 'object') {
+              this.router.navigate(['layout/application/details/' + response.data.id]);
+              this.successCall.emit();
+              this.closeModal();
+            }
           }
-
+        },
+        error => {
+          this.toast.error(error.message, "Error!");
+          console.error('HTTP error:', error);
+        },
+        () => {
+          this.isLoading = false;
         }
-      }, error => {
-        this.toast.error(error.message, "Success!")
-        console.error('HTTP error:', error);
-      });
+      );
+    } else
+    (this.title === 'Edit'); {
+      this.crudService.update('applications', this.applicationID, createData).subscribe(
+        (response: any) => {
+          debugger
+          if (response.status_code === 200 || response.status_code === 201) {
+            this.toast.success(response.message, "Success!");
+            if (response.data && typeof response.data === 'object') {
+              console.log("Data updated");
+            }
+          }
+        },
+        error => {
+          this.toast.error(error.message, "Error!");
+          console.error('HTTP error:', error);
+        },
+        () => {
+          this.isLoading = false;
+          this.closeModal();
+        }
+      );
     }
-
   }
+
+
+
 
 
 }

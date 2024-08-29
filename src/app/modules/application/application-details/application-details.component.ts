@@ -1,10 +1,11 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component, Input, TemplateRef } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { UpdateApplicationComponent } from '../update-application/update-application.component';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { CrudService } from 'src/app/shared/services/crud.service';
 import { DeleteModalComponent } from 'src/app/shared/components/delete-modal/delete-modal.component';
 import { ToastrService } from 'ngx-toastr';
+import { CreateApplicationComponent } from '../create-application/create-application.component';
 
 @Component({
   selector: 'app-application-details',
@@ -12,6 +13,9 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./application-details.component.scss']
 })
 export class ApplicationDetailsComponent {
+  @Input() itemList: any;
+  @Input() organizationId: number = 0;
+  @Input() title: string = '';
   modalRef: any;
   modalOpen: boolean = false;
   selectedTab = 'features';
@@ -19,9 +23,6 @@ export class ApplicationDetailsComponent {
   app_secret: string | undefined;
   app_id!: string;
   applicationData: any = {};
-
-
-
 
   constructor(private modalService: BsModalService,
     private crudService: CrudService, private route: ActivatedRoute,
@@ -48,12 +49,12 @@ export class ApplicationDetailsComponent {
 
   applicationListing() {
 
-
     this.crudService.read('applications/' + this.applicationID).subscribe((response: any) => {
       {
         this.app_secret = response.data.app_secret;
         this.app_id = response.data.app_id;
         this.applicationData = response.data;
+        console.log("here is the application data", this.applicationData);
       }
 
     }, error => {
@@ -143,10 +144,11 @@ export class ApplicationDetailsComponent {
 
 
   editApplication() {
-    const initialState = {
-      applicationId: this.applicationID,
-    };
-    this.modalRef = this.modalService.show(UpdateApplicationComponent, {
+    const initialState = {itemList: this.applicationData, title: 'Edit', applicationID: this.applicationID};
+    // const initialState = {
+    //   applicationId: this.applicationID,
+    // };
+    this.modalRef = this.modalService.show(CreateApplicationComponent, {
       initialState,
       class: 'modal-dialog modal-dialog-centered modal-md common_modal_shadow',
       backdrop: 'static',

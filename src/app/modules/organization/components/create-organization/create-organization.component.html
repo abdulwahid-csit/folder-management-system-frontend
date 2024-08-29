@@ -44,10 +44,10 @@
 
             <!-- Conditional Notes -->
             <div *ngIf="title === 'Edit'">
-                <div *ngIf="organizationForm.get('status')?.value === 'inactive'" class="note">
+                <div  *ngIf="organizationForm.get('status')?.value === 'inactive'" class="dark-light fs-12">
                     If you inactive your organization, all your users and applications will also be inactive.
                 </div>
-                <div *ngIf="organizationForm.get('status')?.value === 'blocked'" class="note">
+                <div  *ngIf="organizationForm.get('status')?.value === 'blocked'" class="dark-light fs-12">
                     If you blocked your organization, all your users and applications will also be blocked.
                 </div>
             </div>

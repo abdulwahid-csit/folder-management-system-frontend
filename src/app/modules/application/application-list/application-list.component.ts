@@ -90,9 +90,9 @@ export class ApplicationListComponent {
         keyboard: true,
         // initialState,
       });
-      this.modalRef.content.successCall.subscribe(() => {
-        this.applicationListing(1);
-      });
+      // this.modalRef.content.successCall.subscribe(() => {
+      //   this.applicationListing(1);
+      // });
     }
 
     onKeyChange(item: any){

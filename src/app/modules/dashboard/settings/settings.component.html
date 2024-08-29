@@ -3,7 +3,7 @@
     *ngIf="this.localStoreService.getUserRole().toLowerCase() !== 'master'">
     <div class="d-flex">
       <div class="iis-logo">
-        <img src="../../../../../assets/images/iis.svg" alt="iis">
+        <img class="rounded" [src]="organizationData.logo" height="64px" alt="iis">
       </div>
       <div class="ms-3">
         <div class="fs-20px fw-700 color-16192C bold-fonts">

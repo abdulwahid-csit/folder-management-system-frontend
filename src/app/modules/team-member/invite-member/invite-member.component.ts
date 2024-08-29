@@ -105,7 +105,7 @@ export class InviteMemberComponent implements OnInit {
 
     const invitationData = {
       ...formData,
-      path: '/layout/team-member/register',
+      path: '/confirm/',
     };
     this.isLoading = true;
     this.crudService.create('auth/invite', invitationData)

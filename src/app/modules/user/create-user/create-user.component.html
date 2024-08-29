@@ -78,26 +78,26 @@
                     <span class="text-danger ps-3 fs-8"
                         [ngClass]="{ invisible: !isControlHasError('password', 'required') }">Password is
                         required</span>
-                    <span *ngIf="isControlHasError('password', 'minlength')" class="text-danger fs-8 ps-3 pt-1">Password
+                    <span *ngIf="isControlHasError('password', 'minlength')" class="text-danger fs-8 ps-3">Password
                         must be at least 8 characters</span>
                     <span
                         *ngIf="getPasswordErrors()['uppercase'] && !isControlHasError('password', 'required') && !getPasswordErrors()['minlength']"
-                        class="text-danger fs-8 ps-3 pt-1">
+                        class="text-danger ps-3 fs-8">
                         Password must include at least one uppercase letter
                     </span>
                     <span
                         *ngIf="getPasswordErrors()['lowercase'] && !isControlHasError('password', 'required') && !getPasswordErrors()['minlength'] && !getPasswordErrors()['uppercase']"
-                        class="text-danger fs-8 ps-3 pt-1">
+                        class="text-danger ps-3 fs-8">
                         Password must include at least one lowercase letter
                     </span>
                     <span
                         *ngIf="getPasswordErrors()['digit'] && !isControlHasError('password', 'required') && !getPasswordErrors()['minlength'] && !getPasswordErrors()['uppercase'] && !getPasswordErrors()['lowercase']"
-                        class="text-danger fs-8 ps-3 pt-1">
+                        class="text-danger ps-3 fs-8">
                         Password must include at least one digit
                     </span>
                     <span
                         *ngIf="getPasswordErrors()['special'] && !isControlHasError('password', 'required') && !getPasswordErrors()['minlength'] && !getPasswordErrors()['uppercase'] && !getPasswordErrors()['lowercase'] && !getPasswordErrors()['digit']"
-                        class="text-danger fs-8 ps-3 pt-1">
+                        class="text-danger ps-3 fs-8">
                         Password must include at least one special character
                     </span>
                 </div>

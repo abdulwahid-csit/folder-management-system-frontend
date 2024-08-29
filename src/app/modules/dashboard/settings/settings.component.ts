@@ -17,6 +17,8 @@ export class SettingsComponent implements OnInit {
   matchPassword: boolean = false;
   isLoadingPassword: boolean = false;
   isLoadingAccount: boolean = false;
+  isLoadingOrganization: boolean = false;
+  organizationData: any = {};
 
   constructor(
     public localStoreService: LocalStoreService,
@@ -42,6 +44,8 @@ export class SettingsComponent implements OnInit {
 
     const data = this.localStoreService.getItem('user');
     if(typeof data === 'object'){
+      this.organizationData = data.organization;
+      
       this.accountDetailsForm.patchValue({
         firstName: data.first_name,
         lastName: data.last_name,
@@ -50,6 +54,19 @@ export class SettingsComponent implements OnInit {
         email: data.email,
         role: data.role.name || '',
       })
+      
+      if(this.localStoreService.getUserRole().toLowerCase() === 'owner'){
+
+        this.organizationForm = this.fb.group({
+          name: ['', [Validators.required]],
+          domain: ['', [Validators.required]],
+        })
+          
+        this.organizationForm.patchValue({
+          name: data.organization.name,
+          domain: data.organization.domain,
+        })
+      }
     }
 
     this.changePasswordForm = this.fb.group({
@@ -81,7 +98,6 @@ export class SettingsComponent implements OnInit {
       this.accountDetailsForm.markAllAsTouched();
       return;
     }
-    console.log("Form Submit", this.accountDetailsForm.value);
     this.isLoadingAccount = true;
     this.accountDetailsForm.removeControl('role');
     this.crudService.update('member', this.localStoreService.getUserId(), this.accountDetailsForm.value).subscribe(response => {
@@ -140,6 +156,27 @@ export class SettingsComponent implements OnInit {
       this.isLoadingPassword = false;
     });
 
+  }
+
+  onOrganizationSubmit(){
+    if(this.organizationForm.invalid){
+      this.organizationForm.markAllAsTouched();
+      return;
+    };
+
+    this.isLoadingOrganization = true;
+
+    this.crudService.update('organization', this.organizationData.id,this.organizationForm.value).subscribe((response: any) => {
+      if (response.status_code === 200 || response.status_code === 201) {
+        this.toast.success(response.message, "Success!")
+      } else {
+        this.toast.error(response.message, "Error!");
+      }
+      this.isLoadingOrganization = false;
+    }, error => {
+      this.toast.error(error.message, "Error!");
+      this.isLoadingOrganization = false;
+    });
   }
 
 }

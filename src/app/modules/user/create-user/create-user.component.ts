@@ -28,8 +28,8 @@ export class CreateUserComponent implements OnInit {
   userForm!: FormGroup;
   hidePassword = true;
   isFocused: boolean = false;
-  roles: any[] = [];
-  organization: any[] = [];
+  roles: any = [];
+  organization: any = [];
   isLoading: boolean = false;
 
   constructor(
@@ -42,10 +42,12 @@ export class CreateUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.initialize();
-    this.fetchRoles();
     
     if(this.localStoreService.getUserRole().toLowerCase() === 'master'){
       this.fetchOrganization();
+    }else{
+      this.fetchRoles(parseInt(this.localStoreService.getUserOrganization()));
+
     }
   }
 
@@ -151,8 +153,15 @@ export class CreateUserComponent implements OnInit {
     }
   }
 
-  fetchRoles(): void {
-    this.crudService.read('access/roles')
+  fetchRoles(organizationId: number): void {
+    this.roles = [];
+    this.userForm.patchValue({
+      role: ''
+    });
+
+    const urlData = 'access/roles?organization='+organizationId;
+    console.log(urlData)
+    this.crudService.read(urlData)
       .subscribe(
         (response: any) => {
           if (response.status_code === 200) {
@@ -183,6 +192,7 @@ export class CreateUserComponent implements OnInit {
     const control = this.userForm.get('organization');
     if (control?.value) {
       this.isFocused = false;
+      this.fetchRoles(control.value);
     }
   }
   getPasswordErrors(): { [key: string]: boolean } {

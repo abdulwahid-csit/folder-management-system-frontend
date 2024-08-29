@@ -107,7 +107,6 @@ export class CreateRoleComponent implements OnInit {
     const formData = {
       ...this.rolesForm.value,
       permissions: permissionsArray,
-      organization: Number(this.rolesForm.value.organization)
     };
 
     this.isLoading = true;
@@ -121,7 +120,7 @@ export class CreateRoleComponent implements OnInit {
         }
         this.isLoading = false;
       }, error => {
-        this.toastr.error(error.error.message, 'Error');
+        this.toastr.error(error.message, 'Error');
         this.isLoading = false;
       });
     } else if (this.mode === 'update') {
@@ -135,7 +134,7 @@ export class CreateRoleComponent implements OnInit {
           }
           this.isLoading = false;
         }, error => {
-          this.toastr.error(error.error.message, 'Error');
+          this.toastr.error(error.message, 'Error');
           this.isLoading = false;
         });
       } else {

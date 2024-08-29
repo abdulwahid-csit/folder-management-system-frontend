@@ -51,28 +51,6 @@ export class ApplicationDetailsComponent {
 
     this.crudService.read('applications/' + this.applicationID).subscribe((response: any) => {
       {
-        console.log(response)
-        //   {
-        //     "id": 9,
-        //     "app_name": "etsad",
-        //     "url": "test.com",
-        //     "status": "active",
-        //     "app_id": "app_e1c94f9f-7fb4-4b17-927f-022ab8cc3b3a",
-        //     "app_secret": "secret_3375a0f7-c5c0-4e32-b0e1-57faaa115636",
-        //     "redirect_uri": [
-        //         "test.com/"
-        //     ],
-        //     "logo": "https://ui-avatars.com/api/?name=etsad&size=512&background=4BABE3&font-size=0.45",
-        //     "created_at": "2024-08-26T12:36:47.595Z",
-        //     "updated_at": "2024-08-26T12:36:47.595Z",
-        //     "organization": null,
-        //     "created_by": {
-        //         "first_name": "Asim",
-        //         "last_name": "Khan",
-        //         "id": 17
-        //     },
-        //     "updated_by": null
-        // }
         this.app_secret = response.data.app_secret;
         this.app_id = response.data.app_id;
         this.applicationData = response.data;
@@ -127,7 +105,7 @@ export class ApplicationDetailsComponent {
       this.crudService.update('applications', this.applicationID, body, 'secret/regenerate').subscribe(
         (response: any) => {
           if (response.status_code === 200 || response.status_code === 201) {
-            this.app_secret = response.data.app_secret;
+            this.applicationData.app_secret = response.data.app_secret;
           } else {
             this.toast.error(response.message, "Error!");
           }

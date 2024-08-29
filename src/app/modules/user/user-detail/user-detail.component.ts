@@ -169,6 +169,42 @@ export class UserDetailComponent implements OnInit {
     const control = this.passwordForm.controls[controlName];
     return control.hasError(validationType) && (control.dirty || control.touched);
   }
+  getPasswordErrors(): { [key: string]: boolean } {
+    const errors: { [key: string]: boolean } = {
+      required: false,
+      minlength: false,
+      uppercase: false,
+      lowercase: false,
+      digit: false,
+      special: false
+    };
+
+    const passwordControl = this.passwordForm.get('password');
+    if (!passwordControl) return errors;
+
+    const password = passwordControl.value;
+
+    if (passwordControl.hasError('required')) {
+      errors['required'] = true;
+    }
+    if (passwordControl.hasError('minlength')) {
+      errors['minlength'] = true;
+    }
+    if (password && !/[A-Z]/.test(password)) {
+      errors['uppercase'] = true;
+    }
+    if (password && !/[a-z]/.test(password)) {
+      errors['lowercase'] = true;
+    }
+    if (password && !/\d/.test(password)) {
+      errors['digit'] = true;
+    }
+    if (password && !/\W/.test(password)) {
+      errors['special'] = true;
+    }
+
+    return errors;
+  }
 
   onSubmit(): void {
     this.passwordForm.markAllAsTouched();

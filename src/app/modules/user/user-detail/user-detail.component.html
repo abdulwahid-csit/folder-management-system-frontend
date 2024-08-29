@@ -197,7 +197,7 @@
                     <div class="input-container">
                         <label for="password" class="label-font required">Password</label>
                         <input id="password" type="password" class="form-control" formControlName="password"
-                            [ngClass]="{'is-invalid': isControlHasError('password', 'required') || isControlHasError('password', 'minlength')}"
+                            [ngClass]="{'is-invalid': isControlHasError('password', 'required') || getPasswordErrors()['minlength'] || getPasswordErrors()['uppercase'] || getPasswordErrors()['lowercase'] || getPasswordErrors()['digit'] || getPasswordErrors()['special']}"
                             placeholder="Enter new password" [type]="hidePassword ? 'password' : 'text'">
                         <i class="eye2 position-absolute" (click)="togglePasswordVisibility()"
                             [ngClass]="{'eye-open': !hidePassword, 'eye-closed': hidePassword}"></i>
@@ -205,8 +205,24 @@
                             class="text-danger fs-8 ps-3 pt-1">Password is required</span>
                         <span *ngIf="isControlHasError('password', 'minlength')"
                             class="text-danger fs-8 ps-3 pt-1">Password must be at least 8 characters</span>
+                             <span *ngIf="isControlHasError('password', 'required')" class="text-danger fs-8 ps-3 pt-1">
+                      Password is required
+                    </span>
+                    <span *ngIf="getPasswordErrors()['uppercase'] && !isControlHasError('password', 'required') && !getPasswordErrors()['minlength']" class="text-danger fs-8 ps-3 pt-1">
+                      Password must include at least one uppercase letter
+                    </span>
+                    <span *ngIf="getPasswordErrors()['lowercase'] && !isControlHasError('password', 'required') && !getPasswordErrors()['minlength'] && !getPasswordErrors()['uppercase']" class="text-danger fs-8 ps-3 pt-1">
+                      Password must include at least one lowercase letter
+                    </span>
+                    <span *ngIf="getPasswordErrors()['digit'] && !isControlHasError('password', 'required') && !getPasswordErrors()['minlength'] && !getPasswordErrors()['uppercase'] && !getPasswordErrors()['lowercase']" class="text-danger fs-8 ps-3 pt-1">
+                      Password must include at least one digit
+                    </span>
+                    <span *ngIf="getPasswordErrors()['special'] && !isControlHasError('password', 'required') && !getPasswordErrors()['minlength'] && !getPasswordErrors()['uppercase'] && !getPasswordErrors()['lowercase'] && !getPasswordErrors()['digit']" class="text-danger fs-8 ps-3 pt-1">
+                      Password must include at least one special character
+                    </span>
+                  </div>
                     </div>
-                </div>
+                
                 <div class="row mt-3">
                     <div class="input-container">
                         <label for="confirmPassword" class="label-font required">Confirm password</label>

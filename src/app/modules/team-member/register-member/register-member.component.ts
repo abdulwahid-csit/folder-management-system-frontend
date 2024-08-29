@@ -57,11 +57,9 @@ export class RegisterMemberComponent implements OnInit {
   }
 
   checkVerificationLink() {
-    this.route.queryParams.subscribe(params => {
-      let token = params['token'];
+    this.route.paramMap.subscribe(params => {
+      let token = params.get('id');
       if (token) {
-        token = this.cleanToken(token);
-
         this.verifyLink(token).pipe(
           catchError(err => {
             console.error('Verification failed', err);

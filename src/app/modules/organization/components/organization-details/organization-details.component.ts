@@ -11,7 +11,7 @@ import { LocalStoreService } from 'src/app/shared/services/local-store.service';
 @Component({
   selector: 'app-organization-details',
   templateUrl: './organization-details.component.html',
-  styleUrls: ['./organization-details.component.scss']
+  styleUrls: ['./organization-details.component.scss',]
 })
 export class OrganizationDetailsComponent implements OnInit {
 
@@ -249,22 +249,5 @@ export class OrganizationDetailsComponent implements OnInit {
       this.toast.error(error.error.message, "Error!")
     });
   }
-
-  onValueChange() {
-   const data = {
-    status: this.organizationStatus
-   }
-
-   this.crudService.update('organization', this.organizationId, data).subscribe((response: any) => {
-      if (response.status_code === 200 || response.status_code === 201) {
-        this.toast.success(response.message, "Success!")
-      } else {
-        this.toast.error(response.message, "Error!")
-      }
-    }, error => {
-      this.toast.error(error.error.message, "Error!")
-    });
-  }
-
 
 }

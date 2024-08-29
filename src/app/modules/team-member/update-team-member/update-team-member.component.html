@@ -43,6 +43,23 @@
           </div>
 
       </div>
+      <div class="mb-4 custom-dropdown w-50" [ngClass]="isControlHasError('status','required') ? 'custom-dropdown-error' : 'custom-dropdown'">
+      <label for="status" class="form-label mb-1 fs-14px fw-700 required">Status </label>
+      <ng-select formControlName="status" [ngClass]="{ 'custom-select-focused': isFocused }" (focus)="isFocused = true" (blur)="isFocused = false" placeholder="Select status">
+        <ng-option value="active">Active</ng-option>
+        <ng-option value="inactive">Inactive</ng-option>
+        <ng-option value="blocked">Blocked</ng-option>
+      </ng-select>
+      <div class="form-error">
+        <small *ngIf="isControlHasError('status','required')" class="text-danger mt-1">Status is required</small>
+      </div>
+    </div>
+    </div>
+      <div *ngIf="updateMemberForm.get('status')?.value === 'inactive'" class="note">
+      If you inactive your organization, all your users and applications will also be inactive.
+    </div>
+    <div *ngIf="updateMemberForm.get('status')?.value === 'blocked'" class="note">
+      If you blocked your organization, all your users and applications will also be blocked.
     </div>
     <div class="d-flex justify-content-end mt-4">
       <!-- <button type="button" class="btn border me-3 close-modal" (click)="closeModal()">Cancel</button> -->

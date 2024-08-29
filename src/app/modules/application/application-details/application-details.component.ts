@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './application-details.component.html',
   styleUrls: ['./application-details.component.scss']
 })
-export class ApplicationDetailsComponent {
+export class ApplicationDetailsComponent  {
   modalRef: any;
   modalOpen: boolean = false;
   selectedTab = 'features';

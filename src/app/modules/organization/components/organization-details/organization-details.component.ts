@@ -74,7 +74,6 @@ export class OrganizationDetailsComponent implements OnInit {
       }
 
       this.crudService.read('organization/'+ this.organizationId).subscribe((response: any) => {
-
         if (response.status_code === 200 || response.status_code === 201) {
           if (response.data && typeof response.data === 'object') {
             const column = Object.keys(response.data);

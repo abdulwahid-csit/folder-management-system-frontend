@@ -29,13 +29,13 @@ export class InviteMemberComponent implements OnInit {
   ngOnInit(): void {
     this.initialize();
     this.fetchRoles();
-    
-    if(this.localStoreService.getUserRole().toLowerCase() === 'master'){
+
+    if (this.localStoreService.getUserRole().toLowerCase() === 'master') {
       this.fetchOrganization();
     }
   }
 
-  initialize(){
+  initialize() {
     this.inviteForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       role: new FormControl(null, [Validators.required]),
@@ -45,17 +45,28 @@ export class InviteMemberComponent implements OnInit {
 
 
   fetchRoles(): void {
-    this.crudService.read('access/roles')
+    this.crudService.create('access/roles/invite-member', {})
       .subscribe(
-        (response) => {
-          this.roles = response.data.payload
+        response => {
+          console.log(response)
+          this.roles = response.data;
         },
         error => {
-          console.error('Error fetching roles:', error);
+          console.log(error, "Error!")
         }
       );
+         
+    // this.crudService.read('access/roles')
+    //   .subscribe(
+    //     (response) => {
+    //       this.roles = response.data.payload
+    //     },
+    //     error => {
+    //       console.error('Error fetching roles:', error);
+    //     }
+    //   );
   }
-  
+
   fetchOrganization(): void {
     this.crudService.read('organization')
       .subscribe(
@@ -78,7 +89,7 @@ export class InviteMemberComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if(this.localStoreService.getUserRole().toLowerCase() !== 'master'){
+    if (this.localStoreService.getUserRole().toLowerCase() !== 'master') {
       this.inviteForm.patchValue({
         organization: this.localStoreService.getUserOrganization()
       });
@@ -109,7 +120,7 @@ export class InviteMemberComponent implements OnInit {
           this.isLoading = false;
         }
       );
-         
+
   }
 
   onValueChange(): void {

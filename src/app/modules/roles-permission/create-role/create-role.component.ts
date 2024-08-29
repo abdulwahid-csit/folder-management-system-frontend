@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CrudService } from 'src/app/shared/services/crud.service';
@@ -21,6 +21,8 @@ export class CreateRoleComponent implements OnInit {
   permissionModalRef?: BsModalRef;
   isLoading: boolean = false;
   isFocused: boolean = false;
+  currentPage: number = 1;
+  isFetching: boolean = false;
   organization: any[] = [];
 
   constructor(
@@ -34,7 +36,7 @@ export class CreateRoleComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm();
-    this.fetchPermissions();
+    this.fetchPermissions(1);
 
     if(this.localStoreService.getUserRole().toLowerCase() === 'master'){
       this.fetchOrganization();
@@ -60,10 +62,17 @@ export class CreateRoleComponent implements OnInit {
     });
   }
 
-  fetchPermissions() {
-    this.crudService.read('access/permissions').subscribe((response: any) => {
+  fetchPermissions(page: number) {
+    let urlData = `access/permissions?page=${page}&limit=10`;
+    if(this.localStoreService.getUserRole().toLowerCase() !== 'master'){
+      urlData += `&organization=${this.localStoreService.getUserOrganization()}`;
+    }
+
+    this.crudService.read(urlData).subscribe((response: any) => {
       if (response.status_code === 200) {
-        this.permissions = response.data.payload;
+        // this.permissions = response.data.payload;
+        this.permissions = [...this.permissions, ...response.data.payload];
+        this.currentPage++;
       }
     }, error => {
       console.error('HTTP error:', error);
@@ -190,5 +199,15 @@ export class CreateRoleComponent implements OnInit {
           console.error('Error fetching roles:', error);
         }
       );
+  }
+
+  @HostListener('scroll', ['$event'])
+  onScroll(event: any): void {
+    const scrollOffset = event.target.scrollTop + event.target.clientHeight;
+    const scrollHeight = event.target.scrollHeight;
+
+    if (scrollOffset >= scrollHeight - 1 && !this.isFetching) {
+      this.fetchPermissions(this.currentPage);
+    }
   }
 }

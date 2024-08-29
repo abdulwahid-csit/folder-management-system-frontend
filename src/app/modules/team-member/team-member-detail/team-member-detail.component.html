@@ -30,14 +30,11 @@
       </div>
     </div>
   </div>
-
-
-
   <div class="bg-white main-div w-100 settings-tab p-4 mt-4 bg-white custom-shadow semi-bold-font">
     <div class="section">
       <div class=" ">
         <div class="">
-          <h5 class="fs-20px fw-700 mb-2 bold-fonts">User Details</h5>
+          <h5 class="fs-20px fw-700 mb-2 bold-fonts">Member Details</h5>
           <hr class="mt-4 mb-2 me-2 custom-hr">
           <table class="table fw-600 fs-14px">
             <tbody>
@@ -68,31 +65,30 @@
                     <img
                       [src]="user?.data?.email_verified ? '../../../../../assets/icons/Frame.svg' : '../../../../assets/icons/unverified.svg'"
                       alt="Verification Status" class="verification-icon">
-                    <span class="dark-light ">{{ user?.data?.email || 'N/A' }}</span>
+                    <span class="dark-light ms-1 ">{{ user?.data?.email || 'N/A' }}</span>
                   </div>
                 </td>
               </tr>
               <tr>
-                <td class="">Status</td>
-                         <td>
-                  <div class="custom-dropdown w-25">
-                    <ng-select class="" #selectElement [ngClass]="{
-                                   'custom-select-focused': isFocused
-                                 }" [(ngModel)]="memberStatus" (focus)="isFocused = true"
-                      (blur)="isFocused = false" (change)="onValueChange()"
-                      placeholder="Select status">
-                      <ng-option value="active">Active</ng-option>
-                      <ng-option value="inactive">Inactive</ng-option>
-                      <ng-option value="blocked">Blocked</ng-option>
-                    </ng-select>
+                <td class="fs-14 fw-600">Status</td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <span *ngIf="user?.data?.status === 'active'" class="custom-badge-primary ps-3 pe-3">{{
+                      user?.data?.status || 'N/A' }}</span>
+                    <span *ngIf="user?.data?.status === 'inactive'" class="custom-badge-warning ps-3 pe-3">{{
+                      user?.data?.status || 'N/A' }}</span>
+                    <span *ngIf="user?.data?.status === 'blocked'" class="custom-badge-danger ps-3 pe-3">{{
+                      user?.data?.status || 'N/A' }}</span>
+                    <span
+                      *ngIf="user?.data?.status !== 'active' && user?.data?.status !== 'inactive' && user?.data?.status !== 'blocked'"
+                      class="custom-badge-default ps-3 pe-3">{{ user?.data?.status || 'N/A' }}</span>
                   </div>
                 </td>
               </tr>
             </tbody>
           </table>
           <div class="buttons" *ngIf="localStoreService.hasPermission('can.update.member')">
-            <button 
-            class="primary_button"
+            <button class="primary_button"
               (click)="openModal('modal-dialog modal-dialog-centered modal-md common_modal_shadow modal-lg')">Edit
               Details</button>
           </div>
@@ -101,7 +97,8 @@
     </div>
   </div>
   <!-- User Details HTML -->
-  <div class="main-div w-100 settings-tab p-3 mt-4 ps-4 bg-white custom-shadow" *ngIf="localStoreService.hasPermission('can.delete.member')">
+  <div class="main-div w-100 settings-tab p-3 mt-4 ps-4 bg-white custom-shadow"
+    *ngIf="localStoreService.hasPermission('can.delete.member')">
     <div class="pt-1 pb-3">
       <div>
         <div class="fs-20px fw-700 color-16192C bold-font">

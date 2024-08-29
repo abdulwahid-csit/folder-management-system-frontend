@@ -91,27 +91,6 @@ export class TeamMemberDetailComponent implements OnInit {
     });
 
   }
-  onValueChange() {
-    if (!this.user || !this.user.data || !this.user.data.id) {
-      console.error('User ID is not available for the update.');
-      return;
-    }
-
-    const data = {
-      status: this.memberStatus
-    }
-
-    this.crudService.update('member', this.user.data.id, data).subscribe((response: any) => {
-      if (response.status_code === 200 || response.status_code === 201) {
-        this.toast.success(response.message, "Success!");
-      } else {
-        this.toast.error(response.message, "Error!");
-      }
-    }, error => {
-      this.toast.error(error.error.message, "Error!");
-    });
-  }
-
 
   userDeleteModal(): void {
     this.userIdToDelete = this.user?.data?.id;

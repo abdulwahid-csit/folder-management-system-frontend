@@ -72,9 +72,10 @@
                                 <div class="d-flex flex-wrap align-items-center">
                                     <span class="custom-badge-primary ps-3 pe-3 m-1 me-2 fs-12"
                                         *ngFor="let permission of userData?.permissions">
-                                              {{ permission.description || 'N/A' }}
+                                        {{ permission.description || 'N/A' }}
                                     </span>
-                                    <button *ngIf="localStoreService.hasPermission('can.update.user')" class="primary_button custom-button ps-2 pe-3 me-4"
+                                    <button *ngIf="localStoreService.hasPermission('can.update.user')"
+                                        class="primary_button custom-button ps-2 pe-3 me-4"
                                         (click)="openModal(permission)">
                                         <i class="bi bi-plus"></i> Add
                                     </button>
@@ -87,19 +88,20 @@
                         <tr>
                             <td class="fs-14 fw-600">Status</td>
                             <td>
-                  <div class="custom-dropdown w-25">
-                    <ng-select class="" #selectElement [ngClass]="{
-                                   'custom-select-focused': isFocused
-                                 }" [(ngModel)]="userStatus" (focus)="isFocused = true"
-                      (blur)="isFocused = false" (change)="onValueChange()"
-                      placeholder="Select status">
-                      <ng-option value="active">Active</ng-option>
-                      <ng-option value="inactive">Inactive</ng-option>
-                      <ng-option value="blocked">Blocked</ng-option>
-                    </ng-select>
-                  </div>
-                </td>
+                                <div class="d-flex align-items-center">
+                                    <span *ngIf="userData?.status === 'active'"
+                                        class="custom-badge-primary ps-3 pe-3">{{ userData?.status || 'N/A' }}</span>
+                                    <span *ngIf="userData?.status === 'inactive'"
+                                        class="custom-badge-warning ps-3 pe-3">{{ userData?.status || 'N/A' }}</span>
+                                    <span *ngIf="userData?.status === 'blocked'"
+                                        class="custom-badge-danger ps-3 pe-3">{{ userData?.status || 'N/A' }}</span>
+                                    <span
+                                        *ngIf="userData?.status !== 'active' && userData?.status !== 'inactive' && userData?.status !== 'blocked'"
+                                        class="custom-badge-default ps-3 pe-3">{{ userData?.status || 'N/A' }}</span>
+                                </div>
+                            </td>
                         </tr>
+
                         <tr>
 
                         </tr>
@@ -122,7 +124,8 @@
                     <button type="button" class="cancel_btn fs-14 fw-600 me-2" (click)="passwordModal(changepassword)">
                         Change Password
                     </button>
-                    <button class="primary_button fs-14 fw-600 ms-3" (click)="openUpdateModal()" *ngIf="localStoreService.hasPermission('can.update.user')">
+                    <button class="primary_button fs-14 fw-600 ms-3" (click)="openUpdateModal()"
+                        *ngIf="localStoreService.hasPermission('can.update.user')">
                         Edit Detail
                     </button>
                 </div>
@@ -149,38 +152,34 @@
 <!--permission modal-->
 
 <ng-template #permission>
-  <div class="model">
-    <div class="modal-header border-bottom-0">
-      <h2 class="mb-0 ps-3 ms-2">Permission</h2>
-    </div>
-    <div class="modal-body p-3 pt-4 pb-4">
-      <div class="custom-control d-flex justify-content-between align-items-center bg-light-gray ms-5 me-5 p-4">
-        <label class="fs-14 label-font fw-600 dark-light ps-2 fs-5">APPLICATION</label>
-        <label class="dark-light label-font pe-2 fs-14 fw-600 fs-5">GRANT ACCESS</label>
-      </div>
-      <div class="scrollable-content">
-        <div *ngFor="let permission of permissions">
-          <div class="d-flex justify-content-between align-items-center mt-4 ms-5 me-5 pe-5 ps-3">
-            <label class="custom-control-label label-font ps-3 fs-5 fs-14 fw-600" [for]="permission.id">
-              {{ permission.name }}
-            </label>
-            <input
-              type="checkbox"
-              class="custom-control-input custom-checkbox-lg me-5"
-              [id]="permission.id"
-              [checked]="isPermissionSelected(permission.id)"
-              (change)="togglePermission(permission.id)"
-            />
-          </div>
-          <hr class="mt-4 mb-2 ms-5 me-5 custom-hr">
+    <div class="model">
+        <div class="modal-header border-bottom-0">
+            <h2 class="mb-0 ps-3 ms-2">Permission</h2>
         </div>
-      </div>
+        <div class="modal-body p-3 pt-4 pb-4">
+            <div class="custom-control d-flex justify-content-between align-items-center bg-light-gray ms-5 me-5 p-4">
+                <label class="fs-14 label-font fw-600 dark-light ps-2 fs-5">APPLICATION</label>
+                <label class="dark-light label-font pe-2 fs-14 fw-600 fs-5">GRANT ACCESS</label>
+            </div>
+            <div class="scrollable-content">
+                <div *ngFor="let permission of permissions">
+                    <div class="d-flex justify-content-between align-items-center mt-4 ms-5 me-5 pe-5 ps-3">
+                        <label class="custom-control-label label-font ps-3 fs-5 fs-14 fw-600" [for]="permission.id">
+                            {{ permission.name }}
+                        </label>
+                        <input type="checkbox" class="custom-control-input custom-checkbox-lg me-5" [id]="permission.id"
+                            [checked]="isPermissionSelected(permission.id)"
+                            (change)="togglePermission(permission.id)" />
+                    </div>
+                    <hr class="mt-4 mb-2 ms-5 me-5 custom-hr">
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end pe-5 pb-5 mt-3">
+            <button (click)="cancelPermissionModal()" type="button" class="cancel_btn me-3 fs-14 fw-600">Cancel</button>
+            <button (click)="saveChanges()" type="button" class="primary_button fs-14 fw-600 me-3">Save Changes</button>
+        </div>
     </div>
-    <div class="d-flex justify-content-end pe-5 pb-5 mt-3">
-      <button (click)="cancelPermissionModal()" type="button" class="cancel_btn me-3 fs-14 fw-600">Cancel</button>
-      <button (click)="saveChanges()" type="button" class="primary_button fs-14 fw-600 me-3">Save Changes</button>
-    </div>
-  </div>
 </ng-template>
 
 <!--end permission-->
@@ -205,24 +204,32 @@
                             class="text-danger fs-8 ps-3 pt-1">Password is required</span>
                         <span *ngIf="isControlHasError('password', 'minlength')"
                             class="text-danger fs-8 ps-3 pt-1">Password must be at least 8 characters</span>
-                             <span *ngIf="isControlHasError('password', 'required')" class="text-danger fs-8 ps-3 pt-1">
-                      Password is required
-                    </span>
-                    <span *ngIf="getPasswordErrors()['uppercase'] && !isControlHasError('password', 'required') && !getPasswordErrors()['minlength']" class="text-danger fs-8 ps-3 pt-1">
-                      Password must include at least one uppercase letter
-                    </span>
-                    <span *ngIf="getPasswordErrors()['lowercase'] && !isControlHasError('password', 'required') && !getPasswordErrors()['minlength'] && !getPasswordErrors()['uppercase']" class="text-danger fs-8 ps-3 pt-1">
-                      Password must include at least one lowercase letter
-                    </span>
-                    <span *ngIf="getPasswordErrors()['digit'] && !isControlHasError('password', 'required') && !getPasswordErrors()['minlength'] && !getPasswordErrors()['uppercase'] && !getPasswordErrors()['lowercase']" class="text-danger fs-8 ps-3 pt-1">
-                      Password must include at least one digit
-                    </span>
-                    <span *ngIf="getPasswordErrors()['special'] && !isControlHasError('password', 'required') && !getPasswordErrors()['minlength'] && !getPasswordErrors()['uppercase'] && !getPasswordErrors()['lowercase'] && !getPasswordErrors()['digit']" class="text-danger fs-8 ps-3 pt-1">
-                      Password must include at least one special character
-                    </span>
-                  </div>
+                        <span *ngIf="isControlHasError('password', 'required')" class="text-danger fs-8 ps-3 pt-1">
+                            Password is required
+                        </span>
+                        <span
+                            *ngIf="getPasswordErrors()['uppercase'] && !isControlHasError('password', 'required') && !getPasswordErrors()['minlength']"
+                            class="text-danger fs-8 ps-3 pt-1">
+                            Password must include at least one uppercase letter
+                        </span>
+                        <span
+                            *ngIf="getPasswordErrors()['lowercase'] && !isControlHasError('password', 'required') && !getPasswordErrors()['minlength'] && !getPasswordErrors()['uppercase']"
+                            class="text-danger fs-8 ps-3 pt-1">
+                            Password must include at least one lowercase letter
+                        </span>
+                        <span
+                            *ngIf="getPasswordErrors()['digit'] && !isControlHasError('password', 'required') && !getPasswordErrors()['minlength'] && !getPasswordErrors()['uppercase'] && !getPasswordErrors()['lowercase']"
+                            class="text-danger fs-8 ps-3 pt-1">
+                            Password must include at least one digit
+                        </span>
+                        <span
+                            *ngIf="getPasswordErrors()['special'] && !isControlHasError('password', 'required') && !getPasswordErrors()['minlength'] && !getPasswordErrors()['uppercase'] && !getPasswordErrors()['lowercase'] && !getPasswordErrors()['digit']"
+                            class="text-danger fs-8 ps-3 pt-1">
+                            Password must include at least one special character
+                        </span>
                     </div>
-                
+                </div>
+
                 <div class="row mt-3">
                     <div class="input-container">
                         <label for="confirmPassword" class="label-font required">Confirm password</label>

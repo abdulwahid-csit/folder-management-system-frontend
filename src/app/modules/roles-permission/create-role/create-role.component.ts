@@ -52,7 +52,6 @@ export class CreateRoleComponent implements OnInit {
     }
   }
 
-
   initializeForm() {
     this.rolesForm = this.fb.group({
       name: [null, Validators.required],

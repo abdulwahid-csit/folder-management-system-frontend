@@ -127,7 +127,6 @@ export class DataTableComponent implements OnInit {
 
     this.router.navigate([detailRoute]);
   }
-
   getOrganization(value: any) {
     if (value && typeof value === 'object') {
       return value.name;

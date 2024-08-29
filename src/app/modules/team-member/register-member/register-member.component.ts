@@ -15,6 +15,7 @@ export class RegisterMemberComponent implements OnInit {
   modalRef: BsModalRef | undefined;
   modalOpen: boolean | undefined;
   registerForm!: FormGroup;
+  token: string = '';
   isFocused: boolean = false;
   isLoading: boolean = false;
 
@@ -119,9 +120,9 @@ export class RegisterMemberComponent implements OnInit {
       return;
     }
 
-    const rawToken = this.route.snapshot.queryParamMap.get('token') || '';
-    const cleanedToken = this.cleanToken(rawToken);
-
+    const rawToken = this.route.snapshot.paramMap.get('id') || '';
+    // const cleanedToken = this.cleanToken(rawToken);
+// alert(rawToken)
     const formData = {
       first_name: this.registerForm.get('firstName')?.value,
       last_name: this.registerForm.get('lastName')?.value,
@@ -130,7 +131,7 @@ export class RegisterMemberComponent implements OnInit {
       email: this.registerForm.get('email')?.value,
       password: this.registerForm.get('password')?.value,
       timezone: 'UTC+05:00',
-      token: cleanedToken
+      token: rawToken
     };
 
     this.isLoading = true;

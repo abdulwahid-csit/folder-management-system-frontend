@@ -565,6 +565,23 @@ input:-webkit-autofill {
     box-sizing: border-box;
 
 }
+.custom-badge-danger {
+    background-color: #EAE7FF;
+    color: #e75e46;
+    border-radius: 1.2rem;
+    width: auto;
+    height: auto;
+    font-family: 'Urbanist', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 23px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+
+}
 
 .custom-badge-dark {
     background-color: #F2F4F6;

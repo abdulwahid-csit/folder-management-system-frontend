@@ -82,21 +82,6 @@ export class UserDetailComponent implements OnInit {
       console.error('HTTP error:', error);
     });
   }
-  onValueChange() {
-    const data = {
-      status: this.userStatus
-    }
-
-    this.crudService.update('users', this.userId, data).subscribe((response: any) => {
-      if (response.status_code === 200 || response.status_code === 201) {
-        this.toast.success(response.message, "Success!")
-      } else {
-        this.toast.error(response.message, "Error!")
-      }
-    }, error => {
-      this.toast.error(error.error.message, "Error!")
-    });
-  }
 
   openModal(template: TemplateRef<any>): void {
     this.fetchPermissions(); 
@@ -117,6 +102,10 @@ export class UserDetailComponent implements OnInit {
         mode: 'update',
         userData: this.userData
       }
+    });
+    
+    this.modalRef.content.successCall.subscribe(() => {
+      this.fetchUserDetails(this.userId);
     });
   }
 

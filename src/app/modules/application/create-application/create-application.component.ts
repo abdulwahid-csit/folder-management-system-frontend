@@ -29,7 +29,7 @@ export class CreateApplicationComponent implements OnInit {
 
 
   ngOnInit(): void {
-    
+
     if(this.localStoreService.getUserRole().toLowerCase() === 'master'){
       this.fetchOrganization();
     }
@@ -38,9 +38,7 @@ export class CreateApplicationComponent implements OnInit {
       app_name: new FormControl('', [Validators.required]),
       url: new FormControl(''),
       organization: new FormControl(null, [Validators.required]),
-      // organization: new FormControl('0', [Validators.required, Validators.pattern('^[0-9]+$')]),
       redirectUri: new FormArray([new FormControl('')]),
-      // redirectUri: new FormControl(''),
     })
   }
 
@@ -90,7 +88,16 @@ fetchOrganization(): void {
     );
 }
 removeInputUri(index: number) {
-  this.redirectUriArray.removeAt(index);
+  if (this.redirectUriArray.length > 1) {
+    this.redirectUriArray.removeAt(index);
+  }
+}
+
+onUriInputChange(index: number) {
+  const control = this.redirectUriArray.at(index) as FormControl;
+  if (!control.value && this.redirectUriArray.length > 1) {
+    this.removeInputUri(index);
+  }
 }
   submitForm() {
     if(this.localStoreService.getUserRole().toLowerCase() !== 'master'){
@@ -108,8 +115,10 @@ removeInputUri(index: number) {
       this.crudService.create('applications',createData).subscribe((response: any) => {
         if (response.status_code === 200 || response.status_code === 201) {
           if (response.data && typeof response.data === 'object') {
+            this.router.navigate(['layout/application/details/']);
             this.successCall.emit()
           }
+
         }
       }, error => {
         console.error('HTTP error:', error);

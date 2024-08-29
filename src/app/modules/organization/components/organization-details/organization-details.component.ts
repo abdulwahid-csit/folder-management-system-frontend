@@ -172,9 +172,9 @@ export class OrganizationDetailsComponent implements OnInit {
       initialState,
     });
 
-    // this.modalRef.content.successCall.subscribe(() => {
-    //   this.getOrganization();
-    // });
+    this.modalRef.content.successCall.subscribe(() => {
+      this.getOrganization();
+    });
   }
 
   organizationDeleteModal(): void {

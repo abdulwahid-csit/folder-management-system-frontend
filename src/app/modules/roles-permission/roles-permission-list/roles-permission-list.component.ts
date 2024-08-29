@@ -3,7 +3,6 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CreateRoleComponent } from '../create-role/create-role.component';
 import { CrudService } from 'src/app/shared/services/crud.service';
 import { LocalStoreService } from 'src/app/shared/services/local-store.service';
-
 @Component({
   selector: 'app-roles-permission-list',
   templateUrl: './roles-permission-list.component.html',

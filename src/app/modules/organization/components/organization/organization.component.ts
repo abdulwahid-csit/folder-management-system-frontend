@@ -104,9 +104,9 @@ export class OrganizationComponent {
       initialState,
     });
 
-    this.modalRef.content.successCall.subscribe(() => {
-      this.getOrganization(1);
-    });
+    // this.modalRef.content.successCall.subscribe(() => {
+    //   this.getOrganization(1);
+    // });
   }
   onKeyChange(item: any){
     this.searchType = false;

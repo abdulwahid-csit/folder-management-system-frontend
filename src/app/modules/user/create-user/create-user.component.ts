@@ -65,6 +65,9 @@ export class CreateUserComponent implements OnInit {
     });
 
     if (this.mode === 'update' && this.userData) {
+      this.userForm.get('organization')?.clearValidators();
+      this.userForm.get('role')?.clearValidators();
+
       this.userForm.patchValue({
         firstName: this.userData.first_name || '',
         lastName: this.userData.last_name || '',
@@ -77,6 +80,9 @@ export class CreateUserComponent implements OnInit {
       });
       this.userForm.get('email')?.disable();
       this.userForm.removeControl('password');
+    }else {
+      this.userForm.get('organization')?.setValidators(Validators.required);
+      this.userForm.get('role')?.setValidators(Validators.required);
     }
   }
 
@@ -169,7 +175,6 @@ export class CreateUserComponent implements OnInit {
     });
 
     const urlData = 'access/roles?organization='+organizationId;
-    console.log(urlData)
     this.crudService.read(urlData)
       .subscribe(
         (response: any) => {

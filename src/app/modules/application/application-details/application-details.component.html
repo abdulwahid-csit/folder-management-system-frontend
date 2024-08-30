@@ -105,8 +105,7 @@
                     </div>
                     <div class="d-flex">
                         <div class="fs-14px color-8492A6  medium-fonts fs-14px">
-                            Lorem Ipsum adalah contoh teks atau dummy dalam industri percetakan dan penataan huruf atau
-                            typesetting.
+                          A unique identifier for your application. Use this ID to configure and authenticate your application with the service.
                         </div>
                     </div>
                     <div>
@@ -144,17 +143,17 @@
                     <tbody>
                         <tr>
                             <td class="">Name</td>
-                            <td class="dark-light ">Digital Solutions</td>
+                            <td class="dark-light ">{{applicationData.app_name}}</td>
                         </tr>
                         <tr>
                             <td class="">App URL</td>
                             <td>
-                                http://4iisolutions.com
+                              {{applicationData.url}}
                             </td>
                         </tr>
                         <tr>
                             <td class="">Redirect URI's</td>
-                            <td>http://4iisolutions.com</td>
+                            <td>{{applicationData.redirect_uri}}</td>
                         </tr>
                     </tbody>
             </table>

@@ -69,7 +69,7 @@ export class AuthService {
   verifyLink(endPoint: string, data: any): Observable<any> {
     return this.http.post(environment.apiUrl + endPoint, data);
   }
- 
+
   private handleError(error: any): Observable<never> {
     return throwError(() => new Error(error.error.errors[0]));
   }

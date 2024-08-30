@@ -54,3 +54,24 @@ small {
 text-decoration-line: underline;
 text-decoration-color: #6f61cf;
 }
+.position-relative {
+  position: relative;
+}
+
+.input-with-icon {
+  padding-right: 30px; /* Ensure space for the icon */
+}
+
+.trash-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background-image: url('/assets/icons/trash-01.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+}

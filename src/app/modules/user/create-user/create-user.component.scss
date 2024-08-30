@@ -1,10 +1,10 @@
 .generate_button {
-  background-color: #6F61CF;
+background-color: #6F61CF;
   color: white;
-  padding: 8px 18px 10px 16px;
+  padding: 4px 7px 8px 6px;
   border: none;
   border-radius: 6px;
-  height: 39px;
+  height: 28px;
 }
 
 .form-label {
@@ -12,20 +12,21 @@
 }
 
 .vertical-line {
-  color: black;
-  height: 37px;
-  border-left: 1px solid #151616;
-  margin: 1px 25px;
+          color: black;
+            height: 32px;
+            border-left: 2px solid #151616;
+            margin: 3px 36px;
 }
+
 .eye2 {
-    top: 58%;
-      right: 98px;
-      transform: translateY(-50%);
-      cursor: pointer;
-      width: 18px;
-      height: 14px;
-     
-    }
+  top: 55%;
+    right: 84px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    width: 18px;
+    height: 14px;
+
+}
 
 .eye-open {
   background-image: url('../../../../assets/icons/eye-hide.svg');
@@ -33,4 +34,8 @@
 
 .eye-closed {
   background-image: url('../../../../assets//icons/EYE-3.svg');
+}
+
+.dark-light {
+  color: #8492A6;
 }

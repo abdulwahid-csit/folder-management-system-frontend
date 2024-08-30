@@ -134,11 +134,11 @@
                 <td class="fs-14 fw-600">Status</td>
                 <td>
                   <div class="d-flex align-items-center">
-                    <span *ngIf="organizationData?.status === 'active'" class="custom-badge-primary ps-3 pe-3">{{
+                    <span *ngIf="organizationData?.status === 'active'" class="badge badge-light-success text-capitalize  ps-3 pe-3">{{
                       organizationData?.status || 'N/A' }}</span>
-                    <span *ngIf="organizationData?.status === 'inactive'" class="custom-badge-warning ps-3 pe-3">{{
+                    <span *ngIf="organizationData?.status === 'inactive'" class="badge badge-light-warning text-capitalize  ps-3 pe-3">{{
                       organizationData?.status || 'N/A' }}</span>
-                    <span *ngIf="organizationData?.status === 'blocked'" class="custom-badge-warning ps-3 pe-3">{{
+                    <span *ngIf="organizationData?.status === 'blocked'" class="badge badge-light-warning text-capitalize  ps-3 pe-3">{{
                       organizationData?.status || 'N/A' }}</span>
                     <span
                       *ngIf="organizationData?.status !== 'active' && organizationData?.status !== 'inactive' && organizationData?.status !== 'blocked'"

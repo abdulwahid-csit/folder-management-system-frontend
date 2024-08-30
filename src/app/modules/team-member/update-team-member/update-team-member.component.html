@@ -53,14 +53,16 @@
       <div class="form-error">
         <small *ngIf="isControlHasError('status','required')" class="text-danger mt-1">Status is required</small>
       </div>
-    </div>
-    </div>
-      <div *ngIf="updateMemberForm.get('status')?.value === 'inactive'" class="note">
+        <div *ngIf="updateMemberForm.get('status')?.value === 'inactive'" class="dark-light fs-12">
       If you inactive your organization, all your users and applications will also be inactive.
     </div>
-    <div *ngIf="updateMemberForm.get('status')?.value === 'blocked'" class="note">
+    <div *ngIf="updateMemberForm.get('status')?.value === 'blocked'" class="dark-light fs-12">
       If you blocked your organization, all your users and applications will also be blocked.
     </div>
+    </div>
+    
+    </div>
+    
     <div class="d-flex justify-content-end mt-4">
       <!-- <button type="button" class="btn border me-3 close-modal" (click)="closeModal()">Cancel</button> -->
       <button type="button" class="cancel_btn me-2" (click)="closeModal()">Cancel</button>

@@ -118,7 +118,7 @@
                 </div> -->
 
                 <!-- organization Dropdown -->
-                <div class="col-xl-6 mt-2" *ngIf="mode === 'create' && this.localStoreService.getUserRole().toLowerCase() === 'master'">
+                <div class="col-xl-6 mt-3 input-container" *ngIf="mode === 'create' && this.localStoreService.getUserRole().toLowerCase() === 'master'">
                     <div class="mb-3 custom-dropdown">
                         <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Organization</label>
                         <ng-select class="" [ngClass]="{
@@ -129,12 +129,12 @@
                             <ng-option *ngFor="let organization of organization" [value]="organization.id">{{
                                 organization.name }}</ng-option>
                         </ng-select>
-                        <small *ngIf="isControlHasError('organization', 'required')" class="mt-1 fs-14px text-danger">organization is
-                            required</small>
+                            <span *ngIf="isControlHasError('organization', 'required')" class="text-danger ps-3 fs-8">organization is
+                            required</span>
                     </div>
                 </div>
                 <!-- Role Dropdown -->
-                <div class="col-xl-6 mt-2" *ngIf="mode === 'create'">
+                <div class="col-xl-6 mt-3 input-container" *ngIf="mode === 'create'">
                     <div class="mb-3 custom-dropdown">
                         <label for="roleSelect" class="form-label mb-1 fs-14px fw-700 required">Role</label>
                         <ng-select #selectElement
@@ -143,15 +143,15 @@
                             (change)="onValueChange()" placeholder="Select role">
                             <ng-option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</ng-option>
                         </ng-select>
-                        <small *ngIf="isControlHasError('role', 'required')" class="mt-1 fs-14px text-danger">Role is
+                        <small *ngIf="isControlHasError('role', 'required')" class="text-danger ps-3 fs-8">Role is
                             required</small>
                     </div>
                 </div>
 
                 <!-- Status Dropdown -->
-                <div class="col-xl-6 mt-1" *ngIf="mode === 'update'">
+                <div class="col-xl-6 mt-2 pt-1 input-container" *ngIf="mode === 'update'">
                     <div class="mb-3 custom-dropdown">
-                        <label for="statusSelect" class="form-label mb-1 fs-14 fw-700">Status</label>
+                        <label for="statusSelect" class="form-label mb-1 fs-14px fw-700">Status</label>
                         <ng-select #selectElement [ngClass]="{ 'custom-select-focused': isFocused }"
                             formControlName="status" (focus)="isFocused = true" (blur)="isFocused = false"
                             placeholder="Select status">

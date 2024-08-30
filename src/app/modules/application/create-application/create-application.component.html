@@ -1,6 +1,6 @@
 <div class="p-4 modal-content">
     <div class="modal-header border-bottom-0 pb-0">
-        <div class="fs-20px bold-fonts pb-0">
+        <div class="fs-20px bold-font pb-0">
             Create Application
         </div>
     </div>
@@ -8,7 +8,7 @@
         <form [formGroup]="applicationForm" (ngSubmit)="submitForm()">
             <div class="mb-4 custom-input"
                 [ngClass]="isControlHasError('applicationName','required')? 'custom-input-error': 'custom-input'">
-                <label for="applicationName" class="mb-1 primary_color required fw-700 semi-bold-fonts">Name</label>
+                <label for="applicationName" class="mb-1 primary_color required fw-700 ">Name</label>
                 <input type="text" class="form-control form-control-lg ps-3 ps-2 fs-14px"
                     formControlName="app_name" placeholder="Enter name">
                 <small *ngIf="isControlHasError('applicationName','required')" class="mt-1 fs-14px text-danger">Domain
@@ -16,16 +16,16 @@
                     required</small>
             </div>
             <div class="mb-4 custom-input">
-                <label for="appUrl" class="mb-1 primary_color  fw-700 semi-bold-fonts">App URL</label>
+                <label for="appUrl" class="mb-1 primary_color  fw-700 ">App URL</label>
                 <p>Enter the endpoint where users will be sent after authentication. This URI must match the one registered with your application to ensure secure and correct redirection.</p>
                 <input type="text" class="form-control form-control-lg ps-3 fs-14px" placeholder="Enter url"
                     formControlName="url">
                 <!-- <span *ngIf="isControlHasError('domainName','required')" class="text-danger">Domain name is
                     required</span> -->
             </div>
-            <label for="appUrl" class="mb-1 primary_color  fw-700 semi-bold-fonts">Redirect URL</label>
+            <label for="appUrl" class="mb-1 primary_color  fw-700 ">Redirect URI's</label>
             <p>A unique identifier for your application. Use this ID to configure and authenticate your application with the service</p>
-            <div formArrayName="redirectUri">
+            <div formArrayName="redirectUri" class="custom-input">
               <div *ngFor="let uri of redirectUriArray.controls; let i = index" class="d-flex align-items-center mb-2">
                 <input
                   type="text"

@@ -9,7 +9,7 @@ import { LocalStoreService } from 'src/app/shared/services/local-store.service';
 @Component({
   selector: 'app-create-application',
   templateUrl: './create-application.component.html',
-  styleUrls: ['./create-application.component.scss']
+  styleUrls: ['./create-application.component.scss', '../../../css/custpm-dropdown-style.scss']
 })
 export class CreateApplicationComponent implements OnInit {
   modalRef: any;

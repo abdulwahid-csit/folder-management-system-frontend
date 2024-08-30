@@ -12,7 +12,7 @@ import { LocalStoreService } from 'src/app/shared/services/local-store.service';
 export class HeaderComponent implements OnInit {
   isSidebarVisible = false;
   isDetailsPage = false;
-  showSettingsIcon = true;
+  showSettingsIcon = false;
   isDropdownVisible = false;
   isDashboard = false;
   userName: string = '';

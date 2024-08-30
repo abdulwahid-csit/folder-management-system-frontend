@@ -171,7 +171,10 @@ h3 {
     background: white;
     font-size: 14px;
     font-weight: 600;
-    transition: 1.25s;
+    transition: 0.3s;
+}
+.cancel_btn:hover{
+background-color: rgb(236, 234, 234);
 }
 
 .sso_card {
@@ -456,14 +459,14 @@ h3 {
 .custom-input {
     label{
         font-size: 14px !important;
-        font-weight: 600 !important;
+        font-weight: 700 !important;
     }
     input, textarea {
         padding: 8px 16px;
         border: var(--bs-border-width) solid var(--bs-border-color);
         font-size: 14px;
         font-weight: 600;
-        letter-spacing: 1px;
+        letter-spacing: 0px;
     }
     input{
         height: 46px;
@@ -494,6 +497,10 @@ h3 {
         font-weight: 500;
         color: rgba(132, 146, 166, 1);
     }
+        input[type="password"]::-ms-reveal,
+        .custom-password input[type="password"]::-webkit-textfield-decoration-container {
+            display: none;
+        }
 
     small{
         font-size: 12px !important;
@@ -717,4 +724,14 @@ h3 {
     transform: translate(-50%, -50%);
     font-size: 14px;
   }
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
   

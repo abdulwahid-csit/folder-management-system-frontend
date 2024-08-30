@@ -192,20 +192,18 @@ export class SettingsComponent implements OnInit {
 
     }
   }
-
-
-
-checkPasswordEquality(){
- let x =  this.changePasswordForm.get('newPassword')?.value;
- let y =  this.changePasswordForm.get('confirmPassword')?.value;
-  if(x != y){
-    if(y === ''){
-      this.matchPassword = false;
-      return;
+  
+  checkPasswordEquality() {
+    let x = this.changePasswordForm.get('newPassword')?.value;
+    let y = this.changePasswordForm.get('confirmPassword')?.value;
+    if (x != y) {
+      if (y === '') {
+        this.matchPassword = false;
+        return;
+      }
+      this.matchPassword = true;
+      return
     }
-    this.matchPassword = true;
-    return
+    this.matchPassword = false;
   }
-  this.matchPassword = false;
-}
 }

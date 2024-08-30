@@ -22,10 +22,21 @@
             </tr>
             <tr>
               <td class="fw-600">Permissions</td>
-              <td>
+              <td class="">
                 <div class="d-flex flex-wrap align-items-center">
-                  <span *ngFor="let perm of role?.permissions" class="custom-badge-primary  m-1 ps-3 pe-3 me-2 fs-12">{{
+                  <ng-container>
+                  <span *ngFor="let perm of firstFivePermissions" class="custom-badge-primary  m-1 ps-3 pe-3 me-2 fs-12">{{
                     perm.name || 'N/A' }}</span>
+              <div *ngIf="role?.permissions.length > 5" class="dropdown-container" (mouseenter)="showDropdown()" (mouseleave)="hideDropdown()">
+                <span class="custom-badge-primary  m-1 ps-3 pe-3 me-2 fs-12">
+                  See more...
+                 </span>
+                
+                <div class="dropdown-menu" [class.show]="isDropdownVisible">
+                  <a class="dropdown-item" *ngFor="let item of totalPermissions">{{item?.name}}</a>
+                </div>
+              </div>
+              </ng-container>
                 </div>
               </td>
             </tr>

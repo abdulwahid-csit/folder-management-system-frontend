@@ -54,7 +54,6 @@ export class ApplicationDetailsComponent {
         this.app_secret = response.data.app_secret;
         this.app_id = response.data.app_id;
         this.applicationData = response.data;
-        console.log("here is the application data", this.applicationData);
       }
 
     }, error => {
@@ -144,7 +143,7 @@ export class ApplicationDetailsComponent {
 
 
   editApplication() {
-    const initialState = {itemList: this.applicationData, title: 'Edit', applicationID: this.applicationID};
+    const initialState = {itemList: this.applicationData, title: 'Edit', applicationID: this.applicationData.organization.id};
     // const initialState = {
     //   applicationId: this.applicationID,
     // };

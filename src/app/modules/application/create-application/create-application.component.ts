@@ -20,9 +20,10 @@ export class CreateApplicationComponent implements OnInit {
   organization: any[] = [];
   isFocused: boolean = false;
   @Input() itemList: any;
-  @Input() applicationID: number = 0;
+  @Input() organizationId: number | undefined;
   @Input() title: string = '';
   isLoading: boolean = false;
+  applicationID: any;
 
 
   constructor(private modalService: BsModalService,
@@ -53,7 +54,7 @@ export class CreateApplicationComponent implements OnInit {
     this.applicationForm = new FormGroup({
       app_name: new FormControl('', [Validators.required]),
       url: new FormControl(''),
-      organization: new FormControl(6, [Validators.required]),
+      organization: new FormControl(this.organizationId, [Validators.required]),
       redirectUri: new FormArray([new FormControl('')]),
     })
 
@@ -61,7 +62,8 @@ export class CreateApplicationComponent implements OnInit {
       this.applicationForm.patchValue({
         app_name: this.itemList.app_name,
         url: this.itemList.url,
-        redirectUri: this.itemList.redirect_uri
+        redirectUri: this.itemList.redirect_uri,
+        organization: this.organizationId
 
       });
     }
@@ -99,6 +101,7 @@ export class CreateApplicationComponent implements OnInit {
       .subscribe(
         (response) => {
           this.organization = response.data.payload
+
         },
         error => {
           console.error('Error fetching roles:', error);
@@ -134,6 +137,7 @@ export class CreateApplicationComponent implements OnInit {
             this.toast.success(response.message, "Success!");
             if (response.data && typeof response.data === 'object') {
               this.router.navigate(['layout/application/details/' + response.data.id]);
+              this.applicationID = response.data.id
               this.successCall.emit();
               this.closeModal();
             }
@@ -147,8 +151,11 @@ export class CreateApplicationComponent implements OnInit {
           this.isLoading = false;
         }
       );
-    } else
-    (this.title === 'Edit'); {
+    } else if
+    (this.title === 'Edit'){
+      debugger
+      console.log("here is the id", this.applicationID);
+      console.log("here is the created data", createData)
       this.crudService.update('applications', this.applicationID, createData).subscribe(
         (response: any) => {
           debugger

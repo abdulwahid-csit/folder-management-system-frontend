@@ -54,7 +54,7 @@
           </th>
         </tr>
       </thead>
-      <tbody>
+      <tbody [ngClass]="{'tbody-empty': filterData.length === 0}">
         <tr *ngFor="let row of filterData" class="cursor-pointer" (click)="onRowClick(row)">
           <td class="align-content-center" style="font-size: 12px;" *ngFor="let column of columns">
             <ng-container [ngSwitch]="column">
@@ -68,7 +68,7 @@
             </ng-container>
           </td>
         </tr>
-        <tr *ngIf="filterData.length === 0" class="text-center">
+        <tr *ngIf="filterData.length === 0" class="text-center tbody-empty">
           <td [attr.colspan]="columns.length" class="font_weight_600">No Data Found</td>
         </tr>
       </tbody>

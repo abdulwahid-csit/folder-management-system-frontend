@@ -109,8 +109,8 @@
                   [ngClass]="{'disabled-input':!isEdited}">
                   <label for="phone-number" class="form-label mb-1 fs-14px fw-700 required">Phone Number
                   </label>
-                  <input type="number" class="form-control fs-14px" id="phone-number"
-                    placeholder="Enter phone number" formControlName="phoneNumber" maxLength="11" [readOnly]="!isEdited"
+                  <input type="number" inputmode="tel" class="form-control fs-14px" id="phone-number"
+                    placeholder="Enter phone number" formControlName="phoneNumber" [disabled]="!isEdited" [readOnly]="!isEdited"
                     [ngClass]="{'pointer-none disabled focus-none': !isEdited}">
                   <small *ngIf="isControlHasError('phoneNumber','required', accountDetailsForm)"
                     class="mt-1 text-danger">Phone number required</small>
@@ -261,5 +261,5 @@
           </form>
         </div>
       </div>
-    </div>
+    </div> 
   </div>

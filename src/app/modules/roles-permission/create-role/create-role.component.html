@@ -12,9 +12,10 @@
           <span *ngIf="isControlHasError('name', 'required')" class="mt-1 text-danger fs-8 ps-3">Name is required</span>
         </div>
       </div>
-       <div class="row mt-4 custom-dropdown" *ngIf="mode === 'create' && this.localStoreService.getUserRole().toLowerCase() === 'master'">
+       <div class="row mt-4 " *ngIf="mode === 'create' && this.localStoreService.getUserRole().toLowerCase() === 'master'">
+        <div class=" input-container custom-dropdown">
         <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Organization</label>
-        <ng-select class=""
+        <ng-select class=" "
           [ngClass]="{
             'custom-select-error': isControlHasError('organization', 'required'),
             'custom-select': !isControlHasError('organization', 'required')
@@ -23,7 +24,8 @@
           placeholder="Select organization">
           <ng-option *ngFor="let organization of organization" [value]="organization.id">{{ organization.name }}</ng-option>
         </ng-select>
-        <small *ngIf="isControlHasError('organization', 'required')" class="mt-1 fs-14px text-danger">Organization is required</small>
+        <small *ngIf="isControlHasError('organization', 'required')" class="mt-1 text-danger fs-8 ps-3">Organization is required</small>
+      </div>
       </div>
       <div class="row mt-4">
         <div class="input-container custom-input">

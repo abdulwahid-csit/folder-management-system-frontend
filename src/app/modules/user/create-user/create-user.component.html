@@ -78,26 +78,26 @@
                     <span class="text-danger ps-3 fs-8"
                         [ngClass]="{ invisible: !isControlHasError('password', 'required') }">Password is
                         required</span>
-                    <span *ngIf="isControlHasError('password', 'minlength')" class="text-danger fs-8 ps-3 pt-1">Password
+                    <span *ngIf="isControlHasError('password', 'minlength')" class="text-danger fs-8 ps-3">Password
                         must be at least 8 characters</span>
                     <span
                         *ngIf="getPasswordErrors()['uppercase'] && !isControlHasError('password', 'required') && !getPasswordErrors()['minlength']"
-                        class="text-danger fs-8 ps-3 pt-1">
+                        class="text-danger ps-3 fs-8">
                         Password must include at least one uppercase letter
                     </span>
                     <span
                         *ngIf="getPasswordErrors()['lowercase'] && !isControlHasError('password', 'required') && !getPasswordErrors()['minlength'] && !getPasswordErrors()['uppercase']"
-                        class="text-danger fs-8 ps-3 pt-1">
+                        class="text-danger ps-3 fs-8">
                         Password must include at least one lowercase letter
                     </span>
                     <span
                         *ngIf="getPasswordErrors()['digit'] && !isControlHasError('password', 'required') && !getPasswordErrors()['minlength'] && !getPasswordErrors()['uppercase'] && !getPasswordErrors()['lowercase']"
-                        class="text-danger fs-8 ps-3 pt-1">
+                        class="text-danger ps-3 fs-8">
                         Password must include at least one digit
                     </span>
                     <span
                         *ngIf="getPasswordErrors()['special'] && !isControlHasError('password', 'required') && !getPasswordErrors()['minlength'] && !getPasswordErrors()['uppercase'] && !getPasswordErrors()['lowercase'] && !getPasswordErrors()['digit']"
-                        class="text-danger fs-8 ps-3 pt-1">
+                        class="text-danger ps-3 fs-8">
                         Password must include at least one special character
                     </span>
                 </div>
@@ -118,7 +118,7 @@
                 </div> -->
 
                 <!-- organization Dropdown -->
-                <div class="col-xl-6 mt-2" *ngIf="mode === 'create' && this.localStoreService.getUserRole().toLowerCase() === 'master'">
+                <div class="col-xl-6 mt-3 input-container" *ngIf="mode === 'create' && this.localStoreService.getUserRole().toLowerCase() === 'master'">
                     <div class="mb-3 custom-dropdown">
                         <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Organization</label>
                         <ng-select class="" [ngClass]="{
@@ -129,12 +129,12 @@
                             <ng-option *ngFor="let organization of organization" [value]="organization.id">{{
                                 organization.name }}</ng-option>
                         </ng-select>
-                        <small *ngIf="isControlHasError('organization', 'required')" class="mt-1 fs-14px text-danger">organization is
-                            required</small>
+                            <span *ngIf="isControlHasError('organization', 'required')" class="text-danger ps-3 fs-8">organization is
+                            required</span>
                     </div>
                 </div>
                 <!-- Role Dropdown -->
-                <div class="col-xl-6 mt-2" *ngIf="mode === 'create'">
+                <div class="col-xl-6 mt-3 input-container" *ngIf="mode === 'create'">
                     <div class="mb-3 custom-dropdown">
                         <label for="roleSelect" class="form-label mb-1 fs-14px fw-700 required">Role</label>
                         <ng-select #selectElement
@@ -143,15 +143,15 @@
                             (change)="onValueChange()" placeholder="Select role">
                             <ng-option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</ng-option>
                         </ng-select>
-                        <small *ngIf="isControlHasError('role', 'required')" class="mt-1 fs-14px text-danger">Role is
+                        <small *ngIf="isControlHasError('role', 'required')" class="text-danger ps-3 fs-8">Role is
                             required</small>
                     </div>
                 </div>
 
                 <!-- Status Dropdown -->
-                <div class="col-xl-6 mt-2" *ngIf="mode === 'update'">
+                <div class="col-xl-6 mt-2 pt-1 input-container" *ngIf="mode === 'update'">
                     <div class="mb-3 custom-dropdown">
-                        <label for="statusSelect" class="form-label mb-1 fs-14 fw-700">Status</label>
+                        <label for="statusSelect" class="form-label mb-1 fs-14px fw-700">Status</label>
                         <ng-select #selectElement [ngClass]="{ 'custom-select-focused': isFocused }"
                             formControlName="status" (focus)="isFocused = true" (blur)="isFocused = false"
                             placeholder="Select status">
@@ -160,16 +160,17 @@
                             <ng-option value="blocked">Blocked</ng-option>
                         </ng-select>
                     </div>
-                </div>
-
-                <div *ngIf="mode === 'update'">
-                    <div *ngIf="userForm.get('status')?.value === 'inactive'" class="note">
+                    <div *ngIf="mode === 'update'">
+                    <div *ngIf="userForm.get('status')?.value === 'inactive'" class="dark-light fs-12">
                         If you inactive your organization, all your users and applications will also be inactive.
                     </div>
-                    <div *ngIf="userForm.get('status')?.value === 'blocked'" class="note">
+                    <div *ngIf="userForm.get('status')?.value === 'blocked'" class="dark-light fs-12">
                         If you blocked your organization, all your users and applications will also be blocked.
                     </div>
                 </div>
+                </div>
+
+                
 
                 <!-- Organization Dropdown -->
                 <!-- <div class="col-xl-6 mt-2"

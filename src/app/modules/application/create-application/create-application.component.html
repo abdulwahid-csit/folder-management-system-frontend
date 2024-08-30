@@ -8,7 +8,7 @@
         <form [formGroup]="applicationForm" (ngSubmit)="onSubmit()">
             <div class="mb-4 custom-input"
                 [ngClass]="isControlHasError('applicationName','required')? 'custom-input-error': 'custom-input'">
-                <label for="applicationName" class="mb-1 primary_color required fw-700 semi-bold-fonts">Name</label>
+                <label for="applicationName" class="mb-1 primary_color required fw-700 ">Name</label>
                 <input type="text" class="form-control form-control-lg ps-3 ps-2 fs-14px"
                     formControlName="app_name" placeholder="Enter name">
                 <small *ngIf="isControlHasError('applicationName','required')" class="mt-1 fs-14px text-danger">Domain
@@ -16,7 +16,7 @@
                     required</small>
             </div>
             <div class="mb-4 custom-input">
-                <label for="appUrl" class="mb-1 primary_color  fw-700 semi-bold-fonts">App URL</label>
+                <label for="appUrl" class="mb-1 primary_color  fw-700 ">App URL</label>
                 <p>Enter the endpoint where users will be sent after authentication. This URI must match the one registered with your application to ensure secure and correct redirection.</p>
                 <input type="text" class="form-control form-control-lg ps-3 fs-14px" placeholder="Enter url"
                     formControlName="url">

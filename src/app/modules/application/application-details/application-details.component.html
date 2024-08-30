@@ -89,7 +89,7 @@
                                 </span>
                             </div>
                             <div class="invite-button mt-4">
-                                <button class="primary_button ms-2 mb-1" (click)="openModal(regenerateModal,'')">Re-Generate</button>
+                                <button class="primary_button ms-2 mb-1" (click)="openModal(regenerateModal,'modal-dialog modal-dialog-centered common_modal_shadow modal-md')">Re-Generate</button>
                             </div>
                         </div>
                     </div>
@@ -213,6 +213,7 @@
         </div>
     </ng-template>
     <ng-template #regenerateModal>
+        <div class="custom-delete-user-modal">
       <div class="modal-dialog-box">
     <div class="pt-0">
       <div class="p-0 modal-header border-bottom-0 d-flex justify-content-center align-items-baseline">
@@ -221,18 +222,17 @@
         </div>
       </div>
       <div class="modal-body">
-        <div class="p-0 text fw-600 text-center color-8492A6">Please confirm you really want to regenerate new key
-          After clicking yes, the application will
-          be currnt key will be deleted permanently.</div>
+        <div class="p-0 text fw-600 text-center color-8492A6 ">Are you sure, <br> you want to Re-generate the App Secret key?</div>
       </div>
       <div class="p-0 modal-footer border-top-0 d-flex justify-content-center">
         <div class="buttons">
           <button type="button" class="cancel_btn me-2" (click)="regeneratKey(false)">No, cancel</button>
-          <button type="submit" (click)="regeneratKey(true)" class="primary_button btn-delete btn text-white">
+          <button type="submit" (click)="regeneratKey(true)" class="primary_button">
             Yes, I am sure
           </button>
         </div>
       </div>
+    </div>
     </div>
   </div>
 </ng-template>

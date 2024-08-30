@@ -18,7 +18,7 @@
     }
     ::ng-deep ng-select .ng-select-container {
         height: 46px;
-        border: 1px solid rgba(208, 219, 229, 1) !important;
+        border: 1px solid #dee2e6 !important;
         transition: border-color 0.3s, box-shadow 0.3s;
     }
     ::ng-deep ng-select.custom-select-focused .ng-select-container {
@@ -69,6 +69,11 @@
       ::ng-deep .ng-select .ng-clear-wrapper {
         display: none;
     }
+    ::ng-deep .ng-select .ng-placeholder {
+        font-size: 14px !important;
+        font-weight: 500 !important;
+        color: rgba(132, 146, 166, 1) !important;
+      }
 
 //     ::ng-deep .ng-select .ng-arrow-wrapper {
 //     //    margin-right: 5px !important;

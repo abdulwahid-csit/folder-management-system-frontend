@@ -19,6 +19,10 @@ export class SettingsComponent implements OnInit {
   isLoadingAccount: boolean = false;
   isLoadingOrganization: boolean = false;
   organizationData: any = {};
+  isEdited = false;
+  hideCurrentPassword = true;
+  hideNewPassword = true;
+  hideConfirmNewPassword = true;
 
   constructor(
     public localStoreService: LocalStoreService,
@@ -70,7 +74,7 @@ export class SettingsComponent implements OnInit {
 
     this.changePasswordForm = this.fb.group({
       password: ['', [Validators.required]],
-      newPassword: ['', [Validators.required]],
+      newPassword: ['', [Validators.minLength(8), Validators.required, Validators.pattern('(?=.*\\d)(?=.*\\W+)(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$')]],
       confirmPassword: ['', [Validators.required]],
     })
   }
@@ -97,6 +101,7 @@ export class SettingsComponent implements OnInit {
       this.accountDetailsForm.markAllAsTouched();
       return;
     }
+    this.isEdited = false;
     this.isLoadingAccount = true;
     this.accountDetailsForm.removeControl('role');
     this.crudService.update('member', this.localStoreService.getUserId(), this.accountDetailsForm.value).subscribe(response => {
@@ -126,16 +131,11 @@ export class SettingsComponent implements OnInit {
   }
 
   onChangePasswordSubmit(){
+    console.log("Change Password Form: ", this.changePasswordForm);
     if(this.changePasswordForm.invalid){
       this.changePasswordForm.markAllAsTouched();
       return;
     };
-    if(this.changePasswordForm.get('newPassword')?.value  !== this.changePasswordForm.get('confirmPassword')?.value){
-      this.matchPassword = true;
-      return
-    }
-
-    this.matchPassword = false;
     this.isLoadingPassword = true;
     var dataChangePassword = this.changePasswordForm.get('confirmPassword')?.value;
     this.changePasswordForm.removeControl('confirmPassword');
@@ -178,4 +178,34 @@ export class SettingsComponent implements OnInit {
     });
   }
 
+  togglePasswordVisibility(inputId: number): void {
+    switch (inputId) {
+      case 1:
+        this.hideCurrentPassword = !this.hideCurrentPassword
+        break;
+      case 2:
+        this.hideNewPassword = !this.hideNewPassword
+        break;
+      case 3:
+        this.hideConfirmNewPassword = !this.hideConfirmNewPassword
+        break;
+
+    }
+  }
+
+
+
+checkPasswordEquality(){
+ let x =  this.changePasswordForm.get('newPassword')?.value;
+ let y =  this.changePasswordForm.get('confirmPassword')?.value;
+  if(x != y){
+    if(y === ''){
+      this.matchPassword = false;
+      return;
+    }
+    this.matchPassword = true;
+    return
+  }
+  this.matchPassword = false;
+}
 }

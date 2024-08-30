@@ -90,14 +90,14 @@
                             <td>
                                 <div class="d-flex align-items-center">
                                     <span *ngIf="userData?.status === 'active'"
-                                        class="custom-badge-primary ps-3 pe-3">{{ userData?.status || 'N/A' }}</span>
+                                        class="badge badge-light-success  text-capitalize ps-3 pe-3">{{ userData?.status || 'N/A' }}</span>
                                     <span *ngIf="userData?.status === 'inactive'"
-                                        class="custom-badge-warning ps-3 pe-3">{{ userData?.status || 'N/A' }}</span>
+                                        class="badge badge-light-warning text-capitalize ps-3 pe-3">{{ userData?.status || 'N/A' }}</span>
                                     <span *ngIf="userData?.status === 'blocked'"
-                                        class="custom-badge-danger ps-3 pe-3">{{ userData?.status || 'N/A' }}</span>
+                                        class="badge badge-light-warning text-capitalize  ps-3 pe-3">{{ userData?.status || 'N/A' }}</span>
                                     <span
                                         *ngIf="userData?.status !== 'active' && userData?.status !== 'inactive' && userData?.status !== 'blocked'"
-                                        class="custom-badge-default ps-3 pe-3">{{ userData?.status || 'N/A' }}</span>
+                                        class="badge badge-light-warning text-capitalize ps-3 pe-3">{{ userData?.status || 'N/A' }}</span>
                                 </div>
                             </td>
                         </tr>

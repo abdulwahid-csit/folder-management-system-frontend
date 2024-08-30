@@ -83,3 +83,20 @@ hr {
         }
     }
 }
+
+.dropdown-menu {
+    background-color: black; 
+    color: white;
+    cursor: auto;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  .dropdown-item {
+    color: white;
+  }
+  
+  .dropdown-item:hover {
+    background-color: black;
+  }
+  

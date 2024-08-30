@@ -44,11 +44,13 @@
                 }
 
             }
-
         }
     }
 }
 
+::ng-deep .tbody-empty{
+    height: 75vh;
+}
 
 .dataTable_pagination {
     padding: 20px 18px 20px 18px;

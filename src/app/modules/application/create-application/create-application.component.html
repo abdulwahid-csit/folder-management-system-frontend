@@ -7,11 +7,11 @@
     <div class="modal-body">
         <form [formGroup]="applicationForm" (ngSubmit)="submitForm()">
             <div class="mb-4 custom-input"
-                [ngClass]="isControlHasError('applicationName','required')? 'custom-input-error': 'custom-input'">
-                <label for="applicationName" class="mb-1 primary_color required fw-700 ">Name</label>
+                [ngClass]="isControlHasError('app_name','required')? 'custom-input-error': 'custom-input'">
+                <label for="app_name" class="mb-1 primary_color required fw-700 ">Name</label>
                 <input type="text" class="form-control form-control-lg ps-3 ps-2 fs-14px"
                     formControlName="app_name" placeholder="Enter name">
-                <small *ngIf="isControlHasError('applicationName','required')" class="mt-1 fs-14px text-danger">Domain
+                <small *ngIf="isControlHasError('app_name','required')" class="mt-1 fs-14px text-danger">Application
                     name is
                     required</small>
             </div>
@@ -63,7 +63,7 @@
                 placeholder="Select organization">
                 <ng-option *ngFor="let organization of organization" [value]="organization.id">{{ organization.name }}</ng-option>
               </ng-select>
-              <small *ngIf="isControlHasError('organization', 'required')" class="mt-1 fs-14px text-danger">organization is required</small>
+              <small *ngIf="isControlHasError('organization', 'required')" class="mt-1 fs-14px text-danger">Organization is required</small>
             </div>
 
             <ng-container *ngIf="inputUris.length <= 5">

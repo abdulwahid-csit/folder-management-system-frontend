@@ -24,7 +24,6 @@ export class LayoutComponent implements OnInit {
 
     if (isSmallScreen) {
       let ele = event.target as HTMLElement;
-    console.log("ELEMENT: ", ele);
     if((!(ele.classList.contains('sidebar-main') || ele.classList.contains('sidbar-logo-navigations'))) && this.isSidebarVisible == false){
     this.commonService.toggleSidebar();
     }

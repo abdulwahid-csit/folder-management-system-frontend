@@ -1,3 +1,4 @@
+import { Permission } from './../../../shared/Interfaces/roles.interfaces';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -16,6 +17,10 @@ export class RoleDetailComponent implements OnInit {
   modalRef: any;
   roleIdToDelete?: number;
   userData: any;
+  firstFivePermissions: any[] = [];
+  totalPermissions: any[] = [];
+  isDropdownVisible = false;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -35,6 +40,13 @@ export class RoleDetailComponent implements OnInit {
       this.crudService.read('access/roles', +id).subscribe((response: any) => {
         if (response.status_code === 200) {
           this.role = response.data;
+          for(let i = 0; i < this.role?.permissions.length; i++){
+            if(i < 5){
+              this.firstFivePermissions.push(this.role?.permissions[i])
+            }else{
+              this.totalPermissions.push(this.role?.permissions[i])
+            }
+          }
         } else {
           console.error('Failed to fetch role details:', response.message);
         }
@@ -101,5 +113,13 @@ export class RoleDetailComponent implements OnInit {
         }
       );
     }
+  }
+
+  showDropdown() {
+    this.isDropdownVisible = true;
+  }
+
+  hideDropdown() {
+    this.isDropdownVisible = false;
   }
 }

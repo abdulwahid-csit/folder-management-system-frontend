@@ -50,6 +50,7 @@ export class DataTableComponent implements OnInit {
     if (changes['searchTerm'] || changes['dataSet']) {
       this.filteredData();
     }
+    console.log("CONFIG: ", this.config)
   }
 
   getUpdatedColumns() {

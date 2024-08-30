@@ -29,7 +29,7 @@
 
     ::ng-deep ng-select.custom-select-error .ng-select-container {
         box-shadow: 0 0 0 0.25rem rgba(243, 3, 3, 0.2) !important;
-        border-color: red !important;
+        border-color: #EF4444 !important;
     }
     ::ng-deep ng-select.custom-select.has-value .ng-select-container {
         box-shadow: none !important;

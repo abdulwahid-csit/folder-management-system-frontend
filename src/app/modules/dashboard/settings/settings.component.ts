@@ -131,7 +131,6 @@ export class SettingsComponent implements OnInit {
   }
 
   onChangePasswordSubmit(){
-    console.log("Change Password Form: ", this.changePasswordForm);
     if(this.changePasswordForm.invalid){
       this.changePasswordForm.markAllAsTouched();
       return;

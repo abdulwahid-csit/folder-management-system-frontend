@@ -58,6 +58,10 @@
         <tr *ngFor="let row of filterData" class="cursor-pointer" (click)="onRowClick(row)">
           <td class="align-content-center" style="font-size: 12px;" *ngFor="let column of columns">
             <ng-container [ngSwitch]="column">
+              <span *ngSwitchCase="'email'">
+                <img class="rounded-circle me-2" [src]="row['profile_picture']" height="24px" />
+                {{ row[column]}}
+              </span>
               <span *ngSwitchCase="'first_name'">{{ row[column]}} {{row['last_name'] }}</span>
               <span *ngSwitchCase="'created_at'">{{ row[column] | date: 'dd-MM-yyyy' }}</span>
               <!-- <a *ngSwitchCase="'domain'" [href]="row[column]" target="_blank">{{ row[column] }}</a> -->

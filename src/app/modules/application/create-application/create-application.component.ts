@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
@@ -26,7 +26,8 @@ export class CreateApplicationComponent implements OnInit {
   applicationID: any;
 
 
-  constructor(private modalService: BsModalService,
+  constructor(
+    private modalService: BsModalService,
     private crudService: CrudService,
     private route: ActivatedRoute,
     private router: Router,
@@ -54,7 +55,7 @@ export class CreateApplicationComponent implements OnInit {
     this.applicationForm = new FormGroup({
       app_name: new FormControl('', [Validators.required]),
       url: new FormControl(''),
-      organization: new FormControl(this.organizationId, [Validators.required]),
+      organization: new FormControl('', [Validators.required]),
       redirectUri: new FormArray([new FormControl('')]),
     })
 
@@ -63,8 +64,7 @@ export class CreateApplicationComponent implements OnInit {
         app_name: this.itemList.app_name,
         url: this.itemList.url,
         redirectUri: this.itemList.redirect_uri,
-        organization: this.organizationId
-
+        organization: this.itemList.organization.id
       });
     }
   }
@@ -121,11 +121,16 @@ export class CreateApplicationComponent implements OnInit {
     }
   }
   onSubmit() {
+    if(this.localStoreService.getUserRole().toLowerCase() !== 'master'){
+      this.applicationForm.patchValue({
+        organization: this.localStoreService.getUserOrganization()
+      });
+    }
 
-    // if (this.applicationForm.invalid) {
-    //   this.applicationForm.markAllAsTouched();
-    //   return;
-    // }
+    if (this.applicationForm.invalid) {
+      this.applicationForm.markAllAsTouched();
+      return;
+    }
 
     this.isLoading = true;
     const createData = this.applicationForm.value;
@@ -137,7 +142,7 @@ export class CreateApplicationComponent implements OnInit {
             this.toast.success(response.message, "Success!");
             if (response.data && typeof response.data === 'object') {
               this.router.navigate(['layout/application/details/' + response.data.id]);
-              this.applicationID = response.data.id
+              // this.applicationID = response.data.id
               this.successCall.emit();
               this.closeModal();
             }
@@ -153,28 +158,18 @@ export class CreateApplicationComponent implements OnInit {
       );
     } else if
     (this.title === 'Edit'){
-      debugger
-      console.log("here is the id", this.applicationID);
-      console.log("here is the created data", createData)
       this.crudService.update('applications', this.applicationID, createData).subscribe(
         (response: any) => {
-          debugger
           if (response.status_code === 200 || response.status_code === 201) {
             this.toast.success(response.message, "Success!");
-            if (response.data && typeof response.data === 'object') {
-              console.log("Data updated");
-            }
+            this.successCall.emit();
+            this.closeModal();
           }
         },
         error => {
           this.toast.error(error.message, "Error!");
           console.error('HTTP error:', error);
-        },
-        () => {
-          this.isLoading = false;
-          this.closeModal();
-        }
-      );
+        });
     }
   }
 

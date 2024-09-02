@@ -131,6 +131,22 @@ tr {
     border: 1px solid #ccc;
     border-radius: 6px !important;
 }
+			
+.dropdown-menu {
+    background-color: black; 
+    color: white;
+    cursor: auto;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  .dropdown-item {
+    color: white;
+  }
+  
+  .dropdown-item:hover {
+    background-color: black;
+  }
 
 .custom-dropdown {
     ::ng-deep.ng-dropdown-panel .ng-dropdown-panel-items {

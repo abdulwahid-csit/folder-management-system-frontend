@@ -59,14 +59,14 @@ export class CreateUserComponent implements OnInit {
       phone: ['', [Validators.required, numericValidator]],
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required, Validators.minLength(8)]],
-      role: [[], Validators.required], // Changed to an array
+      roles: [[], Validators.required], // Changed to an array
       organization: [null, Validators.required],
       status: [null,]
     });
 
     if (this.mode === 'update' && this.userData) {
       this.userForm.get('organization')?.clearValidators();
-      this.userForm.get('role')?.clearValidators();
+      this.userForm.get('roles')?.clearValidators();
 
       this.userForm.patchValue({
         firstName: this.userData.first_name || '',
@@ -74,7 +74,7 @@ export class CreateUserComponent implements OnInit {
         username: this.userData.username || '',
         phone: this.userData.phone || '',
         email: this.userData.email || '',
-        role: this.userData.roles ? this.userData.roles.map((role: any) => role.id) : [],
+        roles: this.userData.roles ? this.userData.roles.map((role: any) => role.id) : [],
         organization: this.userData.organization ? this.userData.organization.id : '',
         status: this.userData.status || 'active'
       });
@@ -82,7 +82,7 @@ export class CreateUserComponent implements OnInit {
       this.userForm.removeControl('password');
     } else {
       this.userForm.get('organization')?.setValidators(Validators.required);
-      this.userForm.get('role')?.setValidators(Validators.required);
+      this.userForm.get('roles')?.setValidators(Validators.required);
     }
   }
 
@@ -160,7 +160,7 @@ export class CreateUserComponent implements OnInit {
   }
 
   onValueChange(): void {
-    const control = this.userForm.get('role');
+    const control = this.userForm.get('roles');
     if (control?.value) {
       this.isFocused = false;
       this.filterSelectedRoles();
@@ -170,7 +170,7 @@ export class CreateUserComponent implements OnInit {
   fetchRoles(organizationId: number): void {
     this.roles = [];
     this.userForm.patchValue({
-      role: []
+      roles: []
     });
 
     const urlData = 'access/roles?organization=' + organizationId;
@@ -191,7 +191,7 @@ export class CreateUserComponent implements OnInit {
   }
 
   filterSelectedRoles(): void {
-    const selectedRoles = this.userForm.get('role')?.value || [];
+    const selectedRoles = this.userForm.get('roles')?.value || [];
     this.roles = this.allRoles.filter((role: any) => !selectedRoles.includes(role.id));
   }
   restoreRoles(): void {

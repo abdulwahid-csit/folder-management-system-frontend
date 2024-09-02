@@ -142,7 +142,7 @@
                         <label for="roleSelect" class="form-label mb-1 fs-14px fw-700 required">Role</label>
                         <ng-select
                             [ngClass]="{ 'custom-select-error': isControlHasError('role', 'required'), 'custom-select-focused': isFocused }"
-                            formControlName="role" [multiple]="true" (focus)="isFocused = true"
+                            formControlName="roles" [multiple]="true" (focus)="isFocused = true"
                             (blur)="isFocused = false" (change)="onValueChange()" (close)="restoreRoles()"
                             placeholder="Select roles">
                             <ng-option *ngFor="let role of roles" [value]="role.id">

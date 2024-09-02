@@ -115,7 +115,6 @@ export class UserDetailComponent implements OnInit {
   }
 
   openModal(template: TemplateRef<any>): void {
-    this.fetchPermissions(1);
     this.permissionModalRef = this.modalService.show(template, {
       class: 'modal-dialog modal-dialog-centered modal-lg common_modal_shadow',
       backdrop: 'static',

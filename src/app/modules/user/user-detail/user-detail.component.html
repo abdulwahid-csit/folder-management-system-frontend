@@ -61,7 +61,14 @@
                         </tr>
                         <tr>
                             <td class="fw-600 w-200px">Role</td>
-                            <td class="dark-light fs-12">{{ getRole(userData?.role) || 'N/A' }}</td>
+                            <td class="dark-light fs-12">
+                                <div class="d-flex flex-wrap align-items-center">
+                                    <span class="custom-badge-primary ps-3 pe-3 m-1 me-2 fs-12"
+                                        *ngFor="let item of userData?.roles">
+                                        {{ item.name }}
+                                    </span>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
 

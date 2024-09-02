@@ -15,9 +15,6 @@ export class HeaderComponent implements OnInit {
   showSettingsIcon = false;
   isDropdownVisible = false;
   isDashboard = false;
-  userName: string = '';
-  userRole: string = '';
-
 
   constructor(
     private commonService:CommonService,
@@ -45,8 +42,6 @@ export class HeaderComponent implements OnInit {
       this.isDetailsPage = event.urlAfterRedirects.includes('/details');
     })
 
-    this.userName = this.localStoreService.getUserName();
-    this.userRole = this.localStoreService.getUserRole();
     this.route.queryParamMap.subscribe()
   }
 

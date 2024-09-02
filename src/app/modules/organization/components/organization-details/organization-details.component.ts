@@ -92,10 +92,12 @@ export class OrganizationDetailsComponent implements OnInit {
     this.crudService.read('users?organization='+ this.organizationId).subscribe((response: any) => {
       if (response.status_code === 200 || response.status_code === 201) {
         if (response.data && typeof response.data === 'object') {
-          const column = Object.keys(response.data.payload[0]);
-          this.columns = column.filter((column: string) => column !== 'id' && column !== 'email_verified' && column !== 'updated_at' && column !== 'last_name'
-                && column !== 'organization' && column !== 'timezone' && column !== 'profile_picture' && column !== 'roles' && column !== 'permissions');
-          this.dataTableList = response.data.payload;
+          if(response.data.payload.length){
+            const column = Object.keys(response.data.payload[0]);
+            this.columns = column.filter((column: string) => column !== 'id' && column !== 'email_verified' && column !== 'updated_at' && column !== 'last_name'
+                  && column !== 'organization' && column !== 'timezone' && column !== 'profile_picture' && column !== 'roles' && column !== 'permissions');
+            this.dataTableList = response.data.payload;
+          }
           
           this.tableConfig = {
             paginationParams: {
@@ -118,9 +120,11 @@ export class OrganizationDetailsComponent implements OnInit {
     this.crudService.read('applications?organization='+ this.organizationId).subscribe((response: any) => {
       if (response.status_code === 200 || response.status_code === 201) {
         if (response.data && typeof response.data === 'object') {
-          const column = Object.keys(response.data.payload[0]);
-          this.columns = column.filter((column: string) => column !== 'id' && column !== 'created_by' && column !== 'updated_by' && column !== 'updated_at' && column !== 'organization');
-          this.dataTableList = response.data.payload;
+          if(response.data.payload.length){
+            const column = Object.keys(response.data.payload[0]);
+            this.columns = column.filter((column: string) => column !== 'id' && column !== 'created_by' && column !== 'updated_by' && column !== 'updated_at' && column !== 'organization');
+            this.dataTableList = response.data.payload;
+          }
           
           this.tableConfig = {
             paginationParams: {

@@ -118,30 +118,36 @@
                 </div> -->
 
                 <!-- organization Dropdown -->
-                <div class="col-xl-6 mt-3 input-container" *ngIf="mode === 'create' && this.localStoreService.getUserRole().toLowerCase() === 'master'">
+                <div class="col-xl-6 mt-3 input-container"
+                    *ngIf="mode === 'create' && this.localStoreService.getUserRole().toLowerCase() === 'master'">
                     <div class="mb-3 custom-dropdown">
-                        <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Organization</label>
+                        <label for="exampleFormControlInput1"
+                            class="form-label mb-1 fs-14px fw-700 required">Organization</label>
                         <ng-select class="" [ngClass]="{
                         'custom-select-error': isControlHasError('organization', 'required'),
                         'custom-select': !isControlHasError('organization', 'required')
-                        }" formControlName="organization" (focus)="isFocused = true" (blur)="isFocused = false" (change)="onChange()"
-                            placeholder="Select organization">
+                        }" formControlName="organization" (focus)="isFocused = true" (blur)="isFocused = false"
+                            (change)="onChange()" placeholder="Select organization">
                             <ng-option *ngFor="let organization of organization" [value]="organization.id">{{
                                 organization.name }}</ng-option>
                         </ng-select>
-                            <span *ngIf="isControlHasError('organization', 'required')" class="text-danger ps-3 fs-8">organization is
+                        <span *ngIf="isControlHasError('organization', 'required')"
+                            class="text-danger ps-3 fs-8">organization is
                             required</span>
                     </div>
                 </div>
-                <!-- Role Dropdown -->
+                <!-- Roles Dropdown -->
                 <div class="col-xl-6 mt-3 input-container" *ngIf="mode === 'create'">
                     <div class="mb-3 custom-dropdown">
                         <label for="roleSelect" class="form-label mb-1 fs-14px fw-700 required">Role</label>
-                        <ng-select #selectElement
+                        <ng-select
                             [ngClass]="{ 'custom-select-error': isControlHasError('role', 'required'), 'custom-select-focused': isFocused }"
-                            formControlName="role" (focus)="isFocused = true" (blur)="isFocused = false"
-                            (change)="onValueChange()" placeholder="Select role">
-                            <ng-option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</ng-option>
+                            formControlName="role" [multiple]="true" (focus)="isFocused = true"
+                            (blur)="isFocused = false" (change)="onValueChange()" (close)="restoreRoles()"
+                            placeholder="Select roles">
+                            <ng-option *ngFor="let role of roles" [value]="role.id">
+                                {{ role.name }}
+                            </ng-option>
                         </ng-select>
                         <small *ngIf="isControlHasError('role', 'required')" class="text-danger ps-3 fs-8">Role is
                             required</small>
@@ -161,16 +167,16 @@
                         </ng-select>
                     </div>
                     <div *ngIf="mode === 'update'">
-                    <div *ngIf="userForm.get('status')?.value === 'inactive'" class="dark-light fs-12">
-                        If you inactive your organization, all your users and applications will also be inactive.
+                        <div *ngIf="userForm.get('status')?.value === 'inactive'" class="dark-light fs-12">
+                            If you inactive your organization, all your users and applications will also be inactive.
+                        </div>
+                        <div *ngIf="userForm.get('status')?.value === 'blocked'" class="dark-light fs-12">
+                            If you blocked your organization, all your users and applications will also be blocked.
+                        </div>
                     </div>
-                    <div *ngIf="userForm.get('status')?.value === 'blocked'" class="dark-light fs-12">
-                        If you blocked your organization, all your users and applications will also be blocked.
-                    </div>
-                </div>
                 </div>
 
-                
+
 
                 <!-- Organization Dropdown -->
                 <!-- <div class="col-xl-6 mt-2"

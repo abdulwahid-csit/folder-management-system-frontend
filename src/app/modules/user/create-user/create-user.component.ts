@@ -31,6 +31,7 @@ export class CreateUserComponent implements OnInit {
   roles: any = [];
   organization: any = [];
   isLoading: boolean = false;
+  allRoles: any[] = [];
 
   constructor(
     private bsModalService: BsModalService,
@@ -42,12 +43,11 @@ export class CreateUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.initialize();
-    
-    if(this.localStoreService.getUserRole().toLowerCase() === 'master'){
-      this.fetchOrganization();
-    }else{
-      this.fetchRoles(parseInt(this.localStoreService.getUserOrganization()));
 
+    if (this.localStoreService.getUserRole().toLowerCase() === 'master') {
+      this.fetchOrganization();
+    } else {
+      this.fetchRoles(parseInt(this.localStoreService.getUserOrganization()));
     }
   }
 
@@ -59,7 +59,7 @@ export class CreateUserComponent implements OnInit {
       phone: ['', [Validators.required, numericValidator]],
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required, Validators.minLength(8)]],
-      role: [null, Validators.required],
+      role: [[], Validators.required], // Changed to an array
       organization: [null, Validators.required],
       status: [null,]
     });
@@ -74,13 +74,13 @@ export class CreateUserComponent implements OnInit {
         username: this.userData.username || '',
         phone: this.userData.phone || '',
         email: this.userData.email || '',
-        role: this.userData.roles || '',
+        role: this.userData.roles ? this.userData.roles.map((role: any) => role.id) : [],
         organization: this.userData.organization ? this.userData.organization.id : '',
         status: this.userData.status || 'active'
       });
       this.userForm.get('email')?.disable();
       this.userForm.removeControl('password');
-    }else {
+    } else {
       this.userForm.get('organization')?.setValidators(Validators.required);
       this.userForm.get('role')?.setValidators(Validators.required);
     }
@@ -123,9 +123,8 @@ export class CreateUserComponent implements OnInit {
 
     const formValue = { ...this.userForm.value };
 
-   
     if (!formValue.status) {
-      formValue.status = 'active'; 
+      formValue.status = 'active';
     }
 
     if (formValue.organization) {
@@ -156,7 +155,6 @@ export class CreateUserComponent implements OnInit {
     );
   }
 
-
   closeModal(): void {
     this.bsModalService.hide();
   }
@@ -165,21 +163,23 @@ export class CreateUserComponent implements OnInit {
     const control = this.userForm.get('role');
     if (control?.value) {
       this.isFocused = false;
+      this.filterSelectedRoles();
     }
   }
 
   fetchRoles(organizationId: number): void {
     this.roles = [];
     this.userForm.patchValue({
-      role: ''
+      role: []
     });
 
-    const urlData = 'access/roles?organization='+organizationId;
+    const urlData = 'access/roles?organization=' + organizationId;
     this.crudService.read(urlData)
       .subscribe(
         (response: any) => {
           if (response.status_code === 200) {
-            this.roles = response.data.payload;
+            this.allRoles = response.data.payload;
+            this.filterSelectedRoles();
           } else {
             console.error('Failed to fetch roles:', response.message);
           }
@@ -189,6 +189,16 @@ export class CreateUserComponent implements OnInit {
         }
       );
   }
+
+  filterSelectedRoles(): void {
+    const selectedRoles = this.userForm.get('role')?.value || [];
+    this.roles = this.allRoles.filter((role: any) => !selectedRoles.includes(role.id));
+  }
+  restoreRoles(): void {
+    this.roles = [...this.allRoles];
+  }
+
+
 
   fetchOrganization(): void {
     this.crudService.read('organization')

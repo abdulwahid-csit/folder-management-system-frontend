@@ -1,89 +1,46 @@
-<!-- <div class="data_table_wrapper">
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th class="align-content-center" *ngFor="let column of columns">{{column}}</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let data of filterData" class="cursor-pointer" (click)="onRowClick(data)">
-                <td class="fw-700 align-content-center" style="font-size: 12px;" *ngIf="data.name">{{data.name}}</td>
-                <td class="align-content-center" style="font-size: 12px;" *ngIf="data.domain">{{data.domain}}</td>
-                <td class="align-content-center"  *ngIf="data.description">{{data.description}}</td>
-                <td class="align-content-center"  *ngIf="data.fullName">{{data.fullName}}</td>
-                <td class="align-content-center"  *ngIf="data.organization">{{data.organization}}</td>
-                <td class="align-content-center"  *ngIf="data.appId">{{data.appId}}</td>
-                <td class="align-content-center"  *ngIf="data.appUrl">{{data.appUrl}}</td>
-                <td class="align-content-center" *ngIf="data.role">{{data.role}}</td>
-                <td class="align-content-center" *ngIf="data.activityDate">{{data.activityDate}}</td>
-                <td class="align-content-center"  *ngIf="data.lastSignedIn">{{data.domain}}</td>
-                <td class="align-content-center" *ngIf="data.time">{{data.time}}</td>
-                <td class="align-content-center" *ngIf="data.Activity">{{data.Activity}}</td>
-                <td class="align-content-center" *ngIf="data.total_no_of_application">{{data.total_no_of_application}}</td>
-                <td class="align-content-center" *ngIf="data.users">{{data.users}}</td>
-                <td class="align-content-center"  *ngIf="data.createdBy">{{data.createdBy}}</td>
-                <td class="align-content-center" *ngIf="data.status"><span class="{{data.status == 'active' ? 'badge badge-light-success text-capitalize' : 'badge badge-light-warning text-capitalize'}}">{{data.status}}</span></td>
-                <td class="align-content-center" *ngIf="data.lastSignedIn">{{data.lastSignedIn}}</td>
-                <td class="align-content-center" *ngIf="data.creationDate">{{data.creationDate}}</td>
-            </tr>
-            <tr *ngIf="filterData.length === 0" class="text-center">
-                <td colspan="columns.length" class="font_weight_600">No Search Found</td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="dataTable_pagination d-flex align-items-center justify-content-between">
-        <div>
-            <p class="mb-0">Showing 1 to 10 of 40 results</p>
-        </div>
-        <div>
-            <app-pagination [totalPages]="config.paginationParams.total_pages" [(currentPage)]="config.paginationParams.current_page"></app-pagination>
-        </div>
+<div class="data_table_wrapper pb-0">
+  <table class="table table-hover mb-0">
+    <thead>
+      <tr>
+        <th class="align-content-center" *ngFor="let column of getUpdatedColumns()">
+          {{ column }}
+        </th>
+      </tr>
+    </thead>
+    <tbody [ngClass]="{'tbody-empty': filterData.length === 0}">
+      <tr *ngFor="let row of filterData" class="cursor-pointer" (click)="onRowClick(row)">
+        <td class="align-content-center" style="font-size: 12px;" *ngFor="let column of columns">
+          <ng-container [ngSwitch]="column">
+            <span *ngSwitchCase="'email'">
+              <img class="rounded-circle me-2" [src]="row['profile_picture']" height="24px" />
+              {{ row[column]}}
+            </span>
+            <span *ngSwitchCase="'first_name'">{{ row[column]}} {{row['last_name'] }}</span>
+            <span *ngSwitchCase="'created_at'">{{ row[column] | date: 'dd-MM-yyyy' }}</span>
+            <span *ngSwitchCase="'status'" [ngClass]="row[column] == 'active' ? 'badge badge-light-success text-capitalize' : 'badge badge-light-warning text-capitalize'">{{row[column]}}</span>
+            <span *ngSwitchCase="'role'">{{getRole(row[column]) || '-'}}</span>
+            <span *ngSwitchCase="'organization'">{{getOrganization(row[column]) || '-'}}</span>
+            <span *ngSwitchDefault>{{ row[column] }}</span>
+          </ng-container>
+        </td>
+      </tr>
+      <tr *ngIf="filterData.length === 0" class="text-center tbody-empty">
+        <td [attr.colspan]="columns.length" class="font_weight_600">No Data Found</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="dataTable_pagination d-flex align-items-center justify-content-between" *ngIf="filterData.length">
+    <div>
+      <p class="mb-0 fw-600 color-8492A6 fs-14px">
+        Showing {{startItem}} to {{endItem}} of {{config.paginationParams.total_records}} results
+      </p>
     </div>
-</div>
- -->
-
-
-
-
- <div class="data_table_wrapper pb-0">
-    <table class="table table-hover mb-0">
-      <thead>
-        <tr>
-          <th class="align-content-center" *ngFor="let column of getUpdatedColumns()">
-            {{ column }}
-          </th>
-        </tr>
-      </thead>
-      <tbody [ngClass]="{'tbody-empty': filterData.length === 0}">
-        <tr *ngFor="let row of filterData" class="cursor-pointer" (click)="onRowClick(row)">
-          <td class="align-content-center" style="font-size: 12px;" *ngFor="let column of columns">
-            <ng-container [ngSwitch]="column">
-              <span *ngSwitchCase="'email'">
-                <img class="rounded-circle me-2" [src]="row['profile_picture']" height="24px" />
-                {{ row[column]}}
-              </span>
-              <span *ngSwitchCase="'first_name'">{{ row[column]}} {{row['last_name'] }}</span>
-              <span *ngSwitchCase="'created_at'">{{ row[column] | date: 'dd-MM-yyyy' }}</span>
-              <!-- <a *ngSwitchCase="'domain'" [href]="row[column]" target="_blank">{{ row[column] }}</a> -->
-              <span *ngSwitchCase="'status'" [ngClass]="row[column] == 'active' ? 'badge badge-light-success text-capitalize' : 'badge badge-light-warning text-capitalize'">{{row[column]}}</span>
-              <span *ngSwitchCase="'role'">{{getRole(row[column]) || '-'}}</span>
-              <span *ngSwitchCase="'organization'">{{getOrganization(row[column]) || '-'}}</span>
-              <span *ngSwitchDefault>{{ row[column] }}</span>
-            </ng-container>
-          </td>
-        </tr>
-        <tr *ngIf="filterData.length === 0" class="text-center tbody-empty">
-          <td [attr.colspan]="columns.length" class="font_weight_600">No Data Found</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="dataTable_pagination d-flex align-items-center justify-content-between" *ngIf="filterData.length">
-      <div>
-        <p class="mb-0 fw-600 color-8492A6 fs-14px">Showing {{config.paginationParams.current_page}} to {{config.paginationParams.total_pages}} of {{ filterData.length }} results</p>
-      </div>
-      <div>
-        <app-pagination [totalPages]="config.paginationParams.total_pages" [currentPage]="config.paginationParams.current_page" (currentPageChange)="onPageChange($event)"></app-pagination>
-      </div>
+    <div>
+      <app-pagination 
+        [totalPages]="config.paginationParams.total_pages" 
+        [currentPage]="config.paginationParams.current_page" 
+        (currentPageChange)="onPageChange($event)">
+      </app-pagination>
     </div>
   </div>
-    
+</div>

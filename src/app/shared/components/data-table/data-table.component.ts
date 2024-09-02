@@ -1,6 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
-import { CreateOrganizationComponent } from 'src/app/modules/organization/components/create-organization/create-organization.component';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,18 +7,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./data-table.component.scss']
 })
 export class DataTableComponent implements OnInit {
-  @Output() changePage = new EventEmitter();
+  @Output() changePage = new EventEmitter<number>();
   @Input() columns: any;
   @Input() config: any;
   @Input() dataSet: any[] = [];
-  //  @Input() module!:string;
   @Input() searchTerm: string = '';
 
-  modalRef?: BsModalRef;
-  searchResults: any[] = [];
-  searchFilter: boolean = false
-  maintainStationList: any = []
   filterData: any[] = [];
+  startItem: number = 0;
+  endItem: number = 0;
   private _moduleName!: string;
 
   columnNameMap: any = {
@@ -30,7 +25,7 @@ export class DataTableComponent implements OnInit {
     app_name: 'Name',
     app_id: 'App ID',
     first_name: 'Full Name',
-    last_logged_in: ' Last Sign in'
+    last_logged_in: 'Last Sign in'
   };
 
   @Input() set module(value: string) {
@@ -41,14 +36,14 @@ export class DataTableComponent implements OnInit {
     return this._moduleName;
   }
 
-  constructor(private modalService: BsModalService, private router: Router) { }
+  constructor(private router: Router) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['searchTerm'] || changes['dataSet']) {
+    if (changes['searchTerm'] || changes['dataSet'] || changes['config']) {
       this.filteredData();
+      this.updatePaginationRange();
     }
   }
 
@@ -58,25 +53,9 @@ export class DataTableComponent implements OnInit {
     });
   }
 
-  // filteredData() {
-  //   if (!this.searchTerm) {
-  //     this.filterData = this.dataSet;
-  //   }
-  //   const lowercasedSearchTerm = this.searchTerm.toLowerCase();
-  //   this.filterData = this.dataSet.filter((item: any) =>
-  //     Object.values(item).some(value => {
-  //       if (value === null || value === undefined) {
-  //         return false;
-  //       }
-  //       return value.toString().toLowerCase().includes(lowercasedSearchTerm);
-  //     })
-  //   );
-  // }
-
   filteredData() {
     if (!Array.isArray(this.dataSet)) {
-      // console.error('dataSet is not an array:', this.dataSet);
-      this.filterData = []; // Clear filterData to avoid displaying incorrect data
+      this.filterData = [];
       return;
     }
 
@@ -95,6 +74,15 @@ export class DataTableComponent implements OnInit {
     }
   }
 
+  updatePaginationRange() {
+    const currentPage = this.config.paginationParams.current_page || 1;
+    const itemsPerPage = this.config.paginationParams.items_per_page || 10;
+    const totalRecords = this.config.paginationParams.total_records || this.filterData.length;
+
+    this.startItem = (currentPage - 1) * itemsPerPage + 1;
+    this.endItem = Math.min(currentPage * itemsPerPage, totalRecords);
+  }
+
   onRowClick(rowData: any) {
     let detailRoute: string;
     if (this.module === 'dashboard') {
@@ -102,24 +90,13 @@ export class DataTableComponent implements OnInit {
     }
     switch (this.module) {
       case 'organization':
-        detailRoute = `/layout/${this.module}/details/${rowData.id}`;
-        break;
       case 'roles':
-        detailRoute = `/layout/${this.module}/details/${rowData.id}`;
-        break;
       case 'application':
-        detailRoute = `/layout/${this.module}/details/${rowData.id}`;
-        break;
       case 'user':
-        detailRoute = `/layout/${this.module}/details/${rowData.id}`;
-        break;
       case 'secret':
-        detailRoute = `/layout/${this.module}/details/${rowData.id}`;
-        break;
       case 'team-member':
         detailRoute = `/layout/${this.module}/details/${rowData.id}`;
         break;
-
       default:
         detailRoute = '/';
         break;
@@ -127,6 +104,7 @@ export class DataTableComponent implements OnInit {
 
     this.router.navigate([detailRoute]);
   }
+
   getOrganization(value: any) {
     if (value && typeof value === 'object') {
       return value.name;
@@ -141,7 +119,8 @@ export class DataTableComponent implements OnInit {
     return '';
   }
 
-  onPageChange(item: any){
+  onPageChange(item: number) {
     this.changePage.emit(item);
+    this.updatePaginationRange();
   }
 }

@@ -143,13 +143,13 @@ export class ApplicationDetailsComponent {
 
 
   editApplication() {
-    const initialState = {itemList: this.applicationData, title: 'Edit', applicationID: this.applicationData.organization.id};
+    const initialState = {itemList: this.applicationData, title: 'Edit', applicationID: this.applicationID};
     // const initialState = {
     //   applicationId: this.applicationID,
     // };
     this.modalRef = this.modalService.show(CreateApplicationComponent, {
       initialState,
-      class: 'modal-dialog modal-dialog-centered modal-md common_modal_shadow',
+      class: 'modal-dialog modal-dialog-centered modal-lg create_organization',
       backdrop: 'static',
       keyboard: false,
     })

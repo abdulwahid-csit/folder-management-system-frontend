@@ -96,6 +96,7 @@ export class ApplicationListComponent {
     }
 
     onKeyChange(item: any){
+
       this.searchType = false;
 
       if(item.keyCode == 13){

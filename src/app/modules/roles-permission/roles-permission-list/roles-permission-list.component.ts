@@ -21,7 +21,7 @@ export class RolesPermissionListComponent implements OnInit {
       "total_pages": 0,
       "payload_size": 0,
       "has_next": false,
-      "current_page": 1, 
+      "current_page": 1,
       "skipped_records": 0,
       "total_records": 0
     }
@@ -34,10 +34,11 @@ export class RolesPermissionListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getRolePermissionListing(1); 
+    this.getRolePermissionListing(1);
   }
 
   getRolePermissionListing(page: number) {
+
     // let urlData = `access/roles?page=${page}&limit=10`;
     // if (this.searchTerm) {
     //   urlData += `&search=${this.searchTerm}`;
@@ -91,7 +92,7 @@ export class RolesPermissionListComponent implements OnInit {
 
   // onKeyChange(event: KeyboardEvent) {
   //   if (event.key === 'Enter' || this.searchTerm === '') {
-  //     this.getRolePermissionListing(1); 
+  //     this.getRolePermissionListing(1);
   //   }
   // }
   onKeyChange(item: any) {

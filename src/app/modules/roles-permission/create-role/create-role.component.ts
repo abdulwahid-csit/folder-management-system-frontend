@@ -24,6 +24,7 @@ export class CreateRoleComponent implements OnInit {
   currentPage: number = 1;
   isFetching: boolean = false;
   organization: any[] = [];
+  isSecondModalShow = false;
 
   constructor(
     public bsModalRef: BsModalRef,
@@ -88,6 +89,7 @@ export class CreateRoleComponent implements OnInit {
   }
 
   openModal(template: TemplateRef<any>): void {
+    this.isSecondModalShow = true;
     this.permissionModalRef = this.modalService.show(template, {
       class: 'modal-dialog modal-dialog-centered modal-lg common_modal_shadow',
       backdrop: 'static',
@@ -157,6 +159,7 @@ export class CreateRoleComponent implements OnInit {
 
 
   onCancel(): void {
+    this.isSecondModalShow = false;
     this.rolesForm.reset();
     this.closeModal();
   }
@@ -179,6 +182,7 @@ export class CreateRoleComponent implements OnInit {
 
   cancelPermissionModal(): void {
     this.permissionModalRef?.hide();
+    this.ngOnInit();
   }
 
   onChange(): void {
@@ -208,5 +212,9 @@ export class CreateRoleComponent implements OnInit {
     if (scrollOffset >= scrollHeight - 1 && !this.isFetching) {
       this.fetchPermissions(this.currentPage);
     }
+  }
+
+  handleSecondModalShow(){
+    this.isSecondModalShow = false;
   }
 }

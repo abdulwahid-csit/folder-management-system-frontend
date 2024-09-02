@@ -32,6 +32,8 @@ export class RoleDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchRoleDetails();
+    console.log('Total Permissions in this role. ', this.totalPermissions);
+    console.log('Five Permissions in this role. ',this.firstFivePermissions);
   }
 
   fetchRoleDetails(): void {

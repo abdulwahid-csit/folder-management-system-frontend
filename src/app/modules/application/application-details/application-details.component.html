@@ -68,7 +68,7 @@
                         </div>
                     </div>
 
-                        <div class="d-flex align-items-end d-flex app-secret align-items-baseline">
+                        <div class="d-flex align-items-end d-flex app-secret align-items-baseline mt-4">
                             <div class="input-group mb-3 w-50 app-secret">
                                 <input #appSecret readonly type="text" class="form-control focus-none border-end-0"
                                     placeholder="" aria-label="Recipient's username" aria-describedby="basic-addon1"
@@ -88,8 +88,8 @@
                                     <span #tickIcon class="d-none copied-text"><img  src="../../../../assets/icons/check-3.svg" alt="">Copied !</span>
                                 </span>
                             </div>
-                            <div class="invite-button mt-4">
-                                <button class="primary_button ms-2 mb-1" (click)="openModal(regenerateModal,'modal-dialog modal-dialog-centered common_modal_shadow modal-md')">Re-Generate</button>
+                            <div class="invite-button">
+                                <button *ngIf="localStoreService.hasPermission('can.regenerate.application.hash')" class="primary_button ms-2 mb-1" (click)="openModal(regenerateModal,'modal-dialog modal-dialog-centered common_modal_shadow modal-md')">Re-Generate</button>
                             </div>
                         </div>
                     </div>
@@ -218,7 +218,7 @@
     <div class="pt-0">
       <div class="p-0 modal-header border-bottom-0 d-flex justify-content-center align-items-baseline">
         <div class="regenerate-icon">
-          <div class="delete-icon"><img src="../../../../assets/icons/delete-icon.svg" alt=""></div>
+          <div class="delete-icon"><img src="../../../../assets/icons/warning-icon.svg" alt=""></div>
         </div>
       </div>
       <div class="modal-body">
@@ -227,7 +227,7 @@
       <div class="p-0 modal-footer border-top-0 d-flex justify-content-center">
         <div class="buttons">
           <button type="button" class="cancel_btn me-2" (click)="regeneratKey(false)">No, cancel</button>
-          <button type="submit" (click)="regeneratKey(true)" class="primary_button">
+          <button type="submit" (click)="regeneratKey(true)" class="primary_button bg-yellow">
             Yes, I am sure
           </button>
         </div>

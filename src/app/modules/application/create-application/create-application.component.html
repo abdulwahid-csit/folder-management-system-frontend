@@ -38,7 +38,7 @@
 
             <div formArrayName="redirectUri">
               <div *ngFor="let uri of redirectUriArray.controls; let i = index">
-                <div class="d-flex align-items-center mb-2 position-relative">
+                <div class="d-flex align-items-center mb-2 position-relative custom-input">
                   <input
                     type="text"
                     class="form-control ps-3 fs-14px input-with-icon"
@@ -46,11 +46,13 @@
                     [formControlName]="i"
                     (input)="onUriInputChange(i)"
                   />
-                  <span
-                    *ngIf="i !== 0"
-                    class="trash-icon cursor-pointer"
-                    (click)="removeInputUri(i)"
-                  ></span>
+                  <div [ngClass]="{'hover': i !== 0}">
+                    <span
+                      *ngIf="i !== 0"
+                      class="trash-icon cursor-pointer "
+                      (click)="removeInputUri(i)"
+                    ></span>
+                  </div>
                 </div>
 
               </div>

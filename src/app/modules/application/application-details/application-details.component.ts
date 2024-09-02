@@ -6,6 +6,7 @@ import { CrudService } from 'src/app/shared/services/crud.service';
 import { DeleteModalComponent } from 'src/app/shared/components/delete-modal/delete-modal.component';
 import { ToastrService } from 'ngx-toastr';
 import { CreateApplicationComponent } from '../create-application/create-application.component';
+import { LocalStoreService } from 'src/app/shared/services/local-store.service';
 
 @Component({
   selector: 'app-application-details',
@@ -24,18 +25,20 @@ export class ApplicationDetailsComponent {
   app_id!: string;
   applicationData: any = {};
 
-  constructor(private modalService: BsModalService,
-    private crudService: CrudService, private route: ActivatedRoute,
+  constructor(
+    private modalService: BsModalService,
+    private crudService: CrudService, 
+    private route: ActivatedRoute,
     private router: Router,
-    private toast: ToastrService) {
-  }
+    private toast: ToastrService,
+    public localStoreService: LocalStoreService
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.applicationID = params['id'];
     });
     this.applicationListing()
-
   }
 
   setSelectedTab(tab: string) {

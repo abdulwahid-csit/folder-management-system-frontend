@@ -56,7 +56,7 @@ export class RolesPermissionListComponent implements OnInit {
         this.roleslist = response.data.payload || [];
         const column = Object.keys(this.roleslist[0] || {});
         this.columns = column.filter((col: string) =>
-          !['id', 'email_verified', 'permissions', 'timezone', 'active', 'organization', 'last_name'].includes(col)
+          !['id', 'email_verified', 'permissions', 'timezone', 'active', 'organization', 'last_name', 'updated_by'].includes(col)
         );
 
         this.tableConfig = {

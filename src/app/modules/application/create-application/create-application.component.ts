@@ -25,7 +25,6 @@ export class CreateApplicationComponent implements OnInit {
   isLoading: boolean = false;
   applicationID: any;
 
-
   constructor(
     private modalService: BsModalService,
     private crudService: CrudService,
@@ -34,7 +33,6 @@ export class CreateApplicationComponent implements OnInit {
     private toast: ToastrService,
     public localStoreService: LocalStoreService
   ) { }
-
 
   ngOnInit(): void {
 

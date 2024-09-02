@@ -4,6 +4,14 @@ import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LocalStoreService } from './local-store.service';
 
+interface RegisterUser{
+  firstName: string,
+  lastName: string,
+  email: string,
+  password: string,
+  username: string,
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -39,8 +47,8 @@ export class AuthService {
     return this.http.post(`${environment.apiUrl}auth/signin`, body);
   }
 
-  signUp(email:string, password:string, username:string): Observable<any>{
-    const body = {email,password,username};
+  signUp(body: RegisterUser): Observable<any>{
+    // const body = {email,password,username};
     return this.http.post(`${environment.apiUrl}auth/signup`, body);
   }
 

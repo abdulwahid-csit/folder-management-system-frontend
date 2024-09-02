@@ -152,7 +152,11 @@ export class ApplicationDetailsComponent {
       class: 'modal-dialog modal-dialog-centered modal-lg create_organization',
       backdrop: 'static',
       keyboard: false,
-    })
+    });
+
+      this.modalRef.content.successCall.subscribe(() => {
+        this.applicationListing();
+      });
   }
 
 }

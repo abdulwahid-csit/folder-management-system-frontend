@@ -27,6 +27,10 @@ export class UserDetailComponent implements OnInit {
 }[] = [];
   selectedPermissions: Set<number> = new Set();
   permissionModalRef?: BsModalRef;
+  firstFivePermissions: any[] = [];
+  totalPermissions: any[] = [];
+  isDropdownVisible = false;
+
 
   constructor(
     private modalService: BsModalService,
@@ -61,6 +65,13 @@ export class UserDetailComponent implements OnInit {
       if (response.status_code === 200 || response.status_code === 201) {
         this.userData = response.data;
         this.userStatus = response.data.status;
+        for(let i = 0; i < this.userData?.permissions.length; i++){
+          if(i < 5){
+            this.firstFivePermissions.push(this.userData?.permissions[i])
+          }else{
+            this.totalPermissions.push(this.userData?.permissions[i])
+          }
+        }
         this.selectedPermissions = new Set(
           this.userData.permissions.map((perm: any) => {
             return this.permissions.find(p => p.slug === perm.slug)?.id;
@@ -279,5 +290,13 @@ export class UserDetailComponent implements OnInit {
 
   cancelPermissionModal(): void {
     this.permissionModalRef?.hide();
+  }
+
+  showDropdown() {
+    this.isDropdownVisible = true;
+  }
+
+  hideDropdown() {
+    this.isDropdownVisible = false;
   }
 }

@@ -15,6 +15,32 @@
             <div class="modal-body mt-4">
               <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                 
+                <!-- Last Name Field -->
+                 <div class="d-flex">
+                <div class="row custom-input mb-4 pe-2">
+                  <div class="input-container">
+                    <label class="label-font required">First Name</label>
+                    <input type="text" class="form-control" formControlName="firstName"
+                      [ngClass]="{'is-invalid': isControlHasError('firstName', 'required')}"
+                      placeholder="Enter user name" (blur)="onControlBlur('firstName')" />
+                    <span *ngIf="isControlHasError('firstName', 'required')" class="text-danger fs-8 ps-3 pt-1">
+                      Username is required
+                    </span>
+                  </div>
+                </div>
+                <!-- First Name Field -->
+                <div class="row custom-input mb-4 ps-2">
+                  <div class="input-container">
+                    <label class="label-font required">Last Name</label>
+                    <input type="text" class="form-control" formControlName="lastName"
+                      [ngClass]="{'is-invalid': isControlHasError('lastName', 'required')}"
+                      placeholder="Enter user name" (blur)="onControlBlur('lastName')" />
+                    <span *ngIf="isControlHasError('lastName', 'required')" class="text-danger fs-8 ps-3 pt-1">
+                      Username is required
+                    </span>
+                  </div>
+                </div>
+              </div>
                 <!-- User Name Field -->
                 <div class="row custom-input mb-4">
                   <div class="input-container">

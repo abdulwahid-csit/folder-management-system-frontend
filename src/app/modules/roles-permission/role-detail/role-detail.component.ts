@@ -42,12 +42,19 @@ export class RoleDetailComponent implements OnInit {
       this.crudService.read('access/roles', +id).subscribe((response: any) => {
         if (response.status_code === 200) {
           this.role = response.data;
-          for(let i = 0; i < this.role?.permissions.length; i++){
-            if(i < 5){
-              this.firstFivePermissions.push(this.role?.permissions[i])
-            }else{
-              this.totalPermissions.push(this.role?.permissions[i])
-            }
+          this.firstFivePermissions = [];
+          this.totalPermissions = [];
+          if(this.role?.permissions.length >= 5){
+            for(let i = 0; i < this.role?.permissions.length; i++){
+              if(i < 5){
+                this.firstFivePermissions.push(this.role?.permissions[i])
+              }else{
+                this.totalPermissions.push(this.role?.permissions[i])
+              }
+          }
+          }else{
+            this.totalPermissions = this.firstFivePermissions;
+            console.log("Permissions list is less then five");
           }
         } else {
           console.error('Failed to fetch role details:', response.message);

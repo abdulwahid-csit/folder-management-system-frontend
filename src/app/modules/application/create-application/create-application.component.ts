@@ -63,7 +63,7 @@ export class CreateApplicationComponent implements OnInit {
         app_name: this.itemList.app_name,
         url: this.itemList.url,
         redirectUri: this.itemList.redirect_uri,
-        organization: this.organizationId
+        organization: this.itemList.organization.id
 
       });
     }
@@ -121,11 +121,10 @@ export class CreateApplicationComponent implements OnInit {
     }
   }
   onSubmit() {
-
-    // if (this.applicationForm.invalid) {
-    //   this.applicationForm.markAllAsTouched();
-    //   return;
-    // }
+    if (this.applicationForm.invalid) {
+      this.applicationForm.markAllAsTouched();
+      return;
+    }
 
     this.isLoading = true;
     const createData = this.applicationForm.value;
@@ -153,12 +152,8 @@ export class CreateApplicationComponent implements OnInit {
       );
     } else if
     (this.title === 'Edit'){
-      debugger
-      console.log("here is the id", this.applicationID);
-      console.log("here is the created data", createData)
       this.crudService.update('applications', this.applicationID, createData).subscribe(
         (response: any) => {
-          debugger
           if (response.status_code === 200 || response.status_code === 201) {
             this.toast.success(response.message, "Success!");
             if (response.data && typeof response.data === 'object') {

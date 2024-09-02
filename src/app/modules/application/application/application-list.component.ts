@@ -83,7 +83,6 @@ export class ApplicationListComponent {
     }
 
     createApplication() {
-      debugger
       const initialState = { itemList: '', title: 'Create' };
       this.modalRef = this.modalService.show(CreateApplicationComponent, {
         class: 'modal-dialog modal-dialog-centered modal-lg create_organization',

@@ -59,19 +59,19 @@ export class DataTableComponent implements OnInit {
       return;
     }
 
-    if (!this.searchTerm) {
       this.filterData = this.dataSet;
-    } else {
-      const lowercasedSearchTerm = this.searchTerm.toLowerCase();
-      this.filterData = this.dataSet.filter((item: any) =>
-        Object.values(item).some(value => {
-          if (value === null || value === undefined) {
-            return false;
-          }
-          return value.toString().toLowerCase().includes(lowercasedSearchTerm);
-        })
-      );
-    }
+    // if (!this.searchTerm) {
+    // } else {
+    //   const lowercasedSearchTerm = this.searchTerm.toLowerCase();
+    //   this.filterData = this.dataSet.filter((item: any) =>
+    //     Object.values(item).some(value => {
+    //       if (value === null || value === undefined) {
+    //         return false;
+    //       }
+    //       return value.toString().toLowerCase().includes(lowercasedSearchTerm);
+    //     })
+    //   );
+    // }
   }
 
   updatePaginationRange() {

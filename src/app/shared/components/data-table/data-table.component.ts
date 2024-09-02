@@ -122,6 +122,19 @@ export class DataTableComponent implements OnInit {
     return '';
   }
 
+  getCreatedBy(value: any) {
+    if (value && typeof value === 'object') {
+      return value.first_name + ' ' + value.last_name;
+    }
+    return '';
+  }
+
+  getCreatedByPicture(value: any) {
+    if (value && typeof value === 'object') {
+      return value.profile_picture;
+    }
+    return '';
+  }
   onPageChange(item: number) {
     this.changePage.emit(item);
     this.updatePaginationRange();

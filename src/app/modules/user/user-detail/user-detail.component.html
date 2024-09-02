@@ -16,10 +16,10 @@
                         {{ userData?.first_name || 'N/A' }} {{ userData?.last_name }}
                     </div>
                     <div class="d-flex mt-2 align-items-center flex-wrap">
-                        <div class="custom-badge-dark ps-2 pe-2 dark-light ms-2 semi-bold-fonts">
+                        <!-- <div class="custom-badge-dark ps-2 pe-2 dark-light ms-2 semi-bold-fonts">
                             {{ userData?.id }}
-                        </div>
-                        <div class="d-flex ms-4 mt-1 align-items-center">
+                        </div> -->
+                        <div class="d-flex ms-2 mt-1 align-items-center">
                             <img [src]="userData?.email_verified ? '../../../../../assets/icons/Frame.svg' : '../../../../assets/icons/unverified.svg'"
                                 alt="Verification Status" class="verification-icon">
                             <span class="dark-light fw-600  ms-1">{{ userData?.email || 'N/A' }}</span>
@@ -61,7 +61,14 @@
                         </tr>
                         <tr>
                             <td class="fw-600 w-200px">Role</td>
-                            <td class="dark-light fs-12">{{ getRole(userData?.role) || 'N/A' }}</td>
+                            <td class="dark-light fs-12">
+                                <div class="d-flex flex-wrap align-items-center">
+                                    <span class="custom-badge-primary ps-3 pe-3 m-1 me-2 fs-12"
+                                        *ngFor="let item of userData?.roles">
+                                        {{ item.name }}
+                                    </span>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
 

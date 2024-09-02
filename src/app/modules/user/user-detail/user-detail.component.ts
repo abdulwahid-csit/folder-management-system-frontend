@@ -1,4 +1,4 @@
-import { Component, TemplateRef, OnInit } from '@angular/core';
+import { Component, TemplateRef, OnInit, HostListener } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CreateUserComponent } from '../create-user/create-user.component';
@@ -16,14 +16,17 @@ export class UserDetailComponent implements OnInit {
   modalRef: BsModalRef | null = null;
   userData: any;
   userId: number = 0;
+  isLoading: boolean = false;
   userIdToDelete?: number;
   hidePassword: boolean = true;
   hideConfirmPassword: boolean = true;
   passwordForm!: FormGroup;
   isFocused!: boolean;
   userStatus: string = '';
+  currentPage: number = 1;
+  isFetching: boolean = false;
   permissions: {
-    slug: any; id: number, name: string 
+    slug: any; id: number, name: string
 }[] = [];
   selectedPermissions: Set<number> = new Set();
   permissionModalRef?: BsModalRef;
@@ -49,7 +52,7 @@ export class UserDetailComponent implements OnInit {
       this.userId = +userId;
       this.fetchUserDetails(this.userId);
     }
-    this.fetchPermissions();
+    this.fetchPermissions(1);
   }
 
   initialize() {
@@ -58,7 +61,7 @@ export class UserDetailComponent implements OnInit {
       confirmPassword: [null, Validators.required]
     }, { validator: this.passwordMatchValidator });
   }
- 
+
 
   fetchUserDetails(id: any) {
     this.crudService.read('users', +id).subscribe((response: any) => {
@@ -84,10 +87,27 @@ export class UserDetailComponent implements OnInit {
   }
 
 
-  fetchPermissions() {
-    this.crudService.read('access/permissions').subscribe((response: any) => {
+  // fetchPermissions() {
+  //   this.crudService.read('access/permissions').subscribe((response: any) => {
+  //     if (response.status_code === 200) {
+  //       this.permissions = response.data.payload;
+  //     }
+  //   }, error => {
+  //     console.error('HTTP error:', error);
+  //   });
+  // }
+
+  fetchPermissions(page: number) {
+    let urlData = `access/permissions?page=${page}&limit=10`;
+    if(this.localStoreService.getUserRole().toLowerCase() !== 'master'){
+      urlData += `&organization=${this.localStoreService.getUserOrganization()}`;
+    }
+
+    this.crudService.read(urlData).subscribe((response: any) => {
       if (response.status_code === 200) {
-        this.permissions = response.data.payload;
+        // this.permissions = response.data.payload;
+        this.permissions = [...this.permissions, ...response.data.payload];
+        this.currentPage++;
       }
     }, error => {
       console.error('HTTP error:', error);
@@ -95,7 +115,7 @@ export class UserDetailComponent implements OnInit {
   }
 
   openModal(template: TemplateRef<any>): void {
-    this.fetchPermissions(); 
+    this.fetchPermissions(1);
     this.permissionModalRef = this.modalService.show(template, {
       class: 'modal-dialog modal-dialog-centered modal-lg common_modal_shadow',
       backdrop: 'static',
@@ -114,7 +134,7 @@ export class UserDetailComponent implements OnInit {
         userData: this.userData
       }
     });
-    
+
     this.modalRef.content.successCall.subscribe(() => {
       this.fetchUserDetails(this.userId);
     });
@@ -271,7 +291,7 @@ export class UserDetailComponent implements OnInit {
 
   saveChanges(): void {
     const permissionsToSave: number[] = Array.from(this.selectedPermissions)
-      .filter((permissionId): permissionId is number => typeof permissionId === 'number'); 
+      .filter((permissionId): permissionId is number => typeof permissionId === 'number');
 
     if (!this.userData?.id) {
       console.error('User ID is not available');
@@ -280,7 +300,7 @@ export class UserDetailComponent implements OnInit {
     this.crudService.update('users', this.userData.id, { permissions: permissionsToSave }).subscribe(
       response => {
         this.permissionModalRef?.hide();
-        this.fetchUserDetails(this.userId); 
+        this.fetchUserDetails(this.userId);
       },
       error => {
         console.error('Error updating permissions:', error);
@@ -298,5 +318,14 @@ export class UserDetailComponent implements OnInit {
 
   hideDropdown() {
     this.isDropdownVisible = false;
+  }
+  @HostListener('scroll', ['$event'])
+  onScroll(event: any): void {
+    const scrollOffset = event.target.scrollTop + event.target.clientHeight;
+    const scrollHeight = event.target.scrollHeight;
+
+    if (scrollOffset >= scrollHeight - 1 && !this.isFetching) {
+      this.fetchPermissions(this.currentPage);
+    }
   }
 }

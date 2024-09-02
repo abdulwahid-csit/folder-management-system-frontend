@@ -82,7 +82,7 @@ tr {
         margin-left: 60px !important;
     }
     .modal-dialog-box{
-   
+
         padding: 40px;
         .modal-body{
             padding-top: 24px !important;
@@ -91,7 +91,7 @@ tr {
             font-weight: 600 !important;
         }
     }
-        
+
 }
 .iis-logo img {
     width: 64px;
@@ -131,19 +131,19 @@ tr {
     border: 1px solid #ccc;
     border-radius: 6px !important;
 }
-			
+
 .dropdown-menu {
-    background-color: black; 
+    background-color: black;
     color: white;
     cursor: auto;
     font-size: 14px;
     font-weight: 600;
   }
-  
+
   .dropdown-item {
     color: white;
   }
-  
+
   .dropdown-item:hover {
     background-color: black;
   }
@@ -266,3 +266,8 @@ tr {
 
 }
 
+
+.scrollable-content-container {
+  max-height: 300px; /* Adjust as needed */
+  overflow-y: auto;
+}

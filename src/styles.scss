@@ -733,4 +733,12 @@ input[type="number"]::-webkit-inner-spin-button {
 input[type="number"] {
     -moz-appearance: textfield;
 }
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear,
+input[type="password"]::-webkit-clear-button,
+input[type="password"]::-webkit-password-toggle-button,
+input[type="password"]::-webkit-password-toggle {
+    display: none !important;
+}
   

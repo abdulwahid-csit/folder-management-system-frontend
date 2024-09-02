@@ -64,9 +64,9 @@ text-decoration-color: #6f61cf;
 
 .trash-icon {
   position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 13%;
+  left: 16%;
+  // transform: translateY(-50%);
   width: 20px;
   height: 20px;
   background-image: url('/assets/icons/trash-01.svg');
@@ -74,4 +74,19 @@ text-decoration-color: #6f61cf;
   background-repeat: no-repeat;
   background-size: contain;
   cursor: pointer;
+}
+.hover{
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px !important;
+  height: 30px !important;
+  transition: hover 0.3s ease;
+}
+.hover:hover {
+  background-color: #F2F4F6;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
 }

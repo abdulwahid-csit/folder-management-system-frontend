@@ -71,9 +71,18 @@
                             <td>
                                 <div class="d-flex flex-wrap align-items-center">
                                     <span class="custom-badge-primary ps-3 pe-3 m-1 me-2 fs-12"
-                                        *ngFor="let permission of userData?.permissions">
-                                        {{ permission.description || 'N/A' }}
+                                        *ngFor="let permission of firstFivePermissions">
+                                        {{ permission.name || 'N/A' }}
                                     </span>
+                                    <div *ngIf="userData?.permissions.length > 5" class="dropdown-container position-relative" (mouseenter)="showDropdown()" (mouseleave)="hideDropdown()">
+                                        <span class="custom-badge-primary  m-1 ps-3 pe-3 me-2 fs-12">
+                                          See more...
+                                         </span>
+                                        
+                                        <div class="dropdown-menu" [class.show]="isDropdownVisible">
+                                          <a class="dropdown-item" *ngFor="let item of totalPermissions">{{item?.name}}</a>
+                                        </div>
+                                      </div>
                                     <button *ngIf="localStoreService.hasPermission('can.update.user')"
                                         class="primary_button custom-button ps-2 pe-3 me-4"
                                         (click)="openModal(permission)">

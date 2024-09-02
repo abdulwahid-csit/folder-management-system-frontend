@@ -20,6 +20,10 @@
             <span *ngSwitchCase="'status'" [ngClass]="row[column] == 'active' ? 'badge badge-light-success text-capitalize' : 'badge badge-light-warning text-capitalize'">{{row[column]}}</span>
             <span *ngSwitchCase="'role'">{{getRole(row[column]) || '-'}}</span>
             <span *ngSwitchCase="'organization'">{{getOrganization(row[column]) || '-'}}</span>
+            <span *ngSwitchCase="'created_by'">
+              <img class="rounded-circle" [src]="getCreatedByPicture(row[column])" height="24px" />
+              {{getCreatedBy(row[column]) || '-'}}
+            </span>
             <span *ngSwitchDefault>{{ row[column] }}</span>
           </ng-container>
         </td>

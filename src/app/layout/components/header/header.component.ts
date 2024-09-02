@@ -25,6 +25,7 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.showSettingsIcon = !this.router.url.includes('dashboard');
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
@@ -38,11 +39,8 @@ export class HeaderComponent implements OnInit {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
-
       this.isDetailsPage = event.urlAfterRedirects.includes('/details');
     })
-
-    this.route.queryParamMap.subscribe()
   }
 
   toggleSidebar(){
@@ -66,10 +64,6 @@ export class HeaderComponent implements OnInit {
     } else if ((elem as any).msRequestFullscreen) { /* IE/Edge */
       (elem as any).msRequestFullscreen();
     }
-  }
-
-  ngOnDestroy() {
-
   }
 
   toggleDropdown() {

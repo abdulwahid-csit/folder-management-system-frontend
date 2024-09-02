@@ -24,6 +24,8 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
+      firstName: [null, Validators.required],
+      lastName: [null, Validators.required],
       userName: [null, Validators.required],
       email: [null, [
         Validators.required,
@@ -84,9 +86,12 @@ export class RegisterComponent implements OnInit {
       this.registerForm.markAllAsTouched();
       return;
     }
-    const { email, password, userName } = this.registerForm.value;
+    // const {firstName, lastName,  email, password, userName } = this.registerForm.value;
+    // let data = {
+    //   firstName: firstName, lastName: lastName, email: email, password: password, username: userName
+    // }
     this.isLoading = true;
-    this.authService.signUp(email, password, userName).subscribe((response: any) => {
+    this.authService.signUp(this.registerForm.value).subscribe((response: any) => {
       if (response.status_code === 201) {
         const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/layout';
         this.router.navigateByUrl(returnUrl);

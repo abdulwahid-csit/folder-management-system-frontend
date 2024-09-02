@@ -68,13 +68,7 @@ export class UserDetailComponent implements OnInit {
       if (response.status_code === 200 || response.status_code === 201) {
         this.userData = response.data;
         this.userStatus = response.data.status;
-        for(let i = 0; i < this.userData?.permissions.length; i++){
-          if(i < 5){
-            this.firstFivePermissions.push(this.userData?.permissions[i])
-          }else{
-            this.totalPermissions.push(this.userData?.permissions[i])
-          }
-        }
+        this.splitPermissions();
         this.selectedPermissions = new Set(
           this.userData.permissions.map((perm: any) => {
             return this.permissions.find(p => p.slug === perm.slug)?.id;
@@ -318,6 +312,19 @@ export class UserDetailComponent implements OnInit {
   hideDropdown() {
     this.isDropdownVisible = false;
   }
+
+  splitPermissions() {
+    this.firstFivePermissions = [];
+    this.totalPermissions = [];
+    if (this.userData?.permissions.length > 5) {
+      this.firstFivePermissions = this.userData?.permissions.map((record: any, index: number) => index < 5 ? record : null).filter((record: null) => record !== null);
+      this.totalPermissions = this.userData?.permissions.map((record: any, index: number) => index >= 5 && index < 10 ? record : null).filter((record: null) => record !== null);
+    } else {
+      this.firstFivePermissions = this.userData?.permissions;
+    }
+  }
+
+
   @HostListener('scroll', ['$event'])
   onScroll(event: any): void {
     const scrollOffset = event.target.scrollTop + event.target.clientHeight;

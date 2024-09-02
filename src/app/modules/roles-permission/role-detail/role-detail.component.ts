@@ -40,13 +40,7 @@ export class RoleDetailComponent implements OnInit {
       this.crudService.read('access/roles', +id).subscribe((response: any) => {
         if (response.status_code === 200) {
           this.role = response.data;
-          for(let i = 0; i < this.role?.permissions.length; i++){
-            if(i < 5){
-              this.firstFivePermissions.push(this.role?.permissions[i])
-            }else{
-              this.totalPermissions.push(this.role?.permissions[i])
-            }
-          }
+          this.splitPermissions();
         } else {
           console.error('Failed to fetch role details:', response.message);
         }
@@ -112,6 +106,18 @@ export class RoleDetailComponent implements OnInit {
           console.error('Error deleting role:', error);
         }
       );
+    }
+  }
+
+
+  splitPermissions(){
+    this.firstFivePermissions = [];
+    this.totalPermissions = [];
+    if(this.role?.permissions.length > 5){
+    this.firstFivePermissions = this.role?.permissions.map((record: any, index: number) => index < 5 ? record : null).filter((record: null) => record !== null);
+    this.totalPermissions = this.role?.permissions.map((record: any, index: number) => index >= 5 && index < 10 ? record : null).filter((record: null) => record !== null);
+    }else{
+      this.firstFivePermissions = this.role?.permissions;
     }
   }
 

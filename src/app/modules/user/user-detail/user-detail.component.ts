@@ -66,7 +66,6 @@ export class UserDetailComponent implements OnInit {
   fetchUserDetails(id: any) {
     this.crudService.read('users', +id).subscribe((response: any) => {
       if (response.status_code === 200 || response.status_code === 201) {
-        console.log("Response: ", response);
         this.userData = response.data;
         this.userStatus = response.data.status;
         this.splitPermissions();

@@ -49,8 +49,8 @@
                         <img class="rounded-circle" [src]="localStoreService.getUserProfile()" alt="">
                     </div>
                     <div class="ms-2">
-                        <div class="fs-14px fw-700">{{userName}}</div>
-                        <div class="role fs-12px">{{userRole}}</div>
+                        <div class="fs-14px fw-700">{{localStoreService.getUserName()}}</div>
+                        <div class="role fs-12px">{{localStoreService.getUserRole()}}</div>
                     </div>
                 </div>
                 <div class="me-4 mt-2" (click)="logout()"><span class="cursor-pointer logout-icon"></span></div>

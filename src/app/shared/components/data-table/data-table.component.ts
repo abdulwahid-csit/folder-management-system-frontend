@@ -75,13 +75,16 @@ export class DataTableComponent implements OnInit {
   }
 
   updatePaginationRange() {
-    const currentPage = this.config.paginationParams.current_page || 1;
-    const itemsPerPage = this.config.paginationParams.items_per_page || 10;
-    const totalRecords = this.config.paginationParams.total_records || this.filterData.length;
+    const paginationParams = this.config?.paginationParams || {};
+
+    const currentPage = paginationParams.current_page || 1;
+    const itemsPerPage = paginationParams.items_per_page || 10;
+    const totalRecords = paginationParams.total_records || this.filterData.length;
 
     this.startItem = (currentPage - 1) * itemsPerPage + 1;
     this.endItem = Math.min(currentPage * itemsPerPage, totalRecords);
   }
+
 
   onRowClick(rowData: any) {
     let detailRoute: string;

@@ -101,7 +101,11 @@
             </div>
           </div>
           <div class="d-md-flex justify-content-end mt-4">
-            <button type="submit" class="primary_button">Register</button>
+            <button type="submit" class="primary_button" [disabled]="isLoading">
+              <span class="spinner-border spinner-border-sm" *ngIf="isLoading">
+              </span>
+              Register
+            </button>
           </div>
         </form>
       </div>

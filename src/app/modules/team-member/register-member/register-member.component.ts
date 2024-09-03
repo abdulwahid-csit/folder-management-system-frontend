@@ -32,7 +32,7 @@ export class RegisterMemberComponent implements OnInit {
 
   ngOnInit() {
     this.initialize();
-    // this.checkVerificationLink();
+    this.checkVerificationLink();
   }
 
   initialize() {
@@ -124,7 +124,7 @@ export class RegisterMemberComponent implements OnInit {
 
     const rawToken = this.route.snapshot.paramMap.get('id') || '';
     // const cleanedToken = this.cleanToken(rawToken);
-// alert(rawToken)
+    // alert(rawToken)
     const formData = {
       first_name: this.registerForm.get('firstName')?.value,
       last_name: this.registerForm.get('lastName')?.value,

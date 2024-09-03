@@ -19,6 +19,7 @@ export class OrganizationDetailsComponent implements OnInit {
   modalRef: any;
   modalOpen: boolean = false;
   isLoading: boolean = false;
+  isInviteLoading: boolean = false;
   organizationId: number = 0;
   organizationStatus: string = '';
 
@@ -242,6 +243,7 @@ export class OrganizationDetailsComponent implements OnInit {
       path: '/layout/team-member/register',
       organization: this.organizationId
     }
+    this.isInviteLoading = true;
     this.crudService.create('auth/invite', data).subscribe((response: any) => {
       if (response.status_code === 200 || response.status_code === 201) {
           this.toast.success(response.message, "Success!")
@@ -249,8 +251,10 @@ export class OrganizationDetailsComponent implements OnInit {
       } else {
         this.toast.error(response.message, "Error!")
       }
+      this.isInviteLoading = false;
     }, error => {
-      this.toast.error(error.error.message, "Error!")
+      this.toast.error(error.message, "Error!")
+      this.isInviteLoading = false;
     });
   }
 

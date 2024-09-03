@@ -8,7 +8,7 @@
                         placeholder="Search by name or domain" (keyup)="onKeyChange($event)">
                     <span class="search_icon searchIcon"></span>
                 </div>
-                <button type="button" class="btn filter_btn ms-8px"><span class="filterIcon me-2"></span>
+                <button type="button" class="btn filter_btn ms-8px d-none"><span class="filterIcon me-2"></span>
                     Filter</button>
                 <button *ngIf="localStoreService.hasPermission('can.create.organization')" type="button" class="primary_button ms-8px" (click)="createOganization()">Create
                     Oganization</button>

@@ -3,6 +3,16 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    input{
+        letter-spacing: 0 !important;
+    }
+    input[type="password"]{
+        font-size: 20px;
+        letter-spacing: 3px !important;
+    }
+    input::placeholder{
+        letter-spacing: 0 !important;
+    }
 }
 .text-danger{
     font-size: 12px;
@@ -30,4 +40,32 @@ small {
     .ng-select-container .ng-has-value {
         display: none !important;
     }
+}
+
+.eye2 {
+    right: 17px;
+    top: 70%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    width: 18px;
+    height: 14px;
+    background-size: cover;
+    background-position: center;
+}
+
+.confirm-icon{
+    right: 30px !important;
+}
+.eye-open {
+    background-image: url('../../../../assets/icons/eye-hide.svg');
+}
+
+.eye-closed {
+    background-image: url('../../../../assets//icons/EYE-3.svg');
+}
+
+.is-invalid,
+.is-invalid:focus {
+    box-shadow: 0 0 0 0.25rem rgba(243, 3, 3, 0.2) !important;
+    border-color: #f00606 !important;
 }

@@ -100,13 +100,23 @@ export class CreateUserComponent implements OnInit {
 
   generatePassword(): void {
     const length = 12;
-    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
+    const lowercase = "abcdefghijklmnopqrstuvwxyz";
+    const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const digits = "0123456789";
+    const specialChars = "!@#$%^&*()";
     let password = "";
-    for (let i = 0; i < length; i++) {
-      const randomIndex = Math.floor(Math.random() * charset.length);
-      password += charset[randomIndex];
+    password += lowercase[Math.floor(Math.random() * lowercase.length)];
+    password += uppercase[Math.floor(Math.random() * uppercase.length)];
+    password += digits[Math.floor(Math.random() * digits.length)];
+    password += specialChars[Math.floor(Math.random() * specialChars.length)];
+    const allChars = lowercase + uppercase + digits + specialChars;
+    for (let i = 4; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * allChars.length);
+      password += allChars[randomIndex];
     }
+    password = password.split('').sort(() => 0.5 - Math.random()).join('');
     this.userForm.get('password')?.setValue(password);
+    
   }
 
   onSubmit(): void {

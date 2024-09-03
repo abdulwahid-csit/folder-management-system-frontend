@@ -53,7 +53,7 @@ export class SettingsComponent implements OnInit {
         firstName: data.first_name,
         lastName: data.last_name,
         username: data.username,
-        phoneNumber: data.phone_number || '',
+        phoneNumber: data.phone || '',
         email: data.email,
         role: data.role.name || '',
       })
@@ -122,7 +122,7 @@ export class SettingsComponent implements OnInit {
       user.first_name = data.firstName;
       user.last_name = data.lastName;
       user.username = data.username;
-      user.phone_number = data.phoneNumber || '';
+      user.phone = data.phoneNumber || '';
 
       this.localStoreService.setItem('user', user);
     } else {

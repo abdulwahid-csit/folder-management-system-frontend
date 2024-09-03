@@ -2,12 +2,17 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { LocalStoreService } from '../shared/services/local-store.service';
+import { Router } from '@angular/router';
 
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-  constructor() {}
+  constructor(
+    private localStoreService: LocalStoreService,
+    private router: Router
+  ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
@@ -24,6 +29,11 @@ export class ErrorInterceptor implements HttpInterceptor {
               errorMessage = 'Bad Request. Please check your input.';
               break;
             case 401:
+              if(error.error.message === "Your account is not active. Please contact support for further assistance."){
+                this.localStoreService.removeItem();
+                this.router.navigate(['']);
+                break;
+              }
               errorMessage = 'Unauthorized. Please log in again.';
               break;
             case 403:

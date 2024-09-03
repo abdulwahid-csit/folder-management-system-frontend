@@ -182,7 +182,6 @@ export class CreateRoleComponent implements OnInit {
 
   cancelPermissionModal(): void {
     this.permissionModalRef?.hide();
-    this.ngOnInit();
   }
 
   onChange(): void {

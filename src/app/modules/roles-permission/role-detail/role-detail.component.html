@@ -63,7 +63,7 @@
             </tr>
             <tr>
               <td class="fs-14 fw-600">Created by</td>
-              <td class="dark-light fs-12">{{ role?.created_by || 'N/A' }}</td>
+              <td class="dark-light fs-12">{{ role?.created_by.first_name || 'N/A' }} {{ role?.created_by.last_name || 'N/A' }}</td>
             </tr>
             <tr>
               <td class="fw-600">Last Updated Time</td>
@@ -71,7 +71,7 @@
             </tr>
             <tr>
               <td class="fw-600">Last Updated By</td>
-              <td class="dark-light fs-12">{{ role?.updated_by || 'N/A' }}</td>
+              <td class="dark-light fs-12">{{ role?.updated_by.first_name || 'N/A' }} {{ role?.updated_by.last_name || 'N/A' }}</td>
             </tr>
           </tbody>
         </table>

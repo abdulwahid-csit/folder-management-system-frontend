@@ -92,7 +92,7 @@ export class UserDetailComponent implements OnInit {
   // }
 
   fetchPermissions(page: number) {
-    let urlData = `access/permissions?page=${page}&limit=10`;
+    let urlData = `access/permissions/users/${this.userId}?page=${page}&limit=10`;
     if(this.localStoreService.getUserRole().toLowerCase() !== 'master'){
       urlData += `&organization=${this.localStoreService.getUserOrganization()}`;
     }

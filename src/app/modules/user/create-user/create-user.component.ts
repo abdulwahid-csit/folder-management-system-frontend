@@ -28,9 +28,10 @@ export class CreateUserComponent implements OnInit {
   userForm!: FormGroup;
   hidePassword = true;
   isFocused: boolean = false;
-  roles: any = [];
+  roleList: any = [];
   organization: any = [];
   isLoading: boolean = false;
+  updateMode: boolean = false;
   allRoles: any[] = [];
 
   constructor(
@@ -46,9 +47,13 @@ export class CreateUserComponent implements OnInit {
 
     if (this.localStoreService.getUserRole().toLowerCase() === 'master') {
       this.fetchOrganization();
+      if (this.mode === 'update') {
+        this.fetchRoles(this.userData.organization.id);
+      }
     } else {
       this.fetchRoles(parseInt(this.localStoreService.getUserOrganization()));
     }
+
   }
 
   initialize() {
@@ -67,6 +72,7 @@ export class CreateUserComponent implements OnInit {
     if (this.mode === 'update' && this.userData) {
       this.userForm.get('organization')?.clearValidators();
       this.userForm.get('roles')?.clearValidators();
+      this.updateMode = true;
 
       this.userForm.patchValue({
         firstName: this.userData.first_name || '',
@@ -74,12 +80,14 @@ export class CreateUserComponent implements OnInit {
         username: this.userData.username || '',
         phone: this.userData.phone || '',
         email: this.userData.email || '',
-        roles: this.userData.roles ? this.userData.roles.map((role: any) => role.id) : [],
+        roles: [],
         organization: this.userData.organization ? this.userData.organization.id : '',
         status: this.userData.status || 'active'
       });
+
       this.userForm.get('email')?.disable();
       this.userForm.removeControl('password');
+
     } else {
       this.userForm.get('organization')?.setValidators(Validators.required);
       this.userForm.get('roles')?.setValidators(Validators.required);
@@ -116,10 +124,12 @@ export class CreateUserComponent implements OnInit {
     }
     password = password.split('').sort(() => 0.5 - Math.random()).join('');
     this.userForm.get('password')?.setValue(password);
-    
+
   }
 
   onSubmit(): void {
+    console.log(this.userForm.value)
+return;
     if (this.localStoreService.getUserRole().toLowerCase() !== 'master') {
       this.userForm.patchValue({
         organization: this.localStoreService.getUserOrganization()
@@ -170,6 +180,7 @@ export class CreateUserComponent implements OnInit {
   }
 
   onValueChange(): void {
+    this.updateMode = false;
     const control = this.userForm.get('roles');
     if (control?.value) {
       this.isFocused = false;
@@ -178,10 +189,7 @@ export class CreateUserComponent implements OnInit {
   }
 
   fetchRoles(organizationId: number): void {
-    this.roles = [];
-    this.userForm.patchValue({
-      roles: []
-    });
+    this.roleList = [];
 
     const urlData = 'access/roles?organization=' + organizationId;
     this.crudService.read(urlData)
@@ -202,10 +210,16 @@ export class CreateUserComponent implements OnInit {
 
   filterSelectedRoles(): void {
     const selectedRoles = this.userForm.get('roles')?.value || [];
-    this.roles = this.allRoles.filter((role: any) => !selectedRoles.includes(role.id));
+    this.roleList = this.allRoles.filter((role: any) => !selectedRoles.includes(role.id));
+    if(this.mode === "update" && this.updateMode === true){
+      const rolesData = this.userData.roles.map((role: any) => role.id);
+      this.userForm.patchValue({
+        roles: rolesData
+      })
+    }
   }
   restoreRoles(): void {
-    this.roles = [...this.allRoles];
+    this.roleList = [...this.allRoles];
   }
 
 
@@ -226,6 +240,9 @@ export class CreateUserComponent implements OnInit {
     const control = this.userForm.get('organization');
     if (control?.value) {
       this.isFocused = false;
+      this.userForm.patchValue({
+        roles: []
+      });
       this.fetchRoles(control.value);
     }
   }

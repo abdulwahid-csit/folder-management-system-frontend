@@ -18,6 +18,8 @@ export class RegisterMemberComponent implements OnInit {
   token: string = '';
   isFocused: boolean = false;
   isLoading: boolean = false;
+  hidePassword: boolean = true;
+  hideConfirmPassword: boolean = true;
 
   constructor(
     private modalService: BsModalService,
@@ -30,7 +32,7 @@ export class RegisterMemberComponent implements OnInit {
 
   ngOnInit() {
     this.initialize();
-    this.checkVerificationLink();
+    // this.checkVerificationLink();
   }
 
   initialize() {
@@ -41,7 +43,7 @@ export class RegisterMemberComponent implements OnInit {
       phoneNumber: new FormControl('', [Validators.required]),
       email: new FormControl({ value: '', disabled: true }, [Validators.required]),
       role: new FormControl({ value: '', disabled: true }, [Validators.required]),
-      password: [null, [Validators.required, Validators.minLength(8)]],
+      password: [null, [Validators.required, Validators.minLength(8)],  Validators.pattern("^[A-Z a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")],
       confirmPassword: [null, Validators.required]
     }, { validator: this.passwordMatchValidator });
   }
@@ -165,5 +167,51 @@ export class RegisterMemberComponent implements OnInit {
         this.isLoading = false;
       }
     );
+  }
+
+  togglePasswordVisibility(id: number): void {
+    if(id === 1){
+      this.hidePassword = !this.hidePassword;
+    }else{
+      this.hideConfirmPassword = !this.hideConfirmPassword
+    }
+  }
+
+
+  getPasswordErrors(): { [key: string]: boolean } {
+    const errors: { [key: string]: boolean } = {
+      required: false,
+      minlength: false,
+      uppercase: false,
+      lowercase: false,
+      digit: false,
+      special: false
+    };
+
+    const passwordControl = this.registerForm.get('password');
+    if (!passwordControl) return errors;
+
+    const password = passwordControl.value;
+
+    if (passwordControl.hasError('required')) {
+      errors['required'] = true;
+    }
+    if (passwordControl.hasError('minlength')) {
+      errors['minlength'] = true;
+    }
+    if (password && !/[A-Z]/.test(password)) {
+      errors['uppercase'] = true;
+    }
+    if (password && !/[a-z]/.test(password)) {
+      errors['lowercase'] = true;
+    }
+    if (password && !/\d/.test(password)) {
+      errors['digit'] = true;
+    }
+    if (password && !/\W/.test(password)) {
+      errors['special'] = true;
+    }
+
+    return errors;
   }
 }

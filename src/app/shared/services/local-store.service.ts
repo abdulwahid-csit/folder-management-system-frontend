@@ -68,6 +68,21 @@ export class LocalStoreService {
     return userData.organization.id || '';
   }
   
+  getUserOrganizationLogo(): string {
+    const userData = this.getItem('user');
+    return userData.organization.logo || '';
+  }
+
+  getUserOrganizationName(): string {
+    const userData = this.getItem('user');
+    return userData.organization.name || '';
+  }
+
+  getUserOrganizationDomain(): string {
+    const userData = this.getItem('user');
+    return userData.organization.domain || '';
+  }
+
   getUserPermission() {
     const userData = this.getItem('user');
     return userData.permissions || 'NA';

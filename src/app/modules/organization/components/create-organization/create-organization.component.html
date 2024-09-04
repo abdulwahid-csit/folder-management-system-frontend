@@ -15,13 +15,25 @@
             <div class="row">
 
             <!-- Domain Input -->
-            <div class="mb-3   custom-input" [ngClass]="isControlHasError('domain','required') ? 'custom-input-error' : 'custom-input'">
-                <label for="" class="mb-1 primary_color required font_weight_500">Domain</label>
-                <input type="text" class="form-control " formControlName="domain" placeholder="Enter domain name">
-                <small *ngIf="isControlHasError('domain','required')" class="text-danger">Domain name is required</small>
+            <div class="mb-3 custom-input" [ngClass]="isControlHasError('domain', 'required') ? 'custom-input-error' : 'custom-input'">
+              <label for="domain" class="mb-1 primary_color required font_weight_500">Domain</label>
+              <input
+                type="text"
+                id="domain"
+                class="form-control"
+                formControlName="domain"
+                placeholder="Enter domain name"
+              />
+              <div *ngIf="domainControl?.hasError('required') && domainControl?.touched" class="text-danger">
+                Domain is required
+              </div>
+              <div *ngIf="domainControl?.hasError('invalidDomain') && domainControl?.touched" class="text-danger">
+                {{ domainControl?.errors?.['invalidDomain'] }}
+              </div>
             </div>
+
              </div>
-         
+
 
             <!-- Status Dropdown -->
 
@@ -39,8 +51,8 @@
                 </ng-select>
                 <small *ngIf="isControlHasError('status', 'required')" class="text-danger">Status is required</small>
             </div>
-          
-           
+
+
 
             <!-- Conditional Notes -->
             <div *ngIf="title === 'Edit'">

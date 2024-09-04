@@ -49,23 +49,33 @@ export class CreateApplicationComponent implements OnInit {
       this.isFocused = false;
     }
   }
-  initialize(){
+  initialize() {
     this.applicationForm = new FormGroup({
       app_name: new FormControl('', [Validators.required]),
       url: new FormControl(''),
       organization: new FormControl('', [Validators.required]),
-      redirectUri: new FormArray([new FormControl('')]),
-    })
+      redirectUri: new FormArray([]),  // Initialize with an empty array
+    });
 
     if (this.itemList && typeof this.itemList === 'object') {
       this.applicationForm.patchValue({
         app_name: this.itemList.app_name,
         url: this.itemList.url,
-        redirectUri: this.itemList.redirect_uri,
         organization: this.itemList.organization.id
       });
+
+      const redirectUriArray = this.applicationForm.get('redirectUri') as FormArray;
+
+      redirectUriArray.clear();
+
+      if (this.itemList.redirect_uri && Array.isArray(this.itemList.redirect_uri)) {
+        this.itemList.redirect_uri.forEach((uri: any) => {
+          redirectUriArray.push(new FormControl(uri));
+        });
+      }
     }
   }
+
 
   closeModal(): void {
     this.modalService.hide();

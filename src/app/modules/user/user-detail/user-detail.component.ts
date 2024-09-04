@@ -92,7 +92,6 @@ export class UserDetailComponent implements OnInit {
         this.permissions = [...this.permissions, ...response.data.payload];
         this.currentPage++;
       }
-      console.warn("Permission", this.permissions);
 
     }, error => {
       console.error('HTTP error:', error);

@@ -123,12 +123,17 @@
                         </tr>
                         <tr>
                             <td class="fs-14 fw-600">Email Address</td>
-                            <td>
+                            <td class="d-flex">
                                 <div class="d-flex align-items-center">
                                     <img [src]="userData?.email_verified ? '../../../../../assets/icons/Frame.svg' : '../../../../assets/icons/unverified.svg'"
                                         alt="Verification Status" class="verification-icon">
                                     <span class="dark-light fs-14 fw-600 ms-2">{{ userData?.email|| 'N/A' }}</span>
                                 </div>
+                                <button *ngIf="!(userData?.email_verified)"
+                                class="primary_button custom-button px-3 me-4 ms-3" (click)="verifyEmail(userData?.id)">
+                                 Verify Email
+                            </button>
+            
                             </td>
                         </tr>
                         <tr>
@@ -144,12 +149,7 @@
                         *ngIf="localStoreService.hasPermission('can.update.user')">
                         Edit Detail
                     </button>
-                    <ng-container *ngIf="!(userData?.email_verified)">
-                        <button class="primary_button fs-14 fw-600 ms-3" (click)="verifyEmail(userData?.id)">
-                            Verify Email
-                        </button>
-
-                    </ng-container>
+                    
                 </div>
             </div>
         </div>

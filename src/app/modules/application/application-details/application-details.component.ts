@@ -57,7 +57,6 @@ export class ApplicationDetailsComponent {
         this.app_secret = response.data.app_secret;
         this.app_id = response.data.app_id;
         this.applicationData = response.data;
-        console.log(response.data)
       }
 
     }, error => {

@@ -27,7 +27,7 @@ export class ApplicationDetailsComponent {
 
   constructor(
     private modalService: BsModalService,
-    private crudService: CrudService, 
+    private crudService: CrudService,
     private route: ActivatedRoute,
     private router: Router,
     private toast: ToastrService,

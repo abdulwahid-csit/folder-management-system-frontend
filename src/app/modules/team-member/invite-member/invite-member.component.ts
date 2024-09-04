@@ -55,7 +55,7 @@ export class InviteMemberComponent implements OnInit {
           console.log(error, "Error!")
         }
       );
-         
+
     // this.crudService.read('access/roles')
     //   .subscribe(
     //     (response) => {
@@ -116,7 +116,7 @@ export class InviteMemberComponent implements OnInit {
           this.closeModal();
         },
         error => {
-          this.toast.error(error.error.message, "Error!")
+          this.toast.error(error.message, "Error!")
           this.isLoading = false;
         }
       );

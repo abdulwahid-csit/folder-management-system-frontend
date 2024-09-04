@@ -87,7 +87,6 @@ export class UserDetailComponent implements OnInit {
     }
 
     this.crudService.read(urlData).subscribe((response: any) => {
-      console.log('Permissions response:', response); 
       if (response.status_code === 200) {
         this.permissions = [...this.permissions, ...response.data.payload];
         this.currentPage++;

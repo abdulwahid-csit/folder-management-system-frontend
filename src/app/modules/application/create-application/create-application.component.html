@@ -16,13 +16,24 @@
                     required</small>
             </div>
             <div class="mb-4 custom-input">
-                <label for="appUrl" class="mb-1 primary_color  fw-700 ">App URL</label>
-                <p>Enter the endpoint where users will be sent after authentication. This URI must match the one registered with your application to ensure secure and correct redirection.</p>
-                <input type="text" class="form-control form-control-lg ps-3 fs-14px" placeholder="Enter url"
-                    formControlName="url">
-                <!-- <span *ngIf="isControlHasError('domainName','required')" class="text-danger">Domain name is
-                    required</span> -->
+              <label for="appUrl" class="mb-1 primary_color fw-700">App URL</label>
+              <p>Enter the endpoint where users will be sent after authentication. This URI must match the one registered with your application to ensure secure and correct redirection.</p>
+              <input
+                type="text"
+                id="appUrl"
+                class="form-control form-control-lg ps-3 fs-14px"
+                placeholder="Enter URL"
+                formControlName="url"
+              />
+              <div *ngIf="urlControl?.hasError('required') && urlControl?.touched" class="text-danger">
+                URL is required
+              </div>
+              <div *ngIf="urlControl?.hasError('invalidDomain') && urlControl?.touched" class="text-danger">
+                {{ urlControl?.errors?.['invalidDomain'] }}
+              </div>
+
             </div>
+
 
 
 

@@ -66,7 +66,6 @@ export class UserDetailComponent implements OnInit {
     this.crudService.read('users', +id).subscribe((response: any) => {
       if (response.status_code === 200 || response.status_code === 201) {
         this.userData = response.data;
-        console.log("User data: ", this.userData);
         this.userStatus = response.data.status;
         this.splitPermissions();
         this.selectedPermissions = new Set(
@@ -301,7 +300,7 @@ export class UserDetailComponent implements OnInit {
 
   verifyEmail(id: string) {
     this.crudService.create('users/verify-user', { userId: id }).subscribe(response => {
-      console.log("Response from email verification api. ", response);
+      // console.log("Response from email verification api. ", response);
       if (response.status_code === 200) {
         this.toast.success(response.message);
         this.fetchUserDetails(id);

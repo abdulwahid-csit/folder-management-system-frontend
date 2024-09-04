@@ -144,6 +144,12 @@
                         *ngIf="localStoreService.hasPermission('can.update.user')">
                         Edit Detail
                     </button>
+                    <ng-container *ngIf="!(userData?.email_verified)">
+                        <button class="primary_button fs-14 fw-600 ms-3" (click)="verifyEmail(userData?.id)">
+                            Verify Email
+                        </button>
+
+                    </ng-container>
                 </div>
             </div>
         </div>

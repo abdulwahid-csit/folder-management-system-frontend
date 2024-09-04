@@ -85,8 +85,7 @@
             <form [formGroup]="accountDetailsForm" (ngSubmit)="onAccountDetailsSubmit()" class="">
               <div class="d-flex justify-content-between">
                 <div class="mb-4 custom-input w-50 me-4 position-relative"
-                  [ngClass]="isControlHasError('firstName', 'required', accountDetailsForm) ? 'custom-input-error': 'custom-input'"
-                  [ngClass]="{'disabled-input':!isEdited}">
+                  [ngClass]="isControlHasError('firstName', 'required', accountDetailsForm) ? 'custom-input-error': 'custom-input' && {'disabled-input':!isEdited}">
                   <label for="first-name" class="form-label mb-1 fs-14px fw-700 required">First Name
                   </label>
                   <input type="text" class="form-control fs-14px" id="first-name"
@@ -100,8 +99,7 @@
                   </div>
                 </div>
                 <div class="mb-4 custom-input w-50 position-relative"
-                  [ngClass]="isControlHasError('lastName', 'required', accountDetailsForm) ? 'custom-input-error': 'custom-input'"
-                  [ngClass]="{'disabled-input':!isEdited}">
+                  [ngClass]="isControlHasError('lastName', 'required', accountDetailsForm) ? 'custom-input-error': 'custom-input' && {'disabled-input':!isEdited}">
                   <label for="last-name" class="form-label mb-1 fs-14px fw-700 required ">Last Name
                   </label>
                   <input type="text" class="form-control fs-14px" id="last-name"
@@ -116,8 +114,7 @@
               </div>
               <div class="d-flex justify-content-between position-relative">
                 <div class="mb-4 custom-input w-50 me-4 position-relative"
-                  [ngClass]="isControlHasError('username', 'required', accountDetailsForm) ? 'custom-input-error': 'custom-input'"
-                  [ngClass]="{'disabled-input':!isEdited}">
+                  [ngClass]="isControlHasError('username', 'required', accountDetailsForm) ? 'custom-input-error': 'custom-input' && {'disabled-input':!isEdited}">
                   <label for="username" class="form-label mb-1 fs-14px fw-700 required">User Name
                   </label>
                   <input type="text" class="form-control fs-14px" id="username"
@@ -127,14 +124,13 @@
                     class=" mt-1 text-danger">Username is required</small>
                 </div>
                 <div class="mb-4 custom-input w-50 position-relative"
-                  [ngClass]="isControlHasError('phoneNumber', 'required', accountDetailsForm) ? 'custom-input-error': 'custom-input'"
-                  [ngClass]="{'disabled-input':!isEdited}">
+                  [ngClass]="isControlHasError('phone', 'required', accountDetailsForm) ? 'custom-input-error': 'custom-input' && {'disabled-input':!isEdited}">
                   <label for="phone-number" class="form-label mb-1 fs-14px fw-700 required">Phone Number
                   </label>
                   <input type="number" inputmode="tel" class="form-control fs-14px" id="phone-number"
-                    placeholder="Enter phone number" formControlName="phoneNumber" [disabled]="!isEdited" [readOnly]="!isEdited"
+                    placeholder="Enter phone number" formControlName="phone" [disabled]="!isEdited" [readOnly]="!isEdited"
                     [ngClass]="{'pointer-none disabled focus-none': !isEdited}">
-                  <small *ngIf="isControlHasError('phoneNumber','required', accountDetailsForm)"
+                  <small *ngIf="isControlHasError('phone','required', accountDetailsForm)"
                     class="mt-1 text-danger">Phone number required</small>
                 </div>
 
@@ -165,7 +161,7 @@
                   Edit
                 </button>
 
-                <button type="button" class="cancel_btn me-2" *ngIf="isEdited" (click)="isEdited = false; ngOnInit()" >
+                <button type="button" class="cancel_btn me-2" *ngIf="isEdited" (click)="isEdited = false" >
                   Cancel
                 </button>
                 <button type="submit" class="primary_button" [disabled]="isLoadingAccount" *ngIf="isEdited">
@@ -258,26 +254,43 @@
           <h4 class="fs-20px fw-700 mb-3">Organization Detail</h4>
           <form [formGroup]="organizationForm" (ngSubmit)="onOrganizationSubmit()" class="">
             <div class="d-flex justify-content-between">
-              <div class="mb-3 custom-input w-50 me-4">
+              <div class="mb-3 custom-input w-50 me-4"
+              [ngClass]="isControlHasError('name', 'required', organizationForm) ? 'custom-input-error': 'custom-input' && {'disabled-input':!isEditedOrganiation}">
                 <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700">Name
                 </label>
                 <input type="text" class="form-control fs-14px" placeholder="Enter Organization name"
-                  formControlName="name">
-
+                  formControlName="name" [disabled]="!isEditedOrganiation" [readOnly]="!isEditedOrganiation"
+                  [ngClass]="{'pointer-none disabled focus-none': !isEditedOrganiation}">
+                  <small *ngIf="isControlHasError('name','required', organizationForm)"
+                  class="mt-1 text-danger">Phone number required</small>
               </div>
-              <div class="mb-3 custom-input w-50">
+              <div class="mb-3 custom-input w-50"
+              [ngClass]="isControlHasError('domain', 'required', organizationForm) ? 'custom-input-error': 'custom-input' && {'disabled-input':!isEditedOrganiation}">
                 <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 ">Domain
                 </label>
                 <input type="text" class="form-control fs-14px" placeholder="Enter domain name"
-                  formControlName="domain">
-
+                  formControlName="domain" [disabled]="!isEditedOrganiation" [readOnly]="!isEditedOrganiation"
+                  [ngClass]="{'pointer-none disabled focus-none': !isEditedOrganiation}">
+                  <small *ngIf="isControlHasError('domain','required', organizationForm)"
+                  class="mt-1 text-danger">Phone number required</small>
               </div>
 
             </div>
             <div class="d-flex justify-content-end mt-4">
-              <button type="submit" class="primary_button" [disabled]="isLoadingOrganization">
+              <!-- <button type="submit" class="primary_button" [disabled]="isLoadingOrganization">
                 <span class="spinner-border spinner-border-sm" *ngIf="isLoadingOrganization"></span>
                 Save
+              </button> -->
+              <button type="button" class="primary_button" *ngIf="!isEditedOrganiation" (click)="isEditedOrganiation = true">
+                Edit
+              </button>
+
+              <button type="button" class="cancel_btn me-2" *ngIf="isEditedOrganiation" (click)="isEditedOrganiation = false" >
+                Cancel
+              </button>
+              <button type="submit" class="primary_button" [disabled]="isLoadingOrganization" *ngIf="isEditedOrganiation">
+                <span class="spinner-border spinner-border-sm" *ngIf="isLoadingOrganization"></span>
+                Update
               </button>
             </div>
           </form>

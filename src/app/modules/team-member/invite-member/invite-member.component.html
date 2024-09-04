@@ -1,16 +1,13 @@
 <div class="p-0 modal-body">
   <h4 class="fs-20px fw-700 invite-header mb-0">Invite Member</h4>
   <form [formGroup]="inviteForm" (ngSubmit)="onSubmit()">
-    <div class="mb-4 custom-input"
-      [ngClass]="{
-        'custom-input-error': isControlHasError('email', 'required') || isControlHasError('email', 'email'),
-        'custom-input': !isControlHasError('email', 'required') && !isControlHasError('email', 'email')
-      }">
+    <div class="mb-4"
+      [ngClass]="(isControlHasError('email', 'required') || isControlHasError('email', 'pattern'))? 'custom-input-error': 'custom-input'">
       <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Email</label>
-      <input type="text" class="form-control ps-3 pe-3 form-control-lg fs-14px" id="exampleFormControlInput1"
+      <input type="email" class="form-control fs-14px" id="exampleFormControlInput1"
         placeholder="Enter email address" formControlName="email">
       <small *ngIf="isControlHasError('email', 'required')" class="mt-1 fs-14px text-danger">Email is required</small>
-      <small *ngIf="isControlHasError('email', 'email')" class="mt-1 fs-14px text-danger">Enter a valid email address</small>
+      <small *ngIf="isControlHasError('email', 'pattern')" class="mt-1 fs-14px text-danger">Enter a valid email address</small>
     </div>
     <div class="mb-3 custom-dropdown">
       <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Role</label>

@@ -19,7 +19,8 @@ export class SettingsComponent implements OnInit {
   isLoadingAccount: boolean = false;
   isLoadingOrganization: boolean = false;
   organizationData: any = {};
-  isEdited = false;
+  isEdited: boolean = false;
+  isEditedOrganiation: boolean = false;
   hideCurrentPassword = true;
   hideNewPassword = true;
   hideConfirmNewPassword = true;
@@ -41,7 +42,7 @@ export class SettingsComponent implements OnInit {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       username: ['', [Validators.required]],
-      phoneNumber: ['', [Validators.required]],
+      phone: ['', [Validators.required]],
       email: ['', [Validators.required]],
       role: [''],
     })
@@ -53,7 +54,7 @@ export class SettingsComponent implements OnInit {
         firstName: data.first_name,
         lastName: data.last_name,
         username: data.username,
-        phoneNumber: data.phone || '',
+        phone: data.phone || '',
         email: data.email,
         role: data.role.name || '',
       })
@@ -101,28 +102,31 @@ export class SettingsComponent implements OnInit {
       this.accountDetailsForm.markAllAsTouched();
       return;
     }
-    this.isEdited = false;
     this.isLoadingAccount = true;
     this.accountDetailsForm.removeControl('role');
     this.crudService.update('member', this.localStoreService.getUserId(), this.accountDetailsForm.value).subscribe(response => {
       this.toast.success(response.message, "Success!");
       this.updateLocalStorage(this.accountDetailsForm.value);
       this.isLoadingAccount = false;
+      this.isEdited = false;
+
     }, error => {
       this.toast.error(error.message, "Error!");
       this.isLoadingAccount = false;
+      this.isEdited = false;
+
     });
     this.accountDetailsForm.addControl('role', this.fb.control(this.localStoreService.getUserRole(), Validators.required));
   }
 
-  updateLocalStorage(data: { firstName: string, lastName: string, username: string, phoneNumber?: string }): void {
+  updateLocalStorage(data: { firstName: string, lastName: string, username: string, phone?: string }): void {
     const user = this.localStoreService.getItem('user');
 
     if (user) {
       user.first_name = data.firstName;
       user.last_name = data.lastName;
       user.username = data.username;
-      user.phone = data.phoneNumber || '';
+      user.phone = data.phone || '';
 
       this.localStoreService.setItem('user', user);
     } else {
@@ -171,9 +175,12 @@ export class SettingsComponent implements OnInit {
         this.toast.error(response.message, "Error!");
       }
       this.isLoadingOrganization = false;
+      this.isEditedOrganiation = false;
+
     }, error => {
       this.toast.error(error.message, "Error!");
       this.isLoadingOrganization = false;
+      this.isEditedOrganiation = false;
     });
   }
 

@@ -41,7 +41,7 @@ export class SettingsComponent implements OnInit {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       username: ['', [Validators.required]],
-      phoneNumber: ['', [Validators.required]],
+      phone: ['', [Validators.required]],
       email: ['', [Validators.required]],
       role: [''],
     })
@@ -53,7 +53,7 @@ export class SettingsComponent implements OnInit {
         firstName: data.first_name,
         lastName: data.last_name,
         username: data.username,
-        phoneNumber: data.phone || '',
+        phone: data.phone || '',
         email: data.email,
         role: data.role.name || '',
       })
@@ -115,14 +115,14 @@ export class SettingsComponent implements OnInit {
     this.accountDetailsForm.addControl('role', this.fb.control(this.localStoreService.getUserRole(), Validators.required));
   }
 
-  updateLocalStorage(data: { firstName: string, lastName: string, username: string, phoneNumber?: string }): void {
+  updateLocalStorage(data: { firstName: string, lastName: string, username: string, phone?: string }): void {
     const user = this.localStoreService.getItem('user');
 
     if (user) {
       user.first_name = data.firstName;
       user.last_name = data.lastName;
       user.username = data.username;
-      user.phone = data.phoneNumber || '';
+      user.phone = data.phone || '';
 
       this.localStoreService.setItem('user', user);
     } else {

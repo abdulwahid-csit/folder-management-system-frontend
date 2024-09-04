@@ -7,6 +7,7 @@ import { CrudService } from 'src/app/shared/services/crud.service';
 import { DeleteModalComponent } from 'src/app/shared/components/delete-modal/delete-modal.component';
 import { ToastrService } from 'ngx-toastr';
 import { LocalStoreService } from 'src/app/shared/services/local-store.service';
+
 @Component({
   selector: 'app-user-detail',
   templateUrl: './user-detail.component.html',
@@ -26,14 +27,13 @@ export class UserDetailComponent implements OnInit {
   currentPage: number = 1;
   isFetching: boolean = false;
   permissions: {
-    slug: any; id: number, name: string
-}[] = [];
+    slug: any; id: number, name: string, is_editable: boolean, is_selected:boolean
+  }[] = [];
   selectedPermissions: Set<number> = new Set();
   permissionModalRef?: BsModalRef;
   firstFivePermissions: any[] = [];
   totalPermissions: any[] = [];
   isDropdownVisible = false;
-
 
   constructor(
     private modalService: BsModalService,
@@ -51,8 +51,8 @@ export class UserDetailComponent implements OnInit {
     if (userId) {
       this.userId = +userId;
       this.fetchUserDetails(this.userId);
+      this.fetchPermissions(this.userId, 1);
     }
-    this.fetchPermissions(1);
   }
 
   initialize() {
@@ -62,54 +62,47 @@ export class UserDetailComponent implements OnInit {
     }, { validator: this.passwordMatchValidator });
   }
 
-
   fetchUserDetails(id: any) {
     this.crudService.read('users', +id).subscribe((response: any) => {
       if (response.status_code === 200 || response.status_code === 201) {
         this.userData = response.data;
-        console.log("User data: ", this.userData)
+        console.log("User data: ", this.userData);
         this.userStatus = response.data.status;
         this.splitPermissions();
         this.selectedPermissions = new Set(
           this.userData.permissions.map((perm: any) => {
             return this.permissions.find(p => p.slug === perm.slug)?.id;
           }).filter((id: undefined) => id !== undefined)
-        );
+        );        
       }
     }, error => {
       console.error('HTTP error:', error);
     });
   }
 
-
-  // fetchPermissions() {
-  //   this.crudService.read('access/permissions').subscribe((response: any) => {
-  //     if (response.status_code === 200) {
-  //       this.permissions = response.data.payload;
-  //     }
-  //   }, error => {
-  //     console.error('HTTP error:', error);
-  //   });
-  // }
-
-  fetchPermissions(page: number) {
-    let urlData = `access/permissions?page=${page}&limit=10`;
-    if(this.localStoreService.getUserRole().toLowerCase() !== 'master'){
+  fetchPermissions(userId: number, page: number) {
+    let urlData = `access/permissions/user/${userId}?page=${page}&limit=10`;
+    if (this.localStoreService.getUserRole().toLowerCase() !== 'master') {
       urlData += `&organization=${this.localStoreService.getUserOrganization()}`;
     }
 
     this.crudService.read(urlData).subscribe((response: any) => {
+      console.log('Permissions response:', response); 
       if (response.status_code === 200) {
-        // this.permissions = response.data.payload;
         this.permissions = [...this.permissions, ...response.data.payload];
         this.currentPage++;
       }
+      console.warn("Permission", this.permissions);
+
     }, error => {
       console.error('HTTP error:', error);
     });
   }
 
+
+
   openModal(template: TemplateRef<any>): void {
+    this.fetchPermissions(this.userId, this.currentPage);
     this.permissionModalRef = this.modalService.show(template, {
       class: 'modal-dialog modal-dialog-centered modal-lg common_modal_shadow',
       backdrop: 'static',
@@ -183,6 +176,7 @@ export class UserDetailComponent implements OnInit {
     const control = this.passwordForm.controls[controlName];
     return control.hasError(validationType) && (control.dirty || control.touched);
   }
+
   getPasswordErrors(): { [key: string]: boolean } {
     const errors: { [key: string]: boolean } = {
       required: false,
@@ -245,7 +239,7 @@ export class UserDetailComponent implements OnInit {
   }
 
   onCancel(): void {
-    this.closeModal()
+    this.closeModal();
     this.passwordForm.reset();
   }
 
@@ -276,22 +270,26 @@ export class UserDetailComponent implements OnInit {
   }
 
   togglePermission(permissionId: number) {
-    if (this.selectedPermissions.has(permissionId)) {
-      this.selectedPermissions.delete(permissionId);
-    } else {
-      this.selectedPermissions.add(permissionId);
+    const permission = this.permissions.find(p => p.id === permissionId);
+    if (permission?.is_editable) {
+      if (this.selectedPermissions.has(permissionId)) {
+        this.selectedPermissions.delete(permissionId);
+      } else {
+        this.selectedPermissions.add(permissionId);
+      }
     }
   }
 
   saveChanges(): void {
-    const permissionsToSave: number[] = Array.from(this.selectedPermissions)
-      .filter((permissionId): permissionId is number => typeof permissionId === 'number');
-
     if (!this.userData?.id) {
       console.error('User ID is not available');
       return;
     }
-    this.crudService.update('users', this.userData.id, { permissions: permissionsToSave }).subscribe(
+    const permissionIdsToSave = Array.from(this.selectedPermissions)
+      .filter(id => typeof id === 'number'); 
+    const permissionsPayload = permissionIdsToSave;
+
+    this.crudService.update('users', this.userData.id, { permissions: permissionsPayload }).subscribe(
       response => {
         this.permissionModalRef?.hide();
         this.fetchUserDetails(this.userId);
@@ -302,15 +300,15 @@ export class UserDetailComponent implements OnInit {
     );
   }
 
-  verifyEmail(id: string){
-    this.crudService.create('users/verify-user', {userId: id}).subscribe(response => {
+
+  verifyEmail(id: string) {
+    this.crudService.create('users/verify-user', { userId: id }).subscribe(response => {
       console.log("Response from email verification api. ", response);
       if (response.status_code === 200) {
-        this.toast.success(response.message)
+        this.toast.success(response.message);
         this.fetchUserDetails(id);
       }
-
-    })
+    });
   }
 
   cancelPermissionModal(): void {
@@ -336,14 +334,13 @@ export class UserDetailComponent implements OnInit {
     }
   }
 
-
   @HostListener('scroll', ['$event'])
   onScroll(event: any): void {
     const scrollOffset = event.target.scrollTop + event.target.clientHeight;
     const scrollHeight = event.target.scrollHeight;
 
     if (scrollOffset >= scrollHeight - 1 && !this.isFetching) {
-      this.fetchPermissions(this.currentPage);
+      this.fetchPermissions(this.userId, this.currentPage); 
     }
   }
 }

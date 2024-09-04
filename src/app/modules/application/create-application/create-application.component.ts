@@ -31,7 +31,8 @@ export class CreateApplicationComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private toast: ToastrService,
-    public localStoreService: LocalStoreService
+    public localStoreService: LocalStoreService,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -52,13 +53,10 @@ export class CreateApplicationComponent implements OnInit {
   initialize() {
     this.applicationForm = new FormGroup({
       app_name: new FormControl('', [Validators.required]),
-      url: new FormControl('',[Validators.required, this.domainValidator()]),
+      url: new FormControl('',[Validators.required, Validators.pattern(/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/i)]),
       organization: new FormControl('', [Validators.required]),
-      redirectUri: new FormArray([]),
+      redirectUri: this.fb.array([this.createUri()]),
     });
-
-
-
     if (this.itemList && typeof this.itemList === 'object') {
       this.applicationForm.patchValue({
         app_name: this.itemList.app_name,
@@ -77,6 +75,14 @@ export class CreateApplicationComponent implements OnInit {
       }
     }
   }
+
+  createUri(): FormGroup {
+    return this.fb.group({
+      uri: ['', Validators.required]
+    });
+  }
+
+
   get urlControl() {
     return this.applicationForm.get('url');
   }

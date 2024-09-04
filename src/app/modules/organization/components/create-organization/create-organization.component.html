@@ -9,13 +9,13 @@
                    <div class="mb-4 custom-input" [ngClass]="isControlHasError('name','required') ? 'custom-input-error' : 'custom-input'">
                 <label for="" class="mb-1 primary_color required font_weight_500">Name</label>
                 <input type="text" class="form-control " formControlName="name" placeholder="Enter organization name">
-                <small *ngIf="isControlHasError('name','required')" class="text-danger">Organization name is required</small>
+                <small *ngIf="isControlHasError('name','required')" class="text-danger ">Organization name is required</small>
             </div>
             </div>
             <div class="row">
 
             <!-- Domain Input -->
-            <div class="mb-3 custom-input" [ngClass]="isControlHasError('domain', 'required') ? 'custom-input-error' : 'custom-input'">
+            <div class="mb-3 custom-input" [ngClass]="(isControlHasError('domain', 'required') || isControlHasError('domain', 'pattern')) ? 'custom-input-error' : 'custom-input'">
               <label for="domain" class="mb-1 primary_color required font_weight_500">Domain</label>
               <input
                 type="text"
@@ -24,12 +24,12 @@
                 formControlName="domain"
                 placeholder="Enter domain name"
               />
-              <div *ngIf="domainControl?.hasError('required') && domainControl?.touched" class="text-danger">
+              <small *ngIf="isControlHasError('domain', 'required')" class="text-danger fs-12px">
                 Domain is required
-              </div>
-              <div *ngIf="domainControl?.hasError('invalidDomain') && domainControl?.touched" class="text-danger">
-                {{ domainControl?.errors?.['invalidDomain'] }}
-              </div>
+              </small>
+              <small *ngIf="isControlHasError('domain', 'pattern')" class="text-danger fs-12px">
+                please enter a valid Domain
+              </small>
             </div>
 
              </div>

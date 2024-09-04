@@ -1,6 +1,6 @@
 <div class="p-4 modal-content">
     <div class="modal-header border-bottom-0 pb-0">
-        <div class="fs-20px bold-fonts pb-0">
+        <div class="fs-20px bold-font pb-0">
           {{title}}  Application
         </div>
     </div>
@@ -15,7 +15,7 @@
                     name is
                     required</small>
             </div>
-            <div class="mb-4 custom-input">
+            <div class="mb-4 custom-input"  [ngClass]="(isControlHasError('url', 'required') || isControlHasError('url', 'pattern')) ? 'custom-input-error' : 'custom-input'">
               <label for="appUrl" class="mb-1 primary_color fw-700">App URL</label>
               <p>Enter the endpoint where users will be sent after authentication. This URI must match the one registered with your application to ensure secure and correct redirection.</p>
               <input
@@ -25,18 +25,14 @@
                 placeholder="Enter URL"
                 formControlName="url"
               />
-              <div *ngIf="urlControl?.hasError('required') && urlControl?.touched" class="text-danger">
-                URL is required
-              </div>
-              <div *ngIf="urlControl?.hasError('invalidDomain') && urlControl?.touched" class="text-danger">
-                {{ urlControl?.errors?.['invalidDomain'] }}
-              </div>
+             <small *ngIf="isControlHasError('url', 'required')" class="text-danger fs-12px">
+                Domain is required
+              </small>
+              <small *ngIf="isControlHasError('url', 'pattern')" class="text-danger fs-12px">
+                please enter a valid Domain
+              </small>
 
             </div>
-
-
-
-
             <div class="d-flex justify-content-between">
               <label for="appUrl" class="mb-1 primary_color fw-700 semi-bold-fonts">Redirect URI's</label>
               <span
@@ -68,9 +64,6 @@
 
               </div>
             </div>
-
-
-
             <div class="mt-4 custom-dropdown"
             *ngIf="this.localStoreService.getUserRole().toLowerCase() === 'master' && !(this.title === 'Edit')">
               <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Organization</label>

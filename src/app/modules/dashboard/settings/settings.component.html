@@ -127,14 +127,14 @@
                     class=" mt-1 text-danger">Username is required</small>
                 </div>
                 <div class="mb-4 custom-input w-50 position-relative"
-                  [ngClass]="isControlHasError('phoneNumber', 'required', accountDetailsForm) ? 'custom-input-error': 'custom-input'"
+                  [ngClass]="isControlHasError('phone', 'required', accountDetailsForm) ? 'custom-input-error': 'custom-input'"
                   [ngClass]="{'disabled-input':!isEdited}">
                   <label for="phone-number" class="form-label mb-1 fs-14px fw-700 required">Phone Number
                   </label>
                   <input type="number" inputmode="tel" class="form-control fs-14px" id="phone-number"
-                    placeholder="Enter phone number" formControlName="phoneNumber" [disabled]="!isEdited" [readOnly]="!isEdited"
+                    placeholder="Enter phone number" formControlName="phone" [disabled]="!isEdited" [readOnly]="!isEdited"
                     [ngClass]="{'pointer-none disabled focus-none': !isEdited}">
-                  <small *ngIf="isControlHasError('phoneNumber','required', accountDetailsForm)"
+                  <small *ngIf="isControlHasError('phone','required', accountDetailsForm)"
                     class="mt-1 text-danger">Phone number required</small>
                 </div>
 

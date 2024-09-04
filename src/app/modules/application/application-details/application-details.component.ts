@@ -27,7 +27,7 @@ export class ApplicationDetailsComponent {
 
   constructor(
     private modalService: BsModalService,
-    private crudService: CrudService, 
+    private crudService: CrudService,
     private route: ActivatedRoute,
     private router: Router,
     private toast: ToastrService,
@@ -57,6 +57,7 @@ export class ApplicationDetailsComponent {
         this.app_secret = response.data.app_secret;
         this.app_id = response.data.app_id;
         this.applicationData = response.data;
+        console.log(response.data)
       }
 
     }, error => {

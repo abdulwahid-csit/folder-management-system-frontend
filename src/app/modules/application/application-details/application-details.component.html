@@ -153,7 +153,10 @@
                         </tr>
                         <tr>
                             <td class="">Redirect URI's</td>
-                            <td>{{applicationData.redirect_uri}}</td>
+                            <td class="d-flex">
+                              <span class="custom-badge-primary ps-3 pe-3 m-1 fs-12" *ngFor="let item of applicationData.redirect_uri ">
+                                {{item}}
+                              </span></td>
                         </tr>
                     </tbody>
             </table>

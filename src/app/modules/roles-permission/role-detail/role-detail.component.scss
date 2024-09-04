@@ -100,3 +100,13 @@ hr {
     background-color: black;
   }
   
+  .see-more-button{
+    color: #6F61CF;
+    background-color: white;
+    outline: none;
+    border: 0;
+    font-weight: 600;
+  }
+  .see-more-button:hover{
+    text-decoration-line: underline;
+  }

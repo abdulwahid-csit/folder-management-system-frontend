@@ -158,47 +158,18 @@
                 <div class="col-xl-6 mt-2 pt-1 input-container" *ngIf="mode === 'update'">
                     <div class="mb-3 custom-dropdown">
                         <label for="statusSelect" class="form-label mb-1 fs-14px fw-700">Status</label>
-                        <ng-select #selectElement [ngClass]="{ 'custom-select-focused': isFocused }"
-                            formControlName="status" (focus)="isFocused = true" (blur)="isFocused = false"
+                        <ng-select [ngClass]="{ 'custom-select-focused': isFocused }" formControlName="status"
+                            (focus)="isFocused = true" (blur)="isFocused = false" (change)="onStatusChange($event)"
                             placeholder="Select status">
                             <ng-option value="active">Active</ng-option>
                             <ng-option value="inactive">Inactive</ng-option>
                             <ng-option value="blocked">Blocked</ng-option>
                         </ng-select>
                     </div>
-                    <div *ngIf="mode === 'update'">
-                        <div *ngIf="userForm.get('status')?.value === 'inactive'" class="dark-light fs-12">
-                            If you inactive your organization, all your users and applications will also be inactive.
-                        </div>
-                        <div *ngIf="userForm.get('status')?.value === 'blocked'" class="dark-light fs-12">
-                            If you blocked your organization, all your users and applications will also be blocked.
-                        </div>
-                    </div>
                 </div>
-
-
-
-                <!-- Organization Dropdown -->
-                <!-- <div class="col-xl-6 mt-2"
-                    *ngIf="mode === 'create' && this.localStoreService.getUserRole().toLowerCase() === 'master'">
-                    <div class="mb-3 custom-dropdown">
-                        <label for="organizationSelect"
-                            class="form-label mb-1 fs-14px fw-700 required">Organization</label>
-                        <ng-select
-                            [ngClass]="{ 'custom-select-error': isControlHasError('organization', 'required'), 'custom-select': !isControlHasError('organization', 'required') }"
-                            formControlName="organization" (focus)="isFocused = true" (blur)="isFocused = false"
-                            (change)="onChange()" placeholder="Select organization">
-                            <ng-option *ngFor="let org of organization" [value]="org.id">{{ org.name }}</ng-option>
-                        </ng-select>
-                        <small *ngIf="isControlHasError('organization', 'required')"
-                            class="mt-1 fs-14px text-danger">Organization is
-                            required</small>
-                    </div>
-                </div> -->
-
-                <!-- Modal Footer -->
+                <!-- footer -->
                 <div class="modal-footer border-top-0 pb-0 mt-2">
-                    <button type="button" class="cancel_btn" (click)="closeModal()">Cancel</button>
+                    <button type="button" class="cancel_btn" (click)="closeModalUser()">Cancel</button>
                     <button type="submit" class="primary_button" [disabled]="isLoading">
                         <span class="spinner-border spinner-border-sm" *ngIf="isLoading"></span>
                         {{ mode === 'create' ? 'Create User' : 'Update User' }}</button>
@@ -207,3 +178,38 @@
         </form>
     </div>
 </div>
+
+
+<!-- Dropdown Status Modal -->
+<ng-template #dropDownModel>
+  <div class="custom-delete-user-modal">
+    <div class="modal-dialog-box">
+      <div class="pt-0">
+        <div class="p-0 modal-header border-bottom-0 d-flex justify-content-center align-items-baseline">
+          <div class="regenerate-icon">
+            <div class="delete-icon">
+              <img src="../../../../assets/icons/warning-icon.svg" alt="">
+            </div>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div *ngIf="this.userForm.get('status')?.value === 'inactive'" class="dark-light fs-12 mt-2">
+            If you inactivate your organization, all your users and applications will also be inactive.
+          </div>
+          <div *ngIf="this.userForm.get('status')?.value === 'blocked'" class="dark-light fs-12 mt-2">
+            If you block your organization, all your users and applications will also be blocked.
+          </div>
+        </div>
+        <div class="p-0 modal-footer border-top-0 d-flex justify-content-center">
+          <div class="buttons">
+            <button type="button" class="cancel_btn me-2" (click)="handleModalResponse(false)">No, cancel</button>
+            <button type="button" class="primary_button bg-yellow" (click)="handleModalResponse(true)">Yes, I am sure</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+

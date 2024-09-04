@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ViewChild, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
-import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { CrudService } from 'src/app/shared/services/crud.service';
 import { LocalStoreService } from 'src/app/shared/services/local-store.service';
@@ -23,6 +23,7 @@ export class CreateUserComponent implements OnInit {
   @Output() successCall = new EventEmitter<void>();
   @Input() userId: number = 0;
   @Input() itemList: any;
+  @ViewChild('dropDownModel', { static: true }) dropDownModel!: TemplateRef<any>;
 
   isPasswordVisible: boolean = false;
   userForm!: FormGroup;
@@ -33,13 +34,16 @@ export class CreateUserComponent implements OnInit {
   isLoading: boolean = false;
   updateMode: boolean = false;
   allRoles: any[] = [];
+  status: string = '';
+  tempStatus: string = '';
+  modalRef?: BsModalRef;
 
   constructor(
     private bsModalService: BsModalService,
     private fb: FormBuilder,
     private crudService: CrudService,
     private toast: ToastrService,
-    public localStoreService: LocalStoreService
+    public localStoreService: LocalStoreService,
   ) { }
 
   ngOnInit(): void {
@@ -64,7 +68,7 @@ export class CreateUserComponent implements OnInit {
       phone: ['', [Validators.required, numericValidator]],
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required, Validators.minLength(8)]],
-      roles: [[], Validators.required], // Changed to an array
+      roles: [[], Validators.required],
       organization: [null, Validators.required],
       status: [null,]
     });
@@ -73,6 +77,7 @@ export class CreateUserComponent implements OnInit {
       this.userForm.get('organization')?.clearValidators();
       this.userForm.get('roles')?.clearValidators();
       this.updateMode = true;
+      this.tempStatus = this.userData.status;
 
       this.userForm.patchValue({
         firstName: this.userData.first_name || '',
@@ -93,6 +98,27 @@ export class CreateUserComponent implements OnInit {
       this.userForm.get('roles')?.setValidators(Validators.required);
     }
   }
+
+  onStatusChange(status: string): void {
+    this.tempStatus = this.userData.status || 'active';
+
+    if (status !== 'active') {
+      this.userForm.get('status')?.setValue(status);
+      this.modalRef = this.bsModalService.show(this.dropDownModel);
+    } else {
+      this.userForm.get('status')?.setValue(status);
+    }
+  }
+
+  handleModalResponse(confirm: boolean): void {
+    if (!confirm) {
+      this.userForm.get('status')?.setValue(this.tempStatus);
+    }
+    if (this.modalRef) {
+      this.modalRef.hide();
+    }
+  }
+
 
   isControlHasError(controlName: string, validationType: string): boolean {
     const control = this.userForm.controls[controlName];
@@ -124,12 +150,10 @@ export class CreateUserComponent implements OnInit {
     }
     password = password.split('').sort(() => 0.5 - Math.random()).join('');
     this.userForm.get('password')?.setValue(password);
-
   }
 
   onSubmit(): void {
-    console.log(this.userForm.value)
-return;
+
     if (this.localStoreService.getUserRole().toLowerCase() !== 'master') {
       this.userForm.patchValue({
         organization: this.localStoreService.getUserOrganization()
@@ -162,7 +186,7 @@ return;
         if (response.status_code === 200 || response.status_code === 201) {
           this.toast.success(response.message, 'Success!');
           this.successCall.emit();
-          this.closeModal();
+          this.closeModalUser();
         } else {
           this.toast.error(response.message, 'Error!');
           this.isLoading = false;
@@ -176,8 +200,16 @@ return;
   }
 
   closeModal(): void {
+    if (this.modalRef) {
+      this.modalRef.hide();
+    }
+  }
+
+  closeModalUser(): void {
     this.bsModalService.hide();
   }
+
+
 
   onValueChange(): void {
     this.updateMode = false;
@@ -218,11 +250,10 @@ return;
       })
     }
   }
+
   restoreRoles(): void {
     this.roleList = [...this.allRoles];
   }
-
-
 
   fetchOrganization(): void {
     this.crudService.read('organization')

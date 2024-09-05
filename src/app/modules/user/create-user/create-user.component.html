@@ -1,4 +1,4 @@
-<div class="common_modal">
+<div class="common_modal" [ngClass]="{'d-none': !isFirstModalOpen}">
     <div class="modal-header border-bottom-0">
         <h2 class="mb-0">{{ mode === 'create' ? 'Create User' : 'Update User' }}</h2>
     </div>
@@ -203,8 +203,8 @@
         </div>
         <div class="p-0 modal-footer border-top-0 d-flex justify-content-center">
           <div class="buttons">
-            <button type="button" class="cancel_btn me-2" (click)="handleModalResponse(false)">No, cancel</button>
-            <button type="button" class="primary_button bg-yellow" (click)="handleModalResponse(true)">Yes, I am sure</button>
+            <button type="button" class="cancel_btn me-2" (click)="handleModalResponse(false); isFirstModalOpen = true">No, cancel</button>
+            <button type="button" class="primary_button bg-yellow" (click)="handleModalResponse(true); isFirstModalOpen = true">Yes, I am sure</button>
           </div>
         </div>
       </div>

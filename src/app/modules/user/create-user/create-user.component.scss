@@ -18,6 +18,10 @@ background-color: #6F61CF;
             margin: 3px 36px;
 }
 
+::ng-deep .modal-content{
+  border-radius: 16px !important;
+}
+
 .eye2 {
   top: 55%;
     right: 84px;

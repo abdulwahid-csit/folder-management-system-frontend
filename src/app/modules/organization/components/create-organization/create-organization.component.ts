@@ -36,7 +36,7 @@ export class CreateOrganizationComponent implements OnInit, AfterViewInit {
   initialize() {
     this.organizationForm = this.fb.group({
       name: ['', [Validators.required]],
-      domain: ['', [Validators.required, this.domainValidator()]],
+      domain: ['', [Validators.required, Validators.pattern(/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/i)]],
       status: [this.title === 'Edit' ? '' : { value: '', disabled: true }, [Validators.required]]
     });
 

@@ -83,6 +83,7 @@ export class OrganizationDetailsComponent implements OnInit {
             this.organizationStatus = response.data.status;
             if(response.data.has_owner){
               this.selectedTab = 'user';
+              this.setSelectedTab('user')
             }
           }
         } 

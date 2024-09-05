@@ -1,4 +1,4 @@
-<div class="common_modal">
+<div class="common_modal" [ngClass]="{'d-none': !isFirstModalOpen}">
     <div class="modal-header border-bottom-0">
         <h2 class="mb-0">{{ mode === 'create' ? 'Create User' : 'Update User' }}</h2>
     </div>
@@ -141,7 +141,7 @@
                     <div class="mb-3 custom-dropdown">
                         <label for="roleSelect" class="form-label mb-1 fs-14px fw-700 required">Role</label>
                         <ng-select
-                            [ngClass]="{ 'custom-select-error': isControlHasError('role', 'required'), 'custom-select-focused': isFocused }"
+                            [ngClass]="{ 'custom-select-error': isControlHasError('roles', 'required'), 'custom-select-focused': isFocused }"
                             formControlName="roles" [multiple]="true" (focus)="isFocused = true"
                             (blur)="isFocused = false" (change)="onValueChange()" (close)="restoreRoles()"
                             placeholder="Select roles">
@@ -158,9 +158,10 @@
                 <div class="col-xl-6 mt-2 pt-1 input-container" *ngIf="mode === 'update'">
                     <div class="mb-3 custom-dropdown">
                         <label for="statusSelect" class="form-label mb-1 fs-14px fw-700">Status</label>
-                        <ng-select [ngClass]="{ 'custom-select-focused': isFocused }" formControlName="status"
+                        <ng-select formControlName="status"
                             (focus)="isFocused = true" (blur)="isFocused = false" (change)="onStatusChange($event)"
-                            placeholder="Select status">
+                            placeholder="Select status"
+                            [ngClass]="{ 'custom-select-error': isControlHasError('status', 'required'), 'custom-select-focused': isFocused }">
                             <ng-option value="active">Active</ng-option>
                             <ng-option value="inactive">Inactive</ng-option>
                             <ng-option value="blocked">Blocked</ng-option>
@@ -202,8 +203,8 @@
         </div>
         <div class="p-0 modal-footer border-top-0 d-flex justify-content-center">
           <div class="buttons">
-            <button type="button" class="cancel_btn me-2" (click)="handleModalResponse(false)">No, cancel</button>
-            <button type="button" class="primary_button bg-yellow" (click)="handleModalResponse(true)">Yes, I am sure</button>
+            <button type="button" class="cancel_btn me-2" (click)="handleModalResponse(false); isFirstModalOpen = true">No, cancel</button>
+            <button type="button" class="primary_button bg-yellow" (click)="handleModalResponse(true); isFirstModalOpen = true">Yes, I am sure</button>
           </div>
         </div>
       </div>

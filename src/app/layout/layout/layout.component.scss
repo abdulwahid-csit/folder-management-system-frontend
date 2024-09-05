@@ -21,7 +21,7 @@
     height: calc(100% - 72px);
     overflow-y: auto;
 }
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 300px) and (max-width: 1024px) {
     .layout_inner{
         position: absolute;
         left: 0;

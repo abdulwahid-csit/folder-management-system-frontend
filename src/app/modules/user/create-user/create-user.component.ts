@@ -37,6 +37,7 @@ export class CreateUserComponent implements OnInit {
   status: string = '';
   tempStatus: string = '';
   modalRef?: BsModalRef;
+  isFirstModalOpen: boolean = true;
 
   constructor(
     private bsModalService: BsModalService,
@@ -103,9 +104,15 @@ export class CreateUserComponent implements OnInit {
     this.tempStatus = this.userData.status || 'active';
 
     if (status !== 'active') {
+      this.isFirstModalOpen = false;
       this.userForm.get('status')?.setValue(status);
-      this.modalRef = this.bsModalService.show(this.dropDownModel);
+      this.modalRef = this.bsModalService.show(this.dropDownModel, {
+        class: 'modal-dialog modal-dialog-centered',
+        keyboard: false,
+        backdrop: 'static'
+      });
     } else {
+      this.isFirstModalOpen = true;
       this.userForm.get('status')?.setValue(status);
     }
   }

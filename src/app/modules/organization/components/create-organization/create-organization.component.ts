@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
@@ -36,9 +36,8 @@ export class CreateOrganizationComponent implements OnInit, AfterViewInit {
   initialize() {
     this.organizationForm = this.fb.group({
       name: ['', [Validators.required]],
-      domain: ['', [Validators.required]],
+      domain: ['', [Validators.required, Validators.pattern(/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/i)]],
       status: [this.title === 'Edit' ? '' : { value: '', disabled: true }, [Validators.required]]
-      // status field is disabled in Create mode
     });
 
     if (this.title === 'Edit' && this.itemList && typeof this.itemList === 'object') {
@@ -48,6 +47,23 @@ export class CreateOrganizationComponent implements OnInit, AfterViewInit {
         status: this.itemList.status
       });
     }
+  }
+
+  get domainControl() {
+    return this.organizationForm.get('domain');
+  }
+
+  domainValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      if (!control.value) {
+        return null; // Don't validate empty values
+      }
+
+      const domainPattern = /^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/i;
+      const isValidDomain = domainPattern.test(control.value);
+
+      return isValidDomain ? null : { invalidDomain: 'Please enter a valid domain name' };
+    };
   }
 
   isControlHasError(controlName: string, validationType: string): boolean {

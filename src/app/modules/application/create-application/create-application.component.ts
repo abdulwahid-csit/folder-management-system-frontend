@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
@@ -31,7 +31,8 @@ export class CreateApplicationComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private toast: ToastrService,
-    public localStoreService: LocalStoreService
+    public localStoreService: LocalStoreService,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -52,11 +53,10 @@ export class CreateApplicationComponent implements OnInit {
   initialize() {
     this.applicationForm = new FormGroup({
       app_name: new FormControl('', [Validators.required]),
-      url: new FormControl(''),
+      url: new FormControl('',[Validators.required, Validators.pattern(/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/i)]),
       organization: new FormControl('', [Validators.required]),
-      redirectUri: new FormArray([]),  // Initialize with an empty array
+      redirectUri: this.fb.array([this.createUri()]),
     });
-
     if (this.itemList && typeof this.itemList === 'object') {
       this.applicationForm.patchValue({
         app_name: this.itemList.app_name,
@@ -74,6 +74,17 @@ export class CreateApplicationComponent implements OnInit {
         });
       }
     }
+  }
+
+  createUri(): FormGroup {
+    return this.fb.group({
+      uri: ['', Validators.required]
+    });
+  }
+
+
+  get urlControl() {
+    return this.applicationForm.get('url');
   }
 
 
@@ -157,15 +168,15 @@ export class CreateApplicationComponent implements OnInit {
           }
         },
         error => {
+          this.isLoading = false; // Hide loader on error
           this.toast.error(error.message, "Error!");
           console.error('HTTP error:', error);
         },
         () => {
-          this.isLoading = false;
+          this.isLoading = false; // Hide loader on complete
         }
       );
-    } else if
-    (this.title === 'Edit'){
+    } else if (this.title === 'Edit') {
       this.crudService.update('applications', this.applicationID, createData).subscribe(
         (response: any) => {
           if (response.status_code === 200 || response.status_code === 201) {
@@ -175,12 +186,26 @@ export class CreateApplicationComponent implements OnInit {
           }
         },
         error => {
+          this.isLoading = false; // Hide loader on error
           this.toast.error(error.message, "Error!");
           console.error('HTTP error:', error);
-        });
+        }
+      );
     }
   }
 
+   domainValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      if (!control.value) {
+        return null; // Don't validate empty values
+      }
+
+      const domainPattern = /^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/i;
+      const isValidDomain = domainPattern.test(control.value);
+
+      return isValidDomain ? null : { invalidDomain: 'Please enter Domain name' };
+    };
+  }
 
 
 

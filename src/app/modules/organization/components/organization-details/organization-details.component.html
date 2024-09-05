@@ -35,7 +35,7 @@
     <div class="d-flex justify-content-start">
       <nav class="mb-3">
         <div class="nav nav-tabs fs-14px fw-600 semi-bold-fonts" id="nav-tab" role="tablist">
-          <button (click)="setSelectedTab('features')" class="nav-link border-top-0 border-start-0 border-end-0"
+          <button *ngIf="organizationData?.has_owner === false" (click)="setSelectedTab('features')" class="nav-link border-top-0 border-start-0 border-end-0"
             [ngClass]="'active-nav-tab'" [ngClass]="{'active-nav-tab': selectedTab === 'features'}"
             id="nav-features-tab" data-bs-toggle="tab" data-bs-target="#nav-features" type="button" role="tab"
             aria-controls="nav-features" [attr.aria-selected]="selectedTab === 'features'">

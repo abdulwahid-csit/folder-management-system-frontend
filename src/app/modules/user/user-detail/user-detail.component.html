@@ -220,56 +220,54 @@
         <div class="modal-body">
             <form [formGroup]="passwordForm" (ngSubmit)="onSubmit()">
                 <div class="row">
-                    <div class="input-container">
+                    <div class="custom-input position-relative mb-3"
+                    [ngClass]="{'custom-input-error': isControlHasError('password', 'required') || getPasswordErrors()['minlength'] || getPasswordErrors()['uppercase'] || getPasswordErrors()['lowercase'] || getPasswordErrors()['digit'] || getPasswordErrors()['special']}">
                         <label for="password" class="label-font required">Password</label>
                         <input id="password" type="password" class="form-control" formControlName="password"
-                            [ngClass]="{'is-invalid': isControlHasError('password', 'required') || getPasswordErrors()['minlength'] || getPasswordErrors()['uppercase'] || getPasswordErrors()['lowercase'] || getPasswordErrors()['digit'] || getPasswordErrors()['special']}"
                             placeholder="Enter new password" [type]="hidePassword ? 'password' : 'text'">
                         <i class="eye2 position-absolute" (click)="togglePasswordVisibility()"
                             [ngClass]="{'eye-open': !hidePassword, 'eye-closed': hidePassword}"></i>
-                        <span *ngIf="isControlHasError('password', 'required')"
-                            class="text-danger fs-8 ps-3 pt-1">Password is required</span>
-                        <span *ngIf="isControlHasError('password', 'minlength')"
-                            class="text-danger fs-8 ps-3 pt-1">Password must be at least 8 characters</span>
-                        <span *ngIf="isControlHasError('password', 'required')" class="text-danger fs-8 ps-3 pt-1">
-                            Password is required
-                        </span>
-                        <span
+                        <small *ngIf="isControlHasError('password', 'required')"
+                            class="text-danger fs-8  pt-1">Password is required</small>
+                        <small *ngIf="isControlHasError('password', 'minlength')"
+                            class="text-danger fs-8  pt-1">Password must be at least 8 characters</small>
+                        <small
                             *ngIf="getPasswordErrors()['uppercase'] && !isControlHasError('password', 'required') && !getPasswordErrors()['minlength']"
-                            class="text-danger fs-8 ps-3 pt-1">
+                            class="text-danger fs-8  pt-1">
                             Password must include at least one uppercase letter
-                        </span>
-                        <span
+                        </small>
+                        <small
                             *ngIf="getPasswordErrors()['lowercase'] && !isControlHasError('password', 'required') && !getPasswordErrors()['minlength'] && !getPasswordErrors()['uppercase']"
-                            class="text-danger fs-8 ps-3 pt-1">
+                            class="text-danger fs-8  pt-1">
                             Password must include at least one lowercase letter
-                        </span>
-                        <span
+                        </small>
+                        <small
                             *ngIf="getPasswordErrors()['digit'] && !isControlHasError('password', 'required') && !getPasswordErrors()['minlength'] && !getPasswordErrors()['uppercase'] && !getPasswordErrors()['lowercase']"
-                            class="text-danger fs-8 ps-3 pt-1">
+                            class="text-danger fs-8  pt-1">
                             Password must include at least one digit
-                        </span>
-                        <span
+                        </small>
+                        <small
                             *ngIf="getPasswordErrors()['special'] && !isControlHasError('password', 'required') && !getPasswordErrors()['minlength'] && !getPasswordErrors()['uppercase'] && !getPasswordErrors()['lowercase'] && !getPasswordErrors()['digit']"
-                            class="text-danger fs-8 ps-3 pt-1">
+                            class="text-danger fs-8  pt-1">
                             Password must include at least one special character
-                        </span>
+                        </small>
                     </div>
                 </div>
 
                 <div class="row mt-3">
-                    <div class="input-container">
+                    <div class="position-relative custom-input"
+                    [ngClass]="isControlHasError('confirmPassword', 'required') || (passwordForm.hasError('mismatch'))? 'custom-input-error': 'custom-input'">
                         <label for="confirmPassword" class="label-font required">Confirm password</label>
                         <input id="confirmPassword" type="password" class="form-control"
                             formControlName="confirmPassword"
-                            [ngClass]="{'is-invalid': isControlHasError('confirmPassword', 'required') || (passwordForm.hasError('mismatch') && (passwordForm.get('confirmPassword')?.touched || passwordForm.get('password')?.touched))}"
                             placeholder="Confirm your password" [type]="hideConfirmPassword ? 'password' : 'text'">
-                        <span class="eye2 position-absolute" (click)="toggleConfirmPasswordVisibility()"></span>
-                        <span *ngIf="isControlHasError('confirmPassword', 'required')"
-                            class="text-danger fs-8 ps-3 pt-1">Confirm password is required</span>
-                        <span
+                        <i class="eye2 position-absolute" (click)="toggleConfirmPasswordVisibility()"
+                            [ngClass]="{'eye-open': !hideConfirmPassword, 'eye-closed': hideConfirmPassword}"></i>
+                        <small *ngIf="isControlHasError('confirmPassword', 'required')"
+                            class="text-danger  pt-1">Confirm password is required</small>
+                        <small
                             *ngIf="passwordForm.hasError('mismatch') && (passwordForm.get('confirmPassword')?.touched || passwordForm.get('password')?.touched)"
-                            class="text-danger fs-8 ps-3 pt-1">Passwords do not match</span>
+                            class="text-danger  pt-1">Passwords do not match</small>
                     </div>
                     <div class="modal-footer border-top-0 pb-0 mt-2">
                         <button type="button" class="cancel_btn fs-12 fw-600 me-2" (click)="onCancel()">Cancel</button>

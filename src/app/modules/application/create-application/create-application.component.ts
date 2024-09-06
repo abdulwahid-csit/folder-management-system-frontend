@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -13,7 +13,7 @@ import { LocalStoreService } from 'src/app/shared/services/local-store.service';
 })
 export class CreateApplicationComponent implements OnInit {
   modalRef: any;
-  applicationForm!: FormGroup
+  applicationForm!: FormGroup;
   modalOpen: boolean = false;
   inputUris: Array<{ value: string }> = [];
   @Output() successCall = new EventEmitter();
@@ -24,6 +24,7 @@ export class CreateApplicationComponent implements OnInit {
   @Input() title: string = '';
   isLoading: boolean = false;
   applicationID: any;
+  isRedirectUriInvalid!: boolean;
 
   constructor(
     private modalService: BsModalService,
@@ -35,13 +36,49 @@ export class CreateApplicationComponent implements OnInit {
     private fb: FormBuilder
   ) { }
 
+
   ngOnInit(): void {
 
+    this.isRedirectUriInvalid = this.title == 'Edit'? false : true;
     if (this.localStoreService.getUserRole().toLowerCase() === 'master') {
       this.fetchOrganization();
     }
-
     this.initialize();
+  }
+
+
+  get redirectUri(): FormArray {
+    return this.applicationForm.get('redirectUri') as FormArray;
+  }
+
+  createUriField(): FormGroup {
+    return this.fb.group({
+      uri: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^(https?:\/\/)?(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}(\/.*)?$/i)
+        ]
+      ]
+    });
+  }
+
+  addInputUri(): void {
+    this.isRedirectUriInvalid = true;
+    this.redirectUri.push(this.createUriField());
+  }
+
+  removeInputUri(index: number): void {
+    this.redirectUri.removeAt(index);
+  }
+
+  onUriInputChange(index: number): void {
+    const control = this.redirectUri.at(index).get('uri');
+    if (control?.invalid) {
+      this.isRedirectUriInvalid = true;
+    }else{
+      this.isRedirectUriInvalid = false;
+    }
   }
 
   onChange(): void {
@@ -50,13 +87,15 @@ export class CreateApplicationComponent implements OnInit {
       this.isFocused = false;
     }
   }
+
   initialize() {
     this.applicationForm = new FormGroup({
       app_name: new FormControl('', [Validators.required]),
-      url: new FormControl('',[Validators.required, Validators.pattern(/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/i)]),
+      url: new FormControl('', [Validators.required, Validators.pattern(/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/i)]),
       organization: new FormControl('', [Validators.required]),
-      redirectUri: this.fb.array([this.createUri()]),
+      redirectUri: this.fb.array([this.createUriField()]),
     });
+
     if (this.itemList && typeof this.itemList === 'object') {
       this.applicationForm.patchValue({
         app_name: this.itemList.app_name,
@@ -70,23 +109,11 @@ export class CreateApplicationComponent implements OnInit {
 
       if (this.itemList.redirect_uri && Array.isArray(this.itemList.redirect_uri)) {
         this.itemList.redirect_uri.forEach((uri: any) => {
-          redirectUriArray.push(new FormControl(uri));
+          redirectUriArray.push(this.fb.group({ uri: [uri, [Validators.pattern(/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/i)]] }));
         });
       }
     }
   }
-
-  createUri(): FormGroup {
-    return this.fb.group({
-      uri: ['', Validators.required]
-    });
-  }
-
-
-  get urlControl() {
-    return this.applicationForm.get('url');
-  }
-
 
   closeModal(): void {
     this.modalService.hide();
@@ -102,45 +129,20 @@ export class CreateApplicationComponent implements OnInit {
     );
   }
 
-  get redirectUriArray(): FormArray {
-    return this.applicationForm.get('redirectUri') as FormArray;
-  }
-
-
-  addInputUri() {
-    this.redirectUriArray.push(new FormControl(''));
-  }
-  resetInputs(): void {
-    this.redirectUriArray.clear();
-    this.inputUris = [];
-    this.addInputUri();
-  }
   fetchOrganization(): void {
     this.crudService.read('organization')
       .subscribe(
         (response) => {
-          this.organization = response.data.payload
-
+          this.organization = response.data.payload;
         },
         error => {
           console.error('Error fetching roles:', error);
         }
       );
   }
-  removeInputUri(index: number) {
-    if (this.redirectUriArray.length > 1) {
-      this.redirectUriArray.removeAt(index);
-    }
-  }
 
-  onUriInputChange(index: number) {
-    const control = this.redirectUriArray.at(index) as FormControl;
-    if (!control.value && this.redirectUriArray.length > 1) {
-      this.removeInputUri(index);
-    }
-  }
   onSubmit() {
-    if(this.localStoreService.getUserRole().toLowerCase() !== 'master'){
+    if (this.localStoreService.getUserRole().toLowerCase() !== 'master') {
       this.applicationForm.patchValue({
         organization: this.localStoreService.getUserOrganization()
       });
@@ -153,15 +155,21 @@ export class CreateApplicationComponent implements OnInit {
 
     this.isLoading = true;
     const createData = this.applicationForm.value;
+    const cleanedRedirectUris = createData.redirectUri
+      .filter((uriObj: { uri: string }) => uriObj.uri.trim() !== '')
+      .map((uriObj: { uri: string }) => uriObj.uri);
+    const cleanedFormData = {
+      ...createData,
+      redirectUri: cleanedRedirectUris
+    };
 
     if (this.title === 'Create') {
-      this.crudService.create('applications', createData).subscribe(
+      this.crudService.create('applications', cleanedFormData).subscribe(
         (response: any) => {
           if (response.status_code === 200 || response.status_code === 201) {
             this.toast.success(response.message, "Success!");
             if (response.data && typeof response.data === 'object') {
               this.router.navigate(['layout/application/details/' + response.data.id]);
-              // this.applicationID = response.data.id
               this.successCall.emit();
               this.closeModal();
             }
@@ -177,7 +185,7 @@ export class CreateApplicationComponent implements OnInit {
         }
       );
     } else if (this.title === 'Edit') {
-      this.crudService.update('applications', this.applicationID, createData).subscribe(
+      this.crudService.update('applications', this.applicationID, cleanedFormData).subscribe(
         (response: any) => {
           if (response.status_code === 200 || response.status_code === 201) {
             this.toast.success(response.message, "Success!");
@@ -193,21 +201,4 @@ export class CreateApplicationComponent implements OnInit {
       );
     }
   }
-
-   domainValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      if (!control.value) {
-        return null; // Don't validate empty values
-      }
-
-      const domainPattern = /^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/i;
-      const isValidDomain = domainPattern.test(control.value);
-
-      return isValidDomain ? null : { invalidDomain: 'Please enter Domain name' };
-    };
-  }
-
-
-
-
 }

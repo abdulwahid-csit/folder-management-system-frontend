@@ -90,3 +90,20 @@ text-decoration-color: #6f61cf;
   height: 20px;
   border-radius: 50%;
 }
+.optional-uris{
+    left: 0;
+    top: 48px;
+}
+.app-url{
+    p{
+        line-height: 14px;
+        margin-bottom: 8px !important;
+    }
+}
+.disabled{
+pointer-events: none !important;
+opacity: 0.5;
+}
+.uri-text{
+    margin-bottom: -20px !important;
+}

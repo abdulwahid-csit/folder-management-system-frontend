@@ -115,6 +115,13 @@ tr {
     background-size: cover;
     background-position: center;
 }
+.eye-open {
+    background-image: url('../../../../assets/icons/eye-hide.svg');
+}
+
+.eye-closed {
+    background-image: url('../../../../assets//icons/EYE-3.svg');
+}
 .model {
     width: 100%;
     height: auto;
@@ -270,4 +277,17 @@ tr {
 .scrollable-content-container {
   max-height: 300px; /* Adjust as needed */
   overflow-y: auto;
+}
+
+.custom-input-error {
+
+    input,
+    input:focus {
+        padding: 10px 16px !important;
+        box-shadow: 0 0 0 0.25rem rgba(243, 3, 3, 0.2) !important;
+        border-color: red !important;
+    }
+    small{
+        position: absolute;
+    }
 }

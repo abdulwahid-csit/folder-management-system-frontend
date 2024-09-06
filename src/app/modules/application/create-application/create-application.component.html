@@ -11,12 +11,12 @@
                 <label for="app_name" class="mb-1 primary_color required fw-700 ">Name</label>
                 <input type="text" class="form-control form-control-lg ps-3 ps-2 fs-14px"
                     formControlName="app_name" placeholder="Enter name">
-                <small *ngIf="isControlHasError('app_name','required')" class="mt-1 fs-14px text-danger">Application
+                <small *ngIf="isControlHasError('app_name','required')" class="text-danger mt-1">Application
                     name is
                     required</small>
             </div>
-            <div class="mb-4 custom-input"  [ngClass]="(isControlHasError('url', 'required') || isControlHasError('url', 'pattern')) ? 'custom-input-error' : 'custom-input'">
-              <label for="appUrl" class="mb-1 primary_color fw-700">App URL</label>
+            <div class="mb-4 custom-input app-url"  [ngClass]="(isControlHasError('url', 'required') || isControlHasError('url', 'pattern')) ? 'custom-input-error' : 'custom-input'">
+              <label for="appUrl" class="mb-1 primary_color fw-700 required">App URL</label>
               <p>Enter the endpoint where users will be sent after authentication. This URI must match the one registered with your application to ensure secure and correct redirection.</p>
               <input
                 type="text"
@@ -25,45 +25,39 @@
                 placeholder="Enter URL"
                 formControlName="url"
               />
-             <small *ngIf="isControlHasError('url', 'required')" class="text-danger fs-12px">
+             <small *ngIf="isControlHasError('url', 'required')" class="text-danger fs-12px mt-1">
                 Domain is required
               </small>
-              <small *ngIf="isControlHasError('url', 'pattern')" class="text-danger fs-12px">
+              <small *ngIf="isControlHasError('url', 'pattern')" class="text-danger fs-12px mt-1">
                 please enter a valid Domain
               </small>
 
             </div>
             <div class="d-flex justify-content-between">
-              <label for="appUrl" class="mb-1 primary_color fw-700 semi-bold-fonts">Redirect URI's</label>
+              <label for="appUrl" class="mb-1 primary_color fw-700 semi-bold-fonts required">Redirect URI's</label>
               <span
                 class="ms-2 mt-2 add_button text-primary-custom ps-2 bold-fonts fs-14 fw-600 cursor-pointer"
+                [ngClass]="{'disabled': isRedirectUriInvalid}"
                 (click)="addInputUri()"
               >+ Add</span>
             </div>
 
-            <p>A unique identifier for your application. Use this ID to configure and authenticate your application with the service</p>
-
+            <p class="uri-text">A unique identifier for your application. Use this ID to configure and authenticate your application with the service</p>
             <div formArrayName="redirectUri">
-              <div *ngFor="let uri of redirectUriArray.controls; let i = index">
-                <div class="d-flex align-items-center mb-2 position-relative custom-input">
-                  <input
-                    type="text"
-                    class="form-control ps-3 fs-14px input-with-icon"
-                    placeholder="Enter URI"
-                    [formControlName]="i"
-                    (input)="onUriInputChange(i)"
-                  />
-                  <div [ngClass]="{'hover': i !== 0}">
-                    <span
-                      *ngIf="i !== 0"
-                      class="trash-icon cursor-pointer "
-                      (click)="removeInputUri(i)"
-                    ></span>
+              <div *ngFor="let uri of redirectUri.controls; let i = index" [formGroupName]="i">
+                <div class="mt-4 d-flex align-items-center mb-2 position-relative custom-input"
+                  [ngClass]="(uri.get('uri')?.errors?.['pattern']) || ((uri.get('uri')?.errors?.['required']) && uri.get('uri')?.touched) ? 'custom-input-error': 'custom-input'">
+                  <input type="text" class="form-control ps-3 fs-14px input-with-icon" placeholder="Enter URI"
+                    formControlName="uri" 
+                    (input)="onUriInputChange(i)"/>
+                  <small *ngIf="(uri.get('uri')?.errors?.['pattern'])" class="text-danger optional-uris">Invalid URI format.</small>
+                  <div class="hover" *ngIf="i > 0">
+                    <span class="trash-icon cursor-pointer" (click)="removeInputUri(i)"></span>
                   </div>
                 </div>
-
               </div>
             </div>
+
             <div class="mt-4 custom-dropdown"
             *ngIf="this.localStoreService.getUserRole().toLowerCase() === 'master' && !(this.title === 'Edit')">
               <label for="exampleFormControlInput1" class="form-label mb-1 fs-14px fw-700 required">Organization</label>

@@ -26,10 +26,10 @@
                 formControlName="url"
               />
              <small *ngIf="isControlHasError('url', 'required')" class="text-danger fs-12px mt-1">
-                Domain is required
+                App url is required
               </small>
               <small *ngIf="isControlHasError('url', 'pattern')" class="text-danger fs-12px mt-1">
-                please enter a valid Domain
+                Please enter a valid url
               </small>
 
             </div>
@@ -50,7 +50,8 @@
                   <input type="text" class="form-control ps-3 fs-14px input-with-icon" placeholder="Enter URI"
                     formControlName="uri" 
                     (input)="onUriInputChange(i)"/>
-                  <small *ngIf="(uri.get('uri')?.errors?.['pattern'])" class="text-danger optional-uris">Invalid URI format.</small>
+                  <small *ngIf="(uri.get('uri')?.errors?.['pattern'])" class="text-danger optional-uris">Please enter a valid uri.</small>
+                  <small *ngIf="(uri.get('uri')?.errors?.['required'])" class="text-danger optional-uris">Redirect uri is required.</small>
                   <div class="hover" *ngIf="i > 0">
                     <span class="trash-icon cursor-pointer" (click)="removeInputUri(i)"></span>
                   </div>

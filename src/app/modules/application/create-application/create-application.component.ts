@@ -39,13 +39,12 @@ export class CreateApplicationComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.isRedirectUriInvalid = this.title == 'Edit'? false : true;
+    this.isRedirectUriInvalid = this.title == 'Edit' ? false : true;
     if (this.localStoreService.getUserRole().toLowerCase() === 'master') {
       this.fetchOrganization();
     }
     this.initialize();
   }
-
 
   get redirectUri(): FormArray {
     return this.applicationForm.get('redirectUri') as FormArray;

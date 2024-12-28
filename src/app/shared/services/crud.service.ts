@@ -58,6 +58,6 @@ export class CrudService {
   }
 
   private handleError(error: any): Observable<never> {
-    return throwError(() => new Error(error.error.errors[0]));
+    return throwError(() => new Error(error));
   }
 }

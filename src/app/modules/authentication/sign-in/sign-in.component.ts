@@ -46,6 +46,8 @@ export class SignInComponent {
   }
   
   onSubmit(): void {
+    // this.router.navigate(['/layout/dashboard'])
+    // return;
     if (this.signInForm.invalid) {
       this.signInForm.markAllAsTouched();
       return;
@@ -54,11 +56,19 @@ export class SignInComponent {
     this.isLoading = true;
     this.authService.signIn(email, password).subscribe((response: any) => {
      
-      if (response.status_code === 200) {
-        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/layout';
+      if (response.status_code === 200 || response.status_code === 201) {
+        this.toast.success('Login successfully.')
+        const returnUrl =
+          this.route.snapshot.queryParamMap.get('returnUrl') || '/layout';
         this.router.navigateByUrl(returnUrl);
-        const { access_token, refresh_token, access_token_expires, user } = response.data;
-        this.authService.storeTokens(access_token, refresh_token, access_token_expires, user);
+        const { access_token, refresh_token, access_token_expires, user } =
+          response;
+        this.authService.storeTokens(
+          access_token,
+          refresh_token,
+          access_token_expires,
+          user
+        );
         this.router.navigate(['/layout']);
       } else {
         // this.toast.error(response.message, "Error!");

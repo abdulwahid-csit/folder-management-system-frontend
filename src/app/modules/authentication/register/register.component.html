@@ -70,6 +70,22 @@
                   </div>
                 </div>
 
+                <!-- Phone Field -->
+                <div class="row mt-3 custom-input mb-4">
+                  <div class="input-container">
+                    <label for="email" class="label-font required">Phone</label>
+                    <input id="number" type="email" class="form-control" formControlName="phone" [ngClass]="{
+                        'is-invalid': isControlHasError('phone', 'required') || isControlHasError('phone', 'pattern')
+                      }" placeholder="Enter phone number" (blur)="onControlBlur('email')" />
+                    <span *ngIf="isControlHasError('phone', 'required')" class="text-danger fs-8 ps-3 pt-1">
+                      Phone is required
+                    </span>
+                    <span *ngIf="isControlHasError('phone', 'pattern')" class="text-danger fs-8 ps-3 pt-1">
+                      Please enter a valid phone number
+                    </span>
+                  </div>
+                </div>
+
                 <!-- Password Field -->
                 <div class="row mt-3 custom-input">
                   <div class="input-container position-relative">

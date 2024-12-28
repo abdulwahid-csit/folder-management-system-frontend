@@ -68,7 +68,7 @@ export class CreatePasswordComponent implements OnInit {
       (response) => {
         this.toast.success("Password changed successfully","password changing")
           console.log('Password successfully changed', response);
-        this.router.navigate(['/login']);
+        this.router.navigate(['/layout']);
       },
       (error) => {
         console.log(error);

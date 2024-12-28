@@ -1,41 +1,46 @@
 <div class="sidebar-main d-flex flex-column justify-content-between pb-3" [class.close_sidebar]="isSidebarVisible">
     <div class="sidbar-logo-navigations">
-        <div class="logo mt-1">
-            <img src="../../../../assets/icons/sidebar-logo-2.svg" alt="">
+        <div class="logo mt-1 text-white fs-1">
+            <!-- <img src="../../../../assets/icons/sidebar-logo-2.svg" alt=""> -->
+             CMS
         </div>
         <div class="navigations">
             <div class="fs-12px ms-3 semi-bold-font menu-text mt-2">MENU</div>
             <ul class="pt-2">
-                <li *ngIf="localStoreService.hasPermission('can.access.dashboard')"
+                <li 
                     class="d-flex align-items-center sidebar_svg" (click)="setActive('Dashboard')"
                     routerLink="dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }"><span
                         class="d-flex align-items-center sidebar_svg home"></span><a>Dashboard</a></li>
 
-                <li *ngIf="localStoreService.hasPermission('can.access.organizations')"
+                <li 
                     class="d-flex align-items-center sidebar_svg" (click)="setActive('Organizations')"
                     routerLink="organization" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
-                    <span class="d-flex align-items-center sidebar_svg Icon"></span><a>Organizations</a></li>
+                    <span class="d-flex align-items-center sidebar_svg Icon"></span><a>Calender</a></li>
 
-                <li *ngIf="localStoreService.hasPermission('can.access.roles')"
+                <li 
                     class="d-flex align-items-center sidebar_svg" (click)="setActive('Permissions')" routerLink="roles"
                     routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }"><span
-                        class="d-flex align-items-center sidebar_svg check-verified"></span><a>Roles & Permissions</a>
+                        class="d-flex align-items-center sidebar_svg check-verified"></span><a>Final Year Project</a>
                 </li>
 
-                <li *ngIf="localStoreService.hasPermission('can.access.applications')"
+                <li 
                     class="d-flex align-items-center sidebar_svg" (click)="setActive('Applications')"
                     routerLink="application" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
-                    <span class="d-flex align-items-center sidebar_svg monitor"></span><a>Applications</a></li>
+                    <span class="d-flex align-items-center sidebar_svg monitor"></span><a>To Do List</a></li>
 
-                <li *ngIf="localStoreService.hasPermission('can.access.users')"
+                <li 
                     class="d-flex align-items-center sidebar_svg" (click)="setActive('Users')" routerLink="user"
                     routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }"><span
-                        class="d-flex align-items-center sidebar_svg iconone"></span><a>Users</a></li>
+                        class="d-flex align-items-center sidebar_svg iconone"></span><a>Folders</a></li>
 
-                <li *ngIf="localStoreService.hasPermission('can.access.members')"
+                <li 
                     class="d-flex align-items-center sidebar_svg" (click)="setActive('teamMembers')"
                     routerLink="team-member" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
-                    <span class="d-flex align-items-center sidebar_svg users "></span><a>Team Members</a></li>
+                    <span class="d-flex align-items-center sidebar_svg users "></span><a>Report</a></li>
+                <li 
+                    class="d-flex align-items-center sidebar_svg" (click)="setActive('teamMembers')"
+                    routerLink="team-member" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
+                    <span class="d-flex align-items-center sidebar_svg users "></span><a>About</a></li>
             </ul>
         </div>
     </div>
@@ -50,7 +55,7 @@
                     </div>
                     <div class="ms-2">
                         <div class="fs-14px fw-700">{{localStoreService.getUserName()}}</div>
-                        <div class="role fs-12px">{{localStoreService.getUserRole()}}</div>
+                        <div class="role fs-12px">{{localStoreService.getUserEmail()}}</div>
                     </div>
                 </div>
                 <div class="me-4 mt-2" (click)="logout()"><span class="cursor-pointer logout-icon"></span></div>

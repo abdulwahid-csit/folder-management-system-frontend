@@ -54,8 +54,9 @@ export class LocalStoreService {
   }
   
   getUserProfile(): string {
-    const userData = this.getItem('user');
-    return userData.profile_picture || '../../../../../assets/images/iis.svg';
+    // const userData = this.getItem('user');
+    // return userData.profile_picture || '../../../../../assets/images/iis.svg';
+    return ''
   }
 
   getUserRole(): string {

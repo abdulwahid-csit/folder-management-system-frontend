@@ -5,23 +5,22 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DeleteModalComponent } from './components/delete-modal/delete-modal.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { BsDatepickerConfig, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [
     DataTableComponent,
     PaginationComponent,
     DeleteModalComponent,
-    NotFoundComponent
+    NotFoundComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-
+    BsDatepickerModule.forRoot(),
   ],
-  exports:[
-    DataTableComponent,
-    NotFoundComponent
-  ]
+  exports: [DataTableComponent, NotFoundComponent],
+  providers: [BsDatepickerConfig],
 })
-export class SharedModule { }
+export class SharedModule {}

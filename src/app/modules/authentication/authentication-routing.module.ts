@@ -6,7 +6,6 @@ import { CreatePasswordComponent } from './create-password/create-password.compo
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { RegisterComponent } from './register/register.component';
 import { SignInComponent } from './sign-in/sign-in.component';
-import { RegisterMemberComponent } from '../team-member/register-member/register-member.component';
 import { VerifyEmailComponent } from './verify-otp/verify-email.component';
 
 
@@ -27,9 +26,6 @@ const routes: Routes = [
   {
     path: "forgot/password",
     component: ForgotPasswordComponent
-  },
-  { path: 'confirm/:id',
-    component: RegisterMemberComponent
   },
   {
     path: "verify-otp",

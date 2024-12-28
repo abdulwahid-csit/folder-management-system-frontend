@@ -14,8 +14,8 @@ function numericValidator(control: AbstractControl): ValidationErrors | null {
 
 @Component({
   selector: 'app-create-user',
-  templateUrl: './create-user.component.html',
-  styleUrls: ['./create-user.component.scss', '../../../css/custpm-dropdown-style.scss']
+  template: ``,
+  styleUrls: ['../../../css/custpm-dropdown-style.scss']
 })
 export class CreateUserComponent implements OnInit {
   @Input() mode: string = 'create';

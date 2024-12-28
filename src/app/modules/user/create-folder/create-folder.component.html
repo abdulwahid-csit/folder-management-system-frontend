@@ -1,0 +1,126 @@
+<div class="modal-dialog-box">
+  <div class="pt-0">
+    <div
+      class="modal-header border-bottom-0 d-flex justify-content-between align-items-baseline"
+    >
+      <h3>Add Folder</h3>
+    </div>
+    <div class="modal-body">
+      <div class="text fw-600 color-8492A6">
+        <form action="" [formGroup]="form">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="ms-2 custom-input mt-3">
+              <label
+                for="exampleFormControlInput1"
+                class="form-label mb-1 fs-14px fw-700 required"
+                >Batch No
+              </label>
+              <input
+              formControlName="batchNo"
+                type="text"
+                class="form-control dataTableSearch"
+                placeholder="Enter batch no"
+              />
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="ms-2 custom-input mt-3">
+              <label
+                for="exampleFormControlInput1"
+                class="form-label mb-1 fs-14px fw-700 required"
+                >Department</label
+              >
+              <input
+              formControlName="department"
+                type="text"
+                class="form-control dataTableSearch"
+                placeholder="Enter department"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="ms-2 custom-input mt-3">
+              <label
+                for="exampleFormControlInput1"
+                class="form-label mb-1 fs-14px fw-700 required"
+                >Course Name</label
+              >
+              <input
+              formControlName="courseName"
+                type="text"
+                class="form-control dataTableSearch"
+                placeholder="Enter course name"
+              />
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="ms-2 mt-3 custom-input">
+              <label
+                for="exampleFormControlInput1"
+                class="form-label mb-1 fs-14px fw-700 required"
+                >Semester</label
+              >
+              <select name="" class="form-control" id="" formControlName="semester">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="ms-2 mt-3 custom-input">
+                <label
+                  for="exampleFormControlInput1"
+                  class="form-label mb-1 fs-14px fw-700 required"
+                  >Session</label
+                >
+                <select name="" class="form-control" id="" formControlName="session">
+                  <option value="1">Spring</option>
+                  <option value="2">Fall</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="ms-2 mt-3 custom-input w-100 ms-lg-4">
+                <label
+                  for="exampleFormControlInput1"
+                  class="form-label mb-1 fs-14px fw-700 required"
+                  >Timing</label
+                >
+                <select name="" class="form-control" id="" formControlName="timing">
+                  <option value="1">Morning</option>
+                  <option value="2">Evening</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer border-top-0 d-flex justify-content-end">
+      <div class="buttons">
+        <button type="button" class="cancel_btn me-2" (click)="closeModal()">
+          Cancel
+        </button>
+        <button (click)="submit()" type="submit" class="primary_button" [disabled]="isLoading">
+          Save <i class="bi bi-arrow-right ms-2 mt-1" *ngIf="!isLoading"></i>
+          <span
+            class="spinner-border spinner-border-sm"
+            *ngIf="isLoading"
+          ></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

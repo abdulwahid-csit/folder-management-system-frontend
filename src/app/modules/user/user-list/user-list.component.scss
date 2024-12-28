@@ -1,3 +1,20 @@
 .wrapper{
     padding: 30px;
 }
+
+.folders{
+    padding: 10px 20px 50px 20px;
+    .card{
+        transform: translateY(0);
+         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+         background-color: hwb(0 100% 0%);
+         color: hsl(0, 0%, 0%);
+         transition: transform, background-color 0.2s ease-in;
+         cursor: pointer;
+    }
+    .card:hover{
+        transform: scale(1.05);
+        background-color: #6f61cf;
+        color: #fff;
+    }
+}

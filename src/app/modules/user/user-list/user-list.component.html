@@ -1,23 +1,186 @@
 <div class="wrapper">
-    <div class="sso_card w-100 h-100">
-        <div class="d-block d-md-flex align-items-center justify-content-between dataTable_header">
-            <h4 class="primary_color mb-3 mb-md-0 table-header-letter-spacing">Users</h4>
-            <div class="d-block d-md-flex">
-               <div class="position-relative display-flex ms-0 ms-2 mb-3 mb-md-0 custom-input">
-                    <input type="text" class="form-control dataTableSearch" [(ngModel)]="searchTerm"
-                        placeholder="Search by name or domain" (keyup)="onKeyChange($event)">
-                    <span class="search_icon searchIcon"></span>
-                </div>
-                <div class="d-flex">
-                    <button type="button" class="btn filter_btn ms-0 ms-2 mb-3 mb-md-0 d-none">
-                        <span class="me-2 filterIcon"></span> Filter
-                    </button>
-                </div>
-                <button *ngIf="localStoreService.hasPermission('can.create.user')" type="button" class="primary_button ms-0 ms-2 mb-3 mb-md-0" (click)="createUser()">Create User</button>
-            </div>
+  <div class="sso_card w-100 h-100">
+    <div
+      class="d-block d-md-flex align-items-center justify-content-between dataTable_header"
+    >
+      <h4 class="primary_color mb-3 mb-md-0 table-header-letter-spacing">
+        Users
+      </h4>
+      <div class="d-block d-md-flex">
+        <div
+          class="position-relative display-flex ms-0 ms-2 mb-3 mb-md-0 custom-input"
+        >
+          <input
+            type="text"
+            class="form-control dataTableSearch"
+            [(ngModel)]="searchTerm"
+            placeholder="Search by name or domain"
+          />
+          <span class="search_icon searchIcon"></span>
         </div>
-        <app-data-table [columns]="columns" [config]="tableConfig" [dataSet]="userList"
-            [module]="'user'" (rowClick)="viewUserDetail($event)" (changePage)="onPageChange($event)">
-        </app-data-table>
+        <div class="d-flex">
+          <button
+            type="button"
+            class="btn filter_btn ms-0 ms-2 mb-3 mb-md-0 d-none"
+          >
+            <span class="me-2 filterIcon"></span> Filter
+          </button>
+        </div>
+        <button
+          (click)="createFolder()"
+          class="primary_button ms-0 ms-2 mb-3 mb-md-0 d-flex justify-content-center align-items-center"
+        >
+          Create Folder
+          <i class="bi bi-arrow-right ms-2 mt-1"></i>
+        </button>
+      </div>
     </div>
+    <div class="d-flex gap-4 folders flex-wrap">
+      <div class="card flex-row gap-4 align-items-center p-3" style="min-width: 300px">
+        <i class="fa fa-folder" style="color: #FFD43B; font-size: 60px;"></i>
+        <div class="flex-column d-flex" (click)="details(2)">
+            <span>Bach: 2022</span>
+            <span>Department: Computer Science</span>
+            <span>Course Name: Maths</span>
+            <span>Shift: Morning</span>
+        </div>
+      </div>
+      <div class="card flex-row gap-4 align-items-center p-3" style="min-width: 300px">
+        <i class="fa fa-folder" style="color: #FFD43B; font-size: 60px;"></i>
+        <div class="flex-column d-flex">
+            <span>Bach: 2022</span>
+            <span>Department: Computer Science</span>
+            <span>Course Name: Maths</span>
+            <span>Shift: Morning</span>
+        </div>
+      </div>
+      <div class="card flex-row gap-4 align-items-center p-3" style="min-width: 300px">
+        <i class="fa fa-folder" style="color: #FFD43B; font-size: 60px;"></i>
+        <div class="flex-column d-flex">
+            <span>Bach: 2022</span>
+            <span>Department: Computer Science</span>
+            <span>Course Name: Maths</span>
+            <span>Shift: Morning</span>
+        </div>
+      </div>
+      <div class="card flex-row gap-4 align-items-center p-3" style="min-width: 300px">
+        <i class="fa fa-folder" style="color: #FFD43B; font-size: 60px;"></i>
+        <div class="flex-column d-flex">
+            <span>Bach: 2022</span>
+            <span>Department: Computer Science</span>
+            <span>Course Name: Maths</span>
+            <span>Shift: Morning</span>
+        </div>
+      </div>
+      <div class="card flex-row gap-4 align-items-center p-3" style="min-width: 300px">
+        <i class="fa fa-folder" style="color: #FFD43B; font-size: 60px;"></i>
+        <div class="flex-column d-flex">
+            <span>Bach: 2022</span>
+            <span>Department: Computer Science</span>
+            <span>Course Name: Maths</span>
+            <span>Shift: Morning</span>
+        </div>
+      </div>
+      <div class="card flex-row gap-4 align-items-center p-3" style="min-width: 300px">
+        <i class="fa fa-folder" style="color: #FFD43B; font-size: 60px;"></i>
+        <div class="flex-column d-flex">
+            <span>Bach: 2022</span>
+            <span>Department: Computer Science</span>
+            <span>Course Name: Maths</span>
+            <span>Shift: Morning</span>
+        </div>
+      </div>
+      <div class="card flex-row gap-4 align-items-center p-3" style="min-width: 300px">
+        <i class="fa fa-folder" style="color: #FFD43B; font-size: 60px;"></i>
+        <div class="flex-column d-flex">
+            <span>Bach: 2022</span>
+            <span>Department: Computer Science</span>
+            <span>Course Name: Maths</span>
+            <span>Shift: Morning</span>
+        </div>
+      </div>
+      <div class="card flex-row gap-4 align-items-center p-3" style="min-width: 300px">
+        <i class="fa fa-folder" style="color: #FFD43B; font-size: 60px;"></i>
+        <div class="flex-column d-flex">
+            <span>Bach: 2022</span>
+            <span>Department: Computer Science</span>
+            <span>Course Name: Maths</span>
+            <span>Shift: Morning</span>
+        </div>
+      </div>
+      <div class="card flex-row gap-4 align-items-center p-3" style="min-width: 300px">
+        <i class="fa fa-folder" style="color: #FFD43B; font-size: 60px;"></i>
+        <div class="flex-column d-flex">
+            <span>Bach: 2022</span>
+            <span>Department: Computer Science</span>
+            <span>Course Name: Maths</span>
+            <span>Shift: Morning</span>
+        </div>
+      </div>
+      <div class="card flex-row gap-4 align-items-center p-3" style="min-width: 300px">
+        <i class="fa fa-folder" style="color: #FFD43B; font-size: 60px;"></i>
+        <div class="flex-column d-flex">
+            <span>Bach: 2022</span>
+            <span>Department: Computer Science</span>
+            <span>Course Name: Maths</span>
+            <span>Shift: Morning</span>
+        </div>
+      </div>
+      <div class="card flex-row gap-4 align-items-center p-3" style="min-width: 300px">
+        <i class="fa fa-folder" style="color: #FFD43B; font-size: 60px;"></i>
+        <div class="flex-column d-flex">
+            <span>Bach: 2022</span>
+            <span>Department: Computer Science</span>
+            <span>Course Name: Maths</span>
+            <span>Shift: Morning</span>
+        </div>
+      </div>
+      <div class="card flex-row gap-4 align-items-center p-3" style="min-width: 300px">
+        <i class="fa fa-folder" style="color: #FFD43B; font-size: 60px;"></i>
+        <div class="flex-column d-flex">
+            <span>Bach: 2022</span>
+            <span>Department: Computer Science</span>
+            <span>Course Name: Maths</span>
+            <span>Shift: Morning</span>
+        </div>
+      </div>
+      <div class="card flex-row gap-4 align-items-center p-3" style="min-width: 300px">
+        <i class="fa fa-folder" style="color: #FFD43B; font-size: 60px;"></i>
+        <div class="flex-column d-flex">
+            <span>Bach: 2022</span>
+            <span>Department: Computer Science</span>
+            <span>Course Name: Maths</span>
+            <span>Shift: Morning</span>
+        </div>
+      </div>
+      <div class="card flex-row gap-4 align-items-center p-3" style="min-width: 300px">
+        <i class="fa fa-folder" style="color: #FFD43B; font-size: 60px;"></i>
+        <div class="flex-column d-flex">
+            <span>Bach: 2022</span>
+            <span>Department: Computer Science</span>
+            <span>Course Name: Maths</span>
+            <span>Shift: Morning</span>
+        </div>
+      </div>
+      <div class="card flex-row gap-4 align-items-center p-3" style="min-width: 300px">
+        <i class="fa fa-folder" style="color: #FFD43B; font-size: 60px;"></i>
+        <div class="flex-column d-flex">
+            <span>Bach: 2022</span>
+            <span>Department: Computer Science</span>
+            <span>Course Name: Maths</span>
+            <span>Shift: Morning</span>
+        </div>
+      </div>
+      <div class="card flex-row gap-4 align-items-center p-3" style="min-width: 300px">
+        <i class="fa fa-folder" style="color: #FFD43B; font-size: 60px;"></i>
+        <div class="flex-column d-flex">
+            <span>Bach: 2022</span>
+            <span>Department: Computer Science</span>
+            <span>Course Name: Maths</span>
+            <span>Shift: Morning</span>
+        </div>
+      </div>
+     
+    </div>
+  </div>
 </div>

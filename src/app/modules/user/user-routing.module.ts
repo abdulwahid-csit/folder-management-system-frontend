@@ -3,6 +3,7 @@ import { RouterModule ,Routes} from '@angular/router';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { NotFoundComponent } from 'src/app/shared/components/not-found/not-found.component';
+import { FolderDetailsComponent } from './folder-details/folder-details.component';
 
 const routes: Routes = [
   {
@@ -11,7 +12,7 @@ const routes: Routes = [
   },
   {
    path: 'details/:id',
-  component: UserDetailComponent
+  component: FolderDetailsComponent
   },
   {
     path:'**', component:NotFoundComponent

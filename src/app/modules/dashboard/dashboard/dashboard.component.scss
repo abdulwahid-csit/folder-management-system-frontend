@@ -1,61 +1,113 @@
 .wrapper {
-    padding: 30px 40px 40px 40px;
-.row{
-
+  padding: 30px 40px 40px 40px;
+  .row {
     .custom-card {
-        height: 100px;
-        width: 100%;
-        background-color: #fff;
-        padding: 27px 24px;
-        border: none;
-        border-radius: 16px;
-        --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / .1), 0 1px 2px -1px rgb(0 0 0 / .1) !important;
-        --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color) !important;
-        box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
-        // .semi-bold-font{
-        //     // text-wrap: nowrap;
-        // }
+      height: 100px;
+      width: 100%;
+      background-color: #fff;
+      padding: 27px 24px;
+      border: none;
+      border-radius: 16px;
+      --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1) !important;
+      --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color),
+        0 1px 2px -1px var(--tw-shadow-color) !important;
+      box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+        var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+      // .semi-bold-font{
+      //     // text-wrap: nowrap;
+      // }
 
-        .card-icon-div {
-            width: 50px;
-            height: 50px;
-            border-radius: 8px;
+      .card-icon-div {
+        width: 50px;
+        height: 50px;
+        border-radius: 8px;
 
-            i {
-                color: #fff;
-            }
+        i {
+          color: #fff;
         }
+      }
     }
+  }
 }
-}
-.sso_card{
-    --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / .1), 0 1px 2px -1px rgb(0 0 0 / .1) !important;
-    --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color) !important;
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+.sso_card {
+  --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1) !important;
+  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color),
+    0 1px 2px -1px var(--tw-shadow-color) !important;
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
 }
 
-@media (min-width: 600px) and  (max-width: 989px) {
-    .container {
-      flex-direction: column; 
-    }
+@media (min-width: 600px) and (max-width: 989px) {
+  .container {
+    flex-direction: column;
+  }
 }
 .bg-FBC8D4 {
-    background-color: #FBC8D4;
+  background-color: #fbc8d4;
 }
 
 .bg-9795F0 {
-    background-color:
-        #9795F0;
+  background-color: #9795f0;
 }
 
 .bg-2DD1DB {
-    background-color:
-        #2DD1DB;
+  background-color: #2dd1db;
 }
 
 .bg-F7B06F {
-    background-color: #F7B06F;
+  background-color: #f7b06f;
 }
-.activity-log{
-    letter-spacing: -0.5px;
+.activity-log {
+  letter-spacing: -0.5px;
 }
+
+.menue:hover {
+  i {
+    color: white !important;
+  }
+  span {
+    color: white !important;
+  }
+  background-color: #6f61cf;
+}
+
+::ng-deep ngx-charts-line-chart {
+  width: 100% !important;
+  height: 100% !important;
+}
+.card {
+  transition: transform 0.3s ease-in !important;
+}
+.card:hover {
+  transform: scale(1.01) translateY(-15px);
+  z-index: 999;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.courses .card:hover{
+    background-color: #6f61cf;
+    color: #fff;
+    cursor: pointer;
+    transform: translateY(-5px);
+}
+.todo-list div:hover{
+    background-color: #6f61cf;
+    color: #fff;
+    cursor: pointer;
+    transform: translateY(-5px);
+}
+
+.folders{
+    .card{
+        transform: translateY(0);
+         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+         background-color: #6f61cf;
+         color: #fff;
+         transition: transform 0.5s ease-in;
+         cursor: pointer;
+    }
+    .card:hover{
+        transform: scale(1.05);
+    }
+}
+

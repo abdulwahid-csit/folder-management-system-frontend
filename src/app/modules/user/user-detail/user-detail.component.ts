@@ -1,7 +1,7 @@
 import { Component, TemplateRef, OnInit, HostListener } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CreateUserComponent } from '../create-user/create-user.component';
+import { CreateUserComponent } from '../create-user/create-user';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CrudService } from 'src/app/shared/services/crud.service';
 import { DeleteModalComponent } from 'src/app/shared/components/delete-modal/delete-modal.component';

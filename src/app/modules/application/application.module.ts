@@ -9,6 +9,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UpdateApplicationComponent } from './update-application/update-application.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { TodoListComponent } from '../dashboard/components/todo-list/todo-list.component';
+import { TodoDetailsComponent } from './todo-details/todo-details.component';
 
 
 @NgModule({
@@ -16,7 +18,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ApplicationListComponent,
     CreateApplicationComponent,
     ApplicationDetailsComponent,
-    UpdateApplicationComponent
+    UpdateApplicationComponent,
+    TodoDetailsComponent
   ],
   imports: [
     FormsModule,

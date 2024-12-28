@@ -31,6 +31,9 @@ export class RegisterComponent implements OnInit {
         Validators.required,
         Validators.pattern("^[A-Z a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
       ]],
+      phone: [null, [
+        Validators.required,
+      ]],
       password: [null, [
         Validators.required,
         Validators.minLength(8),
@@ -92,10 +95,11 @@ export class RegisterComponent implements OnInit {
     // }
     this.isLoading = true;
     this.authService.signUp(this.registerForm.value).subscribe((response: any) => {
-      if (response.status_code === 201) {
+      if (response.status_code == 201) {
+        this.toast.success('Registered successfully.')
         const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/layout';
         this.router.navigateByUrl(returnUrl);
-        const { access_token, refresh_token, access_token_expires, user } = response.data;
+        const { access_token, refresh_token, access_token_expires, user } = response;
         this.authService.storeTokens(access_token, refresh_token, access_token_expires, user);
         this.router.navigate(['/layout']);
       } else {
@@ -103,6 +107,8 @@ export class RegisterComponent implements OnInit {
       }
       this.isLoading = false;
     }, error => {
+      this.isLoading = false;
+      console.log('Error: ', error);
       this.toast.error(error.error.message, "Error!");
       this.isLoading = false;
     });

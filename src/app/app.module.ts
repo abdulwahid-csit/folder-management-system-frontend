@@ -31,7 +31,7 @@ import { OrganizationState } from './modules/organization/state/organization.sta
     ReactiveFormsModule,
     BrowserAnimationsModule,
     FormsModule,
-    AuthenticationModule,
+    // AuthenticationModule,
     NgSelectModule,
     // NgxsLoggerPluginModule.forRoot(),
     // NgxsReduxDevtoolsPluginModule.forRoot()

@@ -13,16 +13,15 @@ import { CrudService } from 'src/app/shared/services/crud.service';
   ],
 })
 export class CreateFolderComponent implements OnInit {
-
-  @Output() event = new EventEmitter<any>;
-  mode = '';
+  @Output() event = new EventEmitter<any>();
+  id: any;
   isLoading = false;
   bsValue = new Date();
   bsRangeValue!: Date[];
   maxDate = new Date();
   minDate = new Date();
   form!: FormGroup;
-
+  folder: any
 
   constructor(
     private modalService: BsModalService,
@@ -36,6 +35,9 @@ export class CreateFolderComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
+    if (this.id) {
+      this.getFolderById();
+    }
   }
 
   initForm() {
@@ -49,17 +51,32 @@ export class CreateFolderComponent implements OnInit {
     });
   }
 
+  getFolderById() {
+    this.crudService
+      .read('folder/folders', this.id)
+      .subscribe(
+        (res) => {
+          this.folder = res?.folders;
+          console.log('Folders: ', this.folder);
+          this.form.patchValue(this.folder[0]);
+        },
+        (error) => {
+          console.log('error: ', error);
+        }
+      );
+  }
+
   submit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      console.log('form invalid')
+      console.log('form invalid');
       return;
     }
     this.crudService.create('folder/add-folder', this.form.value).subscribe(
       (res) => {
         console.log('response: ', res);
         this.event.emit();
-        this.toast.success('Folder created successfully.')
+        this.toast.success('Folder created successfully.');
         this.closeModal();
       },
       (error) => {

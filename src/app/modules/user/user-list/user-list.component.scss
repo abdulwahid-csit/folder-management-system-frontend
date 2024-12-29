@@ -9,12 +9,23 @@
          box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
          background-color: hwb(0 100% 0%);
          color: hsl(0, 0%, 0%);
-         transition: transform, background-color 0.2s ease-in;
+         transition: transform, background-color, display 0.2s ease-in;
          cursor: pointer;
+         .hover-buttons{
+        display: none;
+    }
     }
     .card:hover{
         transform: scale(1.05);
         background-color: #6f61cf;
         color: #fff;
     }
+    
+   
+.folders:hover{
+ .hover-buttons{
+        display: flex !important;
+        border: 1px solid #fff !important;
+    }
+}
 }

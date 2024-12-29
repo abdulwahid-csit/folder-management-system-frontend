@@ -8,6 +8,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { LayoutComponent } from './layout/layout.component';
 import { SharedModule } from '../shared/shared.module'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 
 @NgModule({
@@ -15,14 +16,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
     HeaderComponent,
     ContentComponent,
     SidebarComponent,
-    LayoutComponent
+    LayoutComponent,
   ],
   imports: [
     CommonModule,
     LayoutRoutingModule,
     SharedModule,
     FormsModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    BsDropdownModule.forRoot(),
+  ],
 })
-export class LayoutModule { }
+export class LayoutModule {}

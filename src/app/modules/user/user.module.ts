@@ -9,6 +9,8 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
 import { FormsModule } from '@angular/forms'
 import { NgSelectModule } from '@ng-select/ng-select';
 import { CreateFolderComponent } from './create-folder/create-folder.component';
+import { FolderDetailsComponent } from './folder-details/folder-details.component';
+import { AddFileComponent } from './add-file/add-file.component';
 
 
 
@@ -17,7 +19,9 @@ import { CreateFolderComponent } from './create-folder/create-folder.component';
   declarations: [
     UserListComponent,
     UserDetailComponent,
-    CreateFolderComponent
+    CreateFolderComponent,
+    FolderDetailsComponent,
+    AddFileComponent
   ],
   imports: [
     CommonModule,

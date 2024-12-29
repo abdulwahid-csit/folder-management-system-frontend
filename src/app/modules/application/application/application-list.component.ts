@@ -1,109 +1,105 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { ApplicationDetailsComponent } from '../application-details/application-details.component';
-import { CreateApplicationComponent } from '../create-application/create-application.component';
 import { CrudService } from 'src/app/shared/services/crud.service';
-import { LocalStoreService } from 'src/app/shared/services/local-store.service';
+import { ToastrService } from 'ngx-toastr';
+import { DeleteModalComponent } from 'src/app/shared/components/delete-modal/delete-modal.component';
+import { TodoListComponent } from '../../dashboard/components/todo-list/todo-list.component';
 
 @Component({
   selector: 'app-application-list',
   templateUrl: './application-list.component.html',
-  styleUrls: ['./application-list.component.scss']
+  styleUrls: ['./application-list.component.scss'],
 })
 export class ApplicationListComponent {
+  isLoading = false;
+  @Input() title: string = '';
+  data: any[] = [];
+  @Input() status: any = true;
+  @Output() event = new EventEmitter<any>();
+  modalRef!: BsModalRef;
+  searchTerm: string = '';
+
   constructor(
     private modalService: BsModalService,
     private crudService: CrudService,
-    private localStoreService: LocalStoreService
-  ){}
-  ngOnInit(): void {
-    this.applicationListing(1)
+    private toast: ToastrService
+  ) {}
+
+  ngOnInit() {
+    this.getTodos();
   }
 
+  closeModal() {
+    this.modalService.hide();
+  }
 
-  columns:any = []
-  applicationList:any = {}
-  total_pages = 10;
-  payload_size = 10;
-  current_page = 1
-  has_next= false
-  skipped_records = 0
-  total_records = 7
-  modalRef?: BsModalRef;
-  searchTerm: string = '';
-  searchType: boolean = false;
-
-
-    tableConfig = {
-      paginationParams: {
-        "total_pages": this.total_pages,
-        "payload_size": this.payload_size,
-        "has_next": this.has_next,
-        "current_page": this.current_page,
-        "skipped_records": this.skipped_records,
-        "total_records": this.total_records
+  getTodos() {
+    this.crudService.read('todo/todo').subscribe(
+      (res) => {
+        console.log('res: -> ', res.todos);
+        this.data = res.todos;
+      },
+      (error) => {
+        console.log('error: ', error);
       }
-    };
+    );
+  }
 
-    applicationListing(currentPage: any) {
-      let urlData = `applications?page=${currentPage}&limit=10`;
-      if(this.localStoreService.getUserRole().toLowerCase() !== 'master'){
-        urlData += `&organization=${this.localStoreService.getUserOrganization()}`;
+  changeStatus(id: string) {
+    this.crudService.create('todo/complete-todo', { id: id }).subscribe(
+      (res) => {
+        this.toast.success('Todo status changed to completed.');
+        this.getTodos();
+        this.event.emit(true);
+      },
+      (error) => {
+        console.log('error: ', error);
       }
+    );
+  }
 
-      if(this.searchType){
-        urlData += `&search=${this.searchTerm}`;
+  deleteTodo(id: string) {
+    this.crudService.delete('todo/todo', id).subscribe(
+      (res) => {
+        this.toast.success('Todo deleted successfully.');
+        this.getTodos();
+        this.event.emit(true);
+        this.closeModal();
+      },
+      (error) => {
+        console.log('error: ', error);
       }
+    );
+  }
 
-      this.crudService.read(urlData).subscribe((response: any) => {
-       if (response.status_code === 200 || response.status_code === 201) {
-          if (response.data.payload.length > 0) {
-            const column = Object.keys(response.data.payload[0]);
-            this.columns = column.filter((column: string) => column !== 'id' &&
-              column !== 'email_verified' && column !== 'permissions' && column !== 'timezone' && column !=='created_by' &&
-              column !== 'updated_by' && column !== 'username' && column !== 'updated_at' && column !== 'profile_picture' && column !== 'last_name');
-            this.applicationList = response.data.payload;
+  id: any;
+  openDeleteModal(message: string, id?: string) {
+    this.id = id;
+    this.modalRef = this.modalService.show(DeleteModalComponent, {
+      class: 'modal-dialog modal-dialog-centered modal-md common_modal_shadow',
+      backdrop: 'static',
+      keyboard: false,
+      initialState: {
+        description: message,
+      },
+    });
+    this.modalRef.content?.deleteData.subscribe(() => {
+      this.deleteTodo(this.id);
+    });
+  }
 
-            this.tableConfig = {
-              paginationParams: {
-                "total_pages": response.data.paginate_options.total_pages,
-                "payload_size": response.data.paginate_options.payload_size,
-                "has_next": response.data.paginate_options.has_next,
-                "current_page": response.data.paginate_options.current_page,
-                "skipped_records": response.data.paginate_options.skipped_records,
-                "total_records": response.data.paginate_options.total_records
-              }
-            };
-          }
-        }
+  createTodo() {
+    this.modalRef = this.modalService.show(TodoListComponent, {
+      class: 'modal-dialog modal-dialog-centered modal-lg common_modal_shadow',
+      backdrop: 'static',
+      keyboard: false,
+      initialState: {
+        mode: 'update',
+      },
+    });
 
-      }, error => {
-        console.error('HTTP error:', error);
-      });
-    }
-
-    createApplication() {
-      const initialState = { itemList: '', title: 'Create' };
-      this.modalRef = this.modalService.show(CreateApplicationComponent, {
-        class: 'modal-dialog modal-dialog-centered modal-lg create_organization',
-        backdrop: 'static',
-        keyboard: true,
-        initialState,
-      });
-      // this.modalRef.content.successCall.subscribe(() => {
-      //   this.applicationListing(1);
-      // });
-    }
-
-    onKeyChange(item: any){
-
-      this.searchType = false;
-
-      if(item.keyCode == 13){
-        this.searchType = true;
-        this.applicationListing(1);
-      }else if(this.searchTerm == ''){
-        this.applicationListing(1);
-      }
-    }
+    this.modalRef?.content?.event.subscribe(() => {
+      this.getTodos();
+    });
+  }
 }

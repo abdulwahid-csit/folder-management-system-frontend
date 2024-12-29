@@ -1,36 +1,78 @@
-<div class="header-wrapper d-flex align-items-center justify-content-between "
-    [ngClass]="!isDetailsPage? 'custom-shadow': ''">
-    <div (click)="toggleSidebar()" class="sidebar-toggle-div d-flex align-items-center justify-content-center">
-        <!-- <span *ngIf="!isSidebarVisible"
+<div
+  class="header-wrapper d-flex align-items-center justify-content-between"
+  [ngClass]="!isDetailsPage ? 'custom-shadow' : ''"
+>
+  <div
+    (click)="toggleSidebar()"
+    class="sidebar-toggle-div d-flex align-items-center justify-content-center"
+  >
+    <!-- <span *ngIf="!isSidebarVisible"
             class="cursor-pointer sideBarToggle align-items-center justify-content-center "> <i class="bi bi-chevron-right"></i></span>
         <span *ngIf="isSidebarVisible" class="cursor-pointer rotate_icon closeArrow"><i class="fa fa-arrow-right ms-4"></i
           ></span> -->
-        <span 
-            class="cursor-pointer sideBarToggle align-items-center justify-content-center "></span>
-        <span  class="cursor-pointer"></span>
+    <span
+      class="cursor-pointer sideBarToggle align-items-center justify-content-center"
+    ></span>
+    <span class="cursor-pointer"></span>
+  </div>
+  <div class="d-flex align-items-center justify-content-between gap-3">
+    <div
+      style="padding: 14px"
+      class="border rounded"
+      [ngClass]="{ 'me-4': !showSettingsIcon }"
+    >
+      <span
+        (click)="toggleFullscreen()"
+        class="header_svg cursor-pointer fullscreen"
+      >
+      </span>
     </div>
-    <div class="d-flex align-items-center justify-content-between gap-3">
-        <div style="padding: 14px;" class="border rounded" [ngClass]="{ 'me-4': !showSettingsIcon }">
-            <span (click)="toggleFullscreen()" class="header_svg cursor-pointer fullscreen"
-                >
-            </span>
-        </div>
-        <div class="d-flex align-items-center justify-content-center border p-2 rounded" [ngClass]="{ 'me-4': !showSettingsIcon }">
-            <span
-                > <i style="font-size: 30px;" class="fa fa-bell"></i>
-            </span>
-        </div>
-
-
-        <div *ngIf="showSettingsIcon" class="d-flex align-items-center justify-content-center settings-icon mx-4">
-            <span class="header_svg  cursor-pointer setting rotate-animate border-danger " (click)="navigate()"></span>
-        </div>
-        <div style="width: 20px; height: 20px;" class="border d-flex justify-content-center align-items-center rounded-circle p-4">
-            <!-- <img (click)="toggleDropdown()" class="cursor-pointer dropdown-profile-img rounded-circle"  width="40px" height="40px" [src]="localStoreService.getUserProfile()" alt=""> -->
-             <div>AW</div>
-        </div>
+    <div
+      class="d-flex align-items-center justify-content-center border p-2 rounded"
+      [ngClass]="{ 'me-4': !showSettingsIcon }"
+    >
+      <span> <i style="font-size: 30px" class="fa fa-bell"></i> </span>
     </div>
-    <!-- <div class="card custom-shadow d-flex justify-content-between flex-column border-0" [class.d-none]="!isDropdownVisible">
+    <div class="dropdown-container">
+      <button
+        type="button"
+        class="btn btn-primary dropdown-toggle"
+        bsDropdown
+        aria-controls="dropdown-basic"
+      >
+        Select an Option
+      </button>
+      <ul
+        *bsDropdownMenu
+        class="dropdown-menu"
+        aria-labelledby="dropdown-basic"
+      >
+        <li *ngFor="let option of options">
+          <a class="dropdown-item" href="javascript:void(0)">
+            {{ option }}
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div
+      *ngIf="showSettingsIcon"
+      class="d-flex align-items-center justify-content-center settings-icon mx-4"
+    >
+      <span
+        class="header_svg cursor-pointer setting rotate-animate border-danger"
+        (click)="navigate()"
+      ></span>
+    </div>
+    <div
+      style="width: 20px; height: 20px"
+      class="border d-flex justify-content-center align-items-center rounded-circle p-4"
+    >
+      <!-- <img (click)="toggleDropdown()" class="cursor-pointer dropdown-profile-img rounded-circle"  width="40px" height="40px" [src]="localStoreService.getUserProfile()" alt=""> -->
+      <div>AW</div>
+    </div>
+  </div>
+  <!-- <div class="card custom-shadow d-flex justify-content-between flex-column border-0" [class.d-none]="!isDropdownVisible">
         <div class="d-flex col-12  align-items-center">
             <div class="d-flex align-items-center">
                 <img class="dropdown-profile-img rounded-circle me-2" width="40px" height="40px" [src]="localStoreService.getUserProfile()" alt="">
@@ -54,4 +96,4 @@
 
     </div> -->
 </div>
-<hr class="m-0 path-line" [ngClass]="{'custom-shadow': !isDetailsPage }">
+<hr class="m-0 path-line" [ngClass]="{ 'custom-shadow': !isDetailsPage }" />

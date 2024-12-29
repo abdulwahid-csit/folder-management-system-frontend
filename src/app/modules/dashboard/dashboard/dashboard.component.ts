@@ -30,6 +30,7 @@ export class DashboardComponent {
   ngOnInit(): void {
     this.userName = this.localStoreService.getUserName();
     this.getTodoCounts();
+    this.getFolders();
   }
 
   getTodoCounts(){
@@ -50,40 +51,56 @@ export class DashboardComponent {
         mode: 'update',
       },
     });
+
+    this.modalRef?.content?.event.subscribe(() => {
+      this.getTodoCounts();
+    })
   }
 
   todoData: any;
 
-  openTodoDetailsList(title: string) {
-    this.crudService.read('todo/todo').subscribe(res => {
-      console.log('res: -> ', res.todos);
-      this.todoData = res.todos;
-    }, error => {
-      console.log('error: ', error);
-    })
+  openTodoDetailsList(title: string, status?: string) {
     this.modalRef = this.modalService.show(TodoDetailsComponent, {
       class: 'modal-dialog modal-dialog-centered modal-lg common_modal_shadow',
       backdrop: 'static',
       keyboard: false,
       initialState: {
         title: title,
-        data: this.todoData
+        data: this.todoData,
+        status: status
       },
     });
+    this.modalRef.content?.event.subscribe(() => {
+      this.getTodoCounts();
+    })
   }
 
-  createFolder() {
+  createFolder(id?: string) {
     this.modalRef = this.modalService.show(CreateFolderComponent, {
       class: 'modal-dialog modal-dialog-centered modal-lg common_modal_shadow',
       backdrop: 'static',
       keyboard: false,
       initialState: {
-        mode: 'update',
+        id: id,
       },
     });
+    this.modalRef.content?.event.subscribe(() => {
+      this.getFolders();
+    })
+  }
+
+  folders: any
+
+  getFolders(){
+     this.crudService.read('folder/folders', null, undefined, 5).subscribe((res) => {
+       this.folders = res?.folders;
+       console.log('Folders: ', this.folders);
+     }, error => {
+      console.log('error: ', error);
+     });
   }
 
   details(id: string | number) {
-    this.router.navigate(['layout/user/details', 1]);
+    this.router.navigate(['layout/user/details', id]);
   }
 }

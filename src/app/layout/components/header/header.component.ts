@@ -7,7 +7,7 @@ import { LocalStoreService } from 'src/app/shared/services/local-store.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
   isSidebarVisible = false;
@@ -17,33 +17,33 @@ export class HeaderComponent implements OnInit {
   isDashboard = false;
 
   constructor(
-    private commonService:CommonService,
+    private commonService: CommonService,
     private router: Router,
     public localStoreService: LocalStoreService,
-    private elRef: ElementRef,private route: ActivatedRoute
-  ){ }
-
+    private elRef: ElementRef,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.showSettingsIcon = !this.router.url.includes('dashboard');
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      this.updateVisibilityAndRouteFlags();
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.updateVisibilityAndRouteFlags();
+      });
+
+    this.commonService.sidebarVisible$.subscribe((visible) => {
+      this.isSidebarVisible = visible;
     });
 
-    this.commonService.sidebarVisible$.subscribe((visible)=>{
-      this.isSidebarVisible = visible;
-    })
-
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: any) => {
-      this.isDetailsPage = event.urlAfterRedirects.includes('/details');
-    })
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event: any) => {
+        this.isDetailsPage = event.urlAfterRedirects.includes('/details');
+      });
   }
 
-  toggleSidebar(){
+  toggleSidebar() {
     this.commonService.toggleSidebar();
   }
 
@@ -57,11 +57,14 @@ export class HeaderComponent implements OnInit {
     const elem = document.documentElement;
     if (elem.requestFullscreen) {
       elem.requestFullscreen();
-    } else if ((elem as any).mozRequestFullScreen) { /* Firefox */
+    } else if ((elem as any).mozRequestFullScreen) {
+      /* Firefox */
       (elem as any).mozRequestFullScreen();
-    } else if ((elem as any).webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+    } else if ((elem as any).webkitRequestFullscreen) {
+      /* Chrome, Safari & Opera */
       (elem as any).webkitRequestFullscreen();
-    } else if ((elem as any).msRequestFullscreen) { /* IE/Edge */
+    } else if ((elem as any).msRequestFullscreen) {
+      /* IE/Edge */
       (elem as any).msRequestFullscreen();
     }
   }
@@ -77,9 +80,9 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.localStoreService.removeItem();
-    this.router.navigate(['/login'])
+    this.router.navigate(['/login']);
   }
-  navigate(){
+  navigate() {
     this.router.navigate(['layout/dashboard/settings']);
   }
 
@@ -90,4 +93,12 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  options: string[] = ['Option 1', 'Option 2', 'Option 3', 'Option 4'];
+
+  selectedOption!: string;
+
+  selectOption(option: string): void {
+    this.selectedOption = option;
+    alert(`You selected: ${option}`);
+  }
 }

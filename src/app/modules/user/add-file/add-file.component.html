@@ -3,22 +3,22 @@
     <div
       class="modal-header border-bottom-0 d-flex justify-content-between align-items-baseline"
     >
-      <h3>Add Todo</h3>
+      <h3>{{title}}</h3>
     </div>
     <div class="modal-body" >
-      <form [formGroup]="form">
+      <form [formGroup]="form" enctype="multipart/form-data">
         <div class="text fw-600 color-8492A6">
           <div class="ms-2 custom-input">
             <label
               for="exampleFormControlInput1"
               class="form-label mb-1 fs-14px fw-700 required"
-              >Title</label
+              >Name</label
             >
             <input
               type="text"
               class="form-control dataTableSearch"
               placeholder="Enter Title"
-              formControlName="title"
+              formControlName="name"
             />
           </div>
           <div class="ms-2 mt-3 custom-input">
@@ -33,14 +33,15 @@
             <label
               for="exampleFormControlInput1"
               class="form-label mb-1 fs-14px fw-700"
-              >Add reminer</label
+              >Upload file</label
             >
             <input
-              type="date"
+              type="file"
+              accept=".pdf, .doc, .docs"
               placeholder="Datepicker"
               class="form-control"
-              bsDatePicker
-              formControlName="reminderDate"
+              formControlName="files"
+              (change)="OnFileChange($event)"
             />
             <label
               for="exampleFormControlInput1"

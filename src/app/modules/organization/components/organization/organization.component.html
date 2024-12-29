@@ -1,21 +1,96 @@
 <div class="main-div">
-    <div class="sso_card w-100 h-100 dashboard-wrapper">
-        <div class="d-blcok d-md-flex align-items-center justify-content-between dataTable_header">
-            <h4 class="primary_color mb-0 table-header-letter-spacing mb-3 mb-md-0">Organizations</h4>
-            <div class="d-block d-md-flex">
-                <div class="position-relative display-flex ms-0 ms-md-2 custom-input w-100">
-                    <input type="text" class="form-control dataTableSearch" [(ngModel)]="searchTerm"
-                        placeholder="Search by name or domain" (keyup)="onKeyChange($event)">
-                    <span class="search_icon searchIcon"></span>
-                </div>
-                <button type="button" class="btn filter_btn ms-0 ms-md-2 d-none"><span class="filterIcon me-2"></span>
-                    Filter</button>
-                <button *ngIf="localStoreService.hasPermission('can.create.organization')" type="button" class="primary_button ms-0 ms-md-2 mt-2 mt-md-0" (click)="createOganization()">Create
-                    Oganization</button>
-            </div>
+  <div class="sso_card w-100 h-100 dashboard-wrapper">
+    <div
+      class="d-blcok d-md-flex align-items-center justify-content-between dataTable_header"
+    >
+      <h4 class="primary_color mb-0 table-header-letter-spacing mb-3 mb-md-0">
+        Organizations
+      </h4>
+      <div class="d-block d-md-flex">
+        <div
+          class="position-relative display-flex ms-0 ms-md-2 custom-input w-100"
+        >
+          <input
+            type="text"
+            class="form-control dataTableSearch"
+            [(ngModel)]="searchTerm"
+            placeholder="Search by name or domain"
+          />
+          <span class="search_icon searchIcon"></span>
         </div>
-        <app-data-table [columns]="columns" [config]="tableConfig" [dataSet]="organizationList"
-            [module]="'organization'" (changePage)="getOrganization($event)"></app-data-table>
-
+        <button type="button" class="btn filter_btn ms-0 ms-md-2 d-none">
+          <span class="filterIcon me-2"></span> Filter
+        </button>
+        <button type="button" class="primary_button ms-0 ms-md-2 mt-2 mt-md-0">
+          Create Oganization
+        </button>
+      </div>
     </div>
+    <h2 class="my-4 mx-4">Scheduler</h2>
+
+    <div class="table m-4" style="width: 96%; overflow: auto; max-height: 80vh">
+      <table>
+        <thead>
+          <th
+            class="border sticky-header sticky-left"
+            style="z-index: 1000; background-color: burlywood"
+          >
+            <input
+              [(ngModel)]="searchTerm"
+              class="form-control"
+              type="search"
+            />
+          </th>
+          <th
+            class="border sticky-header"
+            style="background-color: burlywood; padding-right: 12px"
+            *ngFor="let day of days"
+          >
+            <div class="d-flex justify-content-between">
+              <div>{{ day | date : "d/M/YYYY" }}</div>
+              <div>
+                <input
+                  placeholder="Search here"
+                  type="checkbox"
+                  style="width: 20px; height: 20px"
+                />
+              </div>
+            </div>
+          </th>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let user of [
+                1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1,
+                2, 3, 4, 5, 6, 7, 8, 9, 10
+              ]
+            "
+          >
+            <td
+              class="border sticky-left"
+              style="z-index: 999; background-color: burlywood"
+            >
+              <div class="d-flex justify-content-center gap-2">
+                <div class="img"></div>
+                <div>
+                  <div>User</div>
+                  <div>10h 30m</div>
+                </div>
+              </div>
+            </td>
+            <td *ngFor="let day of days; let i = index" class="border">
+              <div
+                class="schedule d-flex justify-content-between align-items-center px-2 fw-bold overflow-hidden"
+              >
+                <div><i class="bi bi-clock" style="font-size: 20px"></i></div>
+                <div>09:00 - 18:00</div>
+                <input type="checkbox" style="width: 20px; height: 20px" />
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

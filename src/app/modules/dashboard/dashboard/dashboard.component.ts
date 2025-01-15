@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent {
   userName: string = '';
-  todoCounts: any
+  todoCounts: any;
 
   constructor(
     private localStoreService: LocalStoreService,
@@ -31,10 +31,11 @@ export class DashboardComponent {
     this.userName = this.localStoreService.getUserName();
     this.getTodoCounts();
     this.getFolders();
+    this.getSharedFolders();
   }
 
-  getTodoCounts(){
-    this.crudService.read('todo/todo-counts').subscribe(res => {
+  getTodoCounts() {
+    this.crudService.read('todo/todo-counts').subscribe((res) => {
       this.todoCounts = res;
       console.log('todo counts: ', this.todoCounts);
     });
@@ -54,7 +55,7 @@ export class DashboardComponent {
 
     this.modalRef?.content?.event.subscribe(() => {
       this.getTodoCounts();
-    })
+    });
   }
 
   todoData: any;
@@ -67,12 +68,12 @@ export class DashboardComponent {
       initialState: {
         title: title,
         data: this.todoData,
-        status: status
+        status: status,
       },
     });
     this.modalRef.content?.event.subscribe(() => {
       this.getTodoCounts();
-    })
+    });
   }
 
   createFolder(id?: string) {
@@ -86,21 +87,39 @@ export class DashboardComponent {
     });
     this.modalRef.content?.event.subscribe(() => {
       this.getFolders();
-    })
+    });
   }
 
-  folders: any
+  folders: any;
 
-  getFolders(){
-     this.crudService.read('folder/folders', null, undefined, 5).subscribe((res) => {
-       this.folders = res?.folders;
-       console.log('Folders: ', this.folders);
-     }, error => {
-      console.log('error: ', error);
-     });
+  getFolders() {
+    this.crudService.read('folder/folders', null, undefined, 5).subscribe(
+      (res) => {
+        this.folders = res?.folders;
+        console.log('Folders: ', this.folders);
+      },
+      (error) => {
+        console.log('error: ', error);
+      }
+    );
   }
 
   details(id: string | number) {
     this.router.navigate(['layout/user/details', id]);
+  }
+
+  sharedFolders: any[] = [];
+  getSharedFolders() {
+    this.crudService
+      .read('folder/shared-folders', null, undefined, 5)
+      .subscribe(
+        (res) => {
+          this.sharedFolders = res?.data;
+          console.log('sharedFolders: ', this.sharedFolders);
+        },
+        (error) => {
+          console.log('error: ', error);
+        }
+      );
   }
 }

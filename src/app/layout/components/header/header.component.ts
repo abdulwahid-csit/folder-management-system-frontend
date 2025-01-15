@@ -15,6 +15,20 @@ export class HeaderComponent implements OnInit {
   showSettingsIcon = false;
   isDropdownVisible = false;
   isDashboard = false;
+  isSowNotifications: boolean = false;
+  notifications = [
+    { id: 1, title: 'New Todo Added', isRead: false },
+    { id: 2, title: 'Noor Send you a folder', isRead: false },
+    { id: 3, title: 'New Schedule added', isRead: false },
+    { id: 4, title: 'New Todo Added', isRead: false },
+    { id: 5, title: 'FYP approval recived', isRead: false },
+    { id: 6, title: 'Meeting created by jhon', isRead: false },
+    { id: 7, title: 'New Todo Added', isRead: false },
+    { id: 8, title: 'Noor Send you a folder', isRead: false },
+    { id: 9, title: 'FYP approval recived', isRead: false },
+    { id: 10, title: 'Meeting created by james', isRead: false },
+    { id: 11, title: 'FYP approval recived', isRead: false },
+  ];
 
   constructor(
     private commonService: CommonService,
@@ -31,7 +45,7 @@ export class HeaderComponent implements OnInit {
       .subscribe(() => {
         this.updateVisibilityAndRouteFlags();
       });
-
+    console.log('Profile Picture: ', this.localStoreService.getUserProfile());
     this.commonService.sidebarVisible$.subscribe((visible) => {
       this.isSidebarVisible = visible;
     });
@@ -89,7 +103,7 @@ export class HeaderComponent implements OnInit {
   @HostListener('document:click', ['$event'])
   onClick(event: MouseEvent) {
     if (!this.elRef.nativeElement.contains(event.target)) {
-      this.isDropdownVisible = false;
+      this.isSowNotifications = false;
     }
   }
 
@@ -100,5 +114,9 @@ export class HeaderComponent implements OnInit {
   selectOption(option: string): void {
     this.selectedOption = option;
     alert(`You selected: ${option}`);
+  }
+
+  toggleNotifications() {
+    this.isSowNotifications = !this.isSowNotifications;
   }
 }

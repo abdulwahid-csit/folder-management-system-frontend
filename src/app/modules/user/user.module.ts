@@ -11,6 +11,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { CreateFolderComponent } from './create-folder/create-folder.component';
 import { FolderDetailsComponent } from './folder-details/folder-details.component';
 import { AddFileComponent } from './add-file/add-file.component';
+import { FilesDetailsComponent } from './files-details/files-details.component';
 
 
 
@@ -21,7 +22,8 @@ import { AddFileComponent } from './add-file/add-file.component';
     UserDetailComponent,
     CreateFolderComponent,
     FolderDetailsComponent,
-    AddFileComponent
+    AddFileComponent,
+    FilesDetailsComponent
   ],
   imports: [
     CommonModule,

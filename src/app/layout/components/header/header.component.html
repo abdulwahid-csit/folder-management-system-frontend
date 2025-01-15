@@ -28,34 +28,24 @@
       </span>
     </div>
     <div
-      class="d-flex align-items-center justify-content-center border p-2 rounded"
+    (click)="toggleNotifications()"
+      class="d-flex align-items-center justify-content-center border p-2 rounded cursor-pointer "
       [ngClass]="{ 'me-4': !showSettingsIcon }"
     >
-      <span> <i style="font-size: 30px" class="fa fa-bell"></i> </span>
+      <span> <i  style="font-size: 30px" class="fa fa-bell"></i> </span>
     </div>
-    <div class="dropdown-container">
-      <button
-        type="button"
-        class="btn btn-primary dropdown-toggle"
-        bsDropdown
-        aria-controls="dropdown-basic"
-      >
-        Select an Option
-      </button>
-      <ul
-        *bsDropdownMenu
-        class="dropdown-menu"
-        aria-labelledby="dropdown-basic"
-      >
-        <li *ngFor="let option of options">
-          <a class="dropdown-item" href="javascript:void(0)">
-            {{ option }}
-          </a>
-        </li>
-      </ul>
+    <div class="">
+        <div class="card dropdown-card" [ngClass]="{'d-none': !isSowNotifications }" style="z-index: 1111; height: auto !important; min-width: 400px !important;">
+            <h5 class="fw-bold border-bottom fs-2">Notifications</h5>
+            <ul class="notifications">
+                <ng-container *ngFor="let item of notifications">
+                <li *ngIf="!item?.isRead"  class="d-flex justify-content-between py-1 fs-5 fw-bold border-bottom" ><ng-container>{{item.title}}<span class="ms-2"><input (change)="item.isRead = true" [checked]="item?.isRead" style="width: 20px; height: 20px; cursor: pointer;" title="Mark as read?" type="radio"></span></ng-container></li>
+                </ng-container>
+            </ul>
+        </div>
     </div>
 
-    <div
+    <!-- <div
       *ngIf="showSettingsIcon"
       class="d-flex align-items-center justify-content-center settings-icon mx-4"
     >
@@ -63,23 +53,22 @@
         class="header_svg cursor-pointer setting rotate-animate border-danger"
         (click)="navigate()"
       ></span>
-    </div>
-    <div
-      style="width: 20px; height: 20px"
-      class="border d-flex justify-content-center align-items-center rounded-circle p-4"
+    </div> -->
+    <div (click)="isDropdownVisible = !isDropdownVisible"
+      style="width: 20px; height: 20px; cursor: pointer;"
+      class="mb-3 me-3"
     >
-      <!-- <img (click)="toggleDropdown()" class="cursor-pointer dropdown-profile-img rounded-circle"  width="40px" height="40px" [src]="localStoreService.getUserProfile()" alt=""> -->
-      <div>AW</div>
+      <img  class="cursor-pointer dropdown-profile-img rounded-circle"  width="40px" height="40px" [src]="localStoreService.getUserProfile()" alt="">
     </div>
   </div>
-  <!-- <div class="card custom-shadow d-flex justify-content-between flex-column border-0" [class.d-none]="!isDropdownVisible">
+  <div style="z-index: 1111;" class="card custom-shadow d-flex justify-content-between flex-column border-0" [class.d-none]="!isDropdownVisible">
         <div class="d-flex col-12  align-items-center">
             <div class="d-flex align-items-center">
                 <img class="dropdown-profile-img rounded-circle me-2" width="40px" height="40px" [src]="localStoreService.getUserProfile()" alt="">
             </div>
             <div class="d-flex flex-column justify-content-center">
                 <div class="text-header fw-700 fs-14px">{{localStoreService.getUserName()}}</div>
-                <div class="text-dark fs-12px text-left m-0">{{localStoreService.getUserRole()}}</div>
+                <div class="text-dark fs-12px text-left m-0">{{localStoreService.getUserEmail()}}</div>
             </div>
 
         </div>
@@ -94,6 +83,6 @@
             </button>
         </div>
 
-    </div> -->
+    </div>
 </div>
 <hr class="m-0 path-line" [ngClass]="{ 'custom-shadow': !isDetailsPage }" />

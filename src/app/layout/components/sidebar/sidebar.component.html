@@ -2,7 +2,7 @@
     <div class="sidbar-logo-navigations">
         <div class="logo mt-1 text-white fs-1">
             <!-- <img src="../../../../assets/icons/sidebar-logo-2.svg" alt=""> -->
-             CMS
+             FMS
         </div>
         <div class="navigations">
             <div class="fs-12px ms-3 semi-bold-font menu-text mt-2">MENU</div>
@@ -12,10 +12,10 @@
                     routerLink="dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }"><span
                         class="d-flex align-items-center sidebar_svg home"></span><a>Dashboard</a></li>
 
-                <li 
+                <!-- <li 
                     class="d-flex align-items-center sidebar_svg" (click)="setActive('Organizations')"
                     routerLink="organization" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
-                    <span class="d-flex align-items-center sidebar_svg Icon"></span><a>Scheduler</a></li>
+                    <span class="d-flex align-items-center sidebar_svg Icon"></span><a>Scheduler</a></li> -->
 
                 <li 
                     class="d-flex align-items-center sidebar_svg" (click)="setActive('Permissions')" routerLink="roles"
@@ -35,12 +35,16 @@
 
                 <li 
                     class="d-flex align-items-center sidebar_svg" (click)="setActive('teamMembers')"
-                    routerLink="team-member" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
+                    routerLink="report" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
                     <span class="d-flex align-items-center sidebar_svg users "></span><a>Report</a></li>
                 <li 
-                    class="d-flex align-items-center sidebar_svg" (click)="setActive('teamMembers')"
-                    routerLink="team-member" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
+                    class="d-flex align-items-center sidebar_svg" (click)="setActive('about')"
+                    routerLink="about" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
                     <span class="d-flex align-items-center sidebar_svg users "></span><a>About</a></li>
+                <li 
+                    class="d-flex align-items-center sidebar_svg" (click)="setActive('profile')"
+                    routerLink="profile" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
+                    <span class="d-flex align-items-center sidebar_svg users "></span><a>Profile</a></li>
             </ul>
         </div>
     </div>

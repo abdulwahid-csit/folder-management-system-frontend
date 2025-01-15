@@ -7,69 +7,20 @@
       </div>
     </div>
     <div class="mt-2 d-flex justify-content-center">
-      <button
+      <!-- <button
         class="primary_button d-flex justify-content-center"
         routerLink="settings"
       >
         <span class="setting-icon rotate-animate me-1"> </span>
         <span class="bold-font fs-14px">Settings</span>
-      </button>
+      </button> -->
     </div>
   </div>
   <div class="cards-div justify-content-between">
-    <!-- <div class="row">
-            <div class="col-sm-12 col-md-6 col-lg-3  mt-4" *ngFor="let item of overViewList">
-                <div class="custom-card d-flex">
-                    <div class="card-icon-div d-flex justify-content-center align-items-center me-3"
-                        [ngClass]="{'bg-2DD1DB': item.key === 'total_members' || item.key === 'total_organizations', 'bg-F7B06F': item.key === 'total_applications', 'bg-FBC8D4': item.key === 'total_users', 'bg-9795F0': item.key === 'active_users'}">
-                        <i [ngSwitch]="item.key">
-                            <img *ngSwitchCase="'total_members'" src="../../../../assets/icons/logs-icon.svg" alt="">
-                            <img *ngSwitchCase="'total_organizations'" src="../../../../assets/icons/logs-icon.svg" alt="">
-                            <img *ngSwitchCase="'total_applications'" src="../../../../assets/icons/building.svg"
-                                alt="">
-                            <img *ngSwitchCase="'total_users'" src="../../../../assets/icons/user-icons.svg" alt="">
-                            <img *ngSwitchCase="'active_users'" src="../../../../assets/icons/applications-icon.svg"
-                                alt="">
-                        </i>
-                    </div>
-                    <div>
-                        <div class="fs-14px color-8492A6 semi-bold-font">{{item.header}}</div>
-                        <div class="fs-20px bold-font">{{item.count}}</div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
-    <!-- <div class="main-div mt-4">
-            <div class="sso_card w-100 h-100">
-                <div class="d-flex align-items-center justify-content-between dataTable_header">
-                    <h4 class="primary_color mb-0 activity-log">Activity Logs</h4>
-                </div>
-                <app-data-table [columns]="columns" [config]="tableConfig" [dataSet]="dataTable"
-                    [module]="'dashboard'"></app-data-table>
-            </div>
-        </div> -->
     <div class="row">
       <div class="col-lg-6 mt-4">
         <div class="card p-4">
           <h2 class="border-bottom mb-3">Recent Folders</h2>
-          <!-- <ngx-charts-line-chart
-            [view]="view"
-            [scheme]="colorScheme"
-            [results]="lineChartData"
-            [legend]="showLegend"
-            [showXAxisLabel]="true"
-            [showYAxisLabel]="true"
-            [xAxisLabel]="'Weeks'"
-            [yAxisLabel]="'Attendence'"
-            [showGridLines]="true"
-            [showRefLabels]="true"
-            [xAxis]="true"
-            [yAxis]="true"
-            [animations]="true"
-          >
-          </ngx-charts-line-chart> -->
-
           <div class="d-flex gap-4 folders flex-wrap">
             <div *ngFor="let folder of folders" (click)="details(folder._id)" class="card p-3" style="min-width: 300px">
               <span>Bach: {{folder?.batchNo}}</span>
@@ -125,10 +76,33 @@
         </div>
       </div>
     </div>
-
-    <div class="row mt-4">
-      <div class="col-lg-6 card p-4">
-        <h2>My Schedules</h2>
+    <div class="row">
+      <div class="col-lg-6 mt-4">
+        <div class="card p-4">
+          <h2 class="border-bottom mb-3">Shared With Me</h2>
+          <div class="d-flex gap-4 folders flex-wrap">
+            <div *ngFor="let folder of sharedFolders" (click)="details(folder._id)" class="card p-3" style="min-width: 300px">
+              <span>Bach: {{folder?.batchNo}}</span>
+              <span>Department: {{folder?.department}}</span>
+              <span>Course Name: {{folder?.courseName}}</span>
+              <span>Shift: {{folder?.timing}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="col-lg-6  mt-4 card d-flex flex-column justify-content-start fs-2 p-4 gap-4"
+      >
+        <div class="d-flex justify-content-between">
+          <h2 class="border-bottom mb-3">My Schedules</h2>
+          <button
+            (click)="openTodoList()"
+            class="primary_button d-flex justify-content-center align-items-center"
+          >
+            Add New
+            <i class="bi bi-arrow-right ms-2 mt-1"></i>
+          </button>
+        </div>
         <div class="col fs-5 mb-3">
           <div class="card flex-row justify-content-between p-4 py-3">
             <span>10:00 - 11:30</span>
@@ -157,119 +131,7 @@
           </div>
       </div>
       </div>
-
-      
-
-    <!-- <div class="row mt-4">
-      <div class="col-lg-6">
-        <div class="card d-flex flex-column justify-content-between gap-5 p-4">
-          <div class="d-flex">
-            <span>ABC</span>
-            <span class="d-i line">
-              <div class="progress">
-                <span
-                  class="progress-bar"
-                  role="progressbar"
-                  style="
-                    width: 10%;
-                    background: linear-gradient(to right, red, yellow, green);
-                  "
-                  aria-valuenow="20"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></span>
-              </div>
-            </span>
-          </div>
-          <div class="progress">
-            <div
-              class="progress-bar"
-              role="progressbar"
-              style="
-                width: 25%;
-                background: linear-gradient(to right, red, yellow, green);
-              "
-              aria-valuenow="25"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
-          </div>
-          <div class="progress">
-            <div
-              class="progress-bar"
-              role="progressbar"
-              style="
-                width: 50%;
-                background: linear-gradient(to right, red, yellow, green);
-              "
-              aria-valuenow="50"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
-          </div>
-          <div class="progress">
-            <div
-              class="progress-bar"
-              role="progressbar"
-              style="
-                width: 75%;
-                background: linear-gradient(to right, red, yellow, green);
-              "
-              aria-valuenow="75"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
-          </div>
-          <div class="progress">
-            <div
-              class="progress-bar"
-              role="progressbar"
-              style="
-                width: 100%;
-                background: linear-gradient(to right, red, yellow, green);
-              "
-              aria-valuenow="100"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
-          </div>
-        </div>
-      </div>
-
-      <div
-        class="col-lg-6 card d-flex flex-column justify-content-center gap-4 fs-2 p-4"
-      >
-        <div class="row">
-          <div class="col-md-6">
-            <div class="card py-4 px-3 fs-5 text-center">
-              Today's present students
-              <div>45</div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="card py-4 px-3 fs-5 text-center">
-              Today's Absent students
-              <div>12</div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="card py-4 px-3 fs-5 text-center">
-              Today's onleave students
-              <div>3</div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="card py-4 px-3 fs-5 text-center">
-              Today's Late students
-              <div>4</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
     </div>
+
   </div>
 </div>

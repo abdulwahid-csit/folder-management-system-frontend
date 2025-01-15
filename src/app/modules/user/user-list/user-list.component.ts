@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CreateUserComponent } from '../create-user/create-user';
 import { Router } from '@angular/router';
@@ -7,6 +7,7 @@ import { LocalStoreService } from 'src/app/shared/services/local-store.service';
 import { CreateFolderComponent } from '../create-folder/create-folder.component';
 import { ToastrService } from 'ngx-toastr';
 import { DeleteModalComponent } from 'src/app/shared/components/delete-modal/delete-modal.component';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-user-list',
@@ -14,12 +15,21 @@ import { DeleteModalComponent } from 'src/app/shared/components/delete-modal/del
   styleUrls: ['./user-list.component.scss'],
 })
 export class UserListComponent implements OnInit {
+  @ViewChild('shareForm') shareForm!: TemplateRef<any>;
   searchTerm = '';
-
+  shareFolderForm!: FormGroup;
   ngOnInit(): void {
     this.getFolders();
+    this.initForm();
   }
   modalRef!: BsModalRef;
+
+  initForm() {
+    this.shareFolderForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      folderId: new FormControl(''),
+    });
+  }
 
   constructor(
     private modalService: BsModalService,
@@ -35,10 +45,21 @@ export class UserListComponent implements OnInit {
       keyboard: false,
       initialState: {
         id: id,
+        folderId: id,
       },
     });
     this.modalRef.content?.event.subscribe(() => {
       this.getFolders();
+    });
+  }
+
+  folderId!: string;
+  shareFolder(folderId: string) {
+    this.folderId = folderId;
+    this.modalRef = this.modalService.show(this.shareForm, {
+      class: 'modal-dialog modal-dialog-centered modal-md common_modal_shadow',
+      backdrop: 'static',
+      keyboard: false,
     });
   }
 
@@ -91,12 +112,33 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  closeModel(){
+  closeModel() {
     this.modalService.hide();
   }
 
+  editFolder() {}
+  isLoading = false;
+  submitShareFolder() {
+    if(this.shareFolderForm.invalid){
+      this.shareFolderForm.markAllAsTouched;
+      this.toast.error('Please enter a valid email address.');
+      return;
+    }
+    let input = {
+      email: this.shareFolderForm.get('email')?.value,
+      folderId: this.folderId
+    }
+    this.crudService.create('folder/share-folder', input).subscribe(
+      (res) => {
+        console.log('response => ', res);
+      },
+      (error) => {
+        this.toast.error(error);
+      }
+    );
+  }
 
-  editFolder(){
-
+  closeModal() {
+    this.modalService.hide();
   }
 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
@@ -14,6 +14,7 @@ import { CrudService } from 'src/app/shared/services/crud.service';
 })
 export class CreateFolderComponent implements OnInit {
   @Output() event = new EventEmitter<any>();
+  @Input() folderId: any;
   id: any;
   isLoading = false;
   bsValue = new Date();
@@ -21,7 +22,8 @@ export class CreateFolderComponent implements OnInit {
   maxDate = new Date();
   minDate = new Date();
   form!: FormGroup;
-  folder: any
+  folder: any;
+  isEditMode = false;
 
   constructor(
     private modalService: BsModalService,
@@ -35,8 +37,9 @@ export class CreateFolderComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    if (this.id) {
+    if (this.folderId) {
       this.getFolderById();
+      this.isEditMode = true;;
     }
   }
 
@@ -52,18 +55,16 @@ export class CreateFolderComponent implements OnInit {
   }
 
   getFolderById() {
-    this.crudService
-      .read('folder/folders', this.id)
-      .subscribe(
-        (res) => {
-          this.folder = res?.folders;
-          console.log('Folders: ', this.folder);
-          this.form.patchValue(this.folder[0]);
-        },
-        (error) => {
-          console.log('error: ', error);
-        }
-      );
+    this.crudService.read('folder/folders', this.id).subscribe(
+      (res) => {
+        this.folder = res?.folders;
+        console.log('Folders: ', this.folder);
+        this.form.patchValue(this.folder[0]);
+      },
+      (error) => {
+        console.log('error: ', error);
+      }
+    );
   }
 
   submit() {
@@ -72,18 +73,29 @@ export class CreateFolderComponent implements OnInit {
       console.log('form invalid');
       return;
     }
-    this.crudService.create('folder/add-folder', this.form.value).subscribe(
-      (res) => {
-        console.log('response: ', res);
-        this.event.emit();
-        this.toast.success('Folder created successfully.');
-        this.closeModal();
-      },
-      (error) => {
-        console.log('error: ', error);
-        this.closeModal();
-      }
-    );
+
+    let apiCall: any;
+    if(this.isEditMode){
+      apiCall = this.crudService.update('folder/update-folder', this.folderId, this.form.value);
+    }else{
+      apiCall =  this.crudService.create('folder/add-folder', this.form.value);
+    }
+   apiCall.subscribe(
+     (res: any) => {
+       console.log('response: ', res);
+       this.event.emit();
+       if(this.isEditMode){
+         this.toast.success('Folder created successfully.');
+       }else{
+        this.toast.success('Folder updated successfully.');
+       }
+       this.closeModal();
+     },
+     (error: any) => {
+       console.log('error: ', error);
+       this.closeModal();
+     }
+   );
   }
 
   closeModal() {

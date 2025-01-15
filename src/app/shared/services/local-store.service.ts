@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as CryptoJS from 'crypto-js';
-
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -54,9 +54,8 @@ export class LocalStoreService {
   }
   
   getUserProfile(): string {
-    // const userData = this.getItem('user');
-    // return userData.profile_picture || '../../../../../assets/images/iis.svg';
-    return ''
+    const userData = this.getItem('user');
+    return environment.apiUrl + 'uploaded-files/' + userData.profile_picture || '../../../../../assets/images/iis.svg';
   }
 
   getUserRole(): string {

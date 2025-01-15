@@ -4,7 +4,6 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { LocalStoreService } from './local-store.service';
-
 @Injectable({
   providedIn: 'root',
 })
@@ -29,28 +28,17 @@ export class CrudService {
   }
 
   private getHeadersformultipartformdata(): HttpHeaders {
-    return new HttpHeaders();
+    return new HttpHeaders({
+      'Content-Type': 'multipart/form-data',
+    });
   }
   createContent(endpoint: string, data: any) {
-    const formData: FormData = new FormData();
-
-    // Append other form values
-    formData.append('name', data.name);
-    formData.append('description', data.description);
-    formData.append('folderId', data.folderId);
-    formData.append('contentType', data.contentType);
-
-    // Append the file
-    formData.append('file', data.file, data.file.name);
-    console.log('FORM DATA: ', formData);
-
-    // Make the HTTP request
-    return this.http.post(`${this.apiUrl}${endpoint}`, formData, { headers: this.getHeadersformultipartformdata()});
+    return this.http.post(`${this.apiUrl}${endpoint}`, data);
   }
 
   read(
     endpoint: string,
-    id?: number | null,
+    id?: number | null | string,
     status?: boolean | null,
     limit?: number | null,
     search?: string | null
@@ -114,5 +102,25 @@ export class CrudService {
 
   private handleError(error: any): Observable<never> {
     return throwError(() => new Error(error));
+  }
+
+  downloadFile(fileName: string) {
+    const fileUrl = `${this.apiUrl}folder/downloadFile/${fileName}`;
+
+    this.http.get(fileUrl, { responseType: 'blob' }).subscribe(
+      (response: Blob) => {
+        const link = document.createElement('a');
+        const url = window.URL.createObjectURL(response);
+        link.href = url;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      },
+      (error) => {
+        console.error('Error downloading the file:', error);
+      }
+    );
   }
 }

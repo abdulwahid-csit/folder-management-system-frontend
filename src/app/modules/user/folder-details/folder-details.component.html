@@ -1,111 +1,271 @@
-<div class="data_table_wrapper pb-0">
-  <table class="table table-hover mb-0">
-    <thead>
-      <tr>
-       <th>S No</th>
-       <th>Assesment Name</th>
-       <th>Uploaded</th>
-       <th>Total</th>
-       <th>Total Marks</th>
-       <th>Files</th>
-       <th class="d-flex justify-content-center align-items-end">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <ng-container *ngFor="let item of folder">
-      <tr>
-        <td class="align-content-center" style="font-size: 12px;">1</td>
-        <td class="align-content-center" style="font-size: 12px;">Asignment</td>
-        <td class="align-content-center" style="font-size: 12px;">{{item.assignments.length ? item.assignments.length : 0}}</td>
-        <td class="align-content-center" style="font-size: 12px;">4</td>
-        <td class="align-content-center" style="font-size: 12px;">10</td>
-        <td class="align-content-center" style="font-size: 12px;"><i class="fa fa-file fs-1" title="Download files" style="color: yellow; font-size: 20px; cursor: pointer;"></i></td>
-        <td class="align-content-center" style="font-size: 12px;">
-          <div class="d-flex justify-content-center">
-            <i (click)="openDeleteModal('Are You sure, you want to delete all assignments?')" class="fa fa-trash ms-2 fs-2"></i>
-            <i (click)="addFile('Add Assignment', item._id, 'assignment')" class="fa fa-plus ms-2 fs-2"></i>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td class="align-content-center" style="font-size: 12px;">2</td>
-        <td class="align-content-center" style="font-size: 12px;">Quiz</td>
-        <td class="align-content-center" style="font-size: 12px;">{{item.quizzes.length ? item.quizzes.length : 0}}</td>
-        <td class="align-content-center" style="font-size: 12px;">4</td>
-        <td class="align-content-center" style="font-size: 12px;">10</td>
-        <td class="align-content-center" style="font-size: 12px;"><i class="fa fa-file fs-1" title="Download files" style="color: yellow; font-size: 20px; cursor: pointer;"></i></td>
-        <td class="align-content-center" style="font-size: 12px;">
-          <div class="d-flex justify-content-center">
-            <i (click)="openDeleteModal('Are You sure, you want to delete all quizes?')" class="fa fa-trash ms-2 fs-2"></i>
-            <i (click)="addFile('Add Quiz', item._id, 'quiz')" class="fa fa-plus ms-2 fs-2"></i>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td class="align-content-center" style="font-size: 12px;">3</td>
-        <td class="align-content-center" style="font-size: 12px;">Mid Exame</td>
-        <td class="align-content-center" style="font-size: 12px;">{{item.midExame.length ? item.midExame.length : 0}}</td>
-        <td class="align-content-center" style="font-size: 12px;">1</td>
-        <td class="align-content-center" style="font-size: 12px;">30</td>
-        <td class="align-content-center" style="font-size: 12px;"><i class="fa fa-file fs-1" title="Download files" style="color: yellow; font-size: 20px; cursor: pointer;"></i></td>
-        <td class="align-content-center" style="font-size: 12px;">
-          <div class="d-flex justify-content-center">
-            <i (click)="openDeleteModal('Are You sure, you want to delete mid exame?')" class="fa fa-trash ms-2 fs-2"></i>
-            <i (click)="addFile('Add Mid Exame', item._id, 'quiz')" class="fa fa-plus ms-2 fs-2"></i>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td class="align-content-center" style="font-size: 12px;">4</td>
-        <td class="align-content-center" style="font-size: 12px;">Final Exam</td>
-        <td class="align-content-center" style="font-size: 12px;">{{item.finalExam.length ? item.finalExam.length : 0}}</td>
-        <td class="align-content-center" style="font-size: 12px;">1</td>
-        <td class="align-content-center" style="font-size: 12px;">50</td>
-        <td class="align-content-center" style="font-size: 12px;"><i class="fa fa-file fs-1" title="Download files" style="color: yellow; font-size: 20px; cursor: pointer;"></i></td>
-        <td class="align-content-center" style="font-size: 12px;">
-          <div class="d-flex justify-content-center">
-            <i (click)="openDeleteModal('Are You sure, you want to delete final exame?')" class="fa fa-trash ms-2 fs-2"></i>
-            <i (click)="addFile('Add Final Exame', item._id, 'quiz')" class="fa fa-plus ms-2 fs-2"></i>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td class="align-content-center" style="font-size: 12px;">5</td>
-        <td class="align-content-center" style="font-size: 12px;">Lectures</td>
-        <td class="align-content-center" style="font-size: 12px;">{{item.lectures.length ? item.lectures.length : 0}}</td>
-        <td class="align-content-center" style="font-size: 12px;">16</td>
-        <td class="align-content-center" style="font-size: 12px;">N/A</td>
-        <td class="align-content-center" style="font-size: 12px;"><i class="fa fa-file fs-1" title="Download files" style="color: yellow; font-size: 20px; cursor: pointer;"></i></td>
-        <td class="align-content-center" style="font-size: 12px;">
-          <div class="d-flex justify-content-center">
-            <i (click)="openDeleteModal('Are You sure, you want to delete all lectures?')" class="fa fa-trash ms-2 fs-2"></i>
-            <i (click)="addFile('Add Lectures', item._id, 'lecture')" class="fa fa-plus ms-2 fs-2"></i>
-          </div>
-        </td>
-      </tr>
-
-
-
-
-      <tr *ngIf="filterData.length === 0" class="text-center tbody-empty">
-        <td  class="font_weight_600">No Data Found</td>
-      </tr>
-      </ng-container>
-    </tbody>
-  </table>
-  <div class="dataTable_pagination d-flex align-items-center justify-content-between" *ngIf="filterData.length">
-    <div>
-      <p class="mb-0 fw-600 color-8492A6 fs-14px">
-        <!-- Showing {{startItem}} to {{endItem}} of {{config.paginationParams.total_records}} results -->
-        Showing 10 results
-      </p>
+<div class="wrapper">
+  <div class="sso_card w-100 h-100">
+    <div
+      class="d-block d-md-flex align-items-center justify-content-between dataTable_header"
+    >
+      <h4 class="primary_color mb-3 mb-md-0 table-header-letter-spacing">
+        Folder Details
+      </h4>
+      <div class="d-block d-md-flex">
+        <div
+          class="position-relative display-flex ms-0 ms-2 mb-3 mb-md-0 custom-input"
+        >
+          <input
+            type="text"
+            class="form-control dataTableSearch"
+            [(ngModel)]="searchTerm"
+            placeholder="Search by file name"
+          />
+          <span class="search_icon searchIcon"></span>
+        </div>
+        <div class="d-flex">
+          <button
+            type="button"
+            class="btn filter_btn ms-0 ms-2 mb-3 mb-md-0 d-none"
+          >
+            <span class="me-2 filterIcon"></span> Filter
+          </button>
+        </div>
+        <button
+          (click)="addFile('ad', id, 'i')"
+          class="primary_button ms-0 ms-2 mb-3 mb-md-0 d-flex justify-content-center align-items-center"
+        >
+          Create Folder
+          <i class="bi bi-arrow-right ms-2 mt-1"></i>
+        </button>
+      </div>
     </div>
-    <div>
-      <!-- <app-pagination 
+
+    <div class="data_table_wrapper pb-0">
+      <table class="table table-hover mb-0">
+        <thead>
+          <tr>
+            <th>S No</th>
+            <th>Assesment Name</th>
+            <th>Uploaded</th>
+            <th>Total</th>
+            <th>Total Marks</th>
+            <th>Files</th>
+            <th class="d-flex justify-content-center align-items-end">
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let item of folder">
+            <tr (click)="onRowClick(item._id, 'assignments')">
+              <td class="align-content-center" style="font-size: 12px">1</td>
+              <td class="align-content-center" style="font-size: 12px">
+                Asignment
+              </td>
+              <td class="align-content-center" style="font-size: 12px">
+                {{ item.assignments.length ? item.assignments.length : 0 }}
+              </td>
+              <td class="align-content-center" style="font-size: 12px">4</td>
+              <td class="align-content-center" style="font-size: 12px">10</td>
+              <td class="align-content-center" style="font-size: 12px">
+                <i
+                  class="fa fa-file fs-1"
+                  title="Download files"
+                  style="color: yellow; font-size: 20px; cursor: pointer"
+                ></i>
+              </td>
+              <td class="align-content-center" style="font-size: 12px">
+                <div class="d-flex justify-content-center">
+                  <i
+                    (click)="
+                      $event.stopPropagation();
+                      openDeleteModal(
+                        'Are You sure, you want to delete all assignments?'
+                      )
+                    "
+                    class="fa fa-trash ms-2 fs-2"
+                  ></i>
+                  <i
+                    (click)="
+                      $event.stopPropagation();
+                      addFile('Add Assignment', item._id, 'assignments')
+                    "
+                    class="fa fa-plus ms-2 fs-2"
+                  ></i>
+                </div>
+              </td>
+            </tr>
+            <tr (click)="onRowClick(item._id, 'quizzes')">
+              <td class="align-content-center" style="font-size: 12px">2</td>
+              <td class="align-content-center" style="font-size: 12px">Quiz</td>
+              <td class="align-content-center" style="font-size: 12px">
+                {{ item.quizzes.length ? item.quizzes.length : 0 }}
+              </td>
+              <td class="align-content-center" style="font-size: 12px">4</td>
+              <td class="align-content-center" style="font-size: 12px">10</td>
+              <td class="align-content-center" style="font-size: 12px">
+                <i
+                  class="fa fa-file fs-1"
+                  title="Download files"
+                  style="color: yellow; font-size: 20px; cursor: pointer"
+                ></i>
+              </td>
+              <td class="align-content-center" style="font-size: 12px">
+                <div class="d-flex justify-content-center">
+                  <i
+                    (click)="
+                      $event.stopPropagation();
+                      openDeleteModal(
+                        'Are You sure, you want to delete all quizes?'
+                      )
+                    "
+                    class="fa fa-trash ms-2 fs-2"
+                  ></i>
+                  <i
+                    (click)="
+                      $event.stopPropagation();
+                      addFile('Add Quiz', item._id, 'quiz')
+                    "
+                    class="fa fa-plus ms-2 fs-2"
+                  ></i>
+                </div>
+              </td>
+            </tr>
+            <tr (click)="onRowClick(item._id, 'midExame')">
+              <td class="align-content-center" style="font-size: 12px">3</td>
+              <td class="align-content-center" style="font-size: 12px">
+                Mid Exame
+              </td>
+              <td class="align-content-center" style="font-size: 12px">
+                {{ item.midExame.length ? item.midExame.length : 0 }}
+              </td>
+              <td class="align-content-center" style="font-size: 12px">1</td>
+              <td class="align-content-center" style="font-size: 12px">30</td>
+              <td class="align-content-center" style="font-size: 12px">
+                <i
+                  class="fa fa-file fs-1"
+                  title="Download files"
+                  style="color: yellow; font-size: 20px; cursor: pointer"
+                ></i>
+              </td>
+              <td class="align-content-center" style="font-size: 12px">
+                <div class="d-flex justify-content-center">
+                  <i
+                    (click)="
+                      $event.stopPropagation();
+                      openDeleteModal(
+                        'Are You sure, you want to delete mid exame?'
+                      )
+                    "
+                    class="fa fa-trash ms-2 fs-2"
+                  ></i>
+                  <i
+                    (click)="
+                      $event.stopPropagation();
+                      addFile('Add Mid Exame', item._id, 'midExame')
+                    "
+                    class="fa fa-plus ms-2 fs-2"
+                  ></i>
+                </div>
+              </td>
+            </tr>
+            <tr (click)="onRowClick(item._id, 'finalExam')">
+              <td class="align-content-center" style="font-size: 12px">4</td>
+              <td class="align-content-center" style="font-size: 12px">
+                Final Exam
+              </td>
+              <td class="align-content-center" style="font-size: 12px">
+                {{ item.finalExam.length ? item.finalExam.length : 0 }}
+              </td>
+              <td class="align-content-center" style="font-size: 12px">1</td>
+              <td class="align-content-center" style="font-size: 12px">50</td>
+              <td class="align-content-center" style="font-size: 12px">
+                <i
+                  class="fa fa-file fs-1"
+                  title="Download files"
+                  style="color: yellow; font-size: 20px; cursor: pointer"
+                ></i>
+              </td>
+              <td class="align-content-center" style="font-size: 12px">
+                <div class="d-flex justify-content-center">
+                  <i
+                    (click)="
+                      $event.stopPropagation();
+                      openDeleteModal(
+                        'Are You sure, you want to delete final exame?'
+                      )
+                    "
+                    class="fa fa-trash ms-2 fs-2"
+                  ></i>
+                  <i
+                    (click)="
+                      $event.stopPropagation();
+                      addFile('Add Final Exame', item._id, 'finalExam')
+                    "
+                    class="fa fa-plus ms-2 fs-2"
+                  ></i>
+                </div>
+              </td>
+            </tr>
+            <tr (click)="onRowClick(item._id, 'lectures')">
+              <td class="align-content-center" style="font-size: 12px">5</td>
+              <td class="align-content-center" style="font-size: 12px">
+                Lectures
+              </td>
+              <td class="align-content-center" style="font-size: 12px">
+                {{ item.lectures.length ? item.lectures.length : 0 }}
+              </td>
+              <td class="align-content-center" style="font-size: 12px">16</td>
+              <td class="align-content-center" style="font-size: 12px">N/A</td>
+              <td class="align-content-center" style="font-size: 12px">
+                <i
+                  class="fa fa-file fs-1"
+                  title="Download files"
+                  style="color: yellow; font-size: 20px; cursor: pointer"
+                ></i>
+              </td>
+              <td class="align-content-center" style="font-size: 12px">
+                <div class="d-flex justify-content-center">
+                  <i
+                    (click)="
+                      $event.stopPropagation();
+                      openDeleteModal(
+                        'Are You sure, you want to delete all lectures?'
+                      )
+                    "
+                    class="fa fa-trash ms-2 fs-2"
+                  ></i>
+                  <i
+                    (click)="
+                      $event.stopPropagation();
+                      addFile('Add Lectures', item._id, 'lectures')
+                    "
+                    class="fa fa-plus ms-2 fs-2"
+                  ></i>
+                </div>
+              </td>
+            </tr>
+
+            <tr *ngIf="filterData.length === 0" class="text-center tbody-empty">
+              <td class="font_weight_600">No Data Found</td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+      <div
+        class="dataTable_pagination d-flex align-items-center justify-content-between"
+        *ngIf="filterData.length"
+      >
+        <div>
+          <p class="mb-0 fw-600 color-8492A6 fs-14px">
+            <!-- Showing {{startItem}} to {{endItem}} of {{config.paginationParams.total_records}} results -->
+            Showing {{ folder.length }} results
+          </p>
+        </div>
+        <div>
+          <!-- <app-pagination 
         [totalPages]="config.paginationParams.total_pages" 
         [currentPage]="config.paginationParams.current_page" 
         (currentPageChange)="onPageChange($event)">
       </app-pagination> -->
+        </div>
+      </div>
     </div>
   </div>
 </div>

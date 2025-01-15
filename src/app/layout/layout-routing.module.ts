@@ -35,8 +35,18 @@ const routes: Routes = [
 
       },
       {
-        path: 'team-member',
-        loadChildren: () => import('../modules/team-member/team-member.module').then(m => m.TeamMemberModule),
+        path: 'about',
+        loadChildren: () => import('../modules/about/about.module').then(m => m.AboutModule),
+
+      },
+      {
+        path: 'profile',
+        loadChildren: () => import('../modules/profile/profile.module').then(m => m.ProfileModule),
+
+      },
+      {
+        path: 'report',
+        loadChildren: () => import('../modules/report/report.module').then(m => m.ReportModule),
 
       },
       {

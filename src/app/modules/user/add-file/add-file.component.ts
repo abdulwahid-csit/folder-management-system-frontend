@@ -46,7 +46,7 @@ export class AddFileComponent implements OnInit {
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
-      files: new FormControl(''),
+      totalMarks: new FormControl(null, [Validators.required]),
     });
   }
 
@@ -66,14 +66,16 @@ export class AddFileComponent implements OnInit {
   }
 
   submit() {
-    let data = {
-      ...this.form.value,
-      folderId: this.folderId,
-      contentType: this.contentType,
-      file: this.file, // Ensure this contains the file selected by the user
-    };
+    console.log('Sending this data: ');
+   let data = new FormData();
+   data.append('name', this.form.get('name')?.value);
+   data.append('description', this.form.get('description')?.value);
+   data.append('file', this.file);
+   data.append('contentType', this.contentType);
+   data.append('folderId', this.folderId);
+   data.append('totalMarks', this.form.get('totalMarks')?.value);
 
-    console.log('Sending this data: ', data);
+    console.log('Sending this data: ', this.form.get('totalMarks')?.value);
 
     // Call the create method
     this.crudSerice.createContent('folder/add-content', data).subscribe(

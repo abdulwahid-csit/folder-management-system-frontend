@@ -187,6 +187,61 @@ ul{
     // top: 400px;
   }
 }
+.notifications li{
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
 .notifications li:hover{
-    background-color: #f1f1f1;
+    background-color: #dce7f1;
+    // color: white;
+     border-radius: 4px !important;
+}
+
+.notifications{
+    max-height: 500px;
+    overflow: auto;
+    ul{
+        li{
+            border-radius: 2px !important;
+        }
+    }
+}
+.count{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: -14px;
+    top: -20px;
+    animation: blink 1s infinite;
+    font-weight: bold;
+    font-weight: bold;
+}
+@keyframes blink {
+    0% {
+        opacity: 0;
+        transform: scale(0.5); /* Start smaller */
+    }
+    50% {
+        opacity: 1; /* Make it invisible */
+        transform: scale(1); /* Scale to full size */
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1); /* Return to smaller size */
+    }
+}
+
+.unread {
+    background-color: #f1f5f9;
+}
+
+.mark-all:hover{
+    text-decoration: underline;
+    cursor: pointer;
 }

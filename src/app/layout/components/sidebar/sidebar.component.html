@@ -18,23 +18,23 @@
                     <span class="d-flex align-items-center sidebar_svg Icon"></span><a>Scheduler</a></li> -->
 
                 <li 
-                    class="d-flex align-items-center sidebar_svg" (click)="setActive('Permissions')" routerLink="roles"
+                    class="d-flex align-items-center sidebar_svg" (click)="setActive('fyp')" routerLink="fyp"
                     routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }"><span
                         class="d-flex align-items-center sidebar_svg check-verified"></span><a>Final Year Project</a>
                 </li>
 
                 <li 
-                    class="d-flex align-items-center sidebar_svg" (click)="setActive('Applications')"
-                    routerLink="application" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
+                    class="d-flex align-items-center sidebar_svg" (click)="setActive('todo')"
+                    routerLink="todo" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
                     <span class="d-flex align-items-center sidebar_svg monitor"></span><a>To Do List</a></li>
 
                 <li 
-                    class="d-flex align-items-center sidebar_svg" (click)="setActive('Users')" routerLink="user"
+                    class="d-flex align-items-center sidebar_svg" (click)="setActive('folders')" routerLink="folders"
                     routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }"><span
                         class="d-flex align-items-center sidebar_svg iconone"></span><a>Folders</a></li>
 
                 <li 
-                    class="d-flex align-items-center sidebar_svg" (click)="setActive('teamMembers')"
+                    class="d-flex align-items-center sidebar_svg" (click)="setActive('report')"
                     routerLink="report" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
                     <span class="d-flex align-items-center sidebar_svg users "></span><a>Report</a></li>
                 <li 
@@ -59,7 +59,7 @@
                     </div>
                     <div class="ms-2">
                         <div class="fs-14px fw-700">{{localStoreService.getUserName()}}</div>
-                        <div class="role fs-12px">{{localStoreService.getUserEmail()}}</div>
+                        <div class="role fs-12px">{{localStoreService.designation()}}</div>
                     </div>
                 </div>
                 <div class="me-4 mt-2" (click)="logout()"><span class="cursor-pointer logout-icon"></span></div>

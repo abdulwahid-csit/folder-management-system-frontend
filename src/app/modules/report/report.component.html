@@ -1,3 +1,59 @@
-<div class="wrapper bg-white rounded" style="margin: 40px; padding: 10px;height: 80vh;">
-  Report works
+<div
+  class="wrapper bg-white rounded"
+  style="margin: 40px; padding: 10px; min-height: 80vh"
+>
+  <div style="justify-content: center; display: flex" class="w-100">
+    <div>
+      <h4
+        class="mt-4 ms-4 primary_color mb-3 mb-md-0 table-header-letter-spacing d-flex justify-content-between"
+      >
+        Folders Created in last 7 days (30)
+        <span>Total Folders (50)</span>
+      </h4>
+      <div style="margin-top: 40px; margin-left: 20px">
+        <ngx-charts-line-chart
+          [view]="view"
+          [scheme]="colorScheme"
+          [results]="lineChartData"
+          [xAxis]="showXAxis"
+          [yAxis]="showYAxis"
+          [showGridLines]="showGridLines"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel"
+          [animations]="true"
+        >
+        </ngx-charts-line-chart>
+      </div>
+    </div>
+  </div>
+
+
+  <div style="justify-content: center; display: flex" class="w-100">
+    <div>
+      <h4
+        class="mt-4 ms-4 primary_color mb-3 mb-md-0 table-header-letter-spacing d-flex justify-content-between"
+      >
+        Todos Created in last 7 days (30)
+        <span>Total Todos (50)</span>
+      </h4>
+      <div style="margin-top: 40px; margin-left: 20px">
+        <ngx-charts-line-chart
+          [view]="view"
+          [scheme]="colorScheme"
+          [results]="lineChartData"
+          [xAxis]="showXAxis"
+          [yAxis]="showYAxis"
+          [showGridLines]="showGridLines"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel"
+          [animations]="true"
+        >
+        </ngx-charts-line-chart>
+      </div>
+    </div>
+  </div>
 </div>

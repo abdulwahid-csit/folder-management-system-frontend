@@ -8,6 +8,7 @@ import { CreateFolderComponent } from '../create-folder/create-folder.component'
 import { ToastrService } from 'ngx-toastr';
 import { DeleteModalComponent } from 'src/app/shared/components/delete-modal/delete-modal.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-user-list',
@@ -29,6 +30,7 @@ export class UserListComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       folderId: new FormControl(''),
     });
+    this.getSharedFolders();
   }
 
   constructor(
@@ -85,7 +87,7 @@ export class UserListComponent implements OnInit {
   deleteFolder(id: string) {
     this.crudService.delete('folder/delete', id).subscribe(
       (res) => {
-        this.toast.success('Todo deleted successfully.');
+        this.toast.success('Folder deleted successfully.');
         this.getFolders();
         this.closeModel();
       },
@@ -131,9 +133,11 @@ export class UserListComponent implements OnInit {
     this.crudService.create('folder/share-folder', input).subscribe(
       (res) => {
         console.log('response => ', res);
+        this.closeModal();
+        this.toast.success('Folder Shared successfully.');
       },
       (error) => {
-        this.toast.error(error);
+        this.toast.error('User not found');
       }
     );
   }
@@ -141,4 +145,20 @@ export class UserListComponent implements OnInit {
   closeModal() {
     this.modalService.hide();
   }
+
+
+   sharedFolders: any[] = [];
+    getSharedFolders() {
+      this.crudService
+        .read('fyp/shared-folders', null, undefined, 5)
+        .subscribe(
+          (res) => {
+            this.sharedFolders = res?.data;
+            console.log('sharedFolders: ', this.sharedFolders);
+          },
+          (error) => {
+            console.log('error: ', error);
+          }
+        );
+    }
 }

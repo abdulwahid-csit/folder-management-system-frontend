@@ -15,11 +15,10 @@
     ></span>
     <span class="cursor-pointer"></span>
   </div>
-  <div class="d-flex align-items-center justify-content-between gap-3">
+  <div class="d-flex align-items-center">
     <div
       style="padding: 14px"
-      class="border rounded"
-      [ngClass]="{ 'me-4': !showSettingsIcon }"
+      class="border rounded me-4"
     >
       <span
         (click)="toggleFullscreen()"
@@ -29,17 +28,20 @@
     </div>
     <div
     (click)="toggleNotifications()"
-      class="d-flex align-items-center justify-content-center border p-2 rounded cursor-pointer "
-      [ngClass]="{ 'me-4': !showSettingsIcon }"
-    >
+      class="d-flex align-items-center justify-content-center border p-2 rounded cursor-pointer"
+    [ngClass]="{'me-4': !unreadNotifications.length}">
       <span> <i  style="font-size: 30px" class="fa fa-bell"></i> </span>
     </div>
+    <div class="count" *ngIf="unreadNotifications.length">{{unreadNotifications?.length}}</div>
     <div class="">
         <div class="card dropdown-card" [ngClass]="{'d-none': !isSowNotifications }" style="z-index: 1111; height: auto !important; min-width: 400px !important;">
-            <h5 class="fw-bold border-bottom fs-2">Notifications</h5>
-            <ul class="notifications">
+            <h5 class="fw-bold border-bottom fs-2 ps-2 d-flex justify-content-between align-items-baseline" style="color: #6F61CF;">Notifications <span style="font-size: 14px;" (click)="markAllAsRead()" class="mark-all">Mark All as Read</span></h5>
+            <ul class="notifications p-0 px-1 py-3">
                 <ng-container *ngFor="let item of notifications">
-                <li *ngIf="!item?.isRead"  class="d-flex justify-content-between py-1 fs-5 fw-bold border-bottom" ><ng-container>{{item.title}}<span class="ms-2"><input (change)="item.isRead = true" [checked]="item?.isRead" style="width: 20px; height: 20px; cursor: pointer;" title="Mark as read?" type="radio"></span></ng-container></li>
+            <li [ngClass]="{'unread': !item?.read}" (click)="gotoNotification(item?.url)"  class="py-2 px-2 fs-6 fw-bold" ><ng-container><span class="d-flex justify-content-between"><span>{{item?.message}} <span style="color: #6F61CF">{{  timeAgo(item?.createdAt) }}</span></span><span class="ms-2">
+                <input (click)="$event.stopPropagation()" *ngIf="!item?.read" (change)="markAsRead(item?._id);" [checked]="item?.read" style="width: 20px; height: 20px; cursor: pointer;" title="Mark as read?" type="radio">
+                </span> </span></ng-container></li>
+                <hr class="my-1">
                 </ng-container>
             </ul>
         </div>
@@ -69,9 +71,12 @@
             <div class="d-flex flex-column justify-content-center">
                 <div class="text-header fw-700 fs-14px">{{localStoreService.getUserName()}}</div>
                 <div class="text-dark fs-12px text-left m-0">{{localStoreService.getUserEmail()}}</div>
+                
             </div>
-
+            
         </div>
+        <div class="text-dark fs-12px text-left m-0"><span class="fw-bold">Department:</span> {{localStoreService.getDepartment()}}</div>
+        <div class="text-dark fs-12px text-left m-0"><span class="fw-bold">Designation:</span> {{localStoreService.designation()}}</div>
       
         <div>
             <hr class="my-0">

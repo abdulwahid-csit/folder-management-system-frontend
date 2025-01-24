@@ -11,51 +11,60 @@ const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        loadChildren: () => import('../modules/dashboard/dashboard.module').then(m => m.DashboardModule),
-
+        loadChildren: () =>
+          import('../modules/dashboard/dashboard.module').then(
+            (m) => m.DashboardModule
+          ),
       },
       {
         path: 'organization',
-        loadChildren: () => import('../modules/organization/organization.module').then(m => m.SsoAdminModule),
-
+        loadChildren: () =>
+          import('../modules/organization/organization.module').then(
+            (m) => m.SsoAdminModule
+          ),
       },
       {
-        path: 'user',
-        loadChildren: () => import('../modules/user/user.module').then(m => m.UserModule),
-
+        path: 'folders',
+        loadChildren: () =>
+          import('../modules/user/user.module').then((m) => m.UserModule),
       },
       {
-        path: 'application',
-        loadChildren: () => import('../modules/application/application.module').then(m => m.ApplicationModule),
-
+        path: 'todo',
+        loadChildren: () =>
+          import('../modules/application/application.module').then(
+            (m) => m.ApplicationModule
+          ),
       },
       {
-        path: 'roles',
-        loadChildren: () => import('../modules/roles-permission/roles-permission.module').then(m => m.RolesPermissionModule),
-
+        path: 'fyp',
+        loadChildren: () =>
+          import('../modules/roles-permission/roles-permission.module').then(
+            (m) => m.RolesPermissionModule
+          ),
       },
       {
         path: 'about',
-        loadChildren: () => import('../modules/about/about.module').then(m => m.AboutModule),
-
+        loadChildren: () =>
+          import('../modules/about/about.module').then((m) => m.AboutModule),
       },
       {
         path: 'profile',
-        loadChildren: () => import('../modules/profile/profile.module').then(m => m.ProfileModule),
-
+        loadChildren: () =>
+          import('../modules/profile/profile.module').then(
+            (m) => m.ProfileModule
+          ),
       },
       {
         path: 'report',
-        loadChildren: () => import('../modules/report/report.module').then(m => m.ReportModule),
-
+        loadChildren: () =>
+          import('../modules/report/report.module').then((m) => m.ReportModule),
       },
       {
         path: '**',
-        redirectTo: 'dashboard'
-      }
-    ]
+        redirectTo: 'dashboard',
+      },
+    ],
   },
-
 ];
 
 // @NgModule({

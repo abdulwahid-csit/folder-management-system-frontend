@@ -3,17 +3,14 @@
     <div
       class="d-flex align-items-center justify-content-between dataTable_header pb-0"
     >
-      <h4 class="primary_color mb-0 table-header-letter-spacing">
-        Applications
-      </h4>
+      <h4 class="primary_color mb-0 table-header-letter-spacing">Todo List</h4>
       <div class="d-flex">
         <div class="position-relative display-flex ms-2 custom-input">
           <input
             type="text"
             class="form-control dataTableSearch"
             [(ngModel)]="searchTerm"
-            placeholder="Search by name or domain"
-            
+            placeholder="Search by title"
           />
           <span class="search_icon searchIcon"></span>
         </div>
@@ -25,7 +22,7 @@
           class="primary_button ms-2"
           (click)="createTodo()"
         >
-          Create Application
+          Create Todo
         </button>
       </div>
     </div>
@@ -43,7 +40,9 @@
         <tbody>
           <ng-container *ngFor="let item of data; let i = index">
             <tr>
-              <td class="align-content-center" style="font-size: 12px">{{i + 1}}</td>
+              <td class="align-content-center" style="font-size: 12px">
+                {{ i + 1 }}
+              </td>
               <td class="align-content-center" style="font-size: 12px">
                 {{ item?.title }}
               </td>
@@ -52,26 +51,40 @@
               </td>
               <td class="align-content-center" style="font-size: 12px">
                 <div>
-                    <span [ngClass]="item?.isCompleted ? 'badge badge-success': 'warning_badge badge badge-warning'" ng>{{item?.isCompleted ? 'Completed': 'Pending'}}</span>
+                  <span
+                    [ngClass]="
+                      item?.isCompleted
+                        ? 'badge badge-success'
+                        : 'warning_badge badge badge-warning'
+                    "
+                    ng
+                    >{{ item?.isCompleted ? "Completed" : "Pending" }}</span
+                  >
                 </div>
               </td>
               <td class="align-content-center" style="font-size: 12px">
                 <div class="d-flex gap-3 align-content-center">
-                    <button class="btn btn-outline-danger d-flex justify-content-center align-items-center">
-                  <i
-                    (click)="
-                      openDeleteModal(
-                        'Are You sure, you want to delete all assignments?',
-                        item?._id
-                      )
-                    "
-                    class="bi bi-trash"
-                  ></i></button>
-                  <button *ngIf="!item?.isCompleted" class="primary_button d-flex justify-content-center align-items-center">
-                  <i
-                    (click)="changeStatus(item._id)"
-                    class="bi bi-check ms-2 fs-2"
-                  ></i>
+                  <button
+                    class="btn btn-outline-danger d-flex justify-content-center align-items-center"
+                  >
+                    <i
+                      (click)="
+                        openDeleteModal(
+                          'Are You sure, you want to delete all assignments?',
+                          item?._id
+                        )
+                      "
+                      class="bi bi-trash"
+                    ></i>
+                  </button>
+                  <button
+                    *ngIf="!item?.isCompleted"
+                    class="primary_button d-flex justify-content-center align-items-center"
+                  >
+                    <i
+                      (click)="changeStatus(item._id)"
+                      class="bi bi-check ms-2 fs-2"
+                    ></i>
                   </button>
                 </div>
               </td>
@@ -79,7 +92,11 @@
           </ng-container>
         </tbody>
       </table>
-      <div *ngIf="!data.length" class="text-center" style="margin-top: 60px; margin-bottom: 40px;">
+      <div
+        *ngIf="!data.length"
+        class="text-center"
+        style="margin-top: 60px; margin-bottom: 40px"
+      >
         No Data Found
       </div>
       <div

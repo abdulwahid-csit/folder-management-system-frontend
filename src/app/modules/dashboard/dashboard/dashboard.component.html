@@ -79,14 +79,18 @@
     <div class="row">
       <div class="col-lg-6 mt-4">
         <div class="card p-4">
-          <h2 class="border-bottom mb-3">Shared With Me</h2>
+          <h2 class="border-bottom mb-3">Recived Folders</h2>
           <div class="d-flex gap-4 folders flex-wrap">
-            <div *ngFor="let folder of sharedFolders" (click)="details(folder._id)" class="card p-3" style="min-width: 300px">
+            <ng-container *ngFor="let folder of sharedFolders; let i = index">
+            <div *ngIf="i < 6"  (click)="details(folder._id)" class="card p-3" style="min-width: 300px">
+              <ng-container>
               <span>Bach: {{folder?.batchNo}}</span>
               <span>Department: {{folder?.department}}</span>
               <span>Course Name: {{folder?.courseName}}</span>
               <span>Shift: {{folder?.timing}}</span>
+              </ng-container>
             </div>
+            </ng-container>
           </div>
         </div>
       </div>

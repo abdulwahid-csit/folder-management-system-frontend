@@ -66,6 +66,14 @@ export class AddFileComponent implements OnInit {
   }
 
   submit() {
+
+    debugger
+    if(this.form.invalid || !this.file){
+      this.form.markAllAsTouched();
+      this.toast.error('Please fill all the fields.');
+      return;
+    }
+
     console.log('Sending this data: ');
    let data = new FormData();
    data.append('name', this.form.get('name')?.value);
@@ -86,6 +94,7 @@ export class AddFileComponent implements OnInit {
         this.closeModal();
       },
       (error) => {
+        this.isLoading = false;
         console.error('Error: ', error);
         this.toast.error('Error creating content.');
       }

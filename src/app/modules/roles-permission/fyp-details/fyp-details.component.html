@@ -1,0 +1,233 @@
+<div class="wrapper">
+  <div class="sso_card w-100" style="min-height: 80vh">
+    <div
+      class="d-block d-md-flex align-items-center justify-content-between dataTable_header"
+    >
+      <h2
+        style="text-transform: capitalize"
+        class="primary_color mb-3 mb-md-0 table-header-letter-spacing"
+      >
+        {{ fyp?.fypName }}
+        <i (click)="openDeleteModal()" class="ms-4 delete bi bi-trash"></i>
+      </h2>
+      <div class="d-block d-md-flex">
+        <div
+          class="position-relative display-flex ms-0 ms-2 mb-3 mb-md-0 custom-input"
+        ></div>
+        <div class="d-flex">
+          <button
+            type="button"
+            class="btn filter_btn ms-0 ms-2 mb-3 mb-md-0 d-none"
+          >
+            <span class="me-2 filterIcon"></span> Filter
+          </button>
+        </div>
+        <button
+          (click)="addAttendenceModal()"
+          class="primary_button ms-0 ms-2 mb-3 mb-md-0 d-flex justify-content-center align-items-center"
+        >
+          Add Attendence
+          <i class="bi bi-arrow-right ms-2 mt-1"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="pt-4" style="padding-inline: 50px">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="mt-2">
+            <span class="fw-bold">FYP NAME:</span> {{ fyp?.fypName }}
+          </div>
+          <div class="mt-2">
+            <span class="fw-bold">Status:</span> {{ fyp?.status }}
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="mt-2">
+            <span class="fw-bold">Due Date:</span>
+            {{ fyp?.endDate | date : "EEEE dd, MMMM YYYY" }}
+          </div>
+          <div class="mt-2">
+            <span class="fw-bold">Total Members:</span>
+            {{ fyp?.fypMembersCount }}
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mt-2">
+            <span class="fw-bold">Session:</span> {{ fyp?.session }}
+          </div>
+          <div class="mt-2">
+            <span class="fw-bold">Description:</span> {{ fyp?.fypDescription }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="table data_table_wrapper" *ngIf="fyp?.attendance.length">
+      <table class="w-100 px-2">
+        <thead>
+          <th>S.No</th>
+          <th>Attendence Date</th>
+          <th>Present Students</th>
+          <th>Download File</th>
+          <th>Description</th>
+          <th>Actiions</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of fyp?.attendance; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ item?.date | date : "dd/MM/YYYY" }}</td>
+            <td>{{ item?.studentNames }}</td>
+            <td class="align-content-center" style="font-size: 12px">
+              <i
+                (click)="downloadFile(item?.file)"
+                *ngIf="item?.file"
+                class="fa fa-file fs-1"
+                title="Download files"
+                style="color: yellow; font-size: 20px; cursor: pointer"
+              >
+                <i *ngIf="!item?.file">N/A</i>
+              </i>
+            </td>
+            <td>
+              {{ item?.description }}
+            </td>
+            <td class="actions">
+              <div class="d-flex gap-2">
+                <!-- <button (click)="addAttendenceModal(item)" class="primary_button">
+                  <i class="bi bi-pencil"></i>
+                </button> -->
+                <button (click)="openDeleteAttendenceModal(item?._id)" class="btn btn-outline-danger">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="ms-4 text-muted" *ngIf="fyp?.attendance.length">
+      showing {{ fyp?.attendance.length }} records.
+    </div>
+  </div>
+</div>
+
+
+
+
+<ng-template #addAttendence>
+  <div class="modal-dialog-box">
+    <div class="pt-0">
+      <div
+        class="modal-header border-bottom-0 d-flex justify-content-between align-items-baseline"
+      >
+        <h3>Add FYP Group</h3>
+        <!-- <button class="primary_button" (click)="addMember()">Add member</button> -->
+      </div>
+      <div class="modal-body">
+        <form
+          [formGroup]="form"
+          enctype="multipart/form-data"
+          (ngSubmit)="submit()"
+        >
+          <div class="text fw-600 color-8492A6">
+            <!-- FyP Name -->
+
+            <div class="row mt-3">
+              <div class="">
+                <div class="ms-2 custom-input">
+                  <label
+                    for="exampleFormControlInput1"
+                    class="form-label mb-1 fs-14px fw-700"
+                    >Attendence Date</label
+                  >
+                  <input
+                    type="date"
+                    class="form-control dataTableSearch"
+                    placeholder="Enter attendence date"
+                    formControlName="date"
+                    [value]="dateForEdit"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-3">
+              <div class="ms-2 custom-input">
+                <label
+                  for="exampleFormControlInput1"
+                  class="form-label mb-1 fs-14px fw-700 required"
+                  >Present Students</label
+                >
+                <input
+                  type="text"
+                  class="form-control dataTableSearch"
+                  placeholder="Enter present students names"
+                  formControlName="students"
+                />
+              </div>
+            </div>
+
+            <div class="row mt-3">
+              <div class="">
+                <div class="ms-2 custom-input">
+                  <label
+                    for="exampleFormControlInput1"
+                    class="form-label mb-1 fs-14px fw-700"
+                    >Attendence File (optional)</label
+                  >
+                  <input
+                    (change)="OnFileChange($event)"
+                    type="file"
+                    class="form-control dataTableSearch"
+                    placeholder="upload attendence file"
+                    accept=".pdf, .docs"
+                    formControlName="file"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6"></div>
+            </div>
+
+            <div class="ms-2 mt-3 custom-input">
+              <label
+                for="exampleFormControlInput1"
+                class="form-label mb-1 fs-14px fw-700 required"
+                >Description</label
+              >
+              <textarea
+                name=""
+                rows="7"
+                class="form-control"
+                id=""
+                formControlName="description"
+              ></textarea>
+            </div>
+          </div>
+          <div
+            class="modal-footer border-top-0 d-flex justify-content-end mt-4 pb-0 pe-0"
+          >
+            <div class="buttons pb-0">
+              <button
+                type="button"
+                class="cancel_btn me-2"
+                (click)="closeModal()"
+              >
+                No, cancel
+              </button>
+              <button class="primary_button" [disabled]="isLoading">
+                Save
+                <i class="bi bi-arrow-right ms-2 mt-1" *ngIf="!isLoading"></i>
+                <span
+                  class="spinner-border spinner-border-sm"
+                  *ngIf="isLoading"
+                ></span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-template>

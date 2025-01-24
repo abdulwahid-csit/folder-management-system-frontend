@@ -62,7 +62,7 @@
                 {{ item.file?.uploadedAt | date : "dd/mm/yyyy" }}
               </td>
               <td class="align-content-center" style="font-size: 12px">
-                <i
+                <i (click)="downloadFile(item?.file?.fileUrl)"
                   class="fa fa-file fs-1"
                   title="Download files"
                   style="color: yellow; font-size: 20px; cursor: pointer"

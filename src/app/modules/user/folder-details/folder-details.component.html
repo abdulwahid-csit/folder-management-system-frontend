@@ -27,10 +27,10 @@
           </button>
         </div>
         <button
-          (click)="addFile('ad', id, 'i')"
+          (click)="addCustomFiles()"
           class="primary_button ms-0 ms-2 mb-3 mb-md-0 d-flex justify-content-center align-items-center"
         >
-          Create Folder
+          Add custom files
           <i class="bi bi-arrow-right ms-2 mt-1"></i>
         </button>
       </div>
@@ -242,6 +242,45 @@
               </td>
             </tr>
 
+            <tr *ngFor="let file of item?.customFiles; let i = index">
+              <td class="align-content-center" style="font-size: 12px">{{i+6}}</td>
+              <td class="align-content-center" style="font-size: 12px">
+                {{file?.name}}
+              </td>
+              <td class="align-content-center" style="font-size: 12px">
+               1
+              </td>
+              <td class="align-content-center" style="font-size: 12px">N/A</td>
+              <td class="align-content-center" style="font-size: 12px">N/A</td>
+              <td class="align-content-center" style="font-size: 12px">
+                <i
+                  class="fa fa-file fs-1"
+                  title="Download files"
+                  style="color: yellow; font-size: 20px; cursor: pointer"
+                ></i>
+              </td>
+              <td class="align-content-center" style="font-size: 12px">
+                <div class="d-flex justify-content-center">
+                  <i
+                    (click)="
+                      $event.stopPropagation();
+                      openDeleteModal(
+                        'Are You sure, you want to delete all lectures?'
+                      )
+                    "
+                    class="fa fa-trash ms-2 fs-2"
+                  ></i>
+                  <!-- <i
+                    (click)="
+                      $event.stopPropagation();
+                      addFile('Add Lectures', item._id, 'lectures')
+                    "
+                    class="fa fa-plus ms-2 fs-2"
+                  ></i> -->
+                </div>
+              </td>
+            </tr>
+
             <tr *ngIf="filterData.length === 0" class="text-center tbody-empty">
               <td class="font_weight_600">No Data Found</td>
             </tr>
@@ -269,3 +308,88 @@
     </div>
   </div>
 </div>
+
+
+
+<ng-template #addCustomFile>
+  <div class="modal-dialog-box">
+  <div class="pt-0">
+    <div
+      class="modal-header border-bottom-0 d-flex justify-content-between align-items-baseline"
+    >
+      <h3>Add custom file</h3>
+    </div>
+    <div class="modal-body">
+      <form
+        [formGroup]="form"
+        enctype="multipart/form-data"
+        (ngSubmit)="submit()"
+      >
+        <div class="text fw-600 color-8492A6">
+          <div class="ms-2 custom-input">
+            <label
+              for="exampleFormControlInput1"
+              class="form-label mb-1 fs-14px fw-700 required"
+              >Name</label
+            >
+            <input
+              type="text"
+              class="form-control dataTableSearch"
+              placeholder="Enter Title"
+              formControlName="name"
+            />
+          </div>
+          <div class="ms-2 mt-3 custom-input">
+            <label
+              for="exampleFormControlInput1"
+              class="form-label mb-1 fs-14px fw-700 required"
+              >Description</label
+            >
+            <textarea
+              name=""
+              rows="7"
+              class="form-control"
+              id=""
+              formControlName="description"
+            ></textarea>
+          </div>
+          <div class="ms-2 mt-3 custom-input">
+            <label
+              for="exampleFormControlInput1"
+              class="form-label mb-1 fs-14px fw-700"
+              >Upload file</label
+            >
+            <input
+              type="file"
+              accept=".pdf, .docs, .doc, .ppt"
+              placeholder="Datepicker"
+              class="form-control"
+              (change)="OnFileChange($event)"
+            />
+            <label
+              for="exampleFormControlInput1"
+              class="form-label mb-1 fs-14px fw-700"
+              >(Optional)</label
+            >
+          </div>
+        </div>
+        <div class="modal-footer border-top-0 d-flex justify-content-end">
+          <div class="buttons">
+            <button type="button" class="cancel_btn me-2" (click)="closeModal()">
+              No, cancel
+            </button>
+            <button class="primary_button" [disabled]="isLoading">
+              Save <i class="bi bi-arrow-right ms-2 mt-1" *ngIf="!isLoading"></i>
+              <span
+                class="spinner-border spinner-border-sm"
+                *ngIf="isLoading"
+              ></span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+</ng-template>

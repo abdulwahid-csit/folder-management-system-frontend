@@ -48,6 +48,16 @@ export class LocalStoreService {
     return userData?.first_name + ' ' + userData?.last_name;
   }
 
+  designation(){
+    const userData = this.getItem('user');
+    return userData?.desegnation;
+  }
+
+  getDepartment(){
+    const userData = this.getItem('user');
+    return userData?.department;
+  }
+
   getUserEmail(): string {
     const userData = this.getItem('user');
     return userData.email;

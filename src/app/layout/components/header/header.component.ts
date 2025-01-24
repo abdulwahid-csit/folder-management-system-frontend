@@ -2,7 +2,9 @@ import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs';
 import { CommonService } from 'src/app/shared/services/common.service';
+import { CrudService } from 'src/app/shared/services/crud.service';
 import { LocalStoreService } from 'src/app/shared/services/local-store.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +18,7 @@ export class HeaderComponent implements OnInit {
   isDropdownVisible = false;
   isDashboard = false;
   isSowNotifications: boolean = false;
-  notifications = [
+  notifications: any = [
     { id: 1, title: 'New Todo Added', isRead: false },
     { id: 2, title: 'Noor Send you a folder', isRead: false },
     { id: 3, title: 'New Schedule added', isRead: false },
@@ -35,10 +37,12 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     public localStoreService: LocalStoreService,
     private elRef: ElementRef,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private crudService: CrudService
   ) {}
 
   ngOnInit(): void {
+    this.getNotifications();
     this.showSettingsIcon = !this.router.url.includes('dashboard');
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
@@ -119,4 +123,55 @@ export class HeaderComponent implements OnInit {
   toggleNotifications() {
     this.isSowNotifications = !this.isSowNotifications;
   }
+
+  unreadNotifications: any;
+  getNotifications() {
+    this.crudService.read('notification/notifications').subscribe(
+      (res) => {
+        console.log('res: -> ', res.notification);
+        this.notifications = res.notification;
+        this.unreadNotifications = this.notifications.filter((item: { read: boolean; }) => item.read == false)
+      },
+      (error) => {
+        console.log('error: ', error);
+      }
+    );
+  }
+
+  markAsRead(id: string) {
+    this.crudService.update('notification/read', id).subscribe(
+      (res) => {
+        this.getNotifications();
+      },
+      (error) => {
+        console.log('error: ', error);
+      }
+    );
+  }
+
+  markAllAsRead() {
+    this.crudService
+      .update('notification/all-read', '6787cf0093cab320abf590f5')
+      .subscribe(
+        (res) => {
+          this.getNotifications();
+        },
+        (error) => {
+          console.log('error: ', error);
+        }
+      );
+  }
+
+
+
+  gotoNotification(url: string){
+    this.router.navigate([url]);
+    this.isSowNotifications = false;
+  }
+
+
+  timeAgo(createdAt: any) {
+  return moment(createdAt).fromNow();
+}
+
 }

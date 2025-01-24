@@ -6,7 +6,7 @@
               <div class="">
                 <div><h2 class="mb-0 header-content">Profile 🚀</h2></div>
                 <div class="d-flex gap-4"><img [src]="environment.apiUrl + 'uploaded-files/' + profilePicture" width="200px" height="220px" alt="">
-                <button (click)="openFile()" class="primary_button" style="position: relative;top: 130px;"> {{file ? file?.name : 'Edit Profile Picture'}}
+                <button (click)="openFile()" class="primary_button justify-content-center" style="position: relative;top: 130px; width: 250px;"> {{file ? file?.name : 'Edit Profile Picture'}}
                   <input style="visibility: hidden;" id="profile-image-input" accept=".jpg, .png," (change)="onFileChange($event)" #profile type="file">
                 </button></div>
               </div>

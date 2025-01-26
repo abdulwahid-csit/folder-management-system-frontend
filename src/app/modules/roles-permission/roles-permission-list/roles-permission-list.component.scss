@@ -7,13 +7,42 @@
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.actions{
-    visibility: hidden;
+.actions {
+  visibility: hidden;
 }
 .fyp:hover {
   scale: 1.05;
-  .actions{
-
+  .actions {
     visibility: visible;
+  }
+}
+
+.nav-link {
+  color: black;
+  &:hover {
+    border: none !important;
+    border-color: transparent !important;
+    border-bottom-color: #6f61cf !important;
+  }
+}
+.nav-tabs {
+  border-bottom: 2px solid black !important;
+  cursor: pointer;
+}
+
+.active-link {
+  a {
+    color: #6f61cf !important;
+  }
+}
+
+.table{
+  table{
+    th, tr td{
+      border: 1px solid black;
+      padding: 15px 20px 6px 4px;
+      text-align: center;
+    }
+    width: 100% 
   }
 }

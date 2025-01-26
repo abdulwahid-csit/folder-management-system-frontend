@@ -1,11 +1,11 @@
-<div class="modal-dialog-box">
+<div class="modal-dialog-box" *ngIf="!isSchedule">
   <div class="pt-0">
     <div
       class="modal-header border-bottom-0 d-flex justify-content-between align-items-baseline"
     >
       <h3>Add Todo</h3>
     </div>
-    <div class="modal-body" >
+    <div class="modal-body">
       <form [formGroup]="form">
         <div class="text fw-600 color-8492A6">
           <div class="ms-2 custom-input">
@@ -27,7 +27,13 @@
               class="form-label mb-1 fs-14px fw-700 required"
               >Description</label
             >
-            <textarea name="" rows="7" class="form-control" id="" formControlName="description"></textarea>
+            <textarea
+              name=""
+              rows="7"
+              class="form-control"
+              id=""
+              formControlName="description"
+            ></textarea>
           </div>
           <div class="ms-2 mt-3 custom-input">
             <label
@@ -56,7 +62,126 @@
         <button type="button" class="cancel_btn me-2" (click)="closeModal()">
           No, cancel
         </button>
-        <button (click)="submit()" type="submit" class="primary_button" [disabled]="isLoading">
+        <button
+          (click)="submit()"
+          type="submit"
+          class="primary_button"
+          [disabled]="isLoading"
+        >
+          Save <i class="bi bi-arrow-right ms-2 mt-1" *ngIf="!isLoading"></i>
+          <span
+            class="spinner-border spinner-border-sm"
+            *ngIf="isLoading"
+          ></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-dialog-box" *ngIf="isSchedule">
+  <div class="pt-0">
+    <div
+      class="modal-header border-bottom-0 d-flex justify-content-between align-items-baseline"
+    >
+      <h3>Add Schedule</h3>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="scheduleForm">
+        <div class="text fw-600 color-8492A6">
+          <div class="row">
+            <div class="ms-2 custom-input col-md-7">
+              <label
+                for="exampleFormControlInput1"
+                class="form-label mb-1 fs-14px fw-700 required"
+                >Title</label
+              >
+              <input
+                type="text"
+                class="form-control dataTableSearch"
+                placeholder="Enter Title"
+                formControlName="title"
+              />
+            </div>
+            <div class="ms-2 custom-input col-md-2">
+              <label
+                for="exampleFormControlInput1"
+                class="form-label mb-1 fs-14px fw-700 required"
+                >Start Time</label
+              >
+               <select name="" placeholder="start time" class="form-control" id="" formControlName="startTime">
+                  <option *ngFor="let item of generateTimeArray()" [value]="item">{{item}}</option>
+                </select>
+            </div>
+            <div class="ms-2 custom-input col-md-2">
+              <label
+                for="exampleFormControlInput1"
+                class="form-label mb-1 fs-14px fw-700 required"
+                >End Time</label
+              >
+            <select placeholder="End time" name="" class="form-control" id="" formControlName="endTime">
+                  <option *ngFor="let item of generateTimeArray()" [value]="item">{{item}}</option>
+                </select>
+            </div>
+          </div>
+
+          <div class="d-flex gap-2">
+            <div class="ms-2 mt-3 custom-input col-md-6">
+              <label
+                for="exampleFormControlInput1"
+                class="form-label mb-1 fs-14px fw-700"
+                >Schedule Date</label
+              >
+              <input
+                type="date"
+                placeholder="Datepicker"
+                class="form-control"
+                bsDatePicker
+                formControlName="date"
+              />
+            </div>
+            
+            <div class="ms-2 mt-3 custom-input col-md-6 pe-4">
+              <label
+                for="exampleFormControlInput1"
+                class="form-label mb-1 fs-14px fw-700"
+                >Status</label
+              >
+              <select name="" class="form-control" id="" formControlName="status">
+                  <option value="active">active</option>
+                  <option value="completed">completed</option>
+                </select>
+            </div>
+          </div>
+
+          <div class="ms-2 mt-3 custom-input">
+            <label
+              for="exampleFormControlInput1"
+              class="form-label mb-1 fs-14px fw-700 required"
+              >Description</label
+            >
+            <textarea
+              name=""
+              rows="7"
+              class="form-control"
+              id=""
+              formControlName="description"
+            ></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer border-top-0 d-flex justify-content-end">
+      <div class="buttons">
+        <button type="button" class="cancel_btn me-2" (click)="closeModal()">
+          No, cancel
+        </button>
+        <button
+          (click)="submitSchedule()"
+          type="submit"
+          class="primary_button"
+          [disabled]="isLoading"
+        >
           Save <i class="bi bi-arrow-right ms-2 mt-1" *ngIf="!isLoading"></i>
           <span
             class="spinner-border spinner-border-sm"

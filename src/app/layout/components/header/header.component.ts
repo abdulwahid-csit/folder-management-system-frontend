@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs';
 import { CommonService } from 'src/app/shared/services/common.service';
@@ -11,27 +11,16 @@ import * as moment from 'moment';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   isSidebarVisible = false;
   isDetailsPage = false;
   showSettingsIcon = false;
   isDropdownVisible = false;
   isDashboard = false;
   isSowNotifications: boolean = false;
-  notifications: any = [
-    { id: 1, title: 'New Todo Added', isRead: false },
-    { id: 2, title: 'Noor Send you a folder', isRead: false },
-    { id: 3, title: 'New Schedule added', isRead: false },
-    { id: 4, title: 'New Todo Added', isRead: false },
-    { id: 5, title: 'FYP approval recived', isRead: false },
-    { id: 6, title: 'Meeting created by jhon', isRead: false },
-    { id: 7, title: 'New Todo Added', isRead: false },
-    { id: 8, title: 'Noor Send you a folder', isRead: false },
-    { id: 9, title: 'FYP approval recived', isRead: false },
-    { id: 10, title: 'Meeting created by james', isRead: false },
-    { id: 11, title: 'FYP approval recived', isRead: false },
-  ];
+  notifications: any = [{ id: 1, title: 'New Todo Added', isRead: false }];
 
+  private intervalId: any;
   constructor(
     private commonService: CommonService,
     private router: Router,
@@ -59,6 +48,11 @@ export class HeaderComponent implements OnInit {
       .subscribe((event: any) => {
         this.isDetailsPage = event.urlAfterRedirects.includes('/details');
       });
+
+    this.intervalId = setInterval(() => {
+      this.getNotifications();
+    }, 3000);
+
   }
 
   toggleSidebar() {
@@ -128,9 +122,11 @@ export class HeaderComponent implements OnInit {
   getNotifications() {
     this.crudService.read('notification/notifications').subscribe(
       (res) => {
-        console.log('res: -> ', res.notification);
+        // console.log('res: -> ', res.notification);
         this.notifications = res.notification;
-        this.unreadNotifications = this.notifications.filter((item: { read: boolean; }) => item.read == false)
+        this.unreadNotifications = this.notifications.filter(
+          (item: { read: boolean }) => item.read == false
+        );
       },
       (error) => {
         console.log('error: ', error);
@@ -162,16 +158,19 @@ export class HeaderComponent implements OnInit {
       );
   }
 
-
-
-  gotoNotification(url: string){
+  gotoNotification(url: string) {
     this.router.navigate([url]);
     this.isSowNotifications = false;
   }
 
-
   timeAgo(createdAt: any) {
-  return moment(createdAt).fromNow();
+    return moment(createdAt).fromNow();
+  }
+
+  ngOnDestroy(): void {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+  }
 }
 
-}

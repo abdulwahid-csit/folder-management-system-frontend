@@ -89,7 +89,7 @@ export class FolderDetailsComponent implements OnInit {
   }
 
   onRowClick(folderId: string, contentType: string) {
-    this.router.navigate(['/layout/user/file-details'], {
+    this.router.navigate(['/layout/folders/file-details'], {
       queryParams: { id: folderId, contentType: contentType },
     });
 

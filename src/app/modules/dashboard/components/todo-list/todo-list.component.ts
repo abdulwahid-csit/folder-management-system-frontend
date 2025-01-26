@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +10,7 @@ import { CrudService } from 'src/app/shared/services/crud.service';
   styleUrls: ['./todo-list.component.scss'],
 })
 export class TodoListComponent implements OnInit {
+  @Input() isSchedule: any;
   mode = '';
   isLoading = false;
   bsValue = new Date();
@@ -17,6 +18,7 @@ export class TodoListComponent implements OnInit {
   maxDate = new Date();
   minDate = new Date();
   form!: FormGroup;
+  scheduleForm!: FormGroup;
   @Output() event = new EventEmitter<any>();
 
   constructor(
@@ -32,6 +34,7 @@ export class TodoListComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
+    this.initScheduleForm();
   }
 
   initForm() {
@@ -39,6 +42,17 @@ export class TodoListComponent implements OnInit {
       title: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
       reminderDate: new FormControl(new Date()),
+    });
+  }
+
+  initScheduleForm() {
+    this.scheduleForm = new FormGroup({
+      title: new FormControl('', [Validators.required]),
+      startTime: new FormControl('09:00', [Validators.required]),
+      endTime: new FormControl('18:00', [Validators.required]),
+      date: new FormControl(new Date(), [Validators.required]),
+      description: new FormControl('', [Validators.required]),
+      status: new FormControl('active', [Validators.required]),
     });
   }
 
@@ -71,4 +85,33 @@ export class TodoListComponent implements OnInit {
   closeModal() {
     this.modalService.hide();
   }
+
+  generateTimeArray(): string[] {
+    const times: string[] = [];
+    for (let hour = 0; hour < 24; hour++) {
+      for (let minute = 0; minute < 60; minute++) {
+        const time = `${String(hour).padStart(2, '0')}:${String(
+          minute
+        ).padStart(2, '0')}`;
+        times.push(time);
+      }
+    }
+
+    return times;
+  }
+
+  submitSchedule(){
+    if(this.scheduleForm.invalid){
+      this.toast.error("Please fill all fields.");
+      return;
+    }
+
+    this.crudSerice
+      .create('schedule/add-schedule', this.scheduleForm.value)
+      .subscribe((res) => {
+        this.toast.success('To-do created successfully.');
+        this.event.emit(true);
+        this.closeModal();
+      });
+  };
 }

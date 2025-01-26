@@ -5,7 +5,24 @@
     >
       <h2 class="primary_color mb-3 mb-md-0 table-header-letter-spacing">
         Final Year Projects
+        <ul class="nav nav-tabs pt-4">
+          <li
+            class="nav-item"
+            [ngClass]="{ 'active-link': selectedTab === 'details' }"
+            (click)="setSelectedTab('details')"
+          >
+            <a class="nav-link" aria-current="page">Details</a>
+          </li>
+          <li
+            class="nav-item"
+            [ngClass]="{ 'active-link': selectedTab === 'summary' }"
+            (click)="setSelectedTab('summary')"
+          >
+            <a class="nav-link">Summary</a>
+          </li>
+        </ul>
       </h2>
+
       <div class="d-block d-md-flex">
         <div
           class="position-relative display-flex ms-0 ms-2 mb-3 mb-md-0 custom-input"
@@ -25,53 +42,99 @@
           Add Group
           <i class="bi bi-arrow-right ms-2 mt-1"></i>
         </button>
-      </div>
-    </div>
-    <div class="p-4 d-flex gap-4 flex-wrap">
-      <div
-        class="fyp py-3 border rounded w-auto position-relative ign-items-center p-4"
-        style="max-width: 400px"
-        *ngFor="let fyp of fyps"
-        (click)="gotoDetails(fyp?._id)"
-      >
-        <div
-          class="actions position-relative d-flex gap-2"
-          style="top: -11px; left: 180px"
+        <button
+          (click)="exportData()"
+          class="primary_button ms-0 ms-2 mb-3 mb-md-0 d-flex justify-content-center align-items-center"
         >
-          <button
-            (click)="$event.stopPropagation(); shareFolder(fyp?._id)"
-            class="btn btn-outline-success"
+          Export Summary
+          <i class="bi bi-arrow-right ms-2 mt-1"></i>
+        </button>
+      </div>
+    </div>
+    <ng-container *ngIf="fyps?.length">
+
+    <ng-container *ngIf="selectedTab === 'details'">
+      <div class="p-4 d-flex gap-4 flex-wrap">
+        <div
+          class="fyp py-3 border rounded w-auto position-relative ign-items-center p-4"
+          style="max-width: 400px"
+          *ngFor="let fyp of fyps"
+          (click)="gotoDetails(fyp?._id)"
+        >
+          <div
+            class="actions position-relative d-flex gap-2"
+            style="top: -11px; left: 180px"
           >
-            <i class="bi bi-share"> </i>
-          </button>
-          <button
-            (click)="$event.stopPropagation(); getFypById(fyp._id)"
-            class="btn btn-outline-success"
-          >
-            <i class="bi bi-pencil"> </i>
-          </button>
-        </div>
-        <!-- <p style="color: red;" class="badge badge-primary position-absolute top-auto left-0">In Progress</p> -->
-        <div class="d-flex flex-column align-items-center">
-          <img
-            width="200px"
-            height="200px"
-            src="../../../../assets/images/groupIcon.jpg"
-            alt=""
-          />
-          <div>
-            <h4 class="mt-3 ms-4">{{ fyp?.fyp }}</h4>
+            <button
+              (click)="$event.stopPropagation(); shareFolder(fyp?._id)"
+              class="btn btn-outline-success"
+            >
+              <i class="bi bi-share"> </i>
+            </button>
+            <button
+              (click)="$event.stopPropagation(); getFypById(fyp._id)"
+              class="btn btn-outline-success"
+            >
+              <i class="bi bi-pencil"> </i>
+            </button>
           </div>
-          <div class="ms-4" style="font-size: 18px; font-weight: bolder">
-            {{ fyp?.fypName }} ({{ fyp?.session }})
-          </div>
-          <div class="ms-4"><h2>Group Members</h2></div>
-          <div class="ms-4" *ngFor="let member of fyp.members">
-            <b>{{ member?.name }}</b>
+          <!-- <p style="color: red;" class="badge badge-primary position-absolute top-auto left-0">In Progress</p> -->
+          <div class="d-flex flex-column align-items-center">
+            <img
+              width="200px"
+              height="200px"
+              src="../../../../assets/images/groupIcon.jpg"
+              alt=""
+            />
+            <div>
+              <h4 class="mt-3 ms-4">{{ fyp?.fyp }}</h4>
+            </div>
+            <div class="ms-4" style="font-size: 18px; font-weight: bolder">
+              {{ fyp?.fypName }} ({{ fyp?.session }})
+            </div>
+            <div class="ms-4"><h2>Group Members</h2></div>
+            <div class="ms-4" *ngFor="let member of fyp.members">
+              <b>{{ member?.name }}</b>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </ng-container>
+
+    <ng-container *ngIf="selectedTab === 'summary'">
+      <div class="table table-hover p-4 ">
+        <table class="">
+          <thead>
+            <th>Group</th>
+            <th>Projects</th>
+            <th>Members</th>
+            <th>Average Marks</th>
+            <th>Average Attendece(%)</th>
+            <th>Meetings</th>
+            <th>Comments</th>
+            <th>Eligible</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let record of fyps; let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{record?.fypName}}</td>
+              <td><span *ngFor="let member of record?.members">{{member?.name + ', '}}</span></td>
+              <td [ngClass]="{'text-danger': calculateAverageMarks(record?.members) < 80}">{{calculateAverageMarks(record?.members)}}</td>
+              <td [ngClass]="{'text-danger': getAverageAttendence(record?.members, record?.meetings) < 80}">{{getAverageAttendence(record?.members, record?.meetings)}} %</td>
+              <td>{{record?.attendance?.length}}</td>
+              <td>{{record?.fypDescription}}</td>
+              <td [ngClass]="{'text-danger': getElegibilityPercentage(record?.members,  record?.meetings) < 80}">{{getElegibilityPercentage(record?.members,  record?.meetings) < 80 ? 'InEligible' : 'Eligible'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="!fyps?.length">
+    <div class="p-4">
+        <h3>No Fyps found!</h3>
+      </div>
+  </ng-container>
   </div>
 </div>
 
@@ -234,8 +297,8 @@
               </div>
             </div>
 
-            <div class="row">
-              <div class="ms-2 custom-input">
+            <div class="d-flex gap-2 mt-3">
+              <div class="ms-2 col-md-6 custom-input pe-3">
                 <label
                   for="exampleFormControlInput1"
                   class="form-label mb-1 fs-14px fw-700 required"
@@ -246,6 +309,22 @@
                   class="form-control dataTableSearch"
                   placeholder="Enter fyp name"
                   formControlName="session"
+                />
+              </div>
+              <div class="ms-2 col-md-6 custom-input pe-3">
+                <label
+                  for="exampleFormControlInput1"
+                  class="form-label mb-1 fs-14px fw-700 required"
+                  >Required Meetings</label
+                >
+                <input
+                  type="number"
+                  [max]="32"
+                  max="32"
+                  class="form-control dataTableSearch"
+                  placeholder="Enter required meetings"
+                  formControlName="meetings"
+                  (input)="validateInput($event)"
                 />
               </div>
             </div>

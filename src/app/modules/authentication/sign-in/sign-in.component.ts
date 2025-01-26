@@ -1,7 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from './../../../shared/services/auth.service';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CrudService } from 'src/app/shared/services/crud.service';
 
@@ -35,6 +35,7 @@ export class SignInComponent {
         ]),
       ],
       password: [null, Validators.compose([Validators.required])],
+      isAdmin: new FormControl(false)
     });
   }
   isControlHasError(controlName: string, validationType: string): boolean {
@@ -60,9 +61,9 @@ export class SignInComponent {
       this.signInForm.markAllAsTouched();
       return;
     }
-    const { email, password } = this.signInForm.value;
+    const { email, password, isAdmin } = this.signInForm.value;
     this.isLoading = true;
-    this.authService.signIn(email, password).subscribe(
+    this.authService.signIn(email, password, isAdmin).subscribe(
       (response: any) => {
         if (response.status_code === 200 || response.status_code === 201) {
           this.toast.success('Login successfully.');

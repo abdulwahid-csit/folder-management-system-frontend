@@ -17,6 +17,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'users',
+        loadChildren: () =>
+          import('../modules/fms-users/fms-users.module').then(
+            (m) => m.FmsUsersModule
+          ),
+      },
+      {
         path: 'organization',
         loadChildren: () =>
           import('../modules/organization/organization.module').then(

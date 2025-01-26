@@ -23,6 +23,7 @@ export class FypDetailsComponent implements OnInit {
   ) {}
 
   @ViewChild('addAttendence') addAttendence!: TemplateRef<any>;
+  @ViewChild('addMarks') addMarks!: TemplateRef<any>;
 
   id!: any;
   fyp: any;
@@ -40,10 +41,10 @@ export class FypDetailsComponent implements OnInit {
   isLoading = false;
   initForm() {
     this.form = new FormGroup({
-      students: new FormControl('', Validators.required),
+      studentNames: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
       date: new FormControl(''),
-      file: new FormControl('')
+      file: new FormControl(''),
     });
   }
 
@@ -56,12 +57,17 @@ export class FypDetailsComponent implements OnInit {
       return;
     }
 
+    const studentNames = this.form.get('studentNames')?.value;
     const data = new FormData();
     data.append('fypId', this.id);
-    data.append('studentNames', this.form.get('students')?.value);
+    data.append('studentNames', JSON.stringify(studentNames));
     data.append('date', this.form.get('date')?.value);
     data.append('description', this.form.get('description')?.value);
     data.append('file', this.file);
+
+
+    console.log('data: ', data)
+
 
     this.crudService.createContent('fyp/add-attendance', data).subscribe(
       (res) => {
@@ -95,8 +101,7 @@ export class FypDetailsComponent implements OnInit {
   modalRef!: BsModalRef;
   dateForEdit: any;
   addAttendenceModal(editData: any = '') {
-    debugger
-    if(editData){
+    if (editData) {
       this.form.patchValue(editData);
       this.form.get('students')?.setValue(editData?.studentNames);
       this.form.get('date')?.setValue(editData?.date);
@@ -111,6 +116,15 @@ export class FypDetailsComponent implements OnInit {
     this.modalRef.content?.event.subscribe(() => {
       // this.getFolder();
     });
+  }
+
+  addStudentsMarks() {
+    this.modalRef = this.modalservice.show(this.addMarks, {
+      class: 'modal-dialog modal-dialog-centered modal-lg common_modal_shadow',
+      backdrop: 'static',
+      keyboard: false,
+    });
+    this.modalRef.content?.event.subscribe(() => {});
   }
 
   file!: File;
@@ -151,7 +165,6 @@ export class FypDetailsComponent implements OnInit {
     });
   }
 
-
   deleteFyp() {
     this.crudService.delete('fyp/fyp/delete', this.id).subscribe((res) => {
       console.log(res);
@@ -178,4 +191,18 @@ export class FypDetailsComponent implements OnInit {
   downloadFile(fileName: string) {
     this.crudService.downloadFile(fileName);
   }
+
+  saveMarks(){
+    console.log(this.fyp?.members);
+    this.crudService
+      .update('fyp/update-members', this.fyp?._id, {
+        members: this.fyp?.members,
+      })
+      .subscribe((res) => {
+        console.log('Updated fyp: ', res);
+        this.getFypById();
+        this.closeModal();
+        this.toastService.success('Marks Updated Successfully')
+      });
+  };
 }

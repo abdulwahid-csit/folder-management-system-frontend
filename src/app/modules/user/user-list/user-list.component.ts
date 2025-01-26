@@ -66,13 +66,13 @@ export class UserListComponent implements OnInit {
   }
 
   details(id: string | number) {
-    this.router.navigate(['layout/user/details', id]);
+    this.router.navigate(['layout/folders/details', id]);
   }
 
   folders: any;
   getFolders() {
     this.crudService
-      .read('folder/folders', null, null, 10, this.searchTerm)
+      .read('folder/folders', null, null, 1000, this.searchTerm)
       .subscribe(
         (res) => {
           this.folders = res?.folders;
@@ -150,7 +150,7 @@ export class UserListComponent implements OnInit {
    sharedFolders: any[] = [];
     getSharedFolders() {
       this.crudService
-        .read('fyp/shared-folders', null, undefined, 5)
+        .read('folder/shared-folders', null, undefined, 5)
         .subscribe(
           (res) => {
             this.sharedFolders = res?.data;

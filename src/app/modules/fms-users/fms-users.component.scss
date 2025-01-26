@@ -1,8 +1,37 @@
-.wrapper {
-  padding: 30px;
+.wrapper{
+    padding: 30px;
+}
+
+.folders{
+    padding: 10px 20px 50px 20px;
+    .card{
+        transform: translateY(0);
+         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+         background-color: hwb(0 100% 0%);
+         color: hsl(0, 0%, 0%);
+         transition: transform, background-color, display 0.2s ease-in;
+         cursor: pointer;
+         .hover-buttons{
+        display: none;
+    }
+    }
+    .card:hover{
+        transform: scale(1.05);
+        background-color: #6f61cf;
+        color: #fff;
+    }
+    
+   
+.folders:hover{
+ .hover-buttons{
+        display: flex !important;
+        border: 1px solid #fff !important;
+    }
+}
 }
 
 .data_table_wrapper {
+    min-height: 77vh;
     height: 100%;
     box-shadow: 0px 3px 8px -1px #3232470D;
     box-shadow: 0px 0px 1px 0px #0C1A4B3D;
@@ -26,7 +55,6 @@
                     background-color: #ccc;
                     text-wrap: nowrap;
                     height: 48px !important;
-                    width: calc(100% / 5) !important;
 
                 }
             }
@@ -39,13 +67,12 @@
                 background-color: #8492A6 !important;
 
                 td {
-                    padding: 0px 16px 0px 16px !important;
+                    padding: 20px 16px 0px 10px !important;
                     color: rgba(66, 84, 102, 1);
                     font-size: 16px !important;
                     height: 70px !important;
-                    border-color: rgba(237, 242, 247, 1) !important;
+                    border-color: rgb(39, 39, 39) !important;
                     background-color: rgb(255, 255, 255) !important;
-                     width: calc(100% / 5) !important;
                     // font-weight: 400;
                 }
 
@@ -54,25 +81,20 @@
     }
 }
 
-.delete:hover{
+::ng-deep .tbody-empty{
+    height: 75vh;
+}
+
+.dataTable_pagination {
+    padding: 20px 18px 20px 18px;
+
+}
+
+.fa-trash:hover{
     color: red;
     cursor: pointer;
 }
-
-::ng-deep .ng-input input:focus{
-border: none !important;
-outline: none !important;
-box-shadow: none !important;
-}
-
-::ng-deep .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-input>input {
-    color: #000;
-    &:focus{
-        outline: none !important;
-        border: none !important;
-        box-shadow: none !important;
-    }
-}
-::ng-deep .ng-select-container{
-    height: 46px !important;
+.fa-plus:hover{
+    cursor: pointer;
+    color: #6f61cf;
 }

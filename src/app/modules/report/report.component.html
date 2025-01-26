@@ -7,10 +7,20 @@
       <h4
         class="mt-4 ms-4 primary_color mb-3 mb-md-0 table-header-letter-spacing d-flex justify-content-between"
       >
-        Folders Created in last 7 days (30)
-        <span>Total Folders (50)</span>
+        <span>
+          
+          <ng-container *ngIf="selectedFolderRange == 7">Folders Created in last Week ({{lastWeekFolders?.length}})</ng-container>
+          <ng-container *ngIf="selectedFolderRange == 30">Folders Created in last Month ({{lastMonthFolders?.length}})</ng-container>
+          
+          <span class="ms-4 mt-3">
+          <select (change)="setRange()" [(ngModel)]="selectedFolderRange" name="" class="custom-select form-control" id="">
+            <option value="7" [selected]="true">Last Week</option>
+            <option value="30">Last Month</option>
+          </select>
+        </span></span>
+        <span>Total Folders ({{folders?.length}})</span>
       </h4>
-      <div style="margin-top: 40px; margin-left: 20px">
+      <div style="margin-top: 40px; margin-left: 20px" *ngIf="!isFoldersInProcess">
         <ngx-charts-line-chart
           [view]="view"
           [scheme]="colorScheme"

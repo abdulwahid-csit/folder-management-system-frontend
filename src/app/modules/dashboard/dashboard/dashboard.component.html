@@ -22,11 +22,16 @@
         <div class="card p-4">
           <h2 class="border-bottom mb-3">Recent Folders</h2>
           <div class="d-flex gap-4 folders flex-wrap">
-            <div *ngFor="let folder of folders" (click)="details(folder._id)" class="card p-3" style="min-width: 300px">
-              <span>Bach: {{folder?.batchNo}}</span>
-              <span>Department: {{folder?.department}}</span>
-              <span>Course Name: {{folder?.courseName}}</span>
-              <span>Shift: {{folder?.timing}}</span>
+            <div
+              *ngFor="let folder of folders"
+              (click)="details(folder._id)"
+              class="card p-3"
+              style="min-width: 300px"
+            >
+              <span>Bach: {{ folder?.batchNo }}</span>
+              <span>Department: {{ folder?.department }}</span>
+              <span>Course Name: {{ folder?.courseName }}</span>
+              <span>Shift: {{ folder?.timing }}</span>
             </div>
             <div
               (click)="createFolder()"
@@ -39,7 +44,7 @@
         </div>
       </div>
       <div
-        class="col-lg-6  mt-4 card d-flex flex-column justify-content-start fs-2 p-4 gap-4"
+        class="col-lg-6 mt-4 card d-flex flex-column justify-content-start fs-2 p-4 gap-4"
       >
         <div class="d-flex justify-content-between">
           <h2 class="border-bottom mb-3">Faculty To-Do List</h2>
@@ -57,21 +62,21 @@
             class="border fs-4 fw- p-4 rounded d-flex justify-content-between align-items-center"
           >
             <span class="fw-bold">Pending Tasks: </span>
-            <span class="fw-bold">{{todoCounts?.pendingTodos}}</span>
+            <span class="fw-bold">{{ todoCounts?.pendingTodos }}</span>
           </div>
           <div
             (click)="openTodoDetailsList('Completed Tasks', 'true')"
             class="border fs-4 fw- p-4 rounded d-flex justify-content-between align-items-center"
           >
             <span class="fw-bold">Completed Tasks: </span>
-            <span class="fw-bold">{{todoCounts?.completedTodos}}</span>
+            <span class="fw-bold">{{ todoCounts?.completedTodos }}</span>
           </div>
           <div
             (click)="openTodoDetailsList('Total Taks')"
             class="border fs-4 fw- p-4 rounded d-flex justify-content-between align-items-center"
           >
             <span class="fw-bold">Total Tasks: </span>
-            <span class="fw-bold">{{todoCounts?.totalTodos}}</span>
+            <span class="fw-bold">{{ todoCounts?.totalTodos }}</span>
           </div>
         </div>
       </div>
@@ -82,60 +87,72 @@
           <h2 class="border-bottom mb-3">Recived Folders</h2>
           <div class="d-flex gap-4 folders flex-wrap">
             <ng-container *ngFor="let folder of sharedFolders; let i = index">
-            <div *ngIf="i < 6"  (click)="details(folder._id)" class="card p-3" style="min-width: 300px">
-              <ng-container>
-              <span>Bach: {{folder?.batchNo}}</span>
-              <span>Department: {{folder?.department}}</span>
-              <span>Course Name: {{folder?.courseName}}</span>
-              <span>Shift: {{folder?.timing}}</span>
-              </ng-container>
-            </div>
+              <div
+                *ngIf="i < 6"
+                (click)="details(folder._id)"
+                class="card p-3"
+                style="min-width: 300px"
+              >
+                <ng-container>
+                  <span>Bach: {{ folder?.batchNo }}</span>
+                  <span>Department: {{ folder?.department }}</span>
+                  <span>Course Name: {{ folder?.courseName }}</span>
+                  <span>Shift: {{ folder?.timing }}</span>
+                </ng-container>
+              </div>
             </ng-container>
           </div>
         </div>
       </div>
       <div
-        class="col-lg-6  mt-4 card d-flex flex-column justify-content-start fs-2 p-4 gap-4"
+        class="col-lg-6 mt-4 card d-flex flex-column justify-content-start fs-2 p-4 gap-4"
       >
         <div class="d-flex justify-content-between">
           <h2 class="border-bottom mb-3">My Schedules</h2>
           <button
-            (click)="openTodoList()"
+            (click)="openTodoList(true)"
             class="primary_button d-flex justify-content-center align-items-center"
           >
-            Add New
+            Add Schedule
             <i class="bi bi-arrow-right ms-2 mt-1"></i>
           </button>
         </div>
         <div class="col fs-5 mb-3">
-          <div class="card flex-row justify-content-between p-4 py-3">
-            <span>10:00 - 11:30</span>
-            <span>Student class with 6th Semester</span>
-            <span><button class="primary_button">Start</button></span>
+          <!-- <div
+            *ngFor="let schedule of schedules"
+            class="card flex-row justify-content-between p-4 py-3"
+          >
+            <div class="py-4 d-flex justify-content-between">
+              <span>{{ schedule?.startTime }} - {{ schedule?.endTime }}</span>
+              <span>{{ schedule?.description }}</span>
+              <span><button class="primary_button">Start</button></span>
+            </div>
+          </div> -->
+          <div class="row">
+            <div class="col-md-1 fw-bold">S.No</div>
+            <div class="col-md-2 fw-bold">Date</div>
+            <div class="col-md-3 fw-bold">Time</div>
+            <div class="col-md-4 fw-bold">Description</div>
+            <div class="col-md-2 fw-bold">Action</div>
           </div>
-          <div class="mt-3 card flex-row justify-content-between p-4 py-3">
-            <span>10:00 - 11:30</span>
-            <span>Meeting with staff</span>
-            <span><button class="primary_button">Start</button></span>
-          </div>
-          <div class="mt-3 card flex-row justify-content-between p-4 py-3">
-            <span>10:00 - 11:30</span>
-            <span>Student class with 6th Semester</span>
-            <span><button class="primary_button">Start</button></span>
-          </div>
-          <div class="mt-3 card flex-row justify-content-between p-4 py-3">
-            <span>10:00 - 11:30</span>
-            <span>Quiz of 7th semester</span>
-            <span><button class="primary_button">Start</button></span>
-          </div>
-          <div class="mt-3 card flex-row justify-content-between p-4 py-3">
-            <span>10:00 - 11:30</span>
-            <span>Student class with 6th Semester</span>
-            <span><button class="primary_button">Start</button></span>
-          </div>
-      </div>
+          <span class="schedules">
+            <div
+              class="row py-2"
+              *ngFor="let schedule of schedules; let i = index"
+            >
+              <div class="col-md-1">{{ i + 1 }}</div>
+              <div class="col-md-2">
+                {{ schedule?.date | date: "dd/MM/yyyy" }}
+              </div>
+              <div class="col-md-3">
+                {{ schedule?.startTime }} - {{ schedule?.endTime }}
+              </div>
+              <div class="col-md-4">{{ schedule?.description }}</div>
+              <div class="col-md-2"><button class="btn btn-sm btn-outline-danger ms-1" (click)="openDeleteModal(schedule?._id)"><i class="bi bi-trash"></i></button></div>
+            </div>
+          </span>
+        </div>
       </div>
     </div>
-
   </div>
 </div>

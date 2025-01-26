@@ -1,16 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { CrudService } from 'src/app/shared/services/crud.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  selector: 'app-register-new-user',
+  templateUrl: './register-new-user.component.html',
+  styleUrls: ['./register-new-user.component.scss']
 })
-export class RegisterComponent implements OnInit {
-  @Input() isAdmin: Boolean = false;
+export class RegisterNewUserComponent implements OnInit {
+ @Input() isAdmin: Boolean = false;
   registerForm!: FormGroup;
   hidePassword = true;
   isLoading: boolean = false;
@@ -20,7 +21,8 @@ export class RegisterComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private crudService: CrudService
   ) { }
 
   ngOnInit(): void {
@@ -28,18 +30,25 @@ export class RegisterComponent implements OnInit {
       firstName: [null, Validators.required],
       lastName: [null, Validators.required],
       username: [null, Validators.required],
-      email: [null, [
-        Validators.required,
-        Validators.pattern("^[A-Z a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
-      ]],
-      phone: [null, [
-        Validators.required,
-      ]],
-      password: [null, [
-        Validators.required,
-        Validators.minLength(8),
-        Validators.pattern(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W+)(?!.*\s).*/)
-      ]],
+      isAdmin: [false],
+      email: [
+        null,
+        [
+          Validators.required,
+          Validators.pattern('^[A-Z a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+        ],
+      ],
+      phone: [null, [Validators.required]],
+      password: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.pattern(
+            /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W+)(?!.*\s).*/
+          ),
+        ],
+      ],
     });
      
   }
@@ -96,24 +105,16 @@ export class RegisterComponent implements OnInit {
     //   firstName: firstName, lastName: lastName, email: email, password: password, username: userName
     // }
     this.isLoading = true;
-    this.authService.signUp(this.registerForm.value).subscribe((response: any) => {
-      if (response.status_code == 201) {
-        this.toast.success('Registered successfully.')
-        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/layout';
-        this.router.navigateByUrl(returnUrl);
-        const { access_token, refresh_token, access_token_expires, user } = response;
-        this.authService.storeTokens(access_token, refresh_token, access_token_expires, user);
-        this.router.navigate(['/layout']);
-      } else {
-        this.toast.error(response.message, "Error!");
-      }
+    this.crudService.create('user/users', this.registerForm.value).subscribe(res => {
       this.isLoading = false;
+      console.log("User added: ", res);
+      this.toast.success("User added successfully.")
+      this.router.navigate(['/layout/users'])
     }, error => {
       this.isLoading = false;
-      console.log('Error: ', error);
-      this.toast.error(error.error.message, "Error!");
-      this.isLoading = false;
-    });
+      console.log('errror');
+      this.toast.error('Email already exists');
+    })
   }
 
   onControlBlur(controlName: string): void {
@@ -126,4 +127,5 @@ export class RegisterComponent implements OnInit {
   togglePasswordVisibility(): void {
     this.hidePassword = !this.hidePassword;
   }
+
 }

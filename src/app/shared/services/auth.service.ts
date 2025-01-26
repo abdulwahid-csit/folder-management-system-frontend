@@ -43,8 +43,8 @@ export class AuthService {
   }
 
 
-  signIn(email: string, password: string): Observable<any> {
-    const body = { email, password };
+  signIn(email: string, password: string, isAdmin: boolean = false): Observable<any> {
+    const body = { email, password, isAdmin };
     return this.http.post(`${environment.apiUrl}auth/signin`, body);
   }
 

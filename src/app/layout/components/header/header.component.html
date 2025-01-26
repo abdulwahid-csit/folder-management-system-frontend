@@ -29,23 +29,23 @@
     <div
     (click)="toggleNotifications()"
       class="d-flex align-items-center justify-content-center border p-2 rounded cursor-pointer"
-    [ngClass]="{'me-4': !unreadNotifications.length}">
+    [ngClass]="{'me-4': !unreadNotifications?.length}">
       <span> <i  style="font-size: 30px" class="fa fa-bell"></i> </span>
     </div>
-    <div class="count" *ngIf="unreadNotifications.length">{{unreadNotifications?.length}}</div>
+    <div class="count" *ngIf="unreadNotifications?.length">{{unreadNotifications?.length}}</div>
     <div class="">
-        <div class="card dropdown-card" [ngClass]="{'d-none': !isSowNotifications }" style="z-index: 1111; height: auto !important; min-width: 400px !important;">
+        <div class="card dropdown-card" [ngClass]="{'d-none': !isSowNotifications }" style="z-index: 1111; height: auto !important; min-width: 500px !important;">
             <h5 class="fw-bold border-bottom fs-2 ps-2 d-flex justify-content-between align-items-baseline" style="color: #6F61CF;">Notifications <span style="font-size: 14px;" (click)="markAllAsRead()" class="mark-all">Mark All as Read</span></h5>
             <ul class="notifications p-0 px-1 py-3">
                 <ng-container *ngFor="let item of notifications">
-            <li [ngClass]="{'unread': !item?.read}" (click)="gotoNotification(item?.url)"  class="py-2 px-2 fs-6 fw-bold" ><ng-container><span class="d-flex justify-content-between"><span>{{item?.message}} <span style="color: #6F61CF">{{  timeAgo(item?.createdAt) }}</span></span><span class="ms-2">
+            <li [ngClass]="{'unread': !item?.read}" (click)="gotoNotification(item?.url)"  class="py-2 px-2 fs-6 fw-bold" ><ng-container><span class="d-flex justify-content-between"><span>{{item?.message + ' From ' + item?.from}} <span style="color: #6F61CF">{{  timeAgo(item?.createdAt) }}</span></span><span class="ms-2">
                 <input (click)="$event.stopPropagation()" *ngIf="!item?.read" (change)="markAsRead(item?._id);" [checked]="item?.read" style="width: 20px; height: 20px; cursor: pointer;" title="Mark as read?" type="radio">
                 </span> </span></ng-container></li>
                 <hr class="my-1">
                 </ng-container>
             </ul>
         </div>
-    </div>
+    </div> 
 
     <!-- <div
       *ngIf="showSettingsIcon"

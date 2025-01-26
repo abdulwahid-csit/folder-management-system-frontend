@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CrudService } from 'src/app/shared/services/crud.service';
 import { LocalStoreService } from 'src/app/shared/services/local-store.service';
@@ -8,6 +14,7 @@ import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { format } from 'crypto-js';
 import { SocketService } from 'src/app/shared/services/socket.io.service';
+import { FypDataExportService } from '../../../shared/services/csv.service'; 
 @Component({
   selector: 'app-roles-permission-list',
   templateUrl: './roles-permission-list.component.html',
@@ -22,6 +29,7 @@ export class RolesPermissionListComponent implements OnInit, OnDestroy {
   searchTerm: string = '';
   activeMenu: string = 'Dashboard';
   searchType: boolean = false;
+  selectedTab = 'details';
 
   tableConfig = {
     paginationParams: {
@@ -48,7 +56,8 @@ export class RolesPermissionListComponent implements OnInit, OnDestroy {
     public toastService: ToastrService,
     private router: Router,
     private toast: ToastrService,
-    private socketService: SocketService
+    private socketService: SocketService,
+    private exportToExcel: FypDataExportService
   ) {}
 
   ngOnInit(): void {
@@ -86,6 +95,7 @@ export class RolesPermissionListComponent implements OnInit, OnDestroy {
       endDate: new FormControl('2025-01-31'),
       status: new FormControl('In Progress'),
       session: new FormControl(''),
+      meetings: new FormControl(16),
       members: new FormArray([]),
     });
     this.addMember();
@@ -199,7 +209,7 @@ export class RolesPermissionListComponent implements OnInit, OnDestroy {
   }
 
   gotoDetails(id: string) {
-    this.router.navigate(['layout/roles/details', id]);
+    this.router.navigate(['layout/fyp/details', id]);
   }
 
   folderId!: string;
@@ -238,7 +248,7 @@ export class RolesPermissionListComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.crudService.create('fyp/share-fyp', input).subscribe(
       (res) => {
-        this.isLoading = false
+        this.isLoading = false;
         console.log('response => ', res);
         this.closeModal();
         this.toast.success('FYP Shared successfully.');
@@ -274,5 +284,65 @@ export class RolesPermissionListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     // this.socketService.disconnect();
+  }
+
+  setSelectedTab(tab: string) {
+    this.selectedTab = tab;
+  }
+
+  validateInput(event: any) {
+    let enteredNumber = event?.target?.value;
+    if (enteredNumber > 32) {
+      this.form.get('meetings')?.setValue(32);
+    } else {
+      this.form.get('meetings')?.setValue(Math.abs(enteredNumber));
+    }
+    if (enteredNumber == 0) {
+      this.form.get('meetings')?.setValue(1);
+    }
+  }
+
+  calculateAverageMarks(members: any[]) {
+    const totalMarks = members.reduce(
+      (sum: any, member: { marks: any }) => sum + member.marks,
+      0
+    );
+    return (totalMarks / (members?.length * 100)) * 100;
+  }
+
+  getTotoalMarks(members: any[]) {
+    const totalMarks = members.reduce(
+      (sum: any, member: { marks: any }) => sum + member.marks,
+      0
+    );
+  }
+
+  getAverageAttendence(members: any[], requiredMeetings: number) {
+    const totalMeetings = members.reduce(
+      (sum: any, member: { attendeceCount: any }) =>
+        sum + member?.attendeceCount,
+      0
+    );
+
+    return (totalMeetings / requiredMeetings) * 100;
+  }
+
+  getAllMeetings(members: any[]) {
+    return members.reduce(
+      (sum: any, member: { attendeceCount: any }) =>
+        sum + member?.attendeceCount,
+      0
+    );
+  }
+
+  getElegibilityPercentage(members: any, meetings: number) {
+    let totalMarks = this.calculateAverageMarks(members);
+    let meetingsPercntage = this.getAverageAttendence(members, meetings);
+
+    return totalMarks + meetingsPercntage / 2;
+  }
+
+  exportData() {
+    this.exportToExcel.exportToExcel(this.fyps);
   }
 }

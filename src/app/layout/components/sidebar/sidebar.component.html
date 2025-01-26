@@ -12,6 +12,13 @@
                     routerLink="dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }"><span
                         class="d-flex align-items-center sidebar_svg home"></span><a>Dashboard</a></li>
 
+                    <li 
+                    *ngIf="localStoreService.getItem('user')?.isAdmin == true"
+                    class="d-flex align-items-center sidebar_svg" (click)="setActive('users')" routerLink="users"
+                    routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }"><span
+                    class="d-flex align-items-center sidebar_svg users "></span><a>Users</a></li>
+
+
                 <!-- <li 
                     class="d-flex align-items-center sidebar_svg" (click)="setActive('Organizations')"
                     routerLink="organization" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
@@ -31,20 +38,20 @@
                 <li 
                     class="d-flex align-items-center sidebar_svg" (click)="setActive('folders')" routerLink="folders"
                     routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }"><span
-                        class="d-flex align-items-center sidebar_svg iconone"></span><a>Folders</a></li>
+                        class="d-flex align-items-center sidebar_svg folder-svg-icon"></span><a>Folders</a></li>
 
                 <li 
                     class="d-flex align-items-center sidebar_svg" (click)="setActive('report')"
                     routerLink="report" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
-                    <span class="d-flex align-items-center sidebar_svg users "></span><a>Report</a></li>
+                    <span class="d-flex align-items-center sidebar_svg report-svg-icon "></span><a>Report</a></li>
                 <li 
                     class="d-flex align-items-center sidebar_svg" (click)="setActive('about')"
                     routerLink="about" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
-                    <span class="d-flex align-items-center sidebar_svg users "></span><a>About</a></li>
+                    <span class="d-flex align-items-center sidebar_svg about-svg-icon "></span><a>About</a></li>
                 <li 
                     class="d-flex align-items-center sidebar_svg" (click)="setActive('profile')"
                     routerLink="profile" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
-                    <span class="d-flex align-items-center sidebar_svg users "></span><a>Profile</a></li>
+                    <span class="d-flex align-items-center sidebar_svg iconone"></span><a>Profile</a></li>
             </ul>
         </div>
     </div>

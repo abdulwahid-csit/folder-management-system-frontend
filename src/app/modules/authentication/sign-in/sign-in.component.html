@@ -1,4 +1,6 @@
-<div class="bg-login d-flex justify-content-center align-items-center position-relative">
+<div
+  class="bg-login d-flex justify-content-center align-items-center position-relative"
+>
   <div class="border-0 shadow-sm rounded-4 login-box">
     <div class="">
       <div class="row">
@@ -10,50 +12,108 @@
               <h2 class="mb-0 header-content mt-1">Welcome Back !! 👋</h2>
             </div>
             <div class="d-flex dark-light">
-              Happy to see you again ! Sign in via email or another trusted account.
+              Happy to see you again ! Sign in via email or another trusted
+              account.
             </div>
             <div class="modal-body mt-3">
               <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
                 <div class="row custom-input mb-4">
-                  <div class="input-container ">
+                  <div class="input-container">
                     <label for="email" class="label-font required">Email</label>
-                    <input id="email" type="email" class="form-control" formControlName="email"
-                      [ngClass]="{'is-invalid': isControlHasError('email', 'required') || isControlHasError('email', 'pattern')}"
-                      placeholder="Enter user name or email" (blur)="onControlBlur('email')" />
-                    <small *ngIf="isControlHasError('email', 'required')" class="text-danger fs-8 ps-3 pt-1">
+                    <input
+                      id="email"
+                      type="email"
+                      class="form-control"
+                      formControlName="email"
+                      [ngClass]="{
+                        'is-invalid':
+                          isControlHasError('email', 'required') ||
+                          isControlHasError('email', 'pattern')
+                      }"
+                      placeholder="Enter user name or email"
+                      (blur)="onControlBlur('email')"
+                    />
+                    <small
+                      *ngIf="isControlHasError('email', 'required')"
+                      class="text-danger fs-8 ps-3 pt-1"
+                    >
                       Email is required
                     </small>
-                    <span *ngIf="isControlHasError('email', 'pattern')" class="text-danger fs-8 ps-3 pt-1">
+                    <span
+                      *ngIf="isControlHasError('email', 'pattern')"
+                      class="text-danger fs-8 ps-3 pt-1"
+                    >
                       Enter a valid email address
                     </span>
                   </div>
                 </div>
                 <div class="row mt-3 custom-input mb-2">
                   <div class="input-container position-relative">
-                    <label for="password" class="label-font required">Password</label>
-                    <input id="password" [type]="hidePassword ? 'password' : 'text'" class="form-control"
-                      formControlName="password" [ngClass]="{'is-invalid': isControlHasError('password', 'required')}"
-                      placeholder="Enter password" (blur)="onControlBlur('password')" />
-                    <i class="eye2 position-absolute" (click)="togglePasswordVisibility()"
-                      [ngClass]="{'eye-open': !hidePassword, 'eye-closed': hidePassword}"></i>
-                    <span *ngIf="isControlHasError('password', 'required')" class="text-danger fs-8 ps-3 pt-1">
+                    <label for="password" class="label-font required"
+                      >Password</label
+                    >
+                    <input
+                      id="password"
+                      [type]="hidePassword ? 'password' : 'text'"
+                      class="form-control"
+                      formControlName="password"
+                      [ngClass]="{
+                        'is-invalid': isControlHasError('password', 'required')
+                      }"
+                      placeholder="Enter password"
+                      (blur)="onControlBlur('password')"
+                    />
+                    <i
+                      class="eye2 position-absolute"
+                      (click)="togglePasswordVisibility()"
+                      [ngClass]="{
+                        'eye-open': !hidePassword,
+                        'eye-closed': hidePassword
+                      }"
+                    ></i>
+                    <span
+                      *ngIf="isControlHasError('password', 'required')"
+                      class="text-danger fs-8 ps-3 pt-1"
+                    >
                       Password is required
                     </span>
                   </div>
                 </div>
 
-                <div class="col-12 mt-2 ">
+                <div class="col-12 mt-2">
+                  <div class="d-flex">
+                    <input formControlName="isAdmin" type="checkbox" class="form-check" id="admin" />
+                    <label
+                      for="admin"
+                      class="form-label mb-1 ms-2 mt-1"
+                      style="font-weight: bold; font-size: 12px; color: #6f61cf"
+                      >Login as Admin?</label
+                    >
+                  </div>
                   <div class="form-check">
-                    <div class="d-flex text-clr2 justify-content-end"
+                    <div
+                      class="d-flex text-clr2 justify-content-end custom-input"
+                    >
+                      <span
+                        style="position: relative; top: -22px"
+                        class="forgot-password cursor-pointer"
+                        [routerLink]="['/forgot/password']"
+                        >Forgot Password?</span
                       >
-                      <span class="forgot-password cursor-pointer" [routerLink]="['/forgot/password']">Forgot Password?</span>
                     </div>
                   </div>
                 </div>
                 <div class="col-12 sign-in-div">
                   <div class="d-grid">
-                    <button class="btn btn-clr" type="submit" [disabled]="isLoading">
-                      <span class="spinner-border spinner-border-sm" *ngIf="isLoading"></span>
+                    <button
+                      class="btn btn-clr"
+                      type="submit"
+                      [disabled]="isLoading"
+                    >
+                      <span
+                        class="spinner-border spinner-border-sm"
+                        *ngIf="isLoading"
+                      ></span>
                       Sign in
                     </button>
                   </div>
@@ -62,9 +122,13 @@
             </div>
           </div>
           <div class="col-12 mt-4">
-            <div class="d-flex flex-column flex-md-row justify-content-center mt-2">
+            <div
+              class="d-flex flex-column flex-md-row justify-content-center mt-2"
+            >
               <div class="dark-light pe-1">New on our platform?</div>
-              <div class="text-clr cursor-pointer" [routerLink]="['/register']">Create an account</div>
+              <div class="text-clr cursor-pointer" [routerLink]="['/register']">
+                Create an account
+              </div>
             </div>
           </div>
         </div>

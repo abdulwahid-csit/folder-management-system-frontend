@@ -22,11 +22,19 @@
             <span class="me-2 filterIcon"></span> Filter
           </button>
         </div>
-        <button
+        <button [disabled]="fyp?.attendance?.length >= fyp?.meetings"
           (click)="addAttendenceModal()"
           class="primary_button ms-0 ms-2 mb-3 mb-md-0 d-flex justify-content-center align-items-center"
         >
-          Add Attendence
+          Add Meeting
+          <i class="bi bi-arrow-right ms-2 mt-1"></i>
+        </button>
+
+        <button
+          (click)="addStudentsMarks()"
+          class="primary_button ms-0 ms-2 mb-3 mb-md-0 d-flex justify-content-center align-items-center"
+        >
+          Add Marks
           <i class="bi bi-arrow-right ms-2 mt-1"></i>
         </button>
       </div>
@@ -59,6 +67,16 @@
           </div>
           <div class="mt-2">
             <span class="fw-bold">Description:</span> {{ fyp?.fypDescription }}
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mt-2">
+            <span class="fw-bold">Required Meetings:</span> {{ fyp?.meetings }}
+          </div>
+        </div>
+        <div class="col-md-4">
+           <div class="mt-2">
+            <span class="fw-bold">Attended Meetings:</span> {{ fyp?.attendance?.length }}
           </div>
         </div>
       </div>
@@ -98,7 +116,10 @@
                 <!-- <button (click)="addAttendenceModal(item)" class="primary_button">
                   <i class="bi bi-pencil"></i>
                 </button> -->
-                <button (click)="openDeleteAttendenceModal(item?._id)" class="btn btn-outline-danger">
+                <button
+                  (click)="openDeleteAttendenceModal(item?._id)"
+                  class="btn btn-outline-danger"
+                >
                   <i class="bi bi-trash"></i>
                 </button>
               </div>
@@ -112,9 +133,6 @@
     </div>
   </div>
 </div>
-
-
-
 
 <ng-template #addAttendence>
   <div class="modal-dialog-box">
@@ -160,12 +178,20 @@
                   class="form-label mb-1 fs-14px fw-700 required"
                   >Present Students</label
                 >
-                <input
-                  type="text"
-                  class="form-control dataTableSearch"
-                  placeholder="Enter present students names"
-                  formControlName="students"
-                />
+                <!-- <select
+                    style="height: 45px"
+                    name=""
+                    class="form-control"
+                    id=""
+                    formControlName="students"
+                    multiple
+                  >
+                    <option *ngFor="let student of fyp?.members" [value]="student._id">{{student?.name}}</option>
+                    
+                  </select> -->
+                  <ng-select  formControlName="studentNames" [multiple]="true" [hideSelected]="true">
+                    <ng-option *ngFor="let student of fyp?.members" [value]="student">{{student?.name}}</ng-option>
+                  </ng-select>
               </div>
             </div>
 
@@ -228,6 +254,69 @@
           </div>
         </form>
       </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #addMarks>
+  <div class="modal-dialog-box p-4">
+    <div class="pt-0">
+      <div
+        class="modal-header border-bottom-0 d-flex justify-content-between align-items-baseline"
+      >
+        <h3>Add FYP Group</h3>
+        <!-- <button class="primary_button" (click)="addMember()">Add member</button> -->
+      </div>
+      <div class="modal-body">
+        <div class="row mb-4 fw-bold">
+          <div class="col-md-1">S.No</div>
+          <div class="col-md-2">Roll.No</div>
+          <div class="col-md-4">Name</div>
+          <div class="col-md-3">Marks</div>
+        </div>
+        <ng-container *ngFor="let student of fyp?.members; let i = index">
+          <div class="row py-2">
+            <div class="col-md-1">
+              {{i + 1}}
+            </div>
+            <div class="col-md-1">
+              {{student?.rollNo}}
+            </div>
+            <div class="col-md-4">
+              {{student?.name}}
+            </div>
+             <div class="ms-2 custom-input col-md-3">
+                  <input
+                    [(ngModel)]="student.marks"
+                    type="number"
+                    class="form-control dataTableSearch"
+                    placeholder="Enter Marks"
+                  />
+                </div>
+          </div>
+        </ng-container>
+      </div>
+       <div
+            class="modal-footer border-top-0 d-flex justify-content-end mt-4 pb-0 pe-3 pb-3"
+          >
+            <div class="buttons pb-0">
+              <button
+                type="button"
+                class="cancel_btn me-2"
+                (click)="closeModal()"
+              >
+                Cancel
+              </button>
+              <button (click)="saveMarks()" class="primary_button" [disabled]="isLoading">
+                Save
+                <i class="bi bi-arrow-right ms-2 mt-1" *ngIf="!isLoading"></i>
+                <span
+                  class="spinner-border spinner-border-sm"
+                  *ngIf="isLoading"
+                ></span>
+              </button>
+            </div>
+          </div>
     </div>
   </div>
 </ng-template>

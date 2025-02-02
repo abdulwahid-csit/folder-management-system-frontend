@@ -123,7 +123,8 @@
               <td [ngClass]="{'text-danger': getAverageAttendence(record?.members, record?.meetings) < 80}">{{getAverageAttendence(record?.members, record?.meetings)}} %</td>
               <td>{{record?.attendance?.length}}</td>
               <td>{{record?.fypDescription}}</td>
-              <td [ngClass]="{'text-danger': getElegibilityPercentage(record?.members,  record?.meetings) < 80}">{{getElegibilityPercentage(record?.members,  record?.meetings) < 80 ? 'InEligible' : 'Eligible'}}</td>
+              <td [ngClass]="{'text-danger': getElegibilityPercentage(record?.members,  record?.meetings) < 80}">{{getElegibilityPercentage(record?.members,  record?.meetings) < 80 || 
+              (getAverageAttendence(record?.members, record?.meetings) < 80) ? 'InEligible' : 'Eligible'}}</td>
             </tr>
           </tbody>
         </table>
@@ -194,7 +195,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf="!sharedFyps.length">
+      <div *ngIf="!sharedFyps?.length">
         <h3>No Fyps Shared with you yet!</h3>
       </div>
     </div>
